@@ -1,0 +1,22 @@
+<section class="statistics">
+
+    <div>
+        {{> bounded-value key="data.health" value=@root.data.data.health label="Hit Points"}}
+        {{> bounded-value key="data.willpower" value=@root.data.data.willpower label="Willpower"}}
+        {{> bounded-value key="data.sanity" value=@root.data.data.sanity label="Sanity"}}
+    </div>
+
+    <div>
+        {{#each @root.data.data.statistics as |statistic|}}
+            {{> stats-field statistic=statistic }}
+        {{/each}}
+    </div>
+
+    <div class="col">
+        <div class="flex-row">
+            <label class="breaking-point" for="data.sanity.breakingPoint.value">Breaking Point</label>
+            <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
+            <label class="clickable reset-breaking-point"><i class="fas fa-redo-alt"></i></label>
+        </div>
+    </div>
+</section>

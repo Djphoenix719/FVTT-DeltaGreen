@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "target": "es2019",
+      "strict": true,
+      "strictBindCallApply": true,
+      "strictNullChecks": true,
+      "alwaysStrict": true,
+      "types": [
+        "@league-of-foundry-developers/foundry-vtt-types",
+        "src/types",
+        "handlebars"
+      ],
+      "baseUrl": "src/system",
+      "moduleResolution": "node",
+      "paths": { }
+    },
+  "exclude": []
+}

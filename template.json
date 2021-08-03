@@ -1,0 +1,385 @@
+{
+    "Actor": {
+        "types": ["agent"],
+        "templates": {
+            "health": {
+                "health": {
+                    "value": 10,
+                    "minimum": 0,
+                    "maximum": 10
+                }
+            },
+            "willpower": {
+                "willpower": {
+                    "value": 10,
+                    "minimum": 0,
+                    "maximum": 10
+                }
+            },
+            "statistics": {
+                "statistics": {
+                    "strength": {
+                        "id": "strength",
+                        "label": "Strength",
+                        "value": 10,
+                        "feature": ""
+                    },
+                    "constitution": {
+                        "id": "constitution",
+                        "label": "Constitution",
+                        "value": 10,
+                        "feature": ""
+                    },
+                    "dexterity": {
+                        "id": "dexterity",
+                        "label": "Dexterity",
+                        "value": 10,
+                        "feature": ""
+                    },
+                    "intelligence": {
+                        "id": "intelligence",
+                        "label": "Intelligence",
+                        "value": 10,
+                        "feature": ""
+                    },
+                    "power": {
+                        "id": "power",
+                        "label": "Power",
+                        "value": 10,
+                        "feature": ""
+                    },
+                    "charisma": {
+                        "id": "charisma",
+                        "label": "Charisma",
+                        "value": 10,
+                        "feature": ""
+                    }
+                }
+            },
+            "skills": {
+                "skills": {
+                    "core": {
+                        "accounting": {
+                            "label": "Accounting",
+                            "value": 10,
+                            "failure": false,
+                            "id": "accounting"
+                        },
+                        "alertness": {
+                            "label": "Alertness",
+                            "value": 20,
+                            "failure": false,
+                            "id": "alertness"
+                        },
+                        "anthropology": {
+                            "label": "Anthropology",
+                            "value": 0,
+                            "failure": false,
+                            "id": "anthropology"
+                        },
+                        "archeology": {
+                            "label": "Archeology",
+                            "value": 0,
+                            "failure": false,
+                            "id": "archeology"
+                        },
+                        "artillery": {
+                            "label": "Artillery",
+                            "value": 0,
+                            "failure": false,
+                            "id": "artillery"
+                        },
+                        "athletics": {
+                            "label": "Athletics",
+                            "value": 30,
+                            "failure": false,
+                            "id": "athletics"
+                        },
+                        "bureaucracy": {
+                            "label": "Bureaucracy",
+                            "value": 10,
+                            "failure": false,
+                            "id": "bureaucracy"
+                        },
+                        "computer_science": {
+                            "label": "Computer Science",
+                            "value": 0,
+                            "failure": false,
+                            "id": "computer_science"
+                        },
+                        "criminology": {
+                            "label": "Criminology",
+                            "value": 10,
+                            "failure": false,
+                            "id": "criminology"
+                        },
+                        "demolitions": {
+                            "label": "Demolitions",
+                            "value": 0,
+                            "failure": false,
+                            "id": "demolitions"
+                        },
+                        "disguise": {
+                            "label": "Disguise",
+                            "value": 10,
+                            "failure": false,
+                            "id": "disguise"
+                        },
+                        "dodge": {
+                            "label": "Dodge",
+                            "value": 30,
+                            "failure": false,
+                            "id": "dodge"
+                        },
+                        "drive": {
+                            "label": "Drive",
+                            "value": 20,
+                            "failure": false,
+                            "id": "drive"
+                        },
+                        "firearms": {
+                            "label": "Firearms",
+                            "value": 20,
+                            "failure": false,
+                            "id": "firearms"
+                        },
+                        "first_aid": {
+                            "label": "First Aid",
+                            "value": 10,
+                            "failure": false,
+                            "id": "first_aid"
+                        },
+                        "forensics": {
+                            "label": "Forensics",
+                            "value": 0,
+                            "failure": false,
+                            "id": "forensics"
+                        },
+                        "heavy_machinery": {
+                            "label": "Heavy Machinery",
+                            "value": 10,
+                            "failure": false,
+                            "id": "heavy_machinery"
+                        },
+                        "heavy_weapons": {
+                            "label": "Heavy Weapons",
+                            "value": 0,
+                            "failure": false,
+                            "id": "heavy_weapons"
+                        },
+                        "history": {
+                            "label": "History",
+                            "value": 10,
+                            "failure": false,
+                            "id": "history"
+                        },
+                        "human_intelligence": {
+                            "label": "HUMINT",
+                            "value": 10,
+                            "failure": false,
+                            "id": "human_intelligence"
+                        },
+                        "law": {
+                            "label": "Law",
+                            "value": 0,
+                            "failure": false,
+                            "id": "law"
+                        },
+                        "medicine": {
+                            "label": "Medicine",
+                            "value": 0,
+                            "failure": false,
+                            "id": "medicine"
+                        },
+                        "melee_weapons": {
+                            "label": "Melee Weapons",
+                            "value": 30,
+                            "failure": false,
+                            "id": "melee_weapons"
+                        },
+                        "navigate": {
+                            "label": "Navigate",
+                            "value": 10,
+                            "failure": false,
+                            "id": "navigate"
+                        },
+                        "occult": {
+                            "label": "Occult",
+                            "value": 10,
+                            "failure": false,
+                            "id": "occult"
+                        },
+                        "persuade": {
+                            "label": "Persuade",
+                            "value": 20,
+                            "failure": false,
+                            "id": "persuade"
+                        },
+                        "pharmacy": {
+                            "label": "Pharmacy",
+                            "value": 0,
+                            "failure": false,
+                            "id": "pharmacy"
+                        },
+                        "psychotherapy": {
+                            "label": "Psychotherapy",
+                            "value": 10,
+                            "failure": false,
+                            "id": "psychotherapy"
+                        },
+                        "ride": {
+                            "label": "Ride",
+                            "value": 10,
+                            "failure": false,
+                            "id": "ride"
+                        },
+                        "search": {
+                            "label": "Search",
+                            "value": 20,
+                            "failure": false,
+                            "id": "search"
+                        },
+                        "signal_intelligence": {
+                            "label": "SIGINT",
+                            "value": 0,
+                            "failure": false,
+                            "id": "signal_intelligence"
+                        },
+                        "stealth": {
+                            "label": "Stealth",
+                            "value": 10,
+                            "failure": false,
+                            "id": "stealth"
+                        },
+                        "surgery": {
+                            "label": "Surgery",
+                            "value": 0,
+                            "failure": false,
+                            "id": "surgery"
+                        },
+                        "survival": {
+                            "label": "Survival",
+                            "value": 10,
+                            "failure": false,
+                            "id": "survival"
+                        },
+                        "swim": {
+                            "label": "Swim",
+                            "value": 20,
+                            "failure": false,
+                            "id": "swim"
+                        },
+                        "unarmed_combat": {
+                            "label": "Unarmed Combat",
+                            "value": 40,
+                            "failure": false,
+                            "id": "unarmed_combat"
+                        },
+                        "unnatural": {
+                            "label": "Unnatural",
+                            "value": 0,
+                            "id": "unnatural"
+                        }
+                    },
+                    "custom": {}
+                }
+            },
+            "sanity": {
+                "sanity": {
+                    "value": 99,
+                    "minimum": 0,
+                    "maximum": 99,
+                    "breakingPoint": {
+                        "value": 0
+                    },
+                    "adaptations": {
+                        "violence": [false, false, false],
+                        "helplessness": [false, false, false]
+                    }
+                }
+            }
+        },
+        "agent": {
+            "templates": ["health", "willpower", "sanity", "statistics", "skills"],
+            "schemaVersion": "1.0.0",
+            "description": {
+                "appearance": {
+                    "value": ""
+                },
+                "wounds": {
+                    "value": ""
+                }
+            },
+            "biography": {
+                "profession": {
+                    "label": "Profession",
+                    "value": ""
+                },
+                "employer": {
+                    "label": "Employer",
+                    "value": ""
+                },
+                "nationality": {
+                    "label": "Nationality",
+                    "value": ""
+                },
+                "gender": {
+                    "label": "Gender",
+                    "value": ""
+                },
+                "age": {
+                    "label": "Age",
+                    "value": ""
+                },
+                "education": {
+                    "label": "Education",
+                    "value": ""
+                }
+            }
+        }
+    },
+    "Item": {
+        "types": ["weapon", "armor", "motivation", "bond", "gear"],
+        "templates": {
+            "base": {
+                "name": "",
+                "description": ""
+            }
+        },
+        "weapon": {
+            "templates": ["base"],
+            "skill": "",
+            "range": "10M",
+            "damage": "1D8",
+            "armorPiercing": 0,
+            "lethality": 0,
+            "isLethal": false,
+            "killRadius": "N/A",
+            "ammo": "",
+            "expense": "Standard",
+            "equipped": true
+        },
+        "armor": {
+            "templates": ["base"],
+            "protection": 3,
+            "equipped": true,
+            "expense": "Standard"
+        },
+        "motivation": {
+            "templates": ["base"],
+            "disorder": "",
+            "crossedOut": false,
+            "disorderCured": false
+        },
+        "bond": {
+            "templates": ["base"],
+            "score": 10,
+            "relationship": ""
+        },
+        "gear": {
+            "templates": ["base"],
+            "equipped": true,
+            "expense": "Standard"
+        }
+    }
+}
