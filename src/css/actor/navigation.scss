@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-@import '../constants';
+div.delta-green.agent {
+    nav.sheet-navigation {
+        padding: 0 2rem;
+        margin: 0.5rem 0;
 
-div.skill-field {
-    display: flex;
-    align-items: center;
+        background: black;
+        color: white;
 
-    border-left: $field-border-style;
-    border-top: $field-border-style;
-    border-right: $field-border-style;
-    &:last-child {
-        border-bottom: $field-border-style;
-    }
+        display: flex;
+        text-transform: uppercase;
 
-    label {
-        flex-grow: 1;
-    }
-
-    input[type='checkbox'] {
-        flex-shrink: 1;
-    }
-    input[type='number'] {
-        width: 4rem;
-        text-align: center;
-        border-left: $field-border-style;
+        a.item {
+            flex: 1;
+            text-align: center;
+        }
+        a.item.active {
+            &:after {
+                content: '<<';
+            }
+            &:before {
+                content: '>>';
+            }
+        }
     }
 }

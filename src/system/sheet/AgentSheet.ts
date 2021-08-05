@@ -25,6 +25,13 @@ export class AgentSheet extends ActorSheet {
         options.template = `systems/${SYSTEM_NAME}/templates/actor/Agent.html`;
         options.classes = options.classes ?? [];
         options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.AGENT];
+        options.tabs = [
+            {
+                navSelector: 'nav.sheet-navigation',
+                contentSelector: 'section.sheet-body',
+                initial: 'tab-skills',
+            },
+        ];
         options.width = 800;
         options.height = 900;
         return options;
@@ -38,6 +45,12 @@ export class AgentSheet extends ActorSheet {
         // TODO: Figure out how to type this in FVTT-Types
         // @ts-ignore
         renderData.collapsibles = this._collapsibles;
+        // @ts-ignore
+        renderData.skills = Object.values(mergeObject(duplicate(this.actor.data.data.skills.core), duplicate(this.actor.data.data.skills.custom)));
+        // @ts-ignore
+        renderData.skills.sort((a, b) => {
+            return a.label.localeCompare(b.label);
+        });
 
         console.warn(renderData);
 
@@ -116,6 +129,9 @@ export class AgentSheet extends ActorSheet {
                     const nextSkill: Skill<CustomSkillType> = {
                         id: nextId,
                         value: 0,
+                        failure: false,
+                        delete: true,
+                        type: 'custom',
                         label,
                     };
 
@@ -127,10 +143,11 @@ export class AgentSheet extends ActorSheet {
             dialog.render(true);
         });
 
-        html.find('label.clickable.remove-skill').on('click', async (event) => {
+        html.find('div.skill-field label.clickable.delete').on('click', async (event) => {
             const target = preprocessEvent(event);
+            const dataTarget = target.closest('div.skill-field');
             const confirm = await Dialog.confirm();
-            const skillId = target.data('skill') as CustomSkillType;
+            const skillId = dataTarget.data('skill-id') as ActorSkillType;
             if (confirm) {
                 await this.actor.update({
                     [`data.skills.custom.-=${skillId}`]: null,

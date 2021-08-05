@@ -31,7 +31,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
     const templates: TemplatePath[] = [
         `templates/actor/Agent.html`,
         `templates/actor/tabs/Biography.html`,
-        `templates/actor/tabs/Skills.html`,
+        `templates/actor/tabs/SkillsList.html`,
         `templates/actor/tabs/Attributes.html`,
         ...Object.values(partials),
     ];

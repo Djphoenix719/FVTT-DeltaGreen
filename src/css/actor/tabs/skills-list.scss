@@ -16,20 +16,27 @@
 
 @import '../constants';
 
-div.delta-green.agent div.attributes {
-    div.attributes-header {
-        border: 0;
-        text-transform: uppercase;
+div.delta-green.agent section.skills-list {
+    div.skills-list-header {
+        display: flex;
+        text-align: center;
+        position: relative;
+
         background: black;
         color: white;
-        text-align: center;
+        text-transform: uppercase;
+
+        label.header-label {
+            flex: 1;
+        }
+
+        label.add-skill {
+            position: absolute;
+            left: 0.5rem;
+        }
     }
 
-    input {
-        text-align: center;
-    }
-
-    div.attribute {
+    div.skill-field {
         display: flex;
         align-items: center;
 
@@ -40,32 +47,22 @@ div.delta-green.agent div.attributes {
             border-bottom: $field-border-style;
         }
 
-        label.header-label {
-            width: 100%;
-        }
-
         label {
-            flex: 2;
-            white-space: nowrap;
-
-            padding: 0 0.25rem;
+            flex-grow: 1;
+        }
+        label.delete {
+            margin-left: 3px;
+            min-width: 12px;
+            flex: 0;
         }
 
-        div.maximum-value {
+        input[type='checkbox'] {
+            flex-shrink: 1;
+        }
+        input[type='number'] {
+            width: 4rem;
+            text-align: center;
             border-left: $field-border-style;
-        }
-        div.current-value {
-            border-left: $field-border-style;
-        }
-
-        div.breaking-point {
-            position: relative;
-            label {
-                padding: 0.25rem;
-                position: absolute;
-                right: 0;
-                height: 100%;
-            }
         }
     }
 }

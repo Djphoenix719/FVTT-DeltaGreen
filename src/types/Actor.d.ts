@@ -26,6 +26,8 @@ interface Statistic<T extends BaseStatisticType> extends Value<number>, Label<st
 interface Skill<T extends string> extends Value<number>, Label<string> {
     id: T;
     failure?: boolean;
+    delete: boolean;
+    type: 'core' | 'custom';
 }
 
 export enum BaseStatisticType {

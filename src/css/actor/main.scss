@@ -15,12 +15,14 @@
  */
 
 @import 'partials/labeled-field';
-@import 'partials/skill-field';
 @import 'partials/stats-field';
 
+@import 'tabs/skills-list';
 @import 'tabs/biography';
 @import 'tabs/statistics';
 @import 'tabs/attributes';
+
+@import 'navigation';
 
 div.delta-green.agent {
     section.window-content {
@@ -37,7 +39,7 @@ div.delta-green.agent {
             position: relative;
         }
         section.sheet-body {
-            padding: 8px;
+            padding: 0 8px;
         }
 
         input {

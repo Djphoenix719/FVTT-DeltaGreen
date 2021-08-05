@@ -1,5 +1,5 @@
 <div class="attribute">
-    <label for="{{key}}.value">{{label}}</label>
+    <label {{#if clickable}}class="clickable {{clickable}}"{{/if}} for="{{key}}.value">{{label}}</label>
     <div class="maximum-value flex-1">
         <input type="number" name="{{key}}.maximum" value="{{value.maximum}}" disabled>
     </div>
