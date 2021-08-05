@@ -13,9 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@import '../constants';
 
 div.agent section.biography {
+    display: flex;
+    max-height: $avatar-height;
+    background: rgba(255, 255, 255, 0.25);
+    border-right: $field-border-style;
+
     img {
-        max-height: 6rem;
+        height: 100%;
+        border-bottom: $field-border-style;
+    }
+
+    div.labeled-field {
+        display: flex;
+        height: $avatar-height/3;
+        border-left: $field-border-style;
+        border-bottom: $field-border-style;
+        input {
+            flex: 1;
+            height: $avatar-height/3;
+        }
     }
 }

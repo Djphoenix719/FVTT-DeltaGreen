@@ -1,9 +1,19 @@
 <form class="{{cssClass}}" autocomplete="off">
 
-    {{> systems/delta-green/templates/actor/tabs/Biography.html }}
+    <section class="sheet-header">
+        {{> systems/delta-green/templates/actor/tabs/Biography.html }}
+    </section>
 
-    {{> systems/delta-green/templates/actor/partials/Statistics.html }}
+    <section class="sheet-navigation">
 
-    {{> systems/delta-green/templates/actor/tabs/Skills.html }}
+    </section>
+
+    <section class="sheet-body">
+
+        {{> systems/delta-green/templates/actor/partials/Statistics.html }}
+
+        {{> systems/delta-green/templates/actor/tabs/Skills.html }}
+
+    </section>
 
 </form>

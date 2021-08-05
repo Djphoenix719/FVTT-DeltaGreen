@@ -25,6 +25,8 @@ export class AgentSheet extends ActorSheet {
         options.template = `systems/${SYSTEM_NAME}/templates/actor/Agent.html`;
         options.classes = options.classes ?? [];
         options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.AGENT];
+        options.width = 800;
+        options.height = 900;
         return options;
     }
 

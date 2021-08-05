@@ -22,7 +22,31 @@
 @import 'section/biography';
 
 div.delta-green.agent section.window-content {
+    background: url('static/sheet/background-restricted.png') center;
+    background-size: contain;
     font-family: 'Futura Standard Book', Arial, sans-serif;
+    padding: 0;
+
+    section.sheet-header {
+        position: relative;
+    }
+    section.sheet-body {
+        padding: 8px;
+    }
+
+    label.section-label {
+        text-align: center;
+        background: black;
+        color: white;
+        text-transform: uppercase;
+
+        &.vertical {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+        &.horizontal {
+        }
+    }
 }
 
 input[type='text'],

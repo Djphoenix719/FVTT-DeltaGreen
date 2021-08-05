@@ -16,7 +16,6 @@
 
 div.labeled-field {
     position: relative;
-    height: 2rem;
 
     label {
         font-size: smaller;
@@ -26,8 +25,23 @@ div.labeled-field {
 
     input {
         padding-top: 0.75rem;
-        padding-left: 0.25rem;
+        padding-left: 0.5rem;
         padding-right: 0.25rem;
-        height: 2rem;
+    }
+}
+
+div.field-group {
+    display: flex;
+    flex: 1;
+
+    &.col {
+        flex-direction: column;
+    }
+    &.row {
+        flex-direction: row;
+    }
+
+    div.labeled-field {
+        flex: 1;
     }
 }
