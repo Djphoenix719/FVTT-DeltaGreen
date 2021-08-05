@@ -7,6 +7,14 @@
     </div>
 
     <div>
+
+        <div class="stats-field stats-header">
+            <label class="header-label flex-2">Statistics</label>
+            <label class="header-label flex-1">Score</label>
+            <label class="header-label flex-1">x5</label>
+            <label class="header-label flex-6">Distinguishing Features</label>
+        </div>
+
         {{#each @root.data.data.statistics as |statistic|}}
             {{> stats-field statistic=statistic }}
         {{/each}}

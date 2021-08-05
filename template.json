@@ -20,37 +20,37 @@
                 "statistics": {
                     "strength": {
                         "id": "strength",
-                        "label": "Strength",
+                        "label": "Strength (STR)",
                         "value": 10,
                         "feature": ""
                     },
                     "constitution": {
                         "id": "constitution",
-                        "label": "Constitution",
+                        "label": "Constitution (CON)",
                         "value": 10,
                         "feature": ""
                     },
                     "dexterity": {
                         "id": "dexterity",
-                        "label": "Dexterity",
+                        "label": "Dexterity (DEX)",
                         "value": 10,
                         "feature": ""
                     },
                     "intelligence": {
                         "id": "intelligence",
-                        "label": "Intelligence",
+                        "label": "Intelligence (INT)",
                         "value": 10,
                         "feature": ""
                     },
                     "power": {
                         "id": "power",
-                        "label": "Power",
+                        "label": "Power (POW)",
                         "value": 10,
                         "feature": ""
                     },
                     "charisma": {
                         "id": "charisma",
-                        "label": "Charisma",
+                        "label": "Charisma (CHA)",
                         "value": 10,
                         "feature": ""
                     }

@@ -25,7 +25,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
         'stats-field': 'templates/actor/partials/StatsField.html',
         'bounded-value': 'templates/actor/partials/BoundedValue.html',
         'labeled-field': 'templates/actor/partials/LabeledField.html',
-        'actor-statistics': 'templates/actor/partials/Statistics.html',
+        'actor-statistics': 'templates/actor/tabs/Statistics.html',
     };
 
     const templates: TemplatePath[] = [

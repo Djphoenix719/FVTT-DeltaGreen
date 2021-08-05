@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-@import 'actor/main';
+section.statistics {
+    div.stats-header {
+        border: 0;
+        text-transform: uppercase;
 
-@font-face {
-    font-family: 'Futura Standard Book';
-    src: url('static/font/FuturaStandardBook.ttf');
-}
-
-@for $i from 0 to 8 {
-    *.flex-#{$i} {
-        flex: $i !important;
+        background: black;
+        color: white;
     }
-}
 
-label.clickable {
-    cursor: pointer;
-
-    &:hover {
-        text-shadow: rgba(255, 0, 0, 0.9) 0px 0px 16px;
+    label.header-label {
+        text-align: center;
     }
 }
