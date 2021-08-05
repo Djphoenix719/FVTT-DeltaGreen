@@ -138,7 +138,7 @@ export class AgentSheet extends ActorSheet {
             }
         });
 
-        html.find('label.clickable.reset-breaking-point').on('click', async (event) => {
+        html.find('div.breaking-point label.reset').on('click', async (event) => {
             preprocessEvent(event);
             const newBreakingPoint = this.actor.data.data.sanity.value - this.actor.data.data.statistics.power.value;
             await this.actor.update({

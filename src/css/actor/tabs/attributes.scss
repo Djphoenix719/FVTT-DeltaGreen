@@ -25,6 +25,10 @@ div.attributes {
         text-align: center;
     }
 
+    input {
+        text-align: center;
+    }
+
     div.attribute {
         display: flex;
         align-items: center;
@@ -47,15 +51,21 @@ div.attributes {
             padding: 0 0.25rem;
         }
 
-        input {
-            text-align: center;
-        }
-
         div.maximum-value {
             border-left: $field-border-style;
         }
         div.current-value {
             border-left: $field-border-style;
+        }
+
+        div.breaking-point {
+            position: relative;
+            label {
+                padding: 0.25rem;
+                position: absolute;
+                right: 0;
+                height: 100%;
+            }
         }
     }
 }
