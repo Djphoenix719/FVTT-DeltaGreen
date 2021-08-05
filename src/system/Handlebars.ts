@@ -23,7 +23,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
     const partials: Record<string, TemplatePath> = {
         'skill-field': 'templates/actor/partials/SkillField.html',
         'stats-field': 'templates/actor/partials/StatsField.html',
-        'bounded-value': 'templates/actor/partials/BoundedValue.html',
+        'attribute': 'templates/actor/partials/Attribute.html',
         'labeled-field': 'templates/actor/partials/LabeledField.html',
         'actor-statistics': 'templates/actor/tabs/Statistics.html',
     };
@@ -32,6 +32,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
         `templates/actor/Agent.html`,
         `templates/actor/tabs/Biography.html`,
         `templates/actor/tabs/Skills.html`,
+        `templates/actor/tabs/Attributes.html`,
         ...Object.values(partials),
     ];
 

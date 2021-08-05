@@ -1,0 +1,25 @@
+<div class="attributes">
+    <div class="attribute attributes-header">
+        <label class="header-label flex-2">Derived Attributes</label>
+        <div class="maximum-value flex-1">
+            <label class="header-label">Maximum</label>
+        </div>
+        <div class="current-value flex-1">
+            <label class="header-label">Current</label>
+        </div>
+    </div>
+
+    {{> attribute key="data.health" value=@root.data.data.health label="Hit Points"}}
+    {{> attribute key="data.willpower" value=@root.data.data.willpower label="Willpower"}}
+    {{> attribute key="data.sanity" value=@root.data.data.sanity label="Sanity"}}
+
+    <div class="attribute">
+        <label class="breaking-point" for="data.sanity.breakingPoint.value">Breaking Point</label>
+        <div class="maximum-value flex-1">
+            <input type="text" value="N/A" disabled>
+        </div>
+        <div class="current-value flex-1 breaking-point">
+            <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
+        </div>
+    </div>
+</div>

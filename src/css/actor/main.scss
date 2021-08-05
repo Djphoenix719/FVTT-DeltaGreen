@@ -15,37 +15,47 @@
  */
 
 @import 'partials/labeled-field';
-@import 'partials/bounded-value';
 @import 'partials/skill-field';
 @import 'partials/stats-field';
 
-@import 'section/biography';
-@import 'section/statistics';
+@import 'tabs/biography';
+@import 'tabs/statistics';
+@import 'tabs/attributes';
 
-div.delta-green.agent section.window-content {
-    background: url('static/sheet/background-restricted.png') center;
-    background-size: contain;
-    font-family: 'Futura Standard Book', Arial, sans-serif;
-    padding: 0;
+div.delta-green.agent {
+    section.window-content {
+        background: url('static/sheet/background-restricted.png') center;
+        background-size: contain;
+        font-family: 'Futura Standard Book', Arial, sans-serif;
+        padding: 0;
 
-    section.sheet-header {
-        position: relative;
-    }
-    section.sheet-body {
-        padding: 8px;
-    }
-
-    label.section-label {
-        text-align: center;
-        background: black;
-        color: white;
-        text-transform: uppercase;
-
-        &.vertical {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
+        form {
+            background: rgba(255, 255, 255, 0.5);
         }
-        &.horizontal {
+
+        section.sheet-header {
+            position: relative;
+        }
+        section.sheet-body {
+            padding: 8px;
+        }
+
+        input {
+            background-color: transparent;
+        }
+
+        label.section-label {
+            text-align: center;
+            background: black;
+            color: white;
+            text-transform: uppercase;
+
+            &.vertical {
+                writing-mode: vertical-rl;
+                transform: rotate(180deg);
+            }
+            &.horizontal {
+            }
         }
     }
 }
@@ -58,4 +68,8 @@ input[type='time'] {
     border: 0;
     border-radius: 0;
     background: rgba(0, 0, 0, 0.1);
+}
+
+label.header-label {
+    text-align: center;
 }
