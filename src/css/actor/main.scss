@@ -14,17 +14,23 @@
  * limitations under the License.
  */
 
-@import 'constants';
-@import 'flex-table';
-@import 'biography';
-@import 'statistics';
-@import 'field-group';
+@import 'partials/labeled-field';
+@import 'partials/bounded-value';
+@import 'partials/skill-field';
+@import 'partials/stats-field';
 
-div.agent {
-    min-width: 550px;
-    min-height: 700px;
+@import 'section/biography';
 
-    section.window-content {
-        background: url(/systems/delta-green/static/sheet/background-restricted.png) center repeat;
-    }
+div.delta-green.agent section.window-content {
+    font-family: 'Futura Standard Book', Arial, sans-serif;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='password'],
+input[type='date'],
+input[type='time'] {
+    border: 0;
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.1);
 }
