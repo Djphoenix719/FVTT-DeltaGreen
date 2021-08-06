@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-@import 'partials/stats-field';
-
-@import 'navigation';
+@import '../constants';
 
 div.delta-green.agent {
     section.window-content {
@@ -164,19 +162,53 @@ div.delta-green.agent {
         }
     }
 
-    div.field-group {
+    div.stats-field {
         display: flex;
-        flex: 1;
+        align-items: center;
 
-        &.col {
-            flex-direction: column;
+        border-left: $field-border-style;
+        border-top: $field-border-style;
+        &:last-child {
+            border-bottom: $field-border-style;
         }
-        &.row {
-            flex-direction: row;
+
+        label {
+            flex: 2;
+            white-space: nowrap;
+
+            padding: 0 0.25rem;
+        }
+
+        input[type='number'] {
+            flex: 1;
+            width: 4rem;
+            text-align: center;
+            border-left: $field-border-style;
+        }
+        input[type='text'] {
+            flex: 6;
+            border-left: $field-border-style;
+            border-right: $field-border-style;
         }
     }
 
-    input:not(:disabled) {
-        text-decoration: underline;
+    nav.sheet-navigation {
+        padding: 0 2rem;
+        margin: 0.5rem 0;
+
+        background: black;
+        color: white;
+
+        display: flex;
+        text-transform: uppercase;
+
+        a.item {
+            flex: 1;
+            text-align: center;
+        }
+        a.item.active {
+            font-style: italic;
+            font-weight: bold;
+        }
     }
 }

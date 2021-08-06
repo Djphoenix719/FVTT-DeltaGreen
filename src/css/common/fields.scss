@@ -19,11 +19,13 @@ div.delta-green {
         display: flex;
         flex: 1;
 
-        input,
-        select,
-        label {
+        div.field-group,
+        div.labeled-field {
             flex: 1;
-            padding: 0 0.5rem;
+            & > input:not([type='checkbox']),
+            & > select {
+                flex: 1;
+            }
         }
 
         &.col {
