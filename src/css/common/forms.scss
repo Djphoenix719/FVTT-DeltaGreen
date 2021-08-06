@@ -23,9 +23,56 @@ div.delta-green {
     input[type='number'],
     input[type='password'],
     input[type='date'],
-    input[type='time'] {
+    input[type='time'],
+    select {
         border: 0;
         border-radius: 0;
         background: rgba(0, 0, 0, 0.1);
+    }
+
+    div.field-group {
+        display: flex;
+        flex: 1;
+
+        div.field-group,
+        div.labeled-field {
+            flex: 1;
+            & > input:not([type='checkbox']),
+            & > select {
+                flex: 1;
+            }
+        }
+
+        &.col {
+            flex-direction: column;
+        }
+        &.row {
+            flex-direction: row;
+        }
+    }
+
+    label.clickable {
+        cursor: pointer;
+
+        &:hover {
+            text-shadow: rgba(255, 0, 0, 0.9) 0px 0px 16px;
+        }
+    }
+
+    div.labeled-field {
+        position: relative;
+        display: flex;
+
+        label {
+            font-size: smaller;
+            position: absolute;
+            left: 1rem;
+        }
+
+        input {
+            padding-top: 0.75rem;
+            padding-left: 0.5rem;
+            padding-right: 0.25rem;
+        }
     }
 }
