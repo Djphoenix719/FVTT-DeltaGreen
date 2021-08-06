@@ -15,7 +15,7 @@
  */
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import { ActorSkillType, CoreSkillType, BaseStatisticType, CustomSkillType, Skill } from '../../../types/Actor';
+import { ActorSkillType, CoreSkillType, StatisticType, CustomSkillType, Skill } from '../../../types/Actor';
 import { rollPercentile } from '../../Dice';
 import InputDialog from '../../dialog/InputDialog';
 
@@ -68,7 +68,7 @@ export class DGActorSheet extends ActorSheet {
 
         html.find('label.clickable.statistic-roll').on('click', async (event) => {
             const target = preprocessEvent(event);
-            const statisticId = target.data('statistic') as BaseStatisticType;
+            const statisticId = target.data('statistic') as StatisticType;
 
             const value = this.actor.data.data.statistics[statisticId].value * 5;
             const result = await rollPercentile(value);

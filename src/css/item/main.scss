@@ -14,14 +14,34 @@
  * limitations under the License.
  */
 
-div.field-group {
-    display: flex;
-    flex: 1;
+@import '../constants';
 
-    &.col {
-        flex-direction: column;
+div.delta-green.item {
+    section.window-content {
+        background: url('static/image/sheet/background-plain.png');
+        background-size: contain;
     }
-    &.row {
-        flex-direction: row;
+
+    div.avatar img {
+        height: $avatar-height;
+        border: 0;
+    }
+
+    section.common {
+        display: flex;
+        max-height: $avatar-height;
+        background: rgba(255, 255, 255, 0.25);
+
+        img {
+            height: 100%;
+            border: 0;
+        }
+
+        div.labeled-field {
+            height: $avatar-height/3;
+            input {
+                height: $avatar-height/3;
+            }
+        }
     }
 }

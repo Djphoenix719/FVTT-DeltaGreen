@@ -54,6 +54,6 @@ Hooks.on('ready', async () => {
     await game.actors?.getName('Test Agent')?.sheet?.render(true);
 
     await game.items?.getName('Test Gear')?.delete();
-    // await Item.create({ name: 'Test Gear', type: 'gear', img: 'icons/equipment/chest/breastplate-metal-pieced-grey-02.webp' });
-    // await game.items?.getName('Test Gear')?.sheet?.render(true);
+    await Item.create({ name: 'Test Gear', type: 'gear', img: 'icons/equipment/chest/breastplate-metal-pieced-grey-02.webp' });
+    await game.items?.getName('Test Gear')?.sheet?.render(true);
 });

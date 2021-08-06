@@ -1,18 +1,49 @@
 <form class="{{cssClass}}">
 
-    <div class="field-group row">
+    <section class="common">
 
-        <div class="avatar">
-            <img class="avatar" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <div class="field-group row">
+
+            <div class="avatar">
+                <img class="avatar" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+            </div>
+
+            <div class="field-group col">
+
+                <div class="field-group row">
+                    <label for="name">Gear Name</label>
+                    <input type="text" name="name" value="{{@root.item.name}}">
+                </div>
+
+                <div class="field-group row">
+                    <label for="data.expense.value">Expense</label>
+                    <select name="data.expense.value">
+                        {{#select data.data.expense.value}}
+                            {{#each constants.expense as |option|}}
+                                <option value="{{option.value}}">{{option.label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+
+                <div class="field-group row">
+
+                    <div class="field-group row">
+                        <label for="data.equipped.value">Equipped</label>
+                        <input type="checkbox" name="data.equipped.value" value="{{data.data.equipped.value}}" {{checked data.data.equipped.value}}>
+                    </div>
+
+                    <div class="field-group row">
+                        <label for="data.carried.value">Carried</label>
+                        <input type="checkbox" name="data.carried.value" value="{{data.data.carried.value}}" {{checked data.data.carried.value}}>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- TODO: Properties for items, finish items. Item sheet. CLEAN UP CSS IN PROCESS --->
-        <div class="field-group col">
-
-
-
-        </div>
-
-    </div>
+    </section>
 
 </form>

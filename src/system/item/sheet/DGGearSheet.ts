@@ -15,6 +15,7 @@
  */
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { ExpenseType } from '../../../types/Item';
 
 export class DGGearSheet extends ItemSheet {
     static get defaultOptions() {
@@ -29,6 +30,41 @@ export class DGGearSheet extends ItemSheet {
 
     public async getData(options?: Application.RenderOptions): Promise<ItemSheet.Data> {
         const data = await super.getData(options);
+
+        // TODO: Figure out how to type this in FVTT-Types
+        // @ts-ignore
+        data.constants = {
+            expense: Object.values(ExpenseType).map((type) => {
+                return {
+                    value: type,
+                    label: type.capitalize(),
+                };
+            }),
+        };
+        // data.constants = {
+        //     expense: [
+        //         {
+        //             value: 'trivial',
+        //             label: 'Trivial',
+        //         },
+        //         {
+        //             value: 'standard',
+        //             label: 'Standard',
+        //         },
+        //         {
+        //             value: 'unusual',
+        //             label: 'Unusual',
+        //         },
+        //         {
+        //             value: 'major',
+        //             label: 'Major',
+        //         },
+        //         {
+        //             value: 'extreme',
+        //             label: 'Extreme',
+        //         },
+        //     ],
+        // };
 
         console.warn(data);
 

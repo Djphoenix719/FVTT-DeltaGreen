@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@import 'partials/labeled-field';
 @import 'partials/stats-field';
 
 @import 'navigation';
@@ -66,7 +65,6 @@ div.delta-green.agent {
             border-left: $field-border-style;
             border-bottom: $field-border-style;
             input {
-                flex: 1;
                 height: $avatar-height/3;
             }
         }

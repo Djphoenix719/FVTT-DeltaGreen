@@ -18,19 +18,19 @@ import { Bounded, Label, Value, VersionNumber } from './Common';
 
 type ActorTypeAgent = 'agent';
 
-interface Statistic<T extends BaseStatisticType> extends Value<number>, Label<string> {
+export interface Statistic<T extends StatisticType> extends Value<number>, Label<string> {
     id: T;
     percentile?: number;
 }
 
-interface Skill<T extends string> extends Value<number>, Label<string> {
+export interface Skill<T extends string> extends Value<number>, Label<string> {
     id: T;
     failure?: boolean;
     delete: boolean;
     type: 'core' | 'custom';
 }
 
-export enum BaseStatisticType {
+export enum StatisticType {
     Strength = 'strength',
     Constitution = 'constitution',
     Dexterity = 'dexterity',
@@ -98,7 +98,7 @@ interface AgentDataSourceData {
         };
     };
     statistics: {
-        [TType in BaseStatisticType]: Statistic<TType>;
+        [TType in StatisticType]: Statistic<TType>;
     };
     skills: {
         core: {
