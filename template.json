@@ -413,31 +413,58 @@
         }
     },
     "Item": {
-        "types": ["weapon", "armor", "motivation", "bond", "gear"],
+        "types": ["weapon", "armor", "gear", "motivation", "bond"],
         "templates": {
-            "base": {
-                "name": "",
-                "description": ""
+            "description": {
+                "description": {
+                    "value": ""
+                }
+            },
+            "itemsCommon": {
+                "carried": {
+                    "value": true
+                },
+                "equipped": {
+                    "value": true
+                },
+                "expense": {
+                    "value": "standard"
+                }
             }
         },
         "weapon": {
-            "templates": ["base"],
-            "skill": "",
-            "range": "10M",
-            "damage": "1D8",
-            "armorPiercing": 0,
-            "lethality": 0,
-            "isLethal": false,
-            "killRadius": "N/A",
-            "ammo": "",
-            "expense": "Standard",
-            "equipped": true
+            "templates": ["description", "itemsCommon"],
+            "skill": {
+                "value": ""
+            },
+            "range": {
+                "value": 10
+            },
+            "damage": {
+                "value": "1D8"
+            },
+            "armorPiercing": {
+                "value": 0
+            },
+            "lethality": {
+                "enabled": false,
+                "value": 0
+            },
+            "killRadius": {
+                "value": 0
+            },
+            "ammo": {
+                "value": 0
+            }
         },
         "armor": {
-            "templates": ["base"],
-            "protection": 3,
-            "equipped": true,
-            "expense": "Standard"
+            "templates": ["description", "itemsCommon"],
+            "rating": {
+                "value": 0
+            }
+        },
+        "gear": {
+            "templates": ["description", "itemsCommon"]
         },
         "motivation": {
             "templates": ["base"],
@@ -449,11 +476,6 @@
             "templates": ["base"],
             "score": 10,
             "relationship": ""
-        },
-        "gear": {
-            "templates": ["base"],
-            "equipped": true,
-            "expense": "Standard"
         }
     }
 }

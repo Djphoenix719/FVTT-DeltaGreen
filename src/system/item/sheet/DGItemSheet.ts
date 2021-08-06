@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-import { DGActor } from '../system/actor/DGActor';
+export class DGItemSheet extends ItemSheet {
 
-export {};
-declare global {
-    interface LenientGlobalVariableTypes {
-        game: never;
-        canvas: never;
-        ui: never;
-        i18n: never;
-    }
 }

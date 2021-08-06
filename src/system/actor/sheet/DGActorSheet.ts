@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { CSS_CLASSES, SYSTEM_NAME } from '../Constants';
-import { ActorSkillType, CoreSkillType, BaseStatisticType, CustomSkillType, Skill } from '../../types/Actor';
-import { rollPercentile } from '../Dice';
-import InputDialog from '../dialog/InputDialog';
+import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { ActorSkillType, CoreSkillType, BaseStatisticType, CustomSkillType, Skill } from '../../../types/Actor';
+import { rollPercentile } from '../../Dice';
+import InputDialog from '../../dialog/InputDialog';
 
-export class AgentSheet extends ActorSheet {
+export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/actor/Agent.html`;

@@ -14,18 +14,6 @@
  * limitations under the License.
  */
 
-export class Agent extends Actor {
-    prepareData() {
-        super.prepareData();
+export class DGItem extends Item {
 
-        const data = this.data.data;
-
-        data.willpower.maximum = data.statistics.power.value;
-        data.health.maximum = Math.ceil((data.statistics.strength.value + data.statistics.constitution.value) / 2);
-        data.sanity.maximum = 99 - data.skills.core.unnatural.value;
-
-        for (const statistic of Object.values(data.statistics)) {
-            data.statistics[statistic.id].percentile = statistic.value * 5;
-        }
-    }
 }

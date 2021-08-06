@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-import { DGActor } from '../system/actor/DGActor';
-
-export {};
-declare global {
-    interface LenientGlobalVariableTypes {
-        game: never;
-        canvas: never;
-        ui: never;
-        i18n: never;
-    }
+export enum ExpenseType {
+    Trivial = 'trivial',
+    Standard = 'standard',
+    Unusual = 'unusual',
+    Major = 'major',
+    Extreme = 'extreme',
 }
