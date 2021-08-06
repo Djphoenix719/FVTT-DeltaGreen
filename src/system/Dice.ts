@@ -1,5 +1,21 @@
+/*
+ * Copyright 2021 Andrew Cuccinello
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 export enum DiceResultType {
-    Fumble = 'fumble',
+    CriticalFailure = 'criticalFailure',
     Failure = 'failure',
     Success = 'success',
     CriticalSuccess = 'criticalSuccess',
@@ -32,7 +48,7 @@ export async function rollPercentile(target: number): Promise<DiceResult> {
         if (roll.total <= target) {
             successType = DiceResultType.CriticalSuccess;
         } else {
-            successType = DiceResultType.Fumble;
+            successType = DiceResultType.CriticalFailure;
         }
     } else {
         if (roll.total <= target) {
@@ -43,7 +59,7 @@ export async function rollPercentile(target: number): Promise<DiceResult> {
     }
 
     if (roll.total === 100) {
-        successType = DiceResultType.Fumble;
+        successType = DiceResultType.CriticalFailure;
     }
 
     if (roll.total === 1) {
