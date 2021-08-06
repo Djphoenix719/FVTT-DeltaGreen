@@ -46,4 +46,8 @@
 
     </section>
 
+    {{#with @root.subtemplate as |template|}}
+        {{> (template) data=data}}
+    {{/with}}
+
 </form>

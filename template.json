@@ -459,7 +459,7 @@
         },
         "armor": {
             "templates": ["description", "itemsCommon"],
-            "rating": {
+            "armorRating": {
                 "value": 0
             }
         },

@@ -20,6 +20,7 @@ import { DGActor } from './actor/DGActor';
 import { DGActorSheet } from './actor/sheet/DGActorSheet';
 import { DGItem } from './item/DGItem';
 import { DGGearSheet } from './item/sheet/DGGearSheet';
+import { DGArmorSheet } from './item/sheet/DGArmorSheet';
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -39,6 +40,12 @@ function registerItemClasses() {
         makeDefault: true,
     });
 
+    Items.registerSheet(SYSTEM_NAME, DGArmorSheet, {
+        label: 'Armor',
+        types: ['armor'],
+        makeDefault: true,
+    });
+
     CONFIG.Item.documentClass = DGItem;
 }
 
@@ -54,6 +61,6 @@ Hooks.on('ready', async () => {
     await game.actors?.getName('Test Agent')?.sheet?.render(true);
 
     await game.items?.getName('Test Gear')?.delete();
-    await Item.create({ name: 'Test Gear', type: 'gear', img: 'icons/equipment/chest/breastplate-metal-pieced-grey-02.webp' });
+    await Item.create({ name: 'Test Gear', type: 'armor', img: 'icons/equipment/chest/breastplate-metal-pieced-grey-02.webp' });
     await game.items?.getName('Test Gear')?.sheet?.render(true);
 });

@@ -44,9 +44,11 @@ div.delta-green {
         }
 
         &.col {
+            height: 100%;
             flex-direction: column;
         }
         &.row {
+            align-items: center;
             flex-direction: row;
         }
     }

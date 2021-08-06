@@ -14,33 +14,18 @@
  * limitations under the License.
  */
 
-import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import { ExpenseType } from '../../../types/Item';
+import { DGGearSheet } from './DGGearSheet';
+import { SYSTEM_NAME } from '../../Constants';
 
-export class DGGearSheet extends ItemSheet {
-    static get defaultOptions() {
-        const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/Gear.html`;
-        options.classes = options.classes ?? [];
-        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
-        options.width = 500;
-        options.height = 350;
-        return options;
-    }
-
+export class DGArmorSheet extends DGGearSheet {
     public async getData(options?: Application.RenderOptions): Promise<ItemSheet.Data> {
         const data = await super.getData(options);
 
         // TODO: Figure out how to type this in FVTT-Types
         // @ts-ignore
-        data.constants = {
-            expense: Object.values(ExpenseType).map((type) => {
-                return {
-                    value: type,
-                    label: type.capitalize(),
-                };
-            }),
-        };
+        data.subtemplate = `systems/${SYSTEM_NAME}/templates/item/Armor.html`;
+
+        console.warn(data);
 
         return data;
     }
