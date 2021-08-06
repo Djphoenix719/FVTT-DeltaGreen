@@ -17,33 +17,15 @@
 @import 'partials/labeled-field';
 @import 'partials/stats-field';
 
-@import 'tabs/skills-list';
-@import 'tabs/biography';
-@import 'tabs/statistics';
-@import 'tabs/attributes';
-
 @import 'navigation';
 
 div.delta-green.agent {
     section.window-content {
         background: url('static/image/sheet/background-restricted.png') center;
         background-size: contain;
-        font-family: 'Futura Standard Book', Arial, sans-serif;
-        padding: 0;
-
-        form {
-            background: rgba(255, 255, 255, 0.5);
-        }
 
         section.sheet-header {
             position: relative;
-        }
-        section.sheet-body {
-            padding: 0 8px;
-        }
-
-        input {
-            background-color: transparent;
         }
 
         label.section-label {
@@ -60,18 +42,143 @@ div.delta-green.agent {
             }
         }
     }
-}
 
-input[type='text'],
-input[type='number'],
-input[type='password'],
-input[type='date'],
-input[type='time'] {
-    border: 0;
-    border-radius: 0;
-    background: rgba(0, 0, 0, 0.1);
-}
+    section.biography {
+        display: flex;
+        max-height: $avatar-height;
+        background: rgba(255, 255, 255, 0.25);
+        border-right: $field-border-style;
 
-label.header-label {
-    text-align: center;
+        img {
+            height: 100%;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: $field-border-style;
+            border-top: $field-border-style;
+        }
+
+        div.field-group.col {
+            border-top: $field-border-style;
+        }
+
+        div.labeled-field {
+            height: $avatar-height/3;
+            border-left: $field-border-style;
+            border-bottom: $field-border-style;
+            input {
+                flex: 1;
+                height: $avatar-height/3;
+            }
+        }
+    }
+
+    section.attributes > div,
+    section.skills-list > div {
+        display: flex;
+        align-items: center;
+
+        border-left: $field-border-style;
+        border-top: $field-border-style;
+        border-right: $field-border-style;
+        &:last-child {
+            border-bottom: $field-border-style;
+        }
+    }
+
+    section.attributes div.attribute {
+        label {
+            flex: 2;
+            white-space: nowrap;
+
+            padding: 0 0.25rem;
+        }
+
+        div.maximum-value {
+            border-left: $field-border-style;
+        }
+        div.current-value {
+            border-left: $field-border-style;
+        }
+
+        div.breaking-point {
+            position: relative;
+            label {
+                padding: 0.25rem;
+                position: absolute;
+                right: 0;
+                height: 100%;
+            }
+        }
+    }
+    section.skills-list div.skill-field {
+        label {
+            flex-grow: 1;
+        }
+        label.delete {
+            margin-left: 3px;
+            min-width: 12px;
+            flex: 0;
+        }
+
+        input[type='checkbox'] {
+            flex-shrink: 1;
+        }
+        input[type='number'] {
+            width: 4rem;
+            text-align: center;
+            border-left: $field-border-style;
+        }
+    }
+
+    header.section-header {
+        display: flex;
+        position: relative;
+
+        background: black;
+        color: white;
+
+        text-transform: uppercase;
+        border: 0;
+
+        > div {
+            display: flex;
+            > * {
+                flex: 1;
+            }
+        }
+
+        > * {
+            padding: 0 3px;
+        }
+
+        label {
+            text-align: center;
+        }
+
+        div.header-buttons {
+            position: absolute;
+            right: 0;
+
+            white-space: nowrap;
+            > *:not(:last-child) {
+                padding-right: 3px;
+            }
+        }
+    }
+
+    div.field-group {
+        display: flex;
+        flex: 1;
+
+        &.col {
+            flex-direction: column;
+        }
+        &.row {
+            flex-direction: row;
+        }
+    }
+
+    input:not(:disabled) {
+        text-decoration: underline;
+    }
 }

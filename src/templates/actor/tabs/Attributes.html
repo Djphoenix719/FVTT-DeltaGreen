@@ -1,5 +1,5 @@
-<div class="attributes">
-    <div class="attribute attributes-header">
+<section class="attributes">
+    <header class="section-header">
         <label class="header-label flex-2">Derived Attributes</label>
         <div class="maximum-value flex-1">
             <label class="header-label">Maximum</label>
@@ -7,7 +7,7 @@
         <div class="current-value flex-1">
             <label class="header-label">Current</label>
         </div>
-    </div>
+    </header>
 
     {{> attribute key="data.health" value=@root.data.data.health label="Hit Points"}}
     {{> attribute key="data.willpower" value=@root.data.data.willpower label="Willpower"}}
@@ -23,4 +23,4 @@
             <label class="clickable reset"><i class="fas fa-redo-alt"></i></label>
         </div>
     </div>
-</div>
+</section>

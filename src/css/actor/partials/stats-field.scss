@@ -16,32 +16,34 @@
 
 @import '../constants';
 
-div.stats-field {
-    display: flex;
-    align-items: center;
+div.delta-green.agent {
+    div.stats-field {
+        display: flex;
+        align-items: center;
 
-    border-left: $field-border-style;
-    border-top: $field-border-style;
-    &:last-child {
-        border-bottom: $field-border-style;
-    }
-
-    label {
-        flex: 2;
-        white-space: nowrap;
-
-        padding: 0 0.25rem;
-    }
-
-    input[type='number'] {
-        flex: 1;
-        width: 4rem;
-        text-align: center;
         border-left: $field-border-style;
-    }
-    input[type='text'] {
-        flex: 6;
-        border-left: $field-border-style;
-        border-right: $field-border-style;
+        border-top: $field-border-style;
+        &:last-child {
+            border-bottom: $field-border-style;
+        }
+
+        label {
+            flex: 2;
+            white-space: nowrap;
+
+            padding: 0 0.25rem;
+        }
+
+        input[type='number'] {
+            flex: 1;
+            width: 4rem;
+            text-align: center;
+            border-left: $field-border-style;
+        }
+        input[type='text'] {
+            flex: 6;
+            border-left: $field-border-style;
+            border-right: $field-border-style;
+        }
     }
 }

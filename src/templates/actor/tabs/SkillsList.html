@@ -1,8 +1,10 @@
 <section class="skills-list">
-    <div class="skills-list-header">
-        <label class="clickable add-skill"><i class="far fa-plus-square"></i></label>
-        <label class="header-label">Applicable Skill Sets</label>
-    </div>
+    <header class="section-header">
+        <div class="header-buttons">
+            <label class="clickable add-skill flex-0"><i class="fas fa-plus"></i> Add</label>
+        </div>
+        <label class="header-label flex-1">Applicable Skill Sets</label>
+    </header>
 
     {{#each skills as |skill|}}
         {{> skill-field skill=skill }}

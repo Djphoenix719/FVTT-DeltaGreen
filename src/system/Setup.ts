@@ -19,7 +19,7 @@ import { SYSTEM_NAME } from './Constants';
 import { DGActor } from './actor/DGActor';
 import { DGActorSheet } from './actor/sheet/DGActorSheet';
 import { DGItem } from './item/DGItem';
-import { DGItemSheet } from './item/sheet/DGItemSheet';
+import { DGGearSheet } from './item/sheet/DGGearSheet';
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -33,9 +33,9 @@ function registerActorClasses() {
 }
 function registerItemClasses() {
     Items.unregisterSheet('core', ItemSheet);
-    Items.registerSheet(SYSTEM_NAME, DGItemSheet, {
-        label: 'Weapon',
-        types: ['weapon'],
+    Items.registerSheet(SYSTEM_NAME, DGGearSheet, {
+        label: 'Gear',
+        types: ['gear'],
         makeDefault: true,
     });
 
@@ -54,5 +54,6 @@ Hooks.on('ready', async () => {
     await game.actors?.getName('Test Agent')?.sheet?.render(true);
 
     await game.items?.getName('Test Gear')?.delete();
-    await Item.create({ name: 'Test Gear', type: 'gear', img: '' });
+    // await Item.create({ name: 'Test Gear', type: 'gear', img: 'icons/equipment/chest/breastplate-metal-pieced-grey-02.webp' });
+    // await game.items?.getName('Test Gear')?.sheet?.render(true);
 });

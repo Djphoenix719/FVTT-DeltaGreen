@@ -14,34 +14,27 @@
  * limitations under the License.
  */
 
-div.labeled-field {
-    position: relative;
-
-    label {
-        font-size: smaller;
-        position: absolute;
-        left: 1rem;
-    }
-
-    input {
-        padding-top: 0.75rem;
-        padding-left: 0.5rem;
-        padding-right: 0.25rem;
-    }
-}
-
-div.field-group {
-    display: flex;
-    flex: 1;
-
-    &.col {
-        flex-direction: column;
-    }
-    &.row {
-        flex-direction: row;
-    }
-
+div.delta-green.agent {
     div.labeled-field {
-        flex: 1;
+        position: relative;
+        display: flex;
+
+        label {
+            font-size: smaller;
+            position: absolute;
+            left: 1rem;
+        }
+
+        input {
+            padding-top: 0.75rem;
+            padding-left: 0.5rem;
+            padding-right: 0.25rem;
+        }
+    }
+
+    div.field-group {
+        div.labeled-field {
+            flex: 1;
+        }
     }
 }
