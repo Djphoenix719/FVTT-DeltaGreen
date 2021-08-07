@@ -15,6 +15,7 @@
  */
 
 import { Bounded, Label, Value, VersionNumber } from './Common';
+import { DGActor } from '../system/actor/DGActor';
 
 type ActorTypeAgent = 'agent';
 

@@ -1,3 +1,54 @@
-<form class="{{cssClass}}">
+<section class="weapon">
 
-</form>
+    <div class="field-group row">
+        <label for="data.damage.value">Damage</label>
+
+        {{#ifgt @root.data.data.lethality.value 0}}
+            <input type="text" name="data.damage.value" value="2D10" disabled>
+        {{else}}
+            <input type="text" name="data.damage.value" value="{{@root.data.data.damage.value}}">
+        {{/ifgt}}
+
+    </div>
+
+    <div class="field-group row">
+        <label for="data.lethality.value">Lethality</label>
+        <input type="number" min="0" name="data.lethality.value" value="{{@root.data.data.lethality.value}}">
+    </div>
+
+    <div class="field-group row">
+        <label for="data.armorPiercing.value">Armor Piercing</label>
+        <input type="number" min="0" name="data.armorPiercing.value" value="{{@root.data.data.armorPiercing.value}}">
+    </div>
+
+    <div class="field-group row">
+        <label for="data.range.value">Range (Meters)</label>
+        <input type="number" min="0" name="data.range.value" value="{{@root.data.data.range.value}}">
+    </div>
+
+    <div class="field-group row">
+        <label for="data.killRadius.value">Kill Radius (Meters)</label>
+        <input type="number" min="0" name="data.killRadius.value" value="{{@root.data.data.killRadius.value}}">
+    </div>
+
+    <div class="field-group row">
+        <label for="data.ammo.value">Ammo (Current)</label>
+        <input type="number" min="0" name="data.ammo.value" value="{{@root.data.data.ammo.value}}">
+    </div>
+    <div class="field-group row">
+        <label for="data.ammo.value">Ammo (Maximum)</label>
+        <input type="number" min="0" name="data.ammo.maximum" value="{{@root.data.data.ammo.maximum}}">
+    </div>
+
+    <div class="field-group row">
+        <label for="data.skill.value">Skill</label>
+        <select name="data.skill.value">
+            {{#select @root.data.data.skill.value}}
+                {{#each @root.skills as |option|}}
+                    <option value="{{option.value}}">{{option.label}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+</section>

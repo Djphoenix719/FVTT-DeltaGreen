@@ -46,7 +46,7 @@ export class DGActorSheet extends ActorSheet {
         // @ts-ignore
         renderData.collapsibles = this._collapsibles;
         // @ts-ignore
-        renderData.skills = Object.values(mergeObject(duplicate(this.actor.data.data.skills.core), duplicate(this.actor.data.data.skills.custom)));
+        renderData.skills = this.actor.allSkills;
         // @ts-ignore
         renderData.skills.sort((a, b) => {
             return a.label.localeCompare(b.label);

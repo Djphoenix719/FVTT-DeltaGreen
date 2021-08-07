@@ -14,7 +14,16 @@
  * limitations under the License.
  */
 
+declare global {
+    interface DocumentClassConfig {
+        Actor: typeof DGActor;
+    }
+}
 export class DGActor extends Actor {
+    public get allSkills() {
+        return Object.values(mergeObject(duplicate(this.data.data.skills.core), duplicate(this.data.data.skills.custom)));
+    }
+
     public get willpowerMax() {
         return this.data.data.statistics.power.value;
     }

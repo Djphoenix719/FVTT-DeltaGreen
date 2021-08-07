@@ -52,4 +52,12 @@ export async function registerHandlebarsTemplatesAndPartials() {
     registerHelpers();
 }
 
-export function registerHelpers() {}
+export function registerHelpers() {
+    Handlebars.registerHelper('ifgt', function (this: any, a: any, b: any, options: Handlebars.HelperOptions) {
+        if (typeof a === 'number' && typeof b === 'number' && a > b) {
+            return options.fn(this);
+        } else {
+            return options.inverse !== undefined ? options.inverse(this) : undefined;
+        }
+    });
+}

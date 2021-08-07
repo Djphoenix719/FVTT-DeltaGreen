@@ -30,18 +30,14 @@ div.delta-green {
         background: rgba(0, 0, 0, 0.1);
     }
 
+    input:disabled {
+        background: transparent;
+        font-style: italic;
+    }
+
     div.field-group {
         display: flex;
         flex: 1;
-
-        div.field-group,
-        div.labeled-field {
-            flex: 1;
-            & > input:not([type='checkbox']),
-            & > select {
-                flex: 1;
-            }
-        }
 
         &.col {
             height: 100%;
@@ -50,6 +46,18 @@ div.delta-green {
         &.row {
             align-items: center;
             flex-direction: row;
+        }
+    }
+
+    div.field-group,
+    div.labeled-field {
+        flex: 1;
+        & > input:not([type='checkbox']),
+        & > select {
+            flex: 1;
+        }
+        label {
+            flex: 3;
         }
     }
 
@@ -67,8 +75,10 @@ div.delta-green {
 
         label {
             font-size: smaller;
+            pointer-events: none;
             position: absolute;
             left: 1rem;
+            color: gray;
         }
 
         input {

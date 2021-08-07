@@ -447,14 +447,14 @@
                 "value": 0
             },
             "lethality": {
-                "enabled": false,
                 "value": 0
             },
             "killRadius": {
                 "value": 0
             },
             "ammo": {
-                "value": 0
+                "value": 0,
+                "maximum": 0
             }
         },
         "armor": {

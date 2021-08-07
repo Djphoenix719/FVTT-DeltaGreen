@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { DGActor } from '../system/actor/DGActor';
-
 export {};
 declare global {
     interface LenientGlobalVariableTypes {
@@ -24,4 +22,9 @@ declare global {
         ui: never;
         i18n: never;
     }
+}
+
+export interface SelectOption {
+    value: string;
+    label: string;
 }

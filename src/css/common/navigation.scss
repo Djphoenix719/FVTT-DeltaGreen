@@ -1,4 +1,4 @@
-/*
+/*!
  * Copyright 2021 Andrew Cuccinello
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-import { DGGearSheet } from './DGGearSheet';
-import { SYSTEM_NAME } from '../../Constants';
+div.delta-green {
+    nav.sheet-navigation {
+        padding: 0 2rem;
+        margin: 0.5rem 0;
 
-export class DGArmorSheet extends DGGearSheet {
-    public async getData(options?: Application.RenderOptions): Promise<ItemSheet.Data> {
-        const data = await super.getData(options);
+        background: black;
+        color: white;
 
-        // TODO: Figure out how to type this in FVTT-Types
-        // @ts-ignore
-        data.subtemplate = `systems/${SYSTEM_NAME}/templates/item/Armor.html`;
+        display: flex;
+        text-transform: uppercase;
 
-        return data;
+        a.item {
+            flex: 1;
+            text-align: center;
+        }
+        a.item.active {
+            font-style: italic;
+            font-weight: bold;
+        }
     }
 }

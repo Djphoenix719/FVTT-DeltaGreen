@@ -10,7 +10,7 @@
 
             <div class="field-group col">
 
-                <div class="field-group row">
+                <div class="labeled-field">
                     <label for="name">Gear Name</label>
                     <input type="text" name="name" value="{{@root.item.name}}">
                 </div>
@@ -27,17 +27,13 @@
                 </div>
 
                 <div class="field-group row">
+                    <label for="data.equipped.value">Equipped</label>
+                    <input type="checkbox" name="data.equipped.value" id="data.equipped.value" value="{{data.data.equipped.value}}" {{checked data.data.equipped.value}}>
+                </div>
 
-                    <div class="field-group row">
-                        <label for="data.equipped.value">Equipped</label>
-                        <input type="checkbox" name="data.equipped.value" value="{{data.data.equipped.value}}" {{checked data.data.equipped.value}}>
-                    </div>
-
-                    <div class="field-group row">
-                        <label for="data.carried.value">Carried</label>
-                        <input type="checkbox" name="data.carried.value" value="{{data.data.carried.value}}" {{checked data.data.carried.value}}>
-                    </div>
-
+                <div class="field-group row">
+                    <label for="data.carried.value">Carried</label>
+                    <input type="checkbox" name="data.carried.value" id="data.carried.value" value="{{data.data.carried.value}}" {{checked data.data.carried.value}}>
                 </div>
 
             </div>
@@ -46,8 +42,27 @@
 
     </section>
 
-    {{#with @root.subtemplate as |template|}}
-        {{> (template) data=data}}
-    {{/with}}
+    <nav class="sheet-navigation" data-group="primary">
+        <a class="item" data-tab="tab-description" title="Item Description">Item Description</a>
+        <a class="item active" data-tab="tab-data" title="Item Data">Item Data</a>
+    </nav>
+
+    <section class="sheet-body">
+
+        {{#with @root.subtemplate as |template|}}
+            <div class="tab tab-data" data-group="primary" data-tab="tab-data">
+                {{> (template) data=data}}
+            </div>
+        {{/with}}
+
+        <div class="tab tab-description" data-group="primary" data-tab="tab-description">
+            {{editor content=data.description.value
+                     target="data.description.value"
+                     button=true
+                     owner=owner
+                     editable=editable}}
+        </div>
+
+    </section>
 
 </form>

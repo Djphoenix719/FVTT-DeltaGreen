@@ -99,6 +99,10 @@ div.delta-green.agent {
             border-left: $field-border-style;
         }
 
+        input {
+            text-align: center;
+        }
+
         div.breaking-point {
             position: relative;
             label {
@@ -192,26 +196,6 @@ div.delta-green.agent {
             flex: 6;
             border-left: $field-border-style;
             border-right: $field-border-style;
-        }
-    }
-
-    nav.sheet-navigation {
-        padding: 0 2rem;
-        margin: 0.5rem 0;
-
-        background: black;
-        color: white;
-
-        display: flex;
-        text-transform: uppercase;
-
-        a.item {
-            flex: 1;
-            text-align: center;
-        }
-        a.item.active {
-            font-style: italic;
-            font-weight: bold;
         }
     }
 }
