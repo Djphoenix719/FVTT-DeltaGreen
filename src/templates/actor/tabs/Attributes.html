@@ -9,9 +9,35 @@
         </div>
     </header>
 
-    {{> attribute key="data.health" value=@root.data.data.health label="Hit Points"}}
-    {{> attribute key="data.willpower" value=@root.data.data.willpower label="Willpower"}}
-    {{> attribute key="data.sanity" value=@root.data.data.sanity label="Sanity" clickable="sanity"}}
+    <div class="attribute">
+        <label for="data.health.value">Hit Points</label>
+        <div class="maximum-value flex-1">
+            <input type="number" name="data.health.maximum" value="{{@root.data.data.health.maximum}}" disabled>
+        </div>
+        <div class="current-value flex-1">
+            <input type="number" name="data.health.value" value="{{@root.data.data.health.value}}">
+        </div>
+    </div>
+
+    <div class="attribute">
+        <label class="clickable" for="data.willpower.value">Willpower</label>
+        <div class="maximum-value flex-1">
+            <input type="number" name="data.willpower.maximum" value="{{@root.data.data.willpower.maximum}}" disabled>
+        </div>
+        <div class="current-value flex-1">
+            <input type="number" name="data.willpower.value" value="{{@root.data.data.willpower.value}}">
+        </div>
+    </div>
+
+    <div class="attribute">
+        <label class="clickable" for="data.sanity.value">Sanity</label>
+        <div class="maximum-value flex-1">
+            <input type="number" name="data.sanity.maximum" value="{{@root.data.data.sanity.maximum}}" disabled>
+        </div>
+        <div class="current-value flex-1">
+            <input type="number" name="data.sanity.value" value="{{@root.data.data.sanity.value}}">
+        </div>
+    </div>
 
     <div class="attribute">
         <label class="breaking-point" for="data.sanity.breakingPoint.value">Breaking Point</label>

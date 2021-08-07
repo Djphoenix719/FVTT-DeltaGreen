@@ -23,7 +23,6 @@ export async function registerHandlebarsTemplatesAndPartials() {
     const partials: Record<string, TemplatePath> = {
         'skill-field': 'templates/actor/partials/SkillField.html',
         'stats-field': 'templates/actor/partials/StatsField.html',
-        'attribute': 'templates/actor/partials/Attribute.html',
         'labeled-field': 'templates/actor/partials/LabeledField.html',
         'actor-statistics': 'templates/actor/tabs/Statistics.html',
     };
