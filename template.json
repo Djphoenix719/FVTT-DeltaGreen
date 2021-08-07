@@ -16,6 +16,11 @@
                     "maximum": 10
                 }
             },
+            "luck": {
+                "luck": {
+                    "value": 50
+                }
+            },
             "statistics": {
                 "statistics": {
                     "strength": {
@@ -374,7 +379,7 @@
             }
         },
         "agent": {
-            "templates": ["health", "willpower", "sanity", "statistics", "skills"],
+            "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills"],
             "schemaVersion": "1.0.0",
             "description": {
                 "appearance": {
