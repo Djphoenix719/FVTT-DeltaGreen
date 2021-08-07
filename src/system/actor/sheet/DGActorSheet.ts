@@ -37,14 +37,10 @@ export class DGActorSheet extends ActorSheet {
         return options;
     }
 
-    protected _collapsibles: Record<string, boolean> = {};
-
     public async getData(options?: Application.RenderOptions): Promise<ActorSheet.Data> {
         const renderData = await super.getData(options);
 
         // TODO: Figure out how to type this in FVTT-Types
-        // @ts-ignore
-        renderData.collapsibles = this._collapsibles;
         // @ts-ignore
         renderData.skills = this.actor.allSkills;
         // @ts-ignore
@@ -160,16 +156,6 @@ export class DGActorSheet extends ActorSheet {
             const newBreakingPoint = this.actor.data.data.sanity.value - this.actor.data.data.statistics.power.value;
             await this.actor.update({
                 [`data.sanity.breakingPoint.value`]: newBreakingPoint,
-            });
-        });
-
-        // collapsibles
-        html.find('div.collapsible').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const wrapper = target.next('.collapse-content');
-            const id = wrapper.data('collapse-id') as string;
-            wrapper.toggle('fast', 'swing', () => {
-                this._collapsibles[id] = wrapper.css('display') === 'none';
             });
         });
     }
