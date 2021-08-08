@@ -38,7 +38,7 @@ export interface InputAppOptions<T extends InputAppValue> {
  * Base class for app that uses a select drop down
  * @internal
  */
-export default class InputDialog<T extends InputAppValue> extends Application {
+export class InputDialog<T extends InputAppValue> extends Application {
     // <editor-fold desc="Static Properties">
 
     static get defaultOptions() {

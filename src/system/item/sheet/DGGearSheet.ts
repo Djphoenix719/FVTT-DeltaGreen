@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
+import { ExpenseType } from '../../../types/Constants';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import { ExpenseType } from '../../../types/Item';
 
 export class DGGearSheet extends ItemSheet {
     static get defaultOptions() {

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { DGGearSheet } from './DGGearSheet';
+import { SelectOption } from '../../../types/Sheet';
 import { SYSTEM_NAME } from '../../Constants';
-import { SelectOption } from '../../../types/System';
-import { CoreSkillType } from '../../../types/Actor';
+import { CoreSkillType } from '../../../types/Constants';
+import { DGGearSheet } from './DGGearSheet';
 
 export class DGWeaponSheet extends DGGearSheet {
     public static get defaultOptions() {

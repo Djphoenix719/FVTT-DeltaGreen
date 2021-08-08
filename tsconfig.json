@@ -8,7 +8,7 @@
       "types": [
         "@league-of-foundry-developers/foundry-vtt-types",
         "handlebars",
-        "src/types"
+        "src/types/**/*"
       ],
       "baseUrl": "src/system",
       "moduleResolution": "node",

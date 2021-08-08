@@ -14,10 +14,35 @@
  * limitations under the License.
  */
 
-export enum ExpenseType {
-    Trivial = 'trivial',
-    Standard = 'standard',
-    Unusual = 'unusual',
-    Major = 'major',
-    Extreme = 'extreme',
+import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon } from './Constants';
+
+export type ItemTypeGear = typeof ItemTypeGear;
+export type ItemTypeArmor = typeof ItemTypeArmor;
+export type ItemTypeWeapon = typeof ItemTypeWeapon;
+
+export type ItemType = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon;
+
+/**
+ * Template.json data for items.
+ */
+interface ItemDataSourceData {}
+
+interface ItemDataPropertyData extends ItemDataSourceData {}
+
+interface ItemDataSource {
+    type: ItemType;
+    data: ItemDataSourceData;
+}
+interface ItemDataProperties {
+    type: ItemType;
+    data: ItemDataPropertyData;
+}
+
+declare global {
+    interface SourceConfig {
+        Item: ItemDataSource;
+    }
+    interface DataConfig {
+        Item: ItemDataProperties;
+    }
 }

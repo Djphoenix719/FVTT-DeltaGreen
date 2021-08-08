@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
-export type VersionNumber = `${number}.${number}.${number}`;
+declare global {
+    interface LenientGlobalVariableTypes {
+        game: never;
+        canvas: never;
+        ui: never;
+        i18n: never;
+    }
+}
+export {};

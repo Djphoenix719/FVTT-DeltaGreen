@@ -15,5 +15,15 @@
  */
 
 export class DGItem extends Item {
-
+    // public get skillName(): string {
+    //     try {
+    //         if (this.isOwned) {
+    //             this.data.data
+    //         } else {
+    //
+    //         }
+    //     } catch (e) {
+    //         return "";
+    //     }
+    // }
 }

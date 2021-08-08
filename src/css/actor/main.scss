@@ -39,6 +39,11 @@ div.delta-green.agent {
             }
         }
 
+        input {
+            padding: 0;
+            width: 100%;
+        }
+
         form {
             max-height: 100%;
             overflow-y: hidden;
@@ -160,10 +165,6 @@ div.delta-green.agent {
             }
         }
 
-        > * {
-            padding: 0 3px;
-        }
-
         label {
             text-align: center;
         }
@@ -175,6 +176,45 @@ div.delta-green.agent {
             white-space: nowrap;
             > *:not(:last-child) {
                 padding-right: 3px;
+            }
+        }
+    }
+    div.inventory-group header.section-header:not(:first-of-type) {
+        background: transparent;
+        color: black;
+        border: $field-border-style;
+
+        label:first-of-type {
+            text-align: left;
+        }
+
+        div.header-buttons {
+            position: relative;
+            right: unset;
+            flex-basis: 10%;
+            display: flex;
+
+            label {
+                text-align: right;
+            }
+        }
+    }
+
+    div.inventory-list {
+        div.inventory-item {
+            display: flex;
+
+            div.ammo {
+                text-align: center;
+            }
+
+            label:not(:first-of-type) {
+                text-align: center;
+            }
+
+            div.item-buttons {
+                flex-basis: 10%;
+                text-align: right;
             }
         }
     }
@@ -192,8 +232,6 @@ div.delta-green.agent {
         label {
             flex: 2;
             white-space: nowrap;
-
-            padding: 0 0.25rem;
         }
 
         input[type='number'] {

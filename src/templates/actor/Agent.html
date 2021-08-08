@@ -8,9 +8,9 @@
 
     <nav class="sheet-navigation" data-group="primary">
         <a class="item" data-tab="tab-statistics" title="Statistics">Statistics</a>
-        <a class="item active" data-tab="tab-skills" title="Skills">Skills</a>
+        <a class="item" data-tab="tab-skills" title="Skills">Skills</a>
         <a class="item" data-tab="tab-psychological" title="Psychological">Psychological</a>
-        <a class="item" data-tab="tab-inventory" title="Inventory">Inventory</a>
+        <a class="item active" data-tab="tab-inventory" title="Inventory">Inventory</a>
     </nav>
 
     <section class="sheet-body">
@@ -20,11 +20,11 @@
             {{> systems/delta-green/templates/actor/tabs/Statistics.html }}
         </div>
 
-        <div class="tab tab-skills active" data-group="primary" data-tab="tab-skills">
+        <div class="tab tab-skills" data-group="primary" data-tab="tab-skills">
             {{> systems/delta-green/templates/actor/tabs/SkillsList.html }}
         </div>
 
-        <div class="tab tab-inventory" data-group="primary" data-tab="tab-inventory">
+        <div class="tab tab-inventory active" data-group="primary" data-tab="tab-inventory">
             {{> systems/delta-green/templates/actor/tabs/Inventory.html }}
         </div>
 

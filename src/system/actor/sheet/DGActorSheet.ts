@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+import { ActorSkillType, CustomSkillType, Skill } from '../../../types/Actor';
+import { InputDialog } from '../../dialog/InputDialog';
+import { CoreSkillType, StatisticType } from '../../../types/Constants';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import { ActorSkillType, CoreSkillType, StatisticType, CustomSkillType, Skill } from '../../../types/Actor';
 import { rollPercentile } from '../../Dice';
-import InputDialog from '../../dialog/InputDialog';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -29,7 +30,7 @@ export class DGActorSheet extends ActorSheet {
             {
                 navSelector: 'nav.sheet-navigation',
                 contentSelector: 'section.sheet-body',
-                initial: 'tab-skills',
+                initial: 'tab-inventory',
             },
         ];
         options.width = 800;
@@ -47,6 +48,17 @@ export class DGActorSheet extends ActorSheet {
         renderData.skills.sort((a, b) => {
             return a.label.localeCompare(b.label);
         });
+
+        const weapons = this.actor.items.filter((item) => item.type === 'weapon');
+        const armor = this.actor.items.filter((item) => item.type === 'armor');
+        const gear = this.actor.items.filter((item) => item.type === 'gear');
+
+        // @ts-ignore
+        renderData.weapons = weapons;
+        // @ts-ignore
+        renderData.armor = armor;
+        // @ts-ignore
+        renderData.gear = gear;
 
         console.warn(renderData);
 

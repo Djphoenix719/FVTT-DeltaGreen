@@ -14,10 +14,23 @@
  * limitations under the License.
  */
 
-import { Bounded, Label, Value, VersionNumber } from './Common';
-import { DGActor } from '../system/actor/DGActor';
+import { ActorTypeAgent, AdaptationType, CoreSkillType, StatisticType } from './Constants';
+import { VersionNumber } from './System';
 
-type ActorTypeAgent = 'agent';
+export type ActorTypeAgent = typeof ActorTypeAgent;
+
+export type ActorType = ActorTypeAgent;
+
+interface Value<T> {
+    value: T;
+}
+interface Bounded<T> extends Value<T> {
+    minimum: T;
+    maximum: T;
+}
+interface Label<T extends string> {
+    label: T;
+}
 
 export interface Statistic<T extends StatisticType> extends Value<number>, Label<string> {
     id: T;
@@ -31,63 +44,12 @@ export interface Skill<T extends string> extends Value<number>, Label<string> {
     type: 'core' | 'custom';
 }
 
-export enum StatisticType {
-    Strength = 'strength',
-    Constitution = 'constitution',
-    Dexterity = 'dexterity',
-    Intelligence = 'intelligence',
-    Power = 'power',
-    Charisma = 'charisma',
-}
-
-export enum CoreSkillType {
-    Accounting = 'accounting',
-    Alertness = 'alertness',
-    Anthropology = 'anthropology',
-    Archeology = 'archeology',
-    Artillery = 'artillery',
-    Athletics = 'athletics',
-    Bureaucracy = 'Bureaucracy',
-    computer_science = 'computer_science',
-    Criminology = 'criminology',
-    Demolitions = 'demolitions',
-    Disguise = 'disguise',
-    Dodge = 'dodge',
-    Drive = 'drive',
-    Firearms = 'firearms',
-    FirstAid = 'first_aid',
-    Forensics = 'forensics',
-    HeavyMachinery = 'heavy_machinery',
-    HeavyWeapons = 'heavy_weapons',
-    History = 'history',
-    HumanIntelligence = 'human_intelligence',
-    Law = 'law',
-    Medicine = 'medicine',
-    MeleeWeapons = 'melee_weapons',
-    Navigate = 'navigate',
-    Occult = 'occult',
-    Persuade = 'persuade',
-    Pharmacy = 'pharmacy',
-    Psychotherapy = 'psychotherapy',
-    Ride = 'ride',
-    Search = 'search',
-    SignalIntelligence = 'signal_intelligence',
-    Stealth = 'stealth',
-    Surgery = 'surgery',
-    Survival = 'survival',
-    Swim = 'swim',
-    UnarmedCombat = 'unarmed_combat',
-    Unnatural = 'unnatural',
-}
 export type CustomSkillType = `custom_${number}`;
 export type ActorSkillType = CoreSkillType | CustomSkillType;
 
-export enum AdaptationType {
-    Violence = 'violence',
-    Helplessness = 'helplessness',
-}
-
-// this is the template.json data
+/**
+ * Template.json data for actors.
+ */
 interface AgentDataSourceData {
     schema: VersionNumber;
     health: Bounded<number>;
@@ -123,13 +85,13 @@ interface AgentDataSourceData {
     };
 }
 
-export interface AgentDataPropertiesData extends AgentDataSourceData {}
+interface AgentDataPropertiesData extends AgentDataSourceData {}
 
-export interface AgentDataSource {
+interface AgentDataSource {
     type: ActorTypeAgent;
     data: AgentDataSourceData;
 }
-export interface AgentDataProperties {
+interface AgentDataProperties {
     type: ActorTypeAgent;
     data: AgentDataPropertiesData;
 }

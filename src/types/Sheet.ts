@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-export type VersionNumber = `${number}.${number}.${number}`;
-
-export interface Value<T> {
-    value: T;
-}
-export interface Bounded<T> extends Value<T> {
-    minimum: T;
-    maximum: T;
-}
-export interface Label<T extends string> {
-    label: T;
+/**
+ * Fields required to render a select option in a HTML form.
+ */
+export interface SelectOption {
+    value: string;
+    label: string;
 }
