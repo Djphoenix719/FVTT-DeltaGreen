@@ -23,7 +23,11 @@
 
                     <label class="flex-2 clickable collapse">{{weapon.name}}</label>
 
-                    <label class="flex-1 clickable attack">{{weapon.data.data.skill.value}}</label>
+                    {{#if weapon.data.data.skill.label}}
+                        <label class="flex-1 clickable attack">{{localize weapon.data.data.skill.label}}</label>
+                    {{else}}
+                        <label class="flex-1">—</label>
+                    {{/if}}
 
                     {{#if (gt weapon.data.data.lethality.value 0)}}
                         <label class="clickable lethality flex-1">{{weapon.data.data.lethality.value}}%</label>

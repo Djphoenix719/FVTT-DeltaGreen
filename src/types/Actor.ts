@@ -16,21 +16,11 @@
 
 import { ActorTypeAgent, AdaptationType, CoreSkillType, StatisticType } from './Constants';
 import { VersionNumber } from './System';
+import { Bounded, Label, Value } from './Helpers';
 
 export type ActorTypeAgent = typeof ActorTypeAgent;
 
 export type ActorType = ActorTypeAgent;
-
-interface Value<T> {
-    value: T;
-}
-interface Bounded<T> extends Value<T> {
-    minimum: T;
-    maximum: T;
-}
-interface Label<T extends string> {
-    label: T;
-}
 
 export interface Statistic<T extends StatisticType> extends Value<number>, Label<string> {
     id: T;
@@ -44,8 +34,7 @@ export interface Skill<T extends string> extends Value<number>, Label<string> {
     type: 'core' | 'custom';
 }
 
-export type CustomSkillType = `custom_${number}`;
-export type ActorSkillType = CoreSkillType | CustomSkillType;
+export type ActorSkillType = CoreSkillType | string;
 
 /**
  * Template.json data for actors.
@@ -68,7 +57,7 @@ interface AgentDataSourceData {
             [TSkill in CoreSkillType]: Skill<TSkill>;
         };
         custom: {
-            [skill: string]: Skill<typeof skill>;
+            [TSkill: string]: Skill<typeof TSkill>;
         };
     };
     description: {

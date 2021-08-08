@@ -1,0 +1,63 @@
+{
+    "DG": {
+        "SystemName": "Delta Green",
+        "SKILLS": {
+            "CORE": {
+                "accounting": "Accounting",
+                "alertness": "Alertness",
+                "anthropology": "Anthropology",
+                "archeology": "Archeology",
+                "artillery": "Artillery",
+                "athletics": "Athletics",
+                "bureaucracy": "Bureaucracy",
+                "computer_science": "Computer Science",
+                "criminology": "Criminology",
+                "demolitions": "Demolitions",
+                "disguise": "Disguise",
+                "dodge": "Dodge",
+                "drive": "Drive",
+                "firearms": "Firearms",
+                "first_aid": "First Aid",
+                "forensics": "Forensics",
+                "heavy_machinery": "Heavy Machinery",
+                "heavy_weapons": "Heavy Weapons",
+                "history": "History",
+                "human_intelligence": "HUMINT",
+                "law": "Law",
+                "medicine": "Medicine",
+                "melee_weapons": "Melee Weapons",
+                "navigate": "Navigate",
+                "occult": "Occult",
+                "persuade": "Persuade",
+                "pharmacy": "Pharmacy",
+                "psychotherapy": "Psychotherapy",
+                "ride": "Ride",
+                "search": "Search",
+                "signal_intelligence": "SIGINT",
+                "stealth": "Stealth",
+                "surgery": "Surgery",
+                "survival": "Survival",
+                "swim": "Swim",
+                "unarmed_combat": "Unarmed Combat",
+                "unnatural": "Unnatural"
+            },
+            "CUSTOM": {
+                "AddSkill": "Add Skill"
+            }
+        },
+        "Attributes": {
+            "hitPoints": "Hit Points (HP)",
+            "willpower": "Willpower (WP)",
+            "sanity": "Sanity (SAN)",
+            "breakingPoint": "Breaking Point (BP)",
+            "luck": "Luck",
+
+            "strength": "Strength (STR)",
+            "constitution": "Constitution (CON)",
+            "dexterity": "Dexterity (DEX)",
+            "intelligence": "Intelligence (INT)",
+            "power": "Power (POW)",
+            "charisma": "Charisma (CHA)"
+        }
+    }
+}

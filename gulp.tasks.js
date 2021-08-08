@@ -135,6 +135,7 @@ async function copyAssets() {
     gulp.src('src/templates/**/*').pipe(gulp.dest(path.resolve(destFolder, 'templates')));
     gulp.src('src/packs/**/*').pipe(gulp.dest(path.resolve(destFolder, 'packs')));
     gulp.src('static/**/*').pipe(gulp.dest(path.resolve(destFolder, 'static')));
+    gulp.src('locale/**/*').pipe(gulp.dest(path.resolve(destFolder, 'locale')));
     gulp.src('LICENSE').pipe(gulp.dest(destFolder));
 }
 
@@ -152,6 +153,7 @@ async function watch() {
     watch('src/templates/**/*', 'templates');
     watch('src/packs/**/*', 'packs');
     watch('static/**/*', 'static');
+    watch('locale/**/*', 'locale');
     watch('LICENSE', '');
 
     gulp.watch('src/css/**/*.scss').on('change', async () => await buildSass());

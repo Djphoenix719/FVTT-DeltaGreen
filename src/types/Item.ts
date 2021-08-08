@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon } from './Constants';
+import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon, ExpenseType, CoreSkillType } from './Constants';
+import { Label, Maximum, Value } from './Helpers';
+import { ActorSkillType } from './Actor';
 
 export type ItemTypeGear = typeof ItemTypeGear;
 export type ItemTypeArmor = typeof ItemTypeArmor;
@@ -22,21 +24,61 @@ export type ItemTypeWeapon = typeof ItemTypeWeapon;
 
 export type ItemType = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon;
 
-/**
- * Template.json data for items.
- */
-interface ItemDataSourceData {}
-
-interface ItemDataPropertyData extends ItemDataSourceData {}
-
-interface ItemDataSource {
-    type: ItemType;
-    data: ItemDataSourceData;
+interface GearDataSourceData {
+    expense: Value<ExpenseType>;
+    equipped: Value<boolean>;
+    carried: Value<boolean>;
+    description: Value<string>;
 }
-interface ItemDataProperties {
-    type: ItemType;
-    data: ItemDataPropertyData;
+interface GearDataPropertyData extends GearDataSourceData {}
+
+interface ArmorDataSourceData extends GearDataSourceData {
+    armorRating: Value<number>;
 }
+interface ArmorDataPropertyData extends ArmorDataSourceData {}
+
+interface WeaponDataSourceData extends GearDataSourceData {
+    skill: Value<ActorSkillType>;
+    range: Value<number>;
+    damage: Value<string>;
+    armorPiercing: Value<number>;
+    lethality: Value<number>;
+    killRadius: Value<number>;
+    ammo: Value<number> & Maximum<number>;
+}
+interface WeaponDataPropertyData extends WeaponDataSourceData {
+    skill: Value<ActorSkillType> & Partial<Label<string>>;
+}
+
+interface GearDataSource {
+    type: ItemTypeGear;
+    data: GearDataSourceData;
+}
+interface GearDataProperties {
+    type: ItemTypeGear;
+    data: GearDataPropertyData;
+}
+
+interface ArmorDataSource {
+    type: ItemTypeArmor;
+    data: ArmorDataSourceData;
+}
+interface ArmorDataProperties {
+    type: ItemTypeArmor;
+    data: ArmorDataPropertyData;
+}
+
+interface WeaponDataSource {
+    type: ItemTypeWeapon;
+    data: WeaponDataSourceData;
+}
+interface WeaponDataProperties {
+    type: ItemTypeWeapon;
+    data: WeaponDataPropertyData;
+}
+
+type ItemDataSource = GearDataSource | ArmorDataSource | WeaponDataSource;
+type ItemDataProperties = GearDataProperties | ArmorDataProperties | WeaponDataProperties;
 
 declare global {
     interface SourceConfig {

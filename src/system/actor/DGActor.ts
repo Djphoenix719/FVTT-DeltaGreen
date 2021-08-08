@@ -20,18 +20,32 @@ declare global {
     }
 }
 export class DGActor extends Actor {
-    public get allSkills() {
+    public get skills() {
         return Object.values(mergeObject(duplicate(this.data.data.skills.core), duplicate(this.data.data.skills.custom)));
     }
 
+    /**
+     * Calculate in-the-moment maximum willpower.
+     */
     public get willpowerMax() {
-        return this.data.data.statistics.power.value;
+        let value = 0;
+        value += this.data.data.statistics.power.value;
+        return value;
     }
 
+    /**
+     * Calculate in-the-moment maximum health.
+     */
     public get healthMax() {
-        return Math.ceil((this.data.data.statistics.strength.value + this.data.data.statistics.constitution.value) / 2);
+        let value = 0;
+        value += this.data.data.statistics.strength.value;
+        value += this.data.data.statistics.constitution.value;
+        return Math.ceil(value / 2);
     }
 
+    /**
+     * Calculate in-the-moment maximum sanity.
+     */
     public get sanityMax() {
         return 99 - this.data.data.skills.core.unnatural.value;
     }
@@ -41,8 +55,8 @@ export class DGActor extends Actor {
 
         const data = this.data.data;
 
-        data.willpower.maximum = this.willpowerMax;
         data.health.maximum = this.healthMax;
+        data.willpower.maximum = this.willpowerMax;
         data.sanity.maximum = this.sanityMax;
 
         for (const statistic of Object.values(data.statistics)) {

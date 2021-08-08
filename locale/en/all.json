@@ -1,0 +1,263 @@
+{
+    "DG": {
+        "SystemName": "Delta Green",
+        "AgentNameFieldTooltip": "LAST NAME, FIRST NAME (AND ALIAS IF APPLICABLE)",
+        "RollLuck": "Roll Luck",
+        "Luck": "Luck",
+        "FallbackText": {
+            "ProfessionAndOrRank": "PROFESSION (RANK IF APPLICABLE)"
+        },
+        "Skills": {
+            "accounting": "Accounting",
+            "alertness": "Alertness",
+            "anthropology": "Anthropology",
+            "archeology": "Archeology",
+            "artillery": "Artillery",
+            "athletics": "Athletics",
+            "bureaucracy": "Bureaucracy",
+            "computer_science": "Computer Science",
+            "criminology": "Criminology",
+            "demolitions": "Demolitions",
+            "disguise": "Disguise",
+            "dodge": "Dodge",
+            "drive": "Drive",
+            "firearms": "Firearms",
+            "first_aid": "First Aid",
+            "forensics": "Forensics",
+            "heavy_machiner": "Heavy Machinery",
+            "heavy_weapons": "Heavy Weapons",
+            "history": "History",
+            "humint": "HUMINT",
+            "law": "Law",
+            "medicine": "Medicine",
+            "melee_weapons": "Melee Weapons",
+            "navigate": "Navigate",
+            "occult": "Occult",
+            "persuade": "Persuade",
+            "pharmacy": "Pharmacy",
+            "psychotherapy": "Psychotherapy",
+            "ride": "Ride",
+            "search": "Search",
+            "sigint": "SIGINT",
+            "stealth": "Stealth",
+            "surgery": "Surgery",
+            "survival": "Survival",
+            "swim": "Swim",
+            "unarmed_combat": "Unarmed Combat",
+            "unnatural": "Unnatural",
+            "AddTypedOrCustomSkill": "Add Typed or Custom Skill",
+            "AddSkill": "Add Skill",
+            "SkillGroup": "Skill Group",
+            "SkillName": "Skill Name",
+            "ritual": "Ritual"
+        },
+        "TypeSkills": {
+            "Art": "Art",
+            "Craft": "Craft",
+            "ForeignLanguage": "Foreign Language",
+            "MilitaryScience": "Military Science",
+            "Pilot": "Pilot",
+            "Science": "Science",
+            "Other": "Other",
+            "Subskills": {
+                "Painting": "Painting"
+            }
+        },
+        "Attributes": {
+            "HP": "HP",
+            "WP": "WP",
+            "SAN": "SAN",
+            "str": "STR",
+            "con": "CON",
+            "dex": "DEX",
+            "int": "INT",
+            "pow": "POW",
+            "cha": "CHA"
+        },
+        "Navigation": {
+            "Skills": "Skills",
+            "Physical": "Physical",
+            "Mental": "Mental",
+            "Gear": "Gear",
+            "CV": "C.V.",
+            "Contacts": "Contacts"
+        },
+        "About": {
+            "OnlineHelp": "Open System Documentation on (ONLINE)",
+            "OnlineHelpTooltip": "Launch browser with online GitHub help.",
+            "OnlineBugTracker": "Questions, Bug Reports or Feature Requests (ONLINE)",
+            "OnlineBugTrackerTooltip": "Launch browser with GitHub issue tracker."
+        },
+        "Roll": {
+            "Rolling": "Rolling",
+            "Target": "Target: ",
+            "Success": "Success",
+            "Failure": "Failure",
+            "Critical": "Critical",
+            "Lethality": "Lethality",
+            "Lethal": "Lethal",
+            "For": "For",
+            "Damage": "Damage",
+            "RollingDamageFor": "Rolling DAMAGE for",
+            "Or": "Or",
+            "Roll": "Roll",
+            "Inhuman": "Inhuman"
+        },
+        "Physical": {
+            "Wounds": "Wounds",
+            "FirstAidLabel": "First Aid Has Already Been Attempted: "
+        },
+        "Generic": {
+            "AddButtonLabel": "Add"
+        },
+        "Mental": {
+            "BreakingPoint": "Breaking Point: ",
+            "Reset": "Reset",
+            "SanityLossIncidentsLabel": "Incidents of SAN Loss Without Going Insane",
+            "Violence": "Violence",
+            "Helplessness": "Helplessness",
+            "AdaptedToViolence": "Adapted to Violence",
+            "AdaptedToHelplessness": "Adapted to Helplessness",
+            "Motivations": "Motivations",
+            "Disorders": "Disorders"
+        },
+        "Gear": {
+            "Weapons": "WEAPONS",
+            "Armor": "ARMOR",
+            "OtherGear": "OTHER GEAR",
+            "Name": "Name",
+            "DamageOrLethality": "Damage/Lethality",
+            "ArmorPiercing": "Armor Piercing",
+            "ArmorRating": "Armor Rating",
+            "Equipped": "Equipped",
+            "Expense": {
+                "Incidental": "Incidental",
+                "Standard": "Standard",
+                "Unusual": "Unusual",
+                "Major": "Major",
+                "Extreme": "Extreme"
+            }
+        },
+        "CV": {
+            "Sex": "Sex",
+            "SexPlaceholder": "Sex",
+            "AgeAndDoB": "Age and D.O.B.",
+            "AgeAndDoBPlaceholder": "Age & Date of Birth",
+            "Employer": "Employer",
+            "EmployerPlaceholder": "Employer or Work History",
+            "Nationality": "Nationality",
+            "NationalityPlaceholder": "Nationality",
+            "Education": "Education",
+            "EducationPlaceholder": "Education or Training",
+            "PhysicalDescriptionLabel": "Physical Description/Notes"
+        },
+        "Bonds": {
+            "Bond": "Bond",
+            "Name": "Name",
+            "Score": "Score",
+            "NewBond": "New Bond",
+            "Relationship": "Relationship"
+        },
+        "ItemTypes": {
+            "weapon": "Weapon",
+            "armor": "Armor",
+            "motivation": "Motivation",
+            "bond": "Bond",
+            "gear": "Gear",
+            "NewPrefix": "New "
+        },
+        "Tooltip": {
+            "HP": "Hit points, a character becomes unconsious at 2 HP, and dies at 0 HP.",
+            "MaximumHP": "Maximum health is the average of STR + CON, rounded UP.",
+            "WP": "Willpower Points are mental fuel. Agents require Willpower Points to keep going despite exhaustion or mentally taxing situations.  See page 47 of the Agent's Handbook for more detail.",
+            "MaximumWP": "Maximum WP is equal to POW.",
+            "SanityLabel": "Click to roll a sanity check...",
+            "CurrentSanityPartOne": "Current sanity, current breaking point is ",
+            "CurrentSanityPartTwo": ", click the SAN label above to roll a sanity check.",
+            "MaximumSanity": "Maximum sanity is equal to 99 - the Unnatural skill.",
+            "SkillLabel": "Click to roll a skill check.",
+            "CannotRollSkillLabel": "A skill at 0% cannot be used.  See page 28 of the Agent's Handbook.",
+            "SkillFailCheckbox": "After failing a test on this skill (if proficiency is at least 1%), check this box. At the end of the session, add 1D4 percentage points to the skill and uncheck the box. Does not apply to the Unnatural or Ritual skill.  See page 29 of the Agent's Handbook.",
+            "DistinguishingFeature": "Distinguishing Feature (fill out if score is 13 or higher, or 8 or lower).",
+            "x5AttributeLabel": "Click to roll a x5 check.",
+            "FirstAidAttempted": "Once an agent receives first aid, they cannot benefit from it again until they receive further damage from a different source.",
+            "AdaptedToViolence": "Being adapted to violence means your Agent’s empathy suffers as they come to view violence as nothing but another tool to be wielded. Agent permanently loses 1D6 CHA and the same amount from each of their Bonds.",
+            "AdaptedToHelplessness": "Being adapted to helplessness means your Agent’s personal drive suffers as they pull back from the world around them. As soon as your Agent becomes adapted to helplessness, agent permanently loses 1D6 POW.",
+            "ToggleEquippedState": "Click to toggle whether this item is equipped or not.",
+            "BreakPoint": "The current breaking point, reset when current sanity falls to or below this value.  The starting breaking point is SAN - POW.",
+            "BreakPointReset": "Reset breaking point to be current SAN - WP."
+        },
+        "ItemWindow": {
+            "Bonds": {
+                "Description": "Description/Developments",
+                "ScoreTooltip": "A higher score represents a stronger relationship between the agent and the bond."
+            },
+            "Motivations": {
+                "Attributes": "Attributes",
+                "Motivation": "Motivation",
+                "Description": "Description/Notes",
+                "Disorder": "Disorder",
+                "IsDisorder": "Is Disorder",
+                "MotivationNameTooltip": "Something that drives the character.",
+                "DisorderNameTooltip": "A disorder replaces a motivation after hitting a break point.",
+                "IsDisorderTooltip": "Check this if adding a disorder, or if an existing motivation has been lost due to gaining a disorder.",
+                "DisorderHasBeenCured": "Disorder Has Been \"Cured\"",
+                "DisorderHasBeenCuredTooltip": "A critical success on a therapy luck roll can 'cure' a disorder.  It may return the next time a breaking point is hit however. See the Therapy section on pages 78-79 of the Agent's Handbook."
+            },
+            "Gear": {
+                "Attributes": "Attributes",
+                "Description": "Description",
+                "NamePlaceholder": "Name",
+                "Expense": "Expense",
+                "Equipped": "Equipped"
+            },
+            "Armor": {
+                "Description": "Description",
+                "NamePlaceholder": "Name",
+                "ArmorRating": "Armor Rating",
+                "Expense": "Expense",
+                "Equipped": "Equipped"
+            },
+            "Weapons": {
+                "Description": "Description",
+                "NamePlaceholder": "Name",
+                "Skill": "Skill",
+                "Expense": "Expense",
+                "Damage": "Damage",
+                "Lethality": "Lethality",
+                "IsLethality": "Is Lethal",
+                "LethalityTooltip": "A lethal weapon has a chance to instantly kill a target.  Roll a D100 instead of damage die.  If it is not lethal, damage is dealt instead as if the result was a 2d10 roll, with a '00' on the first d10 equaling a 10.",
+                "IsLethalityTooltip": "Check this if the weapon has a lethality % associated with it.",
+                "ArmorPiercing": "Armor Piercing",
+                "Ammo": "Ammo (Amount/Type)",
+                "Range": "Range",
+                "KillRadius": "Kill Radius"
+            }
+        },
+        "ModifySkillRollDialogue": {
+            "Title": "Modify Roll",
+            "Test": "Test:",
+            "OriginalTarget": "Original Target:",
+            "TargetModifier": "Modify Target (+/-):",
+            "ModifierTooltip": "Give a positive or negative modifier here to add/subtract from the target for the skill check."
+        },
+        "ModifyDamageRollDialogue": {
+            "Weapon": "Weapon:",
+            "OuterModifierTooltip": "Use this field to modify the outer part of the formula, such as to double the result.",
+            "InnerModifierTooltip": "Use this field to add a flat modifier such as '+1' or another dice term such as '+1d4'."
+        },
+        "RollMode": "Roll Mode",
+        "UnnaturalSheet": {
+            "HideUntrainedSkillsLabel": "Hide Untrained Skills",
+            "NotesLabel": "Notes",
+            "ShortDescriptionFallbackText": "Description of creature or creature type",
+            "Tabs": {
+                "NotesTabLabel": "Skills & Notes",
+                "ItemsTabLabel": "Attacks & Abilities"
+            }
+        },
+        "NPCSheet": {
+            "BreakPointAbbreviation": "BP"
+        }
+    }
+}

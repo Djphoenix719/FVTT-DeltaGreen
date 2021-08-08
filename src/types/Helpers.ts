@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-import { getSkillLabel } from '../util/Skill';
-
-declare global {
-    interface DocumentClassConfig {
-        Item: typeof DGItem;
-    }
+export interface Value<T> {
+    value: T;
 }
-export class DGItem extends Item {
-    public prepareData() {
-        super.prepareData();
 
-        if (this.data.type === 'weapon') {
-            this.data.data.skill.label = getSkillLabel(this.data.data.skill.value, this.actor);
-        }
-    }
+export interface Minimum<T> {
+    minimum: T;
+}
+
+export interface Maximum<T> {
+    maximum: T;
+}
+
+export interface Bounded<T> extends Value<T>, Minimum<T>, Maximum<T> {}
+
+export interface Label<T extends string> {
+    label: T;
 }

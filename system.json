@@ -21,7 +21,7 @@
     "gridDistance": 1,
     "gridUnits": "m",
     "primaryTokenAttribute": "health",
-    "secondaryTokenAttribute": "wp",
+    "secondaryTokenAttribute": "willpower",
     "url": "",
     "manifest": "",
     "download": "",

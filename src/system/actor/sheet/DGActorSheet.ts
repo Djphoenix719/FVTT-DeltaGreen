@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ActorSkillType, CustomSkillType, Skill } from '../../../types/Actor';
+import { ActorSkillType, Skill } from '../../../types/Actor';
 import { InputDialog } from '../../dialog/InputDialog';
 import { CoreSkillType, StatisticType } from '../../../types/Constants';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
@@ -43,7 +43,7 @@ export class DGActorSheet extends ActorSheet {
 
         // TODO: Figure out how to type this in FVTT-Types
         // @ts-ignore
-        renderData.skills = this.actor.allSkills;
+        renderData.skills = this.actor.skills;
         // @ts-ignore
         renderData.skills.sort((a, b) => {
             return a.label.localeCompare(b.label);
@@ -91,15 +91,13 @@ export class DGActorSheet extends ActorSheet {
             const skillType = target.data('type') as 'core' | 'custom';
 
             let value: number;
-            let skillId: ActorSkillType;
+            let skillId: ActorSkillType = target.data('skill');
             switch (skillType) {
                 case 'core':
-                    skillId = target.data('skill') as CoreSkillType;
-                    value = this.actor.data.data.skills['core'][skillId].value;
+                    value = this.actor.data.data.skills.core[skillId as CoreSkillType].value;
                     break;
                 case 'custom':
-                    skillId = target.data('skill') as CustomSkillType;
-                    value = this.actor.data.data.skills['custom'][skillId].value;
+                    value = this.actor.data.data.skills.custom[skillId].value;
                     break;
             }
 
@@ -115,7 +113,7 @@ export class DGActorSheet extends ActorSheet {
             const id2Number = (key: string): number => {
                 return parseInt(key.split('_')[1]);
             };
-            const nextFreeId = (skillIds: string[]): CustomSkillType => {
+            const nextFreeId = (skillIds: string[]): string => {
                 const skillIdNumbers = skillIds.map(id2Number);
                 skillIdNumbers.sort((a, b) => a - b);
 
@@ -134,7 +132,7 @@ export class DGActorSheet extends ActorSheet {
                 callback: async (label: string) => {
                     const skillIds = Object.keys(this.actor.data.data.skills.custom);
                     const nextId = nextFreeId(skillIds);
-                    const nextSkill: Skill<CustomSkillType> = {
+                    const nextSkill: Skill<string> = {
                         id: nextId,
                         value: 0,
                         failure: false,
