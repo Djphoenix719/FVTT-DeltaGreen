@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
+import { Skill } from '../../types/Actor';
+import { CoreSkillType } from '../../types/Constants';
+
 declare global {
     interface DocumentClassConfig {
         Actor: typeof DGActor;
     }
 }
 export class DGActor extends Actor {
-    public get skills() {
-        return Object.values(mergeObject(duplicate(this.data.data.skills.core), duplicate(this.data.data.skills.custom)));
-    }
-
     /**
      * Calculate in-the-moment maximum willpower.
      */
@@ -48,6 +47,16 @@ export class DGActor extends Actor {
      */
     public get sanityMax() {
         return 99 - this.data.data.skills.core.unnatural.value;
+    }
+
+    /**
+     * Get an in-the-moment listing of all skills, core and custom.
+     */
+    public get skills() {
+        let values: Skill<CoreSkillType | string>[] = [];
+        values.push(...Object.values(duplicate(this.data.data.skills.core)));
+        values.push(...Object.values(duplicate(this.data.data.skills.custom)));
+        return values;
     }
 
     prepareData() {

@@ -49,16 +49,14 @@ export class DGActorSheet extends ActorSheet {
             return a.label.localeCompare(b.label);
         });
 
-        const weapons = this.actor.items.filter((item) => item.type === 'weapon');
-        const armor = this.actor.items.filter((item) => item.type === 'armor');
-        const gear = this.actor.items.filter((item) => item.type === 'gear');
+        const inventory = {
+            weapons: this.actor.items.filter((item) => item.type === 'weapon'),
+            armor: this.actor.items.filter((item) => item.type === 'armor'),
+            gear: this.actor.items.filter((item) => item.type === 'gear'),
+        };
 
         // @ts-ignore
-        renderData.weapons = weapons;
-        // @ts-ignore
-        renderData.armor = armor;
-        // @ts-ignore
-        renderData.gear = gear;
+        renderData.inventory = inventory;
 
         console.warn(renderData);
 
