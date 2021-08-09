@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-declare global {
-    interface DocumentClassConfig {
-        Item: typeof DGItem;
-    }
-}
-export class DGItem extends Item {
-    public prepareData() {
-        super.prepareData();
+import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+
+export class DGSkillSheet extends ItemSheet {
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        options.template = `systems/${SYSTEM_NAME}/templates/item/Skill.html`;
+        options.classes = options.classes ?? [];
+        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
+        options.width = 500;
+        options.height = 350;
+        return options;
     }
 }

@@ -16,9 +16,7 @@
 
 import { SelectOption } from '../../../types/Sheet';
 import { SYSTEM_NAME } from '../../Constants';
-import { CoreSkillType } from '../../../types/Constants';
 import { DGGearSheet } from './DGGearSheet';
-import { getSkillLabel } from '../../util/Skill';
 
 export class DGWeaponSheet extends DGGearSheet {
     public static get defaultOptions() {
@@ -47,25 +45,25 @@ export class DGWeaponSheet extends DGGearSheet {
                 label: 'None',
             },
         ];
-        if (this.item.isOwned && this.actor) {
-            skills.push(
-                ...this.actor.skills.map((skill) => {
-                    return {
-                        value: skill.id,
-                        label: skill.label,
-                    };
-                }),
-            );
-        } else {
-            skills.push(
-                ...Object.values(CoreSkillType).map((skill) => {
-                    return {
-                        value: skill,
-                        label: getSkillLabel(skill, null) ?? '??',
-                    };
-                }),
-            );
-        }
+        // if (this.item.isOwned && this.actor) {
+        //     skills.push(
+        //         ...this.actor.skills.map((skill) => {
+        //             return {
+        //                 value: skill.id,
+        //                 label: skill.label,
+        //             };
+        //         }),
+        //     );
+        // } else {
+        //     skills.push(
+        //         ...Object.values(CoreSkillType).map((skill) => {
+        //             return {
+        //                 value: skill,
+        //                 label: getSkillLabel(skill, null) ?? '??',
+        //             };
+        //         }),
+        //     );
+        // }
 
         skills.sort((a, b) => a.label.localeCompare(b.label));
 

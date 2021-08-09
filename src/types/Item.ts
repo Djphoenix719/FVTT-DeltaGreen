@@ -14,15 +14,41 @@
  * limitations under the License.
  */
 
-import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon, ExpenseType, CoreSkillType } from './Constants';
+import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon, ExpenseType, ItemTypeSkill } from './Constants';
 import { Label, Maximum, Value } from './Helpers';
 import { ActorSkillType } from './Actor';
 
+export type ItemTypeSkill = typeof ItemTypeSkill;
 export type ItemTypeGear = typeof ItemTypeGear;
 export type ItemTypeArmor = typeof ItemTypeArmor;
 export type ItemTypeWeapon = typeof ItemTypeWeapon;
 
-export type ItemType = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon;
+export type ItemType = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon | ItemTypeSkill;
+
+/*********************
+ SKILL DATA & PROPERTIES
+ *********************/
+
+interface SkillDataSourceData {
+    group: string;
+    failureImproves: boolean;
+    sessionFailure: boolean;
+    canDelete: boolean;
+}
+interface SkillDataPropertyData extends SkillDataSourceData {}
+
+interface SkillDataSource {
+    type: ItemTypeSkill;
+    data: SkillDataSourceData;
+}
+interface SkillDataProperties {
+    type: ItemTypeSkill;
+    data: SkillDataPropertyData;
+}
+
+/*********************
+ GEAR DATA & PROPERTIES
+ *********************/
 
 interface GearDataSourceData {
     expense: Value<ExpenseType>;
@@ -77,8 +103,8 @@ interface WeaponDataProperties {
     data: WeaponDataPropertyData;
 }
 
-type ItemDataSource = GearDataSource | ArmorDataSource | WeaponDataSource;
-type ItemDataProperties = GearDataProperties | ArmorDataProperties | WeaponDataProperties;
+type ItemDataSource = GearDataSource | ArmorDataSource | WeaponDataSource | SkillDataSource;
+type ItemDataProperties = GearDataProperties | ArmorDataProperties | WeaponDataProperties | SkillDataProperties;
 
 declare global {
     interface SourceConfig {

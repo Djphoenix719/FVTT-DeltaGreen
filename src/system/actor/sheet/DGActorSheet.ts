@@ -16,9 +16,9 @@
 
 import { ActorSkillType, Skill } from '../../../types/Actor';
 import { InputDialog } from '../../dialog/InputDialog';
-import { CoreSkillType, StatisticType } from '../../../types/Constants';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import { rollPercentile } from '../../Dice';
+import { ItemTypeSkill, NEW_SKILL_DEFAULTS } from '../../../types/Constants';
+import { DGItem } from '../../item/DGItem';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -45,8 +45,8 @@ export class DGActorSheet extends ActorSheet {
         // @ts-ignore
         renderData.skills = this.actor.skills;
         // @ts-ignore
-        renderData.skills.sort((a, b) => {
-            return a.label.localeCompare(b.label);
+        renderData.skills.sort((a: DGItem, b: DGItem) => {
+            return a.data.name.localeCompare(b.data.name);
         });
 
         // @ts-ignore
@@ -86,43 +86,16 @@ export class DGActorSheet extends ActorSheet {
 
         html.find('label.clickable.add-skill').on('click', async (event) => {
             preprocessEvent(event);
-            const id2Number = (key: string): number => {
-                return parseInt(key.split('_')[1]);
-            };
-            const nextFreeId = (skillIds: string[]): string => {
-                const skillIdNumbers = skillIds.map(id2Number);
-                skillIdNumbers.sort((a, b) => a - b);
-
-                for (let i = 0; i < skillIdNumbers.length; i++) {
-                    if (skillIdNumbers[i] !== i) {
-                        return `custom_${i}`;
-                    }
-                }
-                return `custom_${skillIdNumbers.length}`;
-            };
-
-            const dialog = new InputDialog<string>({
-                value: 'New Skill',
-                title: 'New Skill',
-                label: 'Skill Name',
-                callback: async (label: string) => {
-                    const skillIds = Object.keys(this.actor.data.data.skills.custom);
-                    const nextId = nextFreeId(skillIds);
-                    const nextSkill: Skill<string> = {
-                        id: nextId,
-                        value: 0,
-                        failure: false,
-                        delete: true,
-                        type: 'custom',
-                        label,
-                    };
-
-                    await this.actor.update({
-                        [`data.skills.custom.${nextId}`]: nextSkill,
-                    });
+            await this.actor.createEmbeddedDocuments('Item', [
+                {
+                    id: foundry.utils.randomID(16),
+                    type: ItemTypeSkill,
+                    name: NEW_SKILL_DEFAULTS.name,
+                    data: {
+                        ...NEW_SKILL_DEFAULTS.data,
+                    },
                 },
-            });
-            dialog.render(true);
+            ]);
         });
 
         html.find('div.skill-field label.clickable.delete').on('click', async (event) => {

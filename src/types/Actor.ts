@@ -52,14 +52,6 @@ interface AgentDataSourceData {
     statistics: {
         [TType in StatisticType]: Statistic<TType>;
     };
-    skills: {
-        core: {
-            [TSkill in CoreSkillType]: Skill<TSkill>;
-        };
-        custom: {
-            [TSkill: string]: Skill<typeof TSkill>;
-        };
-    };
     description: {
         appearance: Value<string>;
         wounds: Value<string>;

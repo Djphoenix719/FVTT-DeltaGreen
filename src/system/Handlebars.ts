@@ -21,7 +21,6 @@ export async function registerHandlebarsTemplatesAndPartials() {
     const templatePath = (relative: TemplatePath) => `systems/${SYSTEM_NAME}/${relative}`;
 
     const partials: Record<string, TemplatePath> = {
-        'skill-field': 'templates/actor/partials/SkillField.html',
         'stats-field': 'templates/actor/partials/StatsField.html',
         'labeled-field': 'templates/actor/partials/LabeledField.html',
         'actor-statistics': 'templates/actor/tabs/Statistics.html',

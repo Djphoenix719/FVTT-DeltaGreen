@@ -22,9 +22,11 @@ import { DGItem } from './item/DGItem';
 import { DGGearSheet } from './item/sheet/DGGearSheet';
 import { DGArmorSheet } from './item/sheet/DGArmorSheet';
 import { DGWeaponSheet } from './item/sheet/DGWeaponSheet';
+import { DGSkillSheet } from './item/sheet/DGSkillSheet';
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
+
     Actors.registerSheet(SYSTEM_NAME, DGActorSheet, {
         label: 'Agent',
         types: ['agent'],
@@ -35,6 +37,7 @@ function registerActorClasses() {
 }
 function registerItemClasses() {
     Items.unregisterSheet('core', ItemSheet);
+
     Items.registerSheet(SYSTEM_NAME, DGGearSheet, {
         label: 'Gear',
         types: ['gear'],
@@ -50,6 +53,12 @@ function registerItemClasses() {
     Items.registerSheet(SYSTEM_NAME, DGWeaponSheet, {
         label: 'Weapon',
         types: ['weapon'],
+        makeDefault: true,
+    });
+
+    Items.registerSheet(SYSTEM_NAME, DGSkillSheet, {
+        label: 'Skill',
+        types: ['skill'],
         makeDefault: true,
     });
 
@@ -121,3 +130,5 @@ Hooks.on('ready', async () => {
         // await game.items?.getName('Test Gear')?.sheet?.render(true);
     }, 250);
 });
+
+CONFIG.debug.hooks = true;

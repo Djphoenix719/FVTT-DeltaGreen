@@ -14,14 +14,25 @@
  * limitations under the License.
  */
 
-import { Skill } from '../../types/Actor';
-import { CoreSkillType } from '../../types/Constants';
+import { DEFAULT_SKILLS_DEFINITION, ItemTypeSkill } from '../../types/Constants';
 
 declare global {
     interface DocumentClassConfig {
         Actor: typeof DGActor;
     }
 }
+
+type PreCreateActorOptions = {
+    temporary: boolean;
+    renderSheet: boolean;
+    render: boolean;
+};
+Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: string) =>
+    actor.data.update({
+        items: DEFAULT_SKILLS_DEFINITION,
+    }),
+);
+
 export class DGActor extends Actor {
     /**
      * Calculate in-the-moment maximum willpower.
@@ -46,17 +57,15 @@ export class DGActor extends Actor {
      * Calculate in-the-moment maximum sanity.
      */
     public get sanityMax() {
-        return 99 - this.data.data.skills.core.unnatural.value;
+        return 99;
+        // return 99 - this.data.data.skills.core.unnatural.value;
     }
 
     /**
      * Get an in-the-moment listing of all skills, core and custom.
      */
     public get skills() {
-        let values: Skill<CoreSkillType | string>[] = [];
-        values.push(...Object.values(duplicate(this.data.data.skills.core)));
-        values.push(...Object.values(duplicate(this.data.data.skills.custom)));
-        return values;
+        return this.items.filter((item) => item.type === ItemTypeSkill);
     }
 
     prepareData() {
