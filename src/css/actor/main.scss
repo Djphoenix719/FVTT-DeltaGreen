@@ -148,9 +148,14 @@ div.delta-green.agent {
             div.breaking-point {
                 display: flex;
                 flex-direction: row;
+
+                div.labeled-field:first-child {
+                    border-right: $field-border-style;
+                }
+
                 label.clickable.reset {
                     position: absolute;
-                    padding: 0.25rem;
+                    padding-right: 0.25rem;
                     right: 0;
                     left: unset;
                     color: black;
@@ -165,15 +170,6 @@ div.delta-green.agent {
                     height: 26px;
                     line-height: 26px;
                 }
-            }
-        }
-
-        div.sanity {
-            display: flex;
-            flex-direction: row;
-
-            input {
-                width: unset;
             }
         }
     }
