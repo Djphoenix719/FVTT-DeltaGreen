@@ -49,14 +49,12 @@ export class DGActorSheet extends ActorSheet {
             return a.label.localeCompare(b.label);
         });
 
-        const inventory = {
+        // @ts-ignore
+        renderData.inventory = {
             weapons: this.actor.items.filter((item) => item.type === 'weapon'),
             armor: this.actor.items.filter((item) => item.type === 'armor'),
             gear: this.actor.items.filter((item) => item.type === 'gear'),
         };
-
-        // @ts-ignore
-        renderData.inventory = inventory;
 
         console.warn(renderData);
 
@@ -72,38 +70,18 @@ export class DGActorSheet extends ActorSheet {
             return $(event.currentTarget);
         };
 
-        html.find('label.clickable.statistic-roll').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const statisticId = target.data('statistic') as StatisticType;
+        html.find('label.clickable.roll').on('click', async (event) => {
+            const domTarget = preprocessEvent(event);
+            const valuePath = domTarget.data('roll') as string;
+            const valueMultiple = parseInt(domTarget.data('multiple') ?? '1');
 
-            const value = this.actor.data.data.statistics[statisticId].value * 5;
-            const result = await rollPercentile(value);
-
-            // TODO: Nicely formatted chat card
-            await result.roll.toMessage();
-            console.warn(result);
-        });
-
-        html.find('label.clickable.skill-roll').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const skillType = target.data('type') as 'core' | 'custom';
-
-            let value: number;
-            let skillId: ActorSkillType = target.data('skill');
-            switch (skillType) {
-                case 'core':
-                    value = this.actor.data.data.skills.core[skillId as CoreSkillType].value;
-                    break;
-                case 'custom':
-                    value = this.actor.data.data.skills.custom[skillId].value;
-                    break;
-            }
-
-            const result = await rollPercentile(value);
+            // TODO: THIS AND ROLL CARD + FINISH REFACTORING THE ROLL HTML
+            // const value = this.actor.data.data.statistics[].value * 5;
+            // const result = await rollPercentile(value);
 
             // TODO: Nicely formatted chat card
-            await result.roll.toMessage();
-            console.warn(result);
+            // await result.roll.toMessage();
+            // console.warn(result);
         });
 
         html.find('label.clickable.add-skill').on('click', async (event) => {
