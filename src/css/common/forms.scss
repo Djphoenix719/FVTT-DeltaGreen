@@ -49,6 +49,15 @@ div.delta-green {
         }
     }
 
+    *.flex-row {
+        display: flex;
+        flex-direction: row;
+    }
+    *.flex-col {
+        display: flex;
+        flex-direction: column;
+    }
+
     div.field-group,
     div.labeled-field {
         flex: 1;

@@ -1,62 +1,73 @@
 <section class="attributes">
-    <header class="section-header">
-        <label class="header-label flex-2">Derived Attributes</label>
-        <div class="maximum-value flex-1">
-            <label class="header-label">Maximum</label>
-        </div>
-        <div class="current-value flex-1">
-            <label class="header-label">Current</label>
-        </div>
-    </header>
 
-    <div class="attribute">
-        <label for="data.health.value">Hit Points</label>
-        <div class="maximum-value flex-1">
-            <input type="number" name="data.health.maximum" value="{{@root.data.data.health.maximum}}" disabled>
-        </div>
-        <div class="current-value flex-1">
-            <input type="number" name="data.health.value" value="{{@root.data.data.health.value}}">
+    <div class="attribute flex-1">
+        <label class="icon"><i class="fas fa-heartbeat"></i></label>
+        <div class="attribute-inputs">
+
+            <div class="labeled-field">
+                <label for="data.health.value">{{localize "DG.ATTRIBUTES.current"}}</label>
+                <input type="number" name="data.health.value" value="{{@root.data.data.health.value}}">
+            </div>
+
+            <div class="labeled-field">
+                <label for="data.health.value">{{localize "DG.ATTRIBUTES.maximum"}}</label>
+                <input type="number" name="data.health.maximum" value="{{@root.data.data.health.maximum}}" disabled>
+            </div>
+
         </div>
     </div>
 
-    <div class="attribute">
-        <label for="data.willpower.value">Willpower</label>
-        <div class="maximum-value flex-1">
-            <input type="number" name="data.willpower.maximum" value="{{@root.data.data.willpower.maximum}}" disabled>
-        </div>
-        <div class="current-value flex-1">
-            <input type="number" name="data.willpower.value" value="{{@root.data.data.willpower.value}}">
+    <div class="attribute flex-1">
+        <label class="icon"><i class="fas fa-battery-full"></i></label>
+        <div class="attribute-inputs">
+
+            <div class="labeled-field">
+                <label for="data.willpower.value">{{localize "DG.ATTRIBUTES.current"}}</label>
+                <input type="number" name="data.willpower.value" value="{{@root.data.data.willpower.value}}">
+            </div>
+
+            <div class="labeled-field">
+                <label for="data.willpower.value">{{localize "DG.ATTRIBUTES.maximum"}}</label>
+                <input type="number" name="data.willpower.maximum" value="{{@root.data.data.willpower.maximum}}" disabled>
+            </div>
+
         </div>
     </div>
 
-    <div class="attribute">
-        <label class="clickable roll" for="data.sanity.value">Sanity</label>
-        <div class="maximum-value flex-1">
-            <input type="number" name="data.sanity.maximum" value="{{@root.data.data.sanity.maximum}}" disabled>
-        </div>
-        <div class="current-value flex-1">
-            <input type="number" name="data.sanity.value" value="{{@root.data.data.sanity.value}}">
+    <div class="attribute flex-2">
+        <label class="icon clickable roll"><i class="fas fa-brain"></i></label>
+        <div class="attribute-inputs">
+
+            <div class="breaking-point flex-1">
+                <div class="labeled-field">
+                    <label for="data.sanity.value">{{localize "DG.ATTRIBUTES.current"}}</label>
+                    <input type="number" name="data.sanity.value" value="{{@root.data.data.sanity.value}}">
+                </div>
+
+                <div class="labeled-field">
+                    <label for="data.sanity.breakingPoint.value">{{localize "DG.ATTRIBUTES.breakingPoint"}}</label>
+                    <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
+                    <label class="clickable reset"><i class="fas fa-redo-alt"></i></label>
+                </div>
+            </div>
+
+            <div class="labeled-field">
+                <label for="data.sanity.value">{{localize "DG.ATTRIBUTES.maximum"}}</label>
+                <input type="number" name="data.sanity.maximum" value="{{@root.data.data.sanity.maximum}}" disabled>
+            </div>
+
         </div>
     </div>
 
-    <div class="attribute">
-        <label class="breaking-point" for="data.sanity.breakingPoint.value">Breaking Point</label>
-        <div class="maximum-value flex-1">
-            <input type="text" value="N/A" disabled>
-        </div>
-        <div class="current-value flex-1 breaking-point">
-            <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
-            <label class="clickable reset"><i class="fas fa-redo-alt"></i></label>
-        </div>
-    </div>
+    <div class="attribute flex-1">
+        <label class="icon clickable roll" for="data.luck.value"><i class="fas fa-dice"></i></label>
+        <div class="attribute-inputs luck">
 
-    <div class="attribute">
-        <label class="clickable roll" for="data.luck.value">Luck</label>
-        <div class="maximum-value flex-1">
-            <input type="text" value="N/A" disabled>
-        </div>
-        <div class="current-value flex-1">
-            <input type="number" name="data.luck.value" value="{{@root.data.data.luck.value}}">
+            <div class="labeled-field">
+                <label for="data.luck.value">Luck</label>
+                <input type="number" name="data.luck.value" value="{{@root.data.data.luck.value}}">
+            </div>
+
         </div>
     </div>
 

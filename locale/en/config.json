@@ -45,11 +45,10 @@
                 "AddSkill": "Add Skill"
             }
         },
-        "Attributes": {
+        "ATTRIBUTES": {
             "hitPoints": "Hit Points (HP)",
             "willpower": "Willpower (WP)",
             "sanity": "Sanity (SAN)",
-            "breakingPoint": "Breaking Point (BP)",
             "luck": "Luck",
 
             "strength": "Strength (STR)",
@@ -57,7 +56,11 @@
             "dexterity": "Dexterity (DEX)",
             "intelligence": "Intelligence (INT)",
             "power": "Power (POW)",
-            "charisma": "Charisma (CHA)"
+            "charisma": "Charisma (CHA)",
+
+            "current": "Cur.",
+            "maximum": "Max.",
+            "breakingPoint": "B. P."
         }
     }
 }

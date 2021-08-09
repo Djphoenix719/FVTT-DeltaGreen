@@ -86,7 +86,6 @@ div.delta-green.agent {
         }
     }
 
-    section.attributes > div,
     section.skills-list > div {
         display: flex;
         align-items: center;
@@ -99,35 +98,84 @@ div.delta-green.agent {
         }
     }
 
-    section.attributes div.attribute {
-        label {
-            flex: 2;
-            white-space: nowrap;
+    section.attributes {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0.5rem;
+        border-right: $field-border-style;
 
-            padding: 0 0.25rem;
-        }
+        label.icon {
+            padding: 0 0.5rem;
+            height: 100%;
+            line-height: 52px;
 
-        div.maximum-value {
             border-left: $field-border-style;
-        }
-        div.current-value {
-            border-left: $field-border-style;
-        }
-
-        input {
-            text-align: center;
+            border-right: $field-border-style;
+            border-bottom: $field-border-style;
         }
 
-        div.breaking-point {
-            position: relative;
-            label {
-                padding: 0.25rem;
-                position: absolute;
-                right: 0;
-                height: 100%;
+        div.attribute {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+
+            div.attribute-inputs {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                &.luck {
+                    height: 100%;
+                    input,
+                    label {
+                        height: 100%;
+                        line-height: 52px;
+                    }
+                }
+            }
+
+            input {
+                text-align: center;
+            }
+
+            > label {
+                font-size: 200%;
+            }
+
+            div.breaking-point {
+                display: flex;
+                flex-direction: row;
+                label.clickable.reset {
+                    position: absolute;
+                    padding: 0.25rem;
+                    right: 0;
+                    left: unset;
+                    color: black;
+                    pointer-events: all;
+                }
+            }
+
+            div.labeled-field {
+                border-bottom: $field-border-style;
+                label {
+                    left: 3px;
+                    height: 26px;
+                    line-height: 26px;
+                }
+            }
+        }
+
+        div.sanity {
+            display: flex;
+            flex-direction: row;
+
+            input {
+                width: unset;
             }
         }
     }
+
     section.skills-list div.skill-field {
         label {
             flex-grow: 1;
@@ -179,6 +227,7 @@ div.delta-green.agent {
             }
         }
     }
+
     div.inventory-group header.section-header:not(:first-of-type) {
         background: transparent;
         color: black;
