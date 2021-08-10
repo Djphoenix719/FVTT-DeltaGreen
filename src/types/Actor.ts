@@ -46,7 +46,10 @@ interface AgentDataSourceData {
     sanity: Bounded<number> & {
         breakingPoint: Value<number>;
         adaptations: {
-            [TType in AdaptationType]: boolean[];
+            [TType in AdaptationType]: {
+                adapted: boolean;
+                value: boolean[];
+            };
         };
     };
     luck: Value<number>;

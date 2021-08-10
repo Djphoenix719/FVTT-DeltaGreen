@@ -1,7 +1,30 @@
-<div class="bonds"></div>
+<div class="incidents">
+    <header class="center-header">
+        <label>Adaptations</label>
+    </header>
+    <div class="adaptations">
+        <div class="adaptation">
+            <label {{#if @root.data.data.sanity.adaptations.violence.adapted}}class="crossed"{{/if}}>Violence</label>
+            {{#each @root.data.data.sanity.adaptations.violence.value as |value index|}}
+                <input type="checkbox" data-type="violence" data-index="{{index}}" {{checked value}}>
+            {{/each}}
+        </div>
+        <div class="adaptation">
+            <label {{#if @root.data.data.sanity.adaptations.helplessness.adapted}}class="crossed"{{/if}}>Helplessness</label>
+            {{#each @root.data.data.sanity.adaptations.helplessness.value as |value index|}}
+                <input type="checkbox" data-type="helplessness" data-index="{{index}}" {{checked value}}>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<div class="bonds">
+    <header class="center-header">
+        <label>Bonds</label>
+    </header>
+
+</div>
 
 <div class="motivations"></div>
 
 <div class="disorders"></div>
-
-<div class="incidents"></div>

@@ -16,6 +16,7 @@
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import {
+    AdaptationType,
     DEFAULT_ARMOR_NAME,
     DEFAULT_GEAR_NAME,
     DEFAULT_WEAPON_NAME,
@@ -28,6 +29,7 @@ import {
 } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
 import { rollPercentile } from '../../Dice';
+import { data } from 'jquery';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -39,7 +41,7 @@ export class DGActorSheet extends ActorSheet {
             {
                 navSelector: 'nav.sheet-navigation',
                 contentSelector: 'section.sheet-body',
-                initial: 'tab-inventory',
+                initial: 'tab-psychological',
             },
         ];
         options.width = 800;
@@ -298,6 +300,27 @@ export class DGActorSheet extends ActorSheet {
         html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
             preprocessEvent(event);
             await basicRoll(this.actor.data.data.sanity.value, 'Sanity');
+        });
+        // Sanity: Adaptations
+        html.find('div.adaptations input[type="checkbox"]').on('change', async (event) => {
+            event.stopPropagation();
+            const target: JQuery<HTMLInputElement> = $(event.currentTarget) as JQuery<HTMLInputElement>;
+            const index = parseInt(target.data('index') as string);
+            const value = target.prop('checked') as boolean;
+            const type = target.data('type') as AdaptationType;
+
+            const values = this.actor.data.data.sanity.adaptations[type].value;
+            values[index] = value;
+
+            await this.actor.update({
+                [`data.sanity.adaptations.${type}.value`]: values,
+            });
+
+            if (value) {
+                target.prop('checked', true);
+            } else {
+                target.removeProp('checked');
+            }
         });
 
         // Luck: Roll luck

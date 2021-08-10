@@ -118,5 +118,9 @@ export class DGActor extends Actor {
         for (const statistic of Object.values(data.statistics)) {
             data.statistics[statistic.id].percentile = statistic.value * 5;
         }
+
+        for (const adaptation of Object.values(data.sanity.adaptations)) {
+            adaptation.adapted = !adaptation.value.some((value) => !value);
+        }
     }
 }

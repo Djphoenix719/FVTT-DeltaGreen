@@ -70,8 +70,14 @@
                         "value": 0
                     },
                     "adaptations": {
-                        "violence": [false, false, false],
-                        "helplessness": [false, false, false]
+                        "violence": {
+                            "adapted": false,
+                            "value": [false, false, false]
+                        },
+                        "helplessness": {
+                            "adapted": false,
+                            "value": [false, false, false]
+                        }
                     }
                 }
             }
@@ -185,14 +191,13 @@
             "extreme": 0
         },
         "motivation": {
-            "templates": ["base"],
-            "disorder": "",
-            "crossedOut": false,
-            "disorderCured": false
+            "templates": ["description"]
         },
         "bond": {
-            "templates": ["base"],
-            "score": 10,
+            "templates": ["description"],
+            "score": {
+                "value": 0
+            },
             "relationship": ""
         }
     }

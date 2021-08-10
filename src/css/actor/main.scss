@@ -293,4 +293,22 @@ div.delta-green.agent section.window-content {
             margin-top: 0.25rem;
         }
     }
+
+    div.tab-psychological {
+        div.incidents {
+            div.adaptation {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex: 1;
+
+                label {
+                    flex-basis: 15%;
+                }
+                label.crossed {
+                    text-decoration: line-through;
+                }
+            }
+        }
+    }
 }
