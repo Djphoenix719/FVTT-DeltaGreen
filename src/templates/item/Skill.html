@@ -7,11 +7,27 @@
             <input type="text" name="name" value="{{@root.item.name}}">
         </div>
 
+        <div class="labeled-field">
+            <label for="data.group">Skill Group</label>
+            <input type="text" name="data.group" value="{{@root.data.data.group}}">
+        </div>
 
         <div class="labeled-field">
-            <label for="data.group.value">Gear Name</label>
-            <input type="text" name="name" value="{{@root.item.name}}">
+            <label for="data.value">Value</label>
+            <input type="number" min="0" max="99" name="data.value" value="{{@root.data.data.value}}">
         </div>
+
+        <div class="labeled-field">
+            <label for="data.failureImproves">Failure Improves?</label>
+            <input type="checkbox" name="data.failureImproves" {{checked @root.data.data.failureImproves}}>
+        </div>
+
+        {{#if @root.data.data.failureImproves}}
+            <div class="labeled-field">
+                <label for="data.sessionFailure">Failed This Session?</label>
+                <input type="checkbox" name="data.sessionFailure" {{checked @root.data.data.sessionFailure}}>
+            </div>
+        {{/if}}
 
     </section>
 

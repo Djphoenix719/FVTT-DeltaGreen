@@ -15,7 +15,6 @@
  */
 
 import { ActorSkillType, Skill } from '../../../types/Actor';
-import { InputDialog } from '../../dialog/InputDialog';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import { ItemTypeSkill, NEW_SKILL_DEFAULTS } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
@@ -70,7 +69,7 @@ export class DGActorSheet extends ActorSheet {
             return $(event.currentTarget);
         };
 
-        // Skill Updates
+        // Skill: Update failures
         html.find('div.skills-item input.failure').on('change', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.skills-item').data('id') as string;
@@ -84,6 +83,7 @@ export class DGActorSheet extends ActorSheet {
                 },
             ]);
         });
+        // Skill: Update values
         html.find('div.skills-item input.value').on('change', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.skills-item').data('id') as string;
@@ -96,6 +96,36 @@ export class DGActorSheet extends ActorSheet {
                     },
                 },
             ]);
+        });
+        // Skill: Add new skill
+        html.find('label.clickable.add-skill').on('click', async (event) => {
+            preprocessEvent(event);
+            await this.actor.createEmbeddedDocuments('Item', [
+                {
+                    id: foundry.utils.randomID(16),
+                    type: ItemTypeSkill,
+                    name: NEW_SKILL_DEFAULTS.name,
+                    data: {
+                        ...NEW_SKILL_DEFAULTS.data,
+                    },
+                },
+            ]);
+        });
+        // Skill: Open edit windows
+        html.find('div.skills-item label.edit').on('click', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.skills-item').data('id') as string;
+            const item: DGItem = (await this.actor.getEmbeddedDocument('Item', id)) as DGItem;
+            if (item && item.sheet) {
+                item.sheet.render(true);
+            }
+        });
+        // Skill: Delete skill
+        html.find('div.skills-item label.delete').on('click', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.skills-item').data('id') as string;
+            console.warn(id);
+            await this.actor.deleteEmbeddedDocuments('Item', [id]);
         });
 
         html.find('label.clickable.roll').on('click', async (event) => {
@@ -110,32 +140,6 @@ export class DGActorSheet extends ActorSheet {
             // TODO: Nicely formatted chat card
             // await result.roll.toMessage();
             // console.warn(result);
-        });
-
-        html.find('label.clickable.add-skill').on('click', async (event) => {
-            preprocessEvent(event);
-            await this.actor.createEmbeddedDocuments('Item', [
-                {
-                    id: foundry.utils.randomID(16),
-                    type: ItemTypeSkill,
-                    name: NEW_SKILL_DEFAULTS.name,
-                    data: {
-                        ...NEW_SKILL_DEFAULTS.data,
-                    },
-                },
-            ]);
-        });
-
-        html.find('div.skill-field label.clickable.delete').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const dataTarget = target.closest('div.skill-field');
-            const confirm = await Dialog.confirm();
-            const skillId = dataTarget.data('skill-id') as ActorSkillType;
-            if (confirm) {
-                await this.actor.update({
-                    [`data.skills.custom.-=${skillId}`]: null,
-                });
-            }
         });
 
         html.find('div.breaking-point label.reset').on('click', async (event) => {

@@ -137,7 +137,7 @@
         },
         "skill": {
             "label": "New Skill",
-            "group": "",
+            "group": "Default Skill Group",
             "failureImproves": true,
             "sessionFailure": false,
             "canDelete": true

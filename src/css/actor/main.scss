@@ -190,6 +190,10 @@ div.delta-green.agent section.window-content {
             flex-direction: row;
             align-items: center;
 
+            border-left: $field-border-style;
+            border-right: $field-border-style;
+            border-bottom: $field-border-style;
+
             input.value {
                 text-align: center;
                 border-left: $field-border-style;

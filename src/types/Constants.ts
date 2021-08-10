@@ -90,7 +90,7 @@ export const NEW_SKILL_DEFAULTS: Omit<SkillDefinition, '_id'> = {
     type: 'skill',
     data: {
         value: 0,
-        group: '',
+        group: 'Default Skill Group',
         failureImproves: true,
         sessionFailure: false,
         canDelete: true,
@@ -104,7 +104,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -116,7 +116,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 20,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -128,7 +128,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 30,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -140,7 +140,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -152,7 +152,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -164,7 +164,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -176,7 +176,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 30,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -188,7 +188,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 20,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -200,7 +200,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 20,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -212,7 +212,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -224,7 +224,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -236,7 +236,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -248,7 +248,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -260,7 +260,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 30,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -272,7 +272,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -284,7 +284,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -296,7 +296,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 20,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -308,7 +308,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -320,7 +320,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -332,7 +332,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 20,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -344,7 +344,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -356,7 +356,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 10,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -368,7 +368,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 20,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -380,7 +380,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 40,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -392,7 +392,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         type: 'skill',
         data: {
             value: 0,
-            group: '',
+            group: 'Default Skill Group',
             failureImproves: false,
             sessionFailure: false,
             canDelete: false,

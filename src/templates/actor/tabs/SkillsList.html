@@ -11,7 +11,11 @@
     <div class="skills-group">
         {{#each skills as |skill|}}
             <div class="skills-item" data-id="{{skill.id}}">
-                <input class="failure" type="checkbox" {{checked skill.data.data.sessionFailure}}>
+                {{#if skill.data.data.failureImproves}}
+                    <input class="failure" type="checkbox" {{checked skill.data.data.sessionFailure}}>
+                {{else}}
+                    <input class="failure" type="checkbox" disabled>
+                {{/if}}
                 <label class="flex-4 name clickable">{{skill.data.name}}</label>
                 <input class="flex-1 value" type="number" min="0" max="99" value="{{skill.data.data.value}}">
                 <div class="item-buttons">
