@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
+import { ItemTypeWeapon } from '../../types/Constants';
+
 declare global {
     interface DocumentClassConfig {
         Item: typeof DGItem;
     }
 }
-export class DGItem extends Item {
-    public prepareData() {
-        super.prepareData();
-    }
-}
+export class DGItem extends Item {}

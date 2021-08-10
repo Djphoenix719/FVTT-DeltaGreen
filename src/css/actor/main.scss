@@ -251,13 +251,40 @@ div.delta-green.agent section.window-content {
         div.inventory-list {
             div.inventory-item {
                 display: flex;
+                flex-direction: column;
 
-                div.ammo {
-                    text-align: center;
+                border-left: $field-border-style;
+                border-right: $field-border-style;
+                border-bottom: $field-border-style;
+
+                div.data {
+                    display: flex;
+                    flex-direction: row;
+
+                    div.ammo {
+                        text-align: center;
+                    }
+
+                    label:not(:first-of-type) {
+                        text-align: center;
+                    }
+                    label:first-of-type {
+                        padding-left: 0.25rem;
+                    }
                 }
-
-                label:not(:first-of-type) {
-                    text-align: center;
+                div.description {
+                    padding: 0.25rem;
+                    div.content {
+                        padding: 0.25rem;
+                        border-left: $field-border-style;
+                        border-right: $field-border-style;
+                    }
+                }
+            }
+            div.inventory-item.armor {
+                input[type='checkbox'] {
+                    height: 18px;
+                    margin: 0;
                 }
             }
         }

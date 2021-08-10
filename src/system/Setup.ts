@@ -123,6 +123,27 @@ Hooks.on('ready', async () => {
                     },
                 },
             },
+            {
+                type: 'armor',
+                name: 'Example Armor 1',
+                data: {
+                    armorRating: {
+                        value: 3,
+                    },
+                    description: {
+                        value: 'Example Armor w/ Description 1',
+                    },
+                },
+            },
+            {
+                type: 'gear',
+                name: 'Example Gear 1',
+                data: {
+                    description: {
+                        value: 'Example Gear w/ Description 1',
+                    },
+                },
+            },
         ]);
 
         await game.items?.getName('Test Gear')?.delete();

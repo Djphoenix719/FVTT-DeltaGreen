@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { DEFAULT_SKILLS_DEFINITION, ItemTypeSkill } from '../../types/Constants';
+import { DEFAULT_SKILLS_DEFINITION, ItemTypeSkill, UNNATURAL_ID } from '../../types/Constants';
+import { DGItem } from '../item/DGItem';
 
 declare global {
     interface DocumentClassConfig {
@@ -57,8 +58,12 @@ export class DGActor extends Actor {
      * Calculate in-the-moment maximum sanity.
      */
     public get sanityMax() {
-        return 99;
-        // return 99 - this.data.data.skills.core.unnatural.value;
+        let value = 99;
+        const skill = this.items.get(UNNATURAL_ID) as DGItem;
+        if (skill.data.type === 'skill') {
+            value -= skill.data.data.value ?? 0;
+        }
+        return value;
     }
 
     /**
@@ -66,6 +71,23 @@ export class DGActor extends Actor {
      */
     public get skills() {
         return this.items.filter((item) => item.type === ItemTypeSkill);
+    }
+
+    /**
+     * Get in-the-moment groups of skills as a record of skill arrays.
+     */
+    public get groupedSkills() {
+        let groups: Record<string, DGItem[]> = {};
+
+        for (const item of this.items) {
+            if (item.data.type === ItemTypeSkill) {
+                const groupId = item.data.data.group;
+                groups[groupId] = groups[groupId] ?? [];
+                groups[groupId].push(item);
+            }
+        }
+
+        return groups;
     }
 
     prepareData() {

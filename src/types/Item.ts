@@ -30,6 +30,7 @@ export type ItemType = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon | ItemTypeS
  *********************/
 
 interface SkillDataSourceData {
+    value?: number;
     group: string;
     failureImproves: boolean;
     sessionFailure: boolean;

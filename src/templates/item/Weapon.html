@@ -40,15 +40,17 @@
         <input type="number" min="0" name="data.ammo.maximum" value="{{@root.data.data.ammo.maximum}}">
     </div>
 
-    <div class="field-group row">
-        <label for="data.skill.value">Skill</label>
-        <select name="data.skill.value">
-            {{#select @root.data.data.skill.value}}
-                {{#each @root.skills as |option|}}
-                    <option value="{{option.value}}">{{option.label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
+    {{#if @root.item.actor}}
+        <div class="field-group row">
+            <label for="data.skill.value">Skill</label>
+            <select name="data.skill.value">
+                {{#select @root.data.data.skill.value}}
+                    {{#each @root.skills as |option|}}
+                        <option value="{{option.value}}">{{option.label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    {{/if}}
 
 </section>

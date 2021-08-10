@@ -59,4 +59,8 @@ export function registerHelpers() {
             return options.inverse !== undefined ? options.inverse(this) : undefined;
         }
     });
+
+    Handlebars.registerHelper('enrichHTML', (content: string) => {
+        return TextEditor.enrichHTML(content);
+    });
 }

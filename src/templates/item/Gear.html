@@ -49,14 +49,14 @@
 
     <section class="sheet-body">
 
-        {{#with @root.subtemplate as |template|}}
-            <div class="tab tab-data" data-group="primary" data-tab="tab-data">
+        <div class="tab tab-data" data-group="primary" data-tab="tab-data">
+            {{#with @root.subtemplate as |template|}}
                 {{> (template) data=data}}
-            </div>
-        {{/with}}
+            {{/with}}
+        </div>
 
         <div class="tab tab-description" data-group="primary" data-tab="tab-description">
-            {{editor content=data.description.value
+            {{editor content=data.data.description.value
                      target="data.description.value"
                      button=true
                      owner=owner

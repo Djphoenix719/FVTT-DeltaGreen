@@ -84,6 +84,7 @@ interface SkillDefinition {
     };
 }
 
+export const UNNATURAL_ID = '4l35w618j8doxnfq';
 // We generate a new id when using the new Skill Button
 export const NEW_SKILL_DEFAULTS: Omit<SkillDefinition, '_id'> = {
     name: 'New Skill', // TODO: Localization
@@ -387,7 +388,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         },
     },
     {
-        _id: '4l35w618j8doxnfq',
+        _id: UNNATURAL_ID,
         name: 'Unnatural',
         type: 'skill',
         data: {

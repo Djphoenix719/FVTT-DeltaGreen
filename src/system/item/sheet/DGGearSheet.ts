@@ -25,6 +25,13 @@ export class DGGearSheet extends ItemSheet {
         options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
         options.width = 500;
         options.height = 350;
+        options.tabs = [
+            {
+                navSelector: 'nav.sheet-navigation',
+                contentSelector: 'section.sheet-body',
+                initial: 'tab-description',
+            },
+        ];
         return options;
     }
 

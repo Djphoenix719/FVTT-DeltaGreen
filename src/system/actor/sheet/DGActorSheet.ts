@@ -29,7 +29,7 @@ export class DGActorSheet extends ActorSheet {
             {
                 navSelector: 'nav.sheet-navigation',
                 contentSelector: 'section.sheet-body',
-                initial: 'tab-skills',
+                initial: 'tab-inventory',
             },
         ];
         options.width = 800;
@@ -37,16 +37,24 @@ export class DGActorSheet extends ActorSheet {
         return options;
     }
 
+    private _collapsibles: Record<string, boolean> = {};
+
     public async getData(options?: Application.RenderOptions): Promise<ActorSheet.Data> {
         const renderData = await super.getData(options);
 
         // TODO: Figure out how to type this in FVTT-Types
         // @ts-ignore
-        renderData.skills = this.actor.skills;
+        renderData.skills = this.actor.groupedSkills;
         // @ts-ignore
-        renderData.skills.sort((a: DGItem, b: DGItem) => {
-            return a.data.name.localeCompare(b.data.name);
-        });
+        for (const groupId in renderData.skills) {
+            // @ts-ignore
+            renderData.skills[groupId].sort((a: DGItem, b: DGItem) => {
+                return a.data.name.localeCompare(b.data.name);
+            });
+        }
+
+        // @ts-ignore
+        renderData.collapsibles = this._collapsibles;
 
         // @ts-ignore
         renderData.inventory = {
@@ -124,30 +132,46 @@ export class DGActorSheet extends ActorSheet {
         html.find('div.skills-item label.delete').on('click', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.skills-item').data('id') as string;
-            console.warn(id);
             await this.actor.deleteEmbeddedDocuments('Item', [id]);
         });
 
-        html.find('label.clickable.roll').on('click', async (event) => {
-            const domTarget = preprocessEvent(event);
-            const valuePath = domTarget.data('roll') as string;
-            const valueMultiple = parseInt(domTarget.data('multiple') ?? '1');
-
-            // TODO: THIS AND ROLL CARD + FINISH REFACTORING THE ROLL HTML
-            // const value = this.actor.data.data.statistics[].value * 5;
-            // const result = await rollPercentile(value);
-
-            // TODO: Nicely formatted chat card
-            // await result.roll.toMessage();
-            // console.warn(result);
+        // Inventory: Edit item
+        html.find('div.inventory-item label.edit').on('click', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.inventory-item').data('id') as string;
+            const item: DGItem = (await this.actor.getEmbeddedDocument('Item', id)) as DGItem;
+            if (item && item.sheet) {
+                item.sheet.render(true);
+            }
+        });
+        // Skill: Delete skill
+        html.find('div.inventory-item label.delete').on('click', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.inventory-item').data('id') as string;
+            await this.actor.deleteEmbeddedDocuments('Item', [id]);
         });
 
+        // Sanity: Reset breaking point
         html.find('div.breaking-point label.reset').on('click', async (event) => {
             preprocessEvent(event);
             const newBreakingPoint = this.actor.data.data.sanity.value - this.actor.data.data.statistics.power.value;
             await this.actor.update({
                 [`data.sanity.breakingPoint.value`]: newBreakingPoint,
             });
+        });
+
+        // Collapsibles: Toggle & update cache
+        html.find('.collapsible').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.data('collapse-id') as string;
+            const collapseTarget = target.next('.collapse-target');
+
+            this._collapsibles[id] = !this._collapsibles[id];
+            if (this._collapsibles[id]) {
+                collapseTarget.show();
+            } else {
+                collapseTarget.hide();
+            }
         });
     }
 }

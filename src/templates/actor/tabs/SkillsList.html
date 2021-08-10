@@ -1,30 +1,35 @@
-<header class="flex-header">
-    <label class="flex-0">1d4</label>
-    <label class="flex-4">Applicable Skill</label>
-    <label class="flex-1">Value</label>
-    <div class="header-buttons">
-        <label class="clickable add-skill flex-0"><i class="fas fa-plus"></i> Add</label>
-    </div>
-</header>
 
 <section class="skills-content">
-    <div class="skills-group">
-        {{#each skills as |skill|}}
-            <div class="skills-item" data-id="{{skill.id}}">
-                {{#if skill.data.data.failureImproves}}
-                    <input class="failure" type="checkbox" {{checked skill.data.data.sessionFailure}}>
-                {{else}}
-                    <input class="failure" type="checkbox" disabled>
-                {{/if}}
-                <label class="flex-4 name clickable">{{skill.data.name}}</label>
-                <input class="flex-1 value" type="number" min="0" max="99" value="{{skill.data.data.value}}">
-                <div class="item-buttons">
-                    {{#if skill.data.data.canDelete}}
-                        <label class="clickable delete"><i class="fas fa-trash-alt"></i></label>
-                    {{/if}}
-                    <label class="clickable edit"><i class="fas fa-edit"></i></label>
+    {{#each skills as |group|}}
+        <div class="skills-group">
+            <header class="center-header">
+                <label>{{@key}}</label>
+            </header>
+            <header class="flex-header">
+                <label class="flex-0">1d4</label>
+                <label class="flex-4">Applicable Skill</label>
+                <label class="flex-1">Value</label>
+                <div class="header-buttons">
+                    <label class="clickable add-skill flex-0"><i class="fas fa-plus"></i> Add</label>
                 </div>
-            </div>
-        {{/each}}
-    </div>
+            </header>
+            {{#each group as |skill|}}
+                <div class="skills-item" data-id="{{skill.id}}">
+                    {{#if skill.data.data.failureImproves}}
+                        <input class="failure" type="checkbox" {{checked skill.data.data.sessionFailure}}>
+                    {{else}}
+                        <input class="failure" type="checkbox" disabled>
+                    {{/if}}
+                    <label class="flex-4 name clickable">{{skill.data.name}}</label>
+                    <input class="flex-1 value" type="number" min="0" max="99" value="{{skill.data.data.value}}">
+                    <div class="item-buttons">
+                        {{#if skill.data.data.canDelete}}
+                            <label class="clickable delete"><i class="fas fa-trash-alt"></i></label>
+                        {{/if}}
+                        <label class="clickable edit"><i class="fas fa-edit"></i></label>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
 </section>
