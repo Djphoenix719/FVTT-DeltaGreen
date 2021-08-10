@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { ActorSkillType, Skill } from '../../../types/Actor';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import {
     DEFAULT_ARMOR_NAME,
@@ -148,7 +147,7 @@ export class DGActorSheet extends ActorSheet {
         html.find('div.inventory-item label.edit').on('click', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.inventory-item').data('id') as string;
-            const item: DGItem = (await this.actor.getEmbeddedDocument('Item', id)) as DGItem;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item && item.sheet) {
                 item.sheet.render(true);
             }
@@ -188,6 +187,44 @@ export class DGActorSheet extends ActorSheet {
                     name: DEFAULT_GEAR_NAME,
                 },
             ]);
+        });
+        // Inventory: Decrement ammo
+        html.find('div.inventory-group.weapon div.ammo label.decrement').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.inventory-item').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (item.data.type === ItemTypeWeapon) {
+                await item.update({
+                    ['data.ammo.value']: item.data.data.ammo.value - 1,
+                });
+            }
+        });
+        // Inventory: Decrement ammo
+        html.find('div.inventory-group.weapon div.ammo label.reload').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.inventory-item').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (item.data.type === ItemTypeWeapon) {
+                await item.update({
+                    ['data.ammo.value']: item.data.data.ammo.maximum,
+                });
+            }
+        });
+        // Inventory: Roll attack
+        html.find('div.inventory-group.weapon label.attack').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.inventory-item').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            console.warn('roll attack');
+            console.warn(item);
+        });
+        // Inventory: Roll damage
+        html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.inventory-item').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            console.warn('roll damage');
+            console.warn(item);
         });
 
         // Sanity: Reset breaking point

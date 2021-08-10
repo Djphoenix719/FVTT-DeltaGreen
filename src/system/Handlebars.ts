@@ -63,4 +63,8 @@ export function registerHelpers() {
     Handlebars.registerHelper('enrichHTML', (content: string) => {
         return TextEditor.enrichHTML(content);
     });
+
+    Handlebars.registerHelper('getItemName', (id: string, actor: Actor) => {
+        return actor.items.get(id)?.name;
+    });
 }

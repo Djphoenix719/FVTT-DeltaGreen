@@ -22,14 +22,14 @@
                 <div class="data collapsible" data-collapse-id="{{weapon.id}}">
                     <label class="flex-2 clickable collapse">{{weapon.name}}</label>
 
-                    {{#if weapon.data.data.skill.label}}
-                        <label class="flex-1 clickable attack">{{localize weapon.data.data.skill.label}}</label>
+                    {{#if weapon.data.data.skill.value}}
+                        <label class="flex-1 clickable attack">{{getItemName weapon.data.data.skill.value @root.actor}}</label>
                     {{else}}
                         <label class="flex-1">—</label>
                     {{/if}}
 
                     {{#if (gt weapon.data.data.lethality.value 0)}}
-                        <label class="clickable lethality flex-1">{{weapon.data.data.lethality.value}}%</label>
+                        <label class="clickable damage flex-1">{{weapon.data.data.lethality.value}}%</label>
                     {{else}}
                         <label class="clickable damage flex-1">{{weapon.data.data.damage.value}}</label>
                     {{/if}}
@@ -38,8 +38,8 @@
 
                     <div class="ammo flex-1">
                         {{#if (gt weapon.data.data.ammo.maximum 0)}}
+                            <label class="clickable decrement"><i class="fas fa-minus"></i></label>
                             <label>{{weapon.data.data.ammo.value}}/{{weapon.data.data.ammo.maximum}}</label>
-                            <label class="clickable decrement-ammo"><i class="fas fa-minus"></i></label>
                             <label class="clickable reload"><i class="fas fa-redo-alt"></i></label>
                         {{else}}
                             <label>—</label>

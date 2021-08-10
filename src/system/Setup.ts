@@ -87,7 +87,7 @@ Hooks.on('ready', async () => {
                         value: 25,
                     },
                     skill: {
-                        value: 'firearms',
+                        value: 'rfrdw98rykpr84ca',
                     },
                     description: {
                         value: 'Example Weapon w/ Description',
@@ -103,7 +103,7 @@ Hooks.on('ready', async () => {
                         maximum: 30,
                     },
                     skill: {
-                        value: 'accounting',
+                        value: '06s5h4abkvl8nx0c',
                     },
                     description: {
                         value: 'Example Weapon w/ Description 2',
