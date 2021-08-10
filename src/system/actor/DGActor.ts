@@ -16,6 +16,7 @@
 
 import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, UNNATURAL_ID } from '../../types/Constants';
 import { DGItem } from '../item/DGItem';
+import { ItemType } from '../../types/Item';
 
 declare global {
     interface DocumentClassConfig {
@@ -104,6 +105,14 @@ export class DGActor extends Actor {
         }
 
         return groups;
+    }
+
+    /**
+     * Get all items of a specific type.
+     * @param type
+     */
+    public getItemsOfType(type: ItemType) {
+        return this.items.filter((item) => item.type === type);
     }
 
     prepareData() {

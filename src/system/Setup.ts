@@ -24,6 +24,9 @@ import { DGArmorSheet } from './item/sheet/DGArmorSheet';
 import { DGWeaponSheet } from './item/sheet/DGWeaponSheet';
 import { DGSkillSheet } from './item/sheet/DGSkillSheet';
 import { rollPercentile } from './Dice';
+import { DGBondSheet } from './item/sheet/DGBondSheet';
+import { DGMotivationSheet } from './item/sheet/DGMotivationSheet';
+import { DGDisorderSheet } from './item/sheet/DGDisorderSheet';
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -60,6 +63,24 @@ function registerItemClasses() {
     Items.registerSheet(SYSTEM_NAME, DGSkillSheet, {
         label: 'Skill',
         types: ['skill'],
+        makeDefault: true,
+    });
+
+    Items.registerSheet(SYSTEM_NAME, DGBondSheet, {
+        label: 'Bond',
+        types: ['bond'],
+        makeDefault: true,
+    });
+
+    Items.registerSheet(SYSTEM_NAME, DGMotivationSheet, {
+        label: 'Motivation',
+        types: ['motivation'],
+        makeDefault: true,
+    });
+
+    Items.registerSheet(SYSTEM_NAME, DGDisorderSheet, {
+        label: 'Disorder',
+        types: ['disorder'],
         makeDefault: true,
     });
 
@@ -144,6 +165,15 @@ Hooks.on('ready', async () => {
                 data: {
                     description: {
                         value: 'Example Gear w/ Description 1',
+                    },
+                },
+            },
+            {
+                type: 'bond',
+                name: 'Example Bond 1',
+                data: {
+                    description: {
+                        value: 'Example Bond w/ Description 1',
                     },
                 },
             },

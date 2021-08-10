@@ -10,7 +10,7 @@
         <label class="flex-1">Ammo</label>
         <label class="flex-1">Range</label>
         <div class="header-buttons">
-            <label class="clickable add"><i class="fas fa-plus"></i></label>
+            <label class="clickable add-item" data-type="weapon"><i class="fas fa-plus"></i></label>
         </div>
     </header>
 
@@ -19,8 +19,8 @@
         {{#each @root.inventory.weapons as |weapon|}}
             <div class="inventory-item weapon" data-id="{{weapon.id}}">
 
-                <div class="data collapsible" data-collapse-id="{{weapon.id}}">
-                    <label class="flex-2 clickable collapse">{{weapon.name}}</label>
+                <div class="data">
+                    <label class="flex-2 clickable collapsible" data-collapse-id="{{weapon.id}}">{{weapon.name}}</label>
 
                     {{#if weapon.data.data.skill.value}}
                         <label class="flex-1 clickable attack">{{getItemName weapon.data.data.skill.value @root.actor}}</label>
@@ -49,8 +49,8 @@
                     <label class="flex-1">{{weapon.data.data.range.value}}m</label>
 
                     <div class="item-buttons">
-                        <label class="clickable edit"><i class="fas fa-edit"></i></label>
-                        <label class="clickable delete"><i class="far fa-trash-alt"></i></label>
+                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
         <label class="flex-1">Rating</label>
         <label class="flex-1">Equipped</label>
         <div class="header-buttons">
-            <label class="clickable add"><i class="fas fa-plus"></i></label>
+            <label class="clickable add-item" data-type="armor"><i class="fas fa-plus"></i></label>
         </div>
     </header>
 
@@ -84,16 +84,16 @@
         {{#each @root.inventory.armor as |armor|}}
             <div class="inventory-item armor" data-id="{{armor.id}}">
 
-                <div class="data collapsible" data-collapse-id="{{armor.id}}">
-                    <label class="clickable flex-2">{{armor.name}}</label>
+                <div class="data">
+                    <label class="clickable flex-2 collapsible" data-collapse-id="{{armor.id}}">{{armor.name}}</label>
 
                     <label class="flex-1">{{armor.data.data.armorRating.value}}</label>
 
                     <input type="checkbox" class="equipped flex-1" {{checked armor.data.data.equipped.value}}>
 
                     <div class="item-buttons">
-                        <label class="clickable edit"><i class="fas fa-edit"></i></label>
-                        <label class="clickable delete"><i class="far fa-trash-alt"></i></label>
+                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
                     </div>
                 </div>
 
@@ -115,7 +115,7 @@
     <header class="flex-header">
         <label class="flex-2">Name</label>
         <div class="header-buttons">
-            <label class="clickable add"><i class="fas fa-plus"></i></label>
+            <label class="clickable add-item" data-type="gear"><i class="fas fa-plus"></i></label>
         </div>
     </header>
 
@@ -124,12 +124,12 @@
         {{#each @root.inventory.gear as |gear|}}
             <div class="inventory-item armor" data-id="{{gear.id}}">
 
-                <div class="data collapsible" data-collapse-id="{{gear.id}}">
-                    <label class="clickable flex-2">{{gear.name}}</label>
+                <div class="data">
+                    <label class="clickable flex-2 collapsible" data-collapse-id="{{gear.id}}">{{gear.name}}</label>
 
                     <div class="item-buttons">
-                        <label class="clickable edit"><i class="fas fa-edit"></i></label>
-                        <label class="clickable delete"><i class="far fa-trash-alt"></i></label>
+                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
                     </div>
                 </div>
 

@@ -3,15 +3,15 @@
     <section class="common">
 
         <div class="labeled-field">
-            <label for="name">Bond Name</label>
+            <label for="name">Motivation Name</label>
             <input type="text" name="name" value="{{@root.item.name}}">
         </div>
 
     </section>
 
     <nav class="sheet-navigation" data-group="primary">
-        <a class="item" data-tab="tab-description" title="Bond Description">Bond Description</a>
-        <a class="item active" data-tab="tab-data" title="Bond Data">Bond Data</a>
+        <a class="item" data-tab="tab-description" title="Motivation Description">Motivation Description</a>
+        <a class="item active" data-tab="tab-data" title="Motivation Data">Motivation Data</a>
     </nav>
 
     <section class="sheet-body">
@@ -19,17 +19,7 @@
         <div class="tab tab-data" data-group="primary" data-tab="tab-data">
 
             <div class="labeled-field">
-                <label for="data.score.value">Score</label>
-                <input type="number" name="data.score.value" value="{{@root.data.data.score.value}}">
-            </div>
-
-            <div class="labeled-field">
-                <label for="data.damaged.value">Bond Damaged</label>
-                <input type="checkbox" name="data.damaged.value" {{checked @root.data.data.damaged.value}}>
-            </div>
-
-            <div class="labeled-field">
-                <label for="data.crossed.value">Bond Crossed</label>
+                <label for="data.crossed.value">Motivation Crossed</label>
                 <input type="checkbox" name="data.crossed.value" {{checked @root.data.data.crossed.value}}>
             </div>
 

@@ -1,5 +1,5 @@
 <div class="incidents">
-    <header class="center-header">
+    <header class="flex-header">
         <label>Adaptations</label>
     </header>
     <div class="adaptations">
@@ -19,12 +19,110 @@
 </div>
 
 <div class="bonds">
-    <header class="center-header">
+    <header class="flex-header">
         <label>Bonds</label>
+        <div class="header-buttons">
+            <label class="clickable add-item" data-type="bond"><i class="fas fa-plus"></i></label>
+        </div>
     </header>
+
+    <div class="bond-list">
+
+        {{#each @root.bonds as |bond|}}
+            <div class="bond-item" data-id="{{bond.id}}">
+
+                <div class="data">
+                    <input class="damaged" type="checkbox" {{checked bond.data.data.damaged.value}}>
+                    <label class="clickable flex-2 {{#if bond.data.data.crossed.value}}crossed{{/if}} collapsible" data-collapse-id="{{bond.id}}">{{bond.name}}</label>
+
+                    <div class="item-buttons">
+                        <label class="clickable cross"><i class="fas fa-fire-alt"></i></label>
+                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
+                    </div>
+                </div>
+
+                <div class="description collapse-target" {{#if (lookup @root.collapsibles bond.id)}}{{else}}style='display: none'{{/if}}>
+                    <div class="content">
+                        {{enrichHTML bond.data.data.description.value}}
+                    </div>
+                </div>
+
+            </div>
+        {{/each}}
+
+    </div>
 
 </div>
 
-<div class="motivations"></div>
+<div class="motivations">
+    <header class="flex-header">
+        <label>Motivations</label>
+        <div class="header-buttons">
+            <label class="clickable add-item" data-type="motivation"><i class="fas fa-plus"></i></label>
+        </div>
+    </header>
 
-<div class="disorders"></div>
+    <div class="motivations-list">
+
+        {{#each @root.motivations as |motivation|}}
+            <div class="motivation-item" data-id="{{motivation.id}}">
+
+                <div class="data">
+                    <label class="clickable flex-2 {{#if motivation.data.data.crossed.value}}crossed{{/if}} collapsible" data-collapse-id="{{motivation.id}}">{{motivation.name}}</label>
+
+                    <div class="item-buttons">
+                        <label class="clickable cross"><i class="fas fa-fire-alt"></i></label>
+                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
+                    </div>
+                </div>
+
+                <div class="description collapse-target" {{#if (lookup @root.collapsibles motivation.id)}}{{else}}style='display: none'{{/if}}>
+                    <div class="content">
+                        {{enrichHTML motivation.data.data.description.value}}
+                    </div>
+                </div>
+
+            </div>
+        {{/each}}
+
+    </div>
+
+</div>
+
+<div class="disorders">
+    <header class="flex-header">
+        <label>Disorders</label>
+        <div class="header-buttons">
+            <label class="clickable add-item" data-type="disorder"><i class="fas fa-plus"></i></label>
+        </div>
+    </header>
+
+    <div class="disorders-list">
+
+        {{#each @root.disorders as |disorder|}}
+            <div class="disorder-item" data-id="{{disorder.id}}">
+
+                <div class="data">
+                    <label class="clickable flex-2 {{#if disorder.data.data.crossed.value}}crossed{{/if}} collapsible" data-collapse-id="{{disorder.id}}">{{disorder.name}}</label>
+
+                    <div class="item-buttons">
+                        <label class="clickable cross"><i class="fas fa-fire-alt"></i></label>
+                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
+                    </div>
+                </div>
+
+                <div class="description collapse-target" {{#if (lookup @root.collapsibles disorder.id)}}{{else}}style='display: none'{{/if}}>
+                    <div class="content">
+                        {{enrichHTML disorder.data.data.description.value}}
+                    </div>
+                </div>
+
+            </div>
+        {{/each}}
+
+    </div>
+
+</div>

@@ -1,4 +1,3 @@
-
 <section class="skills-content">
     {{#each skills as |group|}}
         <div class="skills-group">
@@ -10,7 +9,7 @@
                 <label class="flex-4">Applicable Skill</label>
                 <label class="flex-1">Value</label>
                 <div class="header-buttons">
-                    <label class="clickable add-skill flex-0"><i class="fas fa-plus"></i> Add</label>
+                    <label class="clickable add-item" data-type="skill"><i class="fas fa-plus"></i></label>
                 </div>
             </header>
             {{#each group as |skill|}}
@@ -24,9 +23,9 @@
                     <input class="flex-1 value" type="number" min="0" max="99" value="{{skill.data.data.value}}">
                     <div class="item-buttons">
                         {{#if skill.data.data.canDelete}}
-                            <label class="clickable delete"><i class="fas fa-trash-alt"></i></label>
+                            <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
                         {{/if}}
-                        <label class="clickable edit"><i class="fas fa-edit"></i></label>
+                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
                     </div>
                 </div>
             {{/each}}

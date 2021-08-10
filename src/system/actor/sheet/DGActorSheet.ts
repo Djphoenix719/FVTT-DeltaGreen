@@ -17,9 +17,7 @@
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import {
     AdaptationType,
-    DEFAULT_ARMOR_NAME,
-    DEFAULT_GEAR_NAME,
-    DEFAULT_WEAPON_NAME,
+    DEFAULT_ITEM_NAME,
     ItemTypeArmor,
     ItemTypeGear,
     ItemTypeSkill,
@@ -29,7 +27,7 @@ import {
 } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
 import { rollPercentile } from '../../Dice';
-import { data } from 'jquery';
+import { ItemType } from '../../../types/Item';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -74,6 +72,13 @@ export class DGActorSheet extends ActorSheet {
             armor: this.actor.items.filter((item) => item.type === 'armor'),
             gear: this.actor.items.filter((item) => item.type === 'gear'),
         };
+
+        // @ts-ignore
+        renderData.bonds = this.actor.getItemsOfType('bond');
+        // @ts-ignore
+        renderData.motivations = this.actor.getItemsOfType('motivation');
+        // @ts-ignore
+        renderData.disorders = this.actor.getItemsOfType('disorder');
 
         console.warn(renderData);
 
@@ -145,35 +150,6 @@ export class DGActorSheet extends ActorSheet {
                 },
             ]);
         });
-        // Skill: Add new skill
-        html.find('label.clickable.add-skill').on('click', async (event) => {
-            preprocessEvent(event);
-            await this.actor.createEmbeddedDocuments('Item', [
-                {
-                    id: foundry.utils.randomID(16),
-                    type: ItemTypeSkill,
-                    name: NEW_SKILL_DEFAULTS.name,
-                    data: {
-                        ...NEW_SKILL_DEFAULTS.data,
-                    },
-                },
-            ]);
-        });
-        // Skill: Open edit windows
-        html.find('div.skills-item label.edit').on('click', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div.skills-item').data('id') as string;
-            const item: DGItem = (await this.actor.getEmbeddedDocument('Item', id)) as DGItem;
-            if (item && item.sheet) {
-                item.sheet.render(true);
-            }
-        });
-        // Skill: Delete skill
-        html.find('div.skills-item label.delete').on('click', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div.skills-item').data('id') as string;
-            await this.actor.deleteEmbeddedDocuments('Item', [id]);
-        });
         // Skill: Roll skill
         html.find('div.skills-item label.name').on('click', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
@@ -181,51 +157,6 @@ export class DGActorSheet extends ActorSheet {
             await rollSkill(id);
         });
 
-        // Inventory: Edit item
-        html.find('div.inventory-item label.edit').on('click', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div.inventory-item').data('id') as string;
-            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item && item.sheet) {
-                item.sheet.render(true);
-            }
-        });
-        // Inventory: Delete skill
-        html.find('div.inventory-item label.delete').on('click', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div.inventory-item').data('id') as string;
-            await this.actor.deleteEmbeddedDocuments('Item', [id]);
-        });
-        // Inventory: Add Weapon
-        html.find('div.inventory-group.weapon label.add').on('click', async (event) => {
-            preprocessEvent(event);
-            await this.actor.createEmbeddedDocuments('Item', [
-                {
-                    type: ItemTypeWeapon,
-                    name: DEFAULT_WEAPON_NAME,
-                },
-            ]);
-        });
-        // Inventory: Add Armor
-        html.find('div.inventory-group.armor label.add').on('click', async (event) => {
-            preprocessEvent(event);
-            await this.actor.createEmbeddedDocuments('Item', [
-                {
-                    type: ItemTypeArmor,
-                    name: DEFAULT_ARMOR_NAME,
-                },
-            ]);
-        });
-        // Inventory: Add Gear
-        html.find('div.inventory-group.gear label.add').on('click', async (event) => {
-            preprocessEvent(event);
-            await this.actor.createEmbeddedDocuments('Item', [
-                {
-                    type: ItemTypeGear,
-                    name: DEFAULT_GEAR_NAME,
-                },
-            ]);
-        });
         // Inventory: Decrement ammo
         html.find('div.inventory-group.weapon div.ammo label.decrement').on('click', async (event) => {
             const target = preprocessEvent(event);
@@ -267,10 +198,7 @@ export class DGActorSheet extends ActorSheet {
         });
         // Inventory: Toggle equipped state
         html.find('div.inventory-item input.equipped').on('click', async (event) => {
-            // TODO: This should be fixed, but the placement of the collapsible prevents proper event handling.
-            //  The collapsibles should be refactored to prevent the need to manually update the input.
-            event.stopPropagation();
-            const target: JQuery<HTMLInputElement> = $(event.currentTarget) as JQuery<HTMLInputElement>;
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.inventory-item').data('id') as string;
             const value = target.prop('checked') as boolean;
 
@@ -303,8 +231,7 @@ export class DGActorSheet extends ActorSheet {
         });
         // Sanity: Adaptations
         html.find('div.adaptations input[type="checkbox"]').on('change', async (event) => {
-            event.stopPropagation();
-            const target: JQuery<HTMLInputElement> = $(event.currentTarget) as JQuery<HTMLInputElement>;
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const index = parseInt(target.data('index') as string);
             const value = target.prop('checked') as boolean;
             const type = target.data('type') as AdaptationType;
@@ -329,6 +256,57 @@ export class DGActorSheet extends ActorSheet {
             await basicRoll(this.actor.data.data.luck.value, 'Luck');
         });
 
+        // Bonds: Cross bond
+        html.find('div.bond-item label.cross').on('click', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.bond-item').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (item.data.type === 'bond') {
+                await item.update({
+                    ['data.crossed.value']: !item.data.data.crossed.value,
+                });
+            }
+        });
+        // Bonds: Damage bond
+        html.find('div.bond-item input.damaged').on('click', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.bond-item').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (item.data.type === 'bond') {
+                await item.update({
+                    ['data.damaged.value']: !item.data.data.damaged.value,
+                });
+            }
+        });
+
+        // Items: Add a new item
+        html.find('label.add-item').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const type = target.data('type') as ItemType;
+            await this.actor.createEmbeddedDocuments('Item', [
+                {
+                    type: type,
+                    name: DEFAULT_ITEM_NAME[type],
+                },
+            ]);
+        });
+        // Items: Edit an item
+        html.find('label.edit-item').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div[data-id]').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+
+            if (item && item.sheet) {
+                item.sheet.render(true);
+            }
+        });
+        // Items: Delete an item
+        html.find('label.delete-item').on('click', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div[data-id]').data('id') as string;
+            await this.actor.deleteEmbeddedDocuments('Item', [id]);
+        });
+
         // Stats: Roll stats*5
         html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
             const target = preprocessEvent(event);
@@ -341,7 +319,7 @@ export class DGActorSheet extends ActorSheet {
         html.find('.collapsible').on('click', async (event) => {
             const target = preprocessEvent(event);
             const id = target.data('collapse-id') as string;
-            const collapseTarget = target.next('.collapse-target');
+            const collapseTarget = target.parent().next('.collapse-target');
 
             this._collapsibles[id] = !this._collapsibles[id];
             if (this._collapsibles[id]) {

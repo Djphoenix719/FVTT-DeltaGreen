@@ -122,8 +122,13 @@
         }
     },
     "Item": {
-        "types": ["skill", "weapon", "armor", "gear", "motivation", "bond"],
+        "types": ["skill", "weapon", "armor", "gear", "bond", "motivation", "disorder"],
         "templates": {
+            "crossed": {
+                "crossed": {
+                    "value": false
+                }
+            },
             "description": {
                 "description": {
                     "value": ""
@@ -190,15 +195,20 @@
             "major": 0,
             "extreme": 0
         },
-        "motivation": {
-            "templates": ["description"]
-        },
         "bond": {
-            "templates": ["description"],
+            "templates": ["description", "crossed"],
+            "damaged": {
+                "value": false
+            },
             "score": {
                 "value": 0
-            },
-            "relationship": ""
+            }
+        },
+        "motivation": {
+            "templates": ["description", "crossed"]
+        },
+        "disorder": {
+            "templates": ["description", "crossed"]
         }
     }
 }

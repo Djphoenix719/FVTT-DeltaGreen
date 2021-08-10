@@ -305,10 +305,50 @@ div.delta-green.agent section.window-content {
                 label {
                     flex-basis: 15%;
                 }
-                label.crossed {
-                    text-decoration: line-through;
+            }
+        }
+
+        div.bond-item,
+        div.motivation-item,
+        div.disorder-item {
+            display: flex;
+            flex-direction: column;
+
+            div.data {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+
+                label:not(:first-of-type) {
+                    text-align: center;
+                }
+                label:first-of-type {
+                    padding-left: 0.25rem;
                 }
             }
+            div.description {
+                padding: 0.25rem;
+                div.content {
+                    padding: 0.25rem;
+                    border-left: $field-border-style;
+                    border-right: $field-border-style;
+                }
+            }
+            input[type='checkbox'] {
+                margin: 0;
+            }
+        }
+
+        header.flex-header {
+            > label {
+                flex: 1;
+                text-align: left;
+                padding-left: 1.5rem;
+            }
+        }
+
+        label.crossed {
+            text-decoration: line-through;
         }
     }
 }

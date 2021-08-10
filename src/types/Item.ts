@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon, ExpenseType, ItemTypeSkill } from './Constants';
+import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon, ItemTypeSkill, ItemTypeBond, ItemTypeMotivation, ItemTypeDisorder, ExpenseType } from './Constants';
 import { Label, Maximum, Value } from './Helpers';
 import { ActorSkillType } from './Actor';
 
@@ -22,8 +22,11 @@ export type ItemTypeSkill = typeof ItemTypeSkill;
 export type ItemTypeGear = typeof ItemTypeGear;
 export type ItemTypeArmor = typeof ItemTypeArmor;
 export type ItemTypeWeapon = typeof ItemTypeWeapon;
+export type ItemTypeBond = typeof ItemTypeBond;
+export type ItemTypeMotivation = typeof ItemTypeMotivation;
+export type ItemTypeDisorder = typeof ItemTypeDisorder;
 
-export type ItemType = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon | ItemTypeSkill;
+export type ItemType = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon | ItemTypeSkill | ItemTypeBond | ItemTypeMotivation | ItemTypeDisorder;
 
 /*********************
  SKILL DATA & PROPERTIES
@@ -45,6 +48,65 @@ interface SkillDataSource {
 interface SkillDataProperties {
     type: ItemTypeSkill;
     data: SkillDataPropertyData;
+}
+
+/*********************
+ BOND DATA & PROPERTIES
+ *********************/
+
+interface BondDataSourceData {
+    description: Value<string>;
+    score: Value<number>;
+    crossed: Value<boolean>;
+    damaged: Value<boolean>;
+}
+interface BondDataPropertyData extends BondDataSourceData {}
+
+interface BondDataSource {
+    type: ItemTypeBond;
+    data: BondDataSourceData;
+}
+interface BondDataProperties {
+    type: ItemTypeBond;
+    data: BondDataPropertyData;
+}
+
+/*********************
+ MOTIVATION DATA & PROPERTIES
+ *********************/
+
+interface MotivationDataSourceData {
+    description: Value<string>;
+    crossed: Value<boolean>;
+}
+interface MotivationDataPropertyData extends MotivationDataSourceData {}
+
+interface MotivationDataSource {
+    type: ItemTypeMotivation;
+    data: MotivationDataSourceData;
+}
+interface MotivationDataProperties {
+    type: ItemTypeMotivation;
+    data: MotivationDataPropertyData;
+}
+
+/*********************
+ BOND DATA & PROPERTIES
+ *********************/
+
+interface DisorderDataSourceData {
+    description: Value<string>;
+    crossed: Value<boolean>;
+}
+interface DisorderDataPropertyData extends DisorderDataSourceData {}
+
+interface DisorderDataSource {
+    type: ItemTypeDisorder;
+    data: DisorderDataSourceData;
+}
+interface DisorderDataProperties {
+    type: ItemTypeDisorder;
+    data: DisorderDataPropertyData;
 }
 
 /*********************
@@ -104,8 +166,15 @@ interface WeaponDataProperties {
     data: WeaponDataPropertyData;
 }
 
-type ItemDataSource = GearDataSource | ArmorDataSource | WeaponDataSource | SkillDataSource;
-type ItemDataProperties = GearDataProperties | ArmorDataProperties | WeaponDataProperties | SkillDataProperties;
+type ItemDataSource = GearDataSource | ArmorDataSource | WeaponDataSource | SkillDataSource | BondDataSource | MotivationDataSource | DisorderDataSource;
+type ItemDataProperties =
+    | GearDataProperties
+    | ArmorDataProperties
+    | WeaponDataProperties
+    | SkillDataProperties
+    | BondDataProperties
+    | MotivationDataProperties
+    | DisorderDataProperties;
 
 declare global {
     interface SourceConfig {
