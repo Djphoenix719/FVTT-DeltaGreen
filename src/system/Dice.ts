@@ -15,6 +15,7 @@
  */
 
 import { RollResultType } from '../types/Constants';
+import { SYSTEM_NAME } from './Constants';
 
 export interface DieData {
     size: number;
@@ -24,30 +25,75 @@ export interface SuccessData {
     type: RollResultType;
     label: string;
 }
-export interface TargetPart {
+export interface DicePart {
     value: number;
     label: string;
 }
 export interface DiceResult {
-    target: {
-        base: TargetPart;
-        totalTarget: number;
-        modifiers: TargetPart[];
+    target?: {
+        base: DicePart;
+        total: number;
+        modifiers: DicePart[];
     };
     results: {
         value: number;
         dice: DieData[];
     };
-    success: SuccessData;
+    success?: SuccessData;
+}
+
+export async function rollDamage(damageDice: string, lethality: number, actor: Actor): Promise<DiceResult> {
+    console.warn(damageDice);
+    console.warn(lethality);
+
+    if (lethality > 0) {
+        const lethalityResult = await rollPercentile([
+            {
+                label: 'Lethality',
+                value: lethality,
+            },
+        ]);
+
+        if (lethalityResult.results.value <= lethality) {
+            return lethalityResult;
+        } else {
+            const templateData: Record<string, any> = { ...lethalityResult };
+            templateData['actor'] = actor;
+
+            const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
+            await ChatMessage.create({
+                content: renderedTemplate,
+            });
+            damageDice = '2d10';
+        }
+    }
+
+    const diceRoll = await new Roll(damageDice).roll({ async: true });
+    console.warn(diceRoll);
+
+    const term = diceRoll.terms[0] as any;
+    const results = term.results.map((die: any) => {
+        return {
+            size: term.faces,
+            value: die.result as number,
+        };
+    });
+
+    return {
+        results: {
+            value: diceRoll.total!,
+            dice: results,
+        },
+    };
 }
 
 /**
  * Roll a percentile die under a target.
- * @param parts Modifiers to the target number.
+ * @param targetParts Modifiers to the target number.
  */
-export async function rollPercentile(parts: TargetPart[]): Promise<DiceResult> {
-    let totalTarget = parts[0].value;
-    for (const modifier of parts) {
+export async function rollPercentile(targetParts: DicePart[]): Promise<DiceResult> {
+    let totalTarget = 0;
+    for (const modifier of targetParts) {
         totalTarget += modifier.value;
     }
 
@@ -85,9 +131,9 @@ export async function rollPercentile(parts: TargetPart[]): Promise<DiceResult> {
 
     return {
         target: {
-            base: parts[0],
-            totalTarget: totalTarget,
-            modifiers: parts,
+            base: targetParts[0],
+            total: totalTarget,
+            modifiers: targetParts,
         },
         results: {
             value: tens * 10 + ones,

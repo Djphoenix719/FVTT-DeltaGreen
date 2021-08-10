@@ -144,6 +144,9 @@ Hooks.on('ready', async () => {
                         value: 15,
                         maximum: 30,
                     },
+                    damage: {
+                        value: '8d4',
+                    },
                     description: {
                         value: 'Example Weapon w/ Description 3',
                     },

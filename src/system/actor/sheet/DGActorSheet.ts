@@ -29,8 +29,9 @@ import {
     StatisticType,
 } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
-import { rollPercentile, TargetPart } from '../../Dice';
+import { rollPercentile, DicePart, rollDamage } from '../../Dice';
 import { ItemType } from '../../../types/Item';
+import { ModifierDialog } from '../../dialog/ModifierDialog';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -95,7 +96,7 @@ export class DGActorSheet extends ActorSheet {
          * Preprocess an event; call stopPropagation and preventDefault, wrap the target in JQuery.
          * @param event
          */
-        const preprocessEvent = (event: JQuery.ClickEvent | JQuery.ChangeEvent) => {
+        const preprocessEvent = (event: JQuery.ClickEvent | JQuery.ChangeEvent | JQuery.ContextMenuEvent) => {
             event.preventDefault();
             event.stopPropagation();
             return $(event.currentTarget);
@@ -106,7 +107,7 @@ export class DGActorSheet extends ActorSheet {
          * @param label
          * @param modifiers
          */
-        const basicRoll = async (label: string, modifiers: TargetPart[]) => {
+        const basicRoll = async (label: string, modifiers: DicePart[]) => {
             const rollResult = await rollPercentile(modifiers);
             const templateData: Record<string, any> = { ...rollResult };
             templateData['actor'] = this.actor;
@@ -119,24 +120,62 @@ export class DGActorSheet extends ActorSheet {
         /**
          * Roll a skill based on the skill's id.
          * @param id
+         * @param modifier Display the modifier prompt?
          */
-        const rollSkill = async (id: string) => {
+        const rollSkill = async (id: string, modifier: boolean) => {
             const skill: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (skill.data.type === ItemTypeSkill) {
-                await basicRoll(skill.name ?? '', [
-                    {
-                        value: skill.data.data.value ?? 0,
-                        label: skill.name ?? 'Base',
-                    },
-                ]);
+                if (modifier) {
+                    await rollWithModifierPrompt(
+                        skill.name ?? '',
+                        [
+                            {
+                                value: skill.data.data.value ?? 0,
+                                label: skill.name ?? 'Base',
+                            },
+                        ],
+                        basicRoll,
+                    );
+                } else {
+                    await basicRoll(skill.name ?? '', [
+                        {
+                            value: skill.data.data.value ?? 0,
+                            label: skill.name ?? 'Base',
+                        },
+                    ]);
+                }
             }
+        };
+
+        type ModifierPromptCallback = (label: string, modifiers: DicePart[]) => Promise<void>;
+        const rollWithModifierPrompt = async (label: string, modifiers: DicePart[], callback: ModifierPromptCallback) => {
+            const dialog = new ModifierDialog({
+                title: `${label} Roll`,
+                label: `Modifier`,
+                value: 20,
+                callback: async (value: any) => {
+                    await callback(label, [
+                        ...modifiers,
+                        {
+                            value: parseInt(value),
+                            label: 'Modifier',
+                        },
+                    ]);
+                },
+            });
+            dialog.render(true);
         };
 
         // Skill: Roll skill
         html.find('div.skills-item label.name').on('click', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.skills-item').data('id') as string;
-            await rollSkill(id);
+            await rollSkill(id, false);
+        });
+        html.find('div.skills-item label.name').on('contextmenu', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.skills-item').data('id') as string;
+            await rollSkill(id, true);
         });
 
         // Inventory: Decrement ammo
@@ -167,16 +206,37 @@ export class DGActorSheet extends ActorSheet {
             const id = target.closest('div.inventory-item').data('id') as string;
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
-                await rollSkill(item.data.data.skill.value);
+                await rollSkill(item.data.data.skill.value, false);
+            }
+        });
+        html.find('div.inventory-group.weapon label.attack').on('contextmenu', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.inventory-item').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (item.data.type === ItemTypeWeapon) {
+                await rollSkill(item.data.data.skill.value, true);
             }
         });
         // Inventory: Roll damage
         html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
+            // TODO: This whole damage roll process is atrocious. It should be multiple types of rolls or something.
             const target = preprocessEvent(event);
             const id = target.closest('div.inventory-item').data('id') as string;
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            console.warn('roll damage');
-            console.warn(item);
+            if (item.data.type === ItemTypeWeapon) {
+                const rollResult = await rollDamage(item.data.data.damage.value, item.data.data.lethality.value, this.actor);
+                const templateData: Record<string, any> = { ...rollResult };
+                templateData['actor'] = this.actor;
+
+                if (!templateData.hasOwnProperty('success')) {
+                    templateData['label'] = 'Damage';
+                }
+
+                const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
+                await ChatMessage.create({
+                    content: renderedTemplate,
+                });
+            }
         });
 
         // Sanity: Reset breaking point
@@ -196,6 +256,19 @@ export class DGActorSheet extends ActorSheet {
                     label: 'Sanity',
                 },
             ]);
+        });
+        html.find('section.attributes label.clickable.sanity').on('contextmenu', async (event) => {
+            preprocessEvent(event);
+            await rollWithModifierPrompt(
+                'Sanity',
+                [
+                    {
+                        value: this.actor.data.data.sanity.value,
+                        label: 'Sanity',
+                    },
+                ],
+                basicRoll,
+            );
         });
         // Sanity: Adaptations
         html.find('div.adaptations input[type="checkbox"]').on('change', async (event) => {
@@ -228,6 +301,19 @@ export class DGActorSheet extends ActorSheet {
                 },
             ]);
         });
+        html.find('section.attributes label.clickable.luck').on('contextmenu', async (event) => {
+            preprocessEvent(event);
+            await rollWithModifierPrompt(
+                'Luck',
+                [
+                    {
+                        value: this.actor.data.data.luck.value,
+                        label: 'Luck',
+                    },
+                ],
+                basicRoll,
+            );
+        });
 
         // Stats: Roll stats*5
         html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
@@ -240,6 +326,21 @@ export class DGActorSheet extends ActorSheet {
                     label: statistic.label,
                 },
             ]);
+        });
+        html.find('div.stats-field label.clickable.stats').on('contextmenu', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.stats-field').data('id') as StatisticType;
+            const statistic = this.actor.data.data.statistics[id];
+            await rollWithModifierPrompt(
+                statistic.label,
+                [
+                    {
+                        value: statistic.percentile ?? statistic.value * 5,
+                        label: statistic.label,
+                    },
+                ],
+                basicRoll,
+            );
         });
 
         // Bonds: Damage bond

@@ -1,4 +1,4 @@
-/*
+/*!
  * Copyright 2021 Andrew Cuccinello
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import { SYSTEM_NAME } from '../Constants';
-import { InputDialog } from './InputDialog';
-
-export class ModifierDialog extends InputDialog<number> {
-    static get defaultOptions() {
-        const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/dialog/ModifierDialog.html`;
-        options.width = 200;
-        options.height = 'auto';
-        return options;
+div.delta-green {
+    div.dialog {
+        div.labeled-field {
+            label {
+                width: 100%;
+                text-align: center;
+                left: 0;
+            }
+        }
     }
 }

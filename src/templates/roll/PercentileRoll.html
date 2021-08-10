@@ -9,20 +9,22 @@
             </div>
         </div>
     {{/if}}
-    <div class="roll-parts">
-        <header class="parts-header">
-            <div class="label">{{target.base.label}}</div>
-            <div class="label">{{target.base.value}}%</div>
-        </header>
-        <div class="parts-list" style="display: none;">
-            {{#each target.modifiers as |part|}}
-                <div class="part">
-                    <div class="label">{{part.label}}</div>
-                    <div class="label">{{part.value}}%</div>
-                </div>
-            {{/each}}
+    {{#if target}}
+        <div class="roll-parts">
+            <header class="parts-header">
+                <div class="label">{{target.base.label}}</div>
+                <div class="label">{{target.total}}%</div>
+            </header>
+            <div class="parts-list" style="display: none;">
+                {{#each target.modifiers as |part|}}
+                    <div class="part">
+                        <div class="label">{{part.label}}</div>
+                        <div class="label">{{part.value}}%</div>
+                    </div>
+                {{/each}}
+            </div>
         </div>
-    </div>
+    {{/if}}
     <div class="roll-body">
         <div class="dice-rolls {{success.type}}">
             {{#each results.dice as |die|}}
@@ -31,7 +33,14 @@
         </div>
         <div class="total">{{results.value}}</div>
     </div>
-    <div class="roll-result {{success.type}}">
-        {{success.label}}
-    </div>
+    {{#if success}}
+        <div class="roll-result {{success.type}}">
+            {{success.label}}
+        </div>
+    {{/if}}
+    {{#if label}}
+        <div class="roll-result">
+            {{label}}
+        </div>
+    {{/if}}
 </div>

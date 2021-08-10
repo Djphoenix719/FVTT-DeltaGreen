@@ -53,6 +53,7 @@ div.delta-green {
     *.flex-row {
         display: flex;
         flex-direction: row;
+        align-items: center;
     }
     *.flex-col {
         display: flex;

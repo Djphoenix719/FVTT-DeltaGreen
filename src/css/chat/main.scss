@@ -63,6 +63,8 @@ li.chat-message {
             div.parts-list {
                 padding: 0.25rem;
                 background: rgba(0, 0, 0, 0.25);
+                border-left: $field-border-style;
+                border-right: $field-border-style;
             }
         }
         div.roll-body {
@@ -73,6 +75,7 @@ li.chat-message {
 
             div.dice-rolls {
                 display: flex;
+                flex-wrap: wrap;
 
                 &.criticalFailure {
                     color: red;
@@ -91,6 +94,15 @@ li.chat-message {
 
                 div.d10 {
                     background-image: url(/icons/svg/d10-grey.svg);
+                }
+                div.d8 {
+                    background-image: url(/icons/svg/d8-grey.svg);
+                }
+                div.d6 {
+                    background-image: url(/icons/svg/d6-grey.svg);
+                }
+                div.d4 {
+                    background-image: url(/icons/svg/d4-grey.svg);
                 }
             }
 

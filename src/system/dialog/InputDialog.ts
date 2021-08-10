@@ -100,7 +100,7 @@ export class InputDialog<T extends InputAppValue> extends Application {
         button.on('click', async (event) => {
             event.preventDefault();
 
-            const input = html.find(`input`) as JQuery<HTMLInputElement>;
+            const input = html.find(`input, select`) as JQuery<HTMLInputElement>;
 
             const value = input.val() as string;
             if (this._callback !== undefined) {
