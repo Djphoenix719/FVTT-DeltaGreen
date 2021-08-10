@@ -9,17 +9,27 @@
             </div>
         </div>
     {{/if}}
-    <div class="roll-title">
-        <div class="label">{{label}}</div>
-        <div class="label">{{target}}%</div>
+    <div class="roll-parts">
+        <header class="parts-header">
+            <div class="label">{{target.base.label}}</div>
+            <div class="label">{{target.base.value}}%</div>
+        </header>
+        <div class="parts-list" style="display: none;">
+            {{#each target.modifiers as |part|}}
+                <div class="part">
+                    <div class="label">{{part.label}}</div>
+                    <div class="label">{{part.value}}%</div>
+                </div>
+            {{/each}}
+        </div>
     </div>
     <div class="roll-body">
         <div class="dice-rolls {{success.type}}">
-            {{#each results as |die|}}
+            {{#each results.dice as |die|}}
                 <div class="roll die d{{die.size}}">{{die.value}}</div>
             {{/each}}
         </div>
-        <div class="total">{{total}}</div>
+        <div class="total">{{results.value}}</div>
     </div>
     <div class="roll-result {{success.type}}">
         {{success.label}}

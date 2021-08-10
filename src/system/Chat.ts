@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2021 Andrew Cuccinello
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-$field-border-style: 1px solid black;
-$avatar-height: 8rem;
-$chat-dice-size: 48px;
-$hover-shadow-style: rgba(255, 0, 0, 0.9) 0px 0px 16px;
+export const registerChatHooks = () => {
+    Hooks.on('renderChatMessage', async (message, html) => {
+        const header = html.find('header.parts-header');
+        header.on('click', (event) => {
+            header.next('div.parts-list').toggle({
+                duration: 200,
+            });
+        });
+    });
+};

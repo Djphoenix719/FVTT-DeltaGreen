@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@import '../constants';
+
 div.delta-green {
     form {
         background: rgba(255, 255, 255, 0.5);
@@ -74,7 +76,7 @@ div.delta-green {
         cursor: pointer;
 
         &:hover {
-            text-shadow: rgba(255, 0, 0, 0.9) 0px 0px 16px;
+            text-shadow: $hover-shadow-style;
         }
     }
 

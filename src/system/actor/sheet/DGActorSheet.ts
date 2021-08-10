@@ -26,7 +26,7 @@ import {
     StatisticType,
 } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
-import { rollPercentile } from '../../Dice';
+import { rollPercentile, TargetPart } from '../../Dice';
 import { ItemType } from '../../../types/Item';
 
 export class DGActorSheet extends ActorSheet {
@@ -39,7 +39,7 @@ export class DGActorSheet extends ActorSheet {
             {
                 navSelector: 'nav.sheet-navigation',
                 contentSelector: 'section.sheet-body',
-                initial: 'tab-psychological',
+                initial: 'tab-skills',
             },
         ];
         options.width = 800;
@@ -96,15 +96,14 @@ export class DGActorSheet extends ActorSheet {
 
         /**
          * Roll a basic roll w/ a target and label
-         * @param target
          * @param label
+         * @param modifiers
          */
-        const basicRoll = async (target: number, label: string) => {
-            const rollResult = await rollPercentile(target);
+        const basicRoll = async (label: string, modifiers: TargetPart[]) => {
+            const rollResult = await rollPercentile(modifiers);
             const templateData: Record<string, any> = { ...rollResult };
             templateData['actor'] = this.actor;
-            templateData['label'] = label;
-            templateData['target'] = rollResult.target;
+            console.warn(templateData);
             const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
             await ChatMessage.create({
                 content: renderedTemplate,
@@ -118,7 +117,12 @@ export class DGActorSheet extends ActorSheet {
         const rollSkill = async (id: string) => {
             const skill: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (skill.data.type === ItemTypeSkill) {
-                await basicRoll(skill.data.data.value ?? 0, skill.name ?? '');
+                await basicRoll(skill.name ?? '', [
+                    {
+                        value: skill.data.data.value ?? 0,
+                        label: skill.name ?? 'Base',
+                    },
+                ]);
             }
         };
 
@@ -227,7 +231,12 @@ export class DGActorSheet extends ActorSheet {
         // Sanity: Roll sanity
         html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
             preprocessEvent(event);
-            await basicRoll(this.actor.data.data.sanity.value, 'Sanity');
+            await basicRoll('Sanity', [
+                {
+                    value: this.actor.data.data.sanity.value,
+                    label: 'Sanity',
+                },
+            ]);
         });
         // Sanity: Adaptations
         html.find('div.adaptations input[type="checkbox"]').on('change', async (event) => {
@@ -253,7 +262,12 @@ export class DGActorSheet extends ActorSheet {
         // Luck: Roll luck
         html.find('section.attributes label.clickable.luck').on('click', async (event) => {
             preprocessEvent(event);
-            await basicRoll(this.actor.data.data.luck.value, 'Luck');
+            await basicRoll('Luck', [
+                {
+                    value: this.actor.data.data.luck.value,
+                    label: 'Luck',
+                },
+            ]);
         });
 
         // Bonds: Cross bond
@@ -312,7 +326,12 @@ export class DGActorSheet extends ActorSheet {
             const target = preprocessEvent(event);
             const id = target.closest('div.stats-field').data('id') as StatisticType;
             const statistic = this.actor.data.data.statistics[id];
-            await basicRoll(statistic.percentile ?? statistic.value * 5, statistic.label);
+            await basicRoll(statistic.label, [
+                {
+                    value: statistic.percentile ?? statistic.value * 5,
+                    label: statistic.label,
+                },
+            ]);
         });
 
         // Collapsibles: Toggle & update cache

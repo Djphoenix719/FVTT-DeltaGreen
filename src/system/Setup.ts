@@ -27,6 +27,7 @@ import { rollPercentile } from './Dice';
 import { DGBondSheet } from './item/sheet/DGBondSheet';
 import { DGMotivationSheet } from './item/sheet/DGMotivationSheet';
 import { DGDisorderSheet } from './item/sheet/DGDisorderSheet';
+import { registerChatHooks } from './Chat';
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -91,6 +92,7 @@ Hooks.on('init', async () => {
     await registerHandlebarsTemplatesAndPartials();
     registerActorClasses();
     registerItemClasses();
+    registerChatHooks();
 
     (window as any).rollPercentile = rollPercentile;
 });

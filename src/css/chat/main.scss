@@ -43,11 +43,27 @@ li.chat-message {
                 font-weight: bolder;
             }
         }
-        div.roll-title {
+        div.roll-parts {
             display: flex;
+            flex-direction: column;
             width: 100%;
-            justify-content: space-between;
-            font-size: 16px;
+
+            header.parts-header,
+            div.part {
+                display: flex;
+                justify-content: space-between;
+                font-size: 16px;
+            }
+
+            header.parts-header:hover {
+                cursor: pointer;
+                text-shadow: $hover-shadow-style;
+            }
+
+            div.parts-list {
+                padding: 0.25rem;
+                background: rgba(0, 0, 0, 0.25);
+            }
         }
         div.roll-body {
             display: flex;

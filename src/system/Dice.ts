@@ -16,27 +16,40 @@
 
 import { RollResultType } from '../types/Constants';
 
-interface DieData {
+export interface DieData {
     size: number;
     value: number;
 }
-interface SuccessData {
+export interface SuccessData {
     type: RollResultType;
     label: string;
 }
+export interface TargetPart {
+    value: number;
+    label: string;
+}
 export interface DiceResult {
-    total: number;
-    target: number;
-    results: DieData[];
+    target: {
+        base: TargetPart;
+        totalTarget: number;
+        modifiers: TargetPart[];
+    };
+    results: {
+        value: number;
+        dice: DieData[];
+    };
     success: SuccessData;
 }
 
 /**
  * Roll a percentile die under a target.
- * @param target The maximum value to be considered a success.
+ * @param parts Modifiers to the target number.
  */
-export async function rollPercentile(target: number): Promise<DiceResult> {
-    target = Math.clamped(target, 1, 100);
+export async function rollPercentile(parts: TargetPart[]): Promise<DiceResult> {
+    let totalTarget = parts[0].value;
+    for (const modifier of parts) {
+        totalTarget += modifier.value;
+    }
 
     const diceRoll = await new Roll('1d100').roll({ async: true });
 
@@ -49,13 +62,13 @@ export async function rollPercentile(target: number): Promise<DiceResult> {
 
     let successType: RollResultType;
     if (ones === tens) {
-        if (diceRoll.total <= target) {
+        if (diceRoll.total <= totalTarget) {
             successType = RollResultType.CriticalSuccess;
         } else {
             successType = RollResultType.CriticalFailure;
         }
     } else {
-        if (diceRoll.total <= target) {
+        if (diceRoll.total <= totalTarget) {
             successType = RollResultType.Success;
         } else {
             successType = RollResultType.Failure;
@@ -71,18 +84,24 @@ export async function rollPercentile(target: number): Promise<DiceResult> {
     }
 
     return {
-        total: tens * 10 + ones,
-        target: target,
-        results: [
-            {
-                value: tens,
-                size: 10,
-            },
-            {
-                value: ones,
-                size: 10,
-            },
-        ],
+        target: {
+            base: parts[0],
+            totalTarget: totalTarget,
+            modifiers: parts,
+        },
+        results: {
+            value: tens * 10 + ones,
+            dice: [
+                {
+                    value: tens,
+                    size: 10,
+                },
+                {
+                    value: ones,
+                    size: 10,
+                },
+            ],
+        },
         success: {
             type: successType,
             label: game.i18n.localize(`DG.DICE.${successType}`),
