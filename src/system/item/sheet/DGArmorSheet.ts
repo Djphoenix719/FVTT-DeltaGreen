@@ -36,7 +36,7 @@ export class DGArmorSheet extends DGGearSheet {
 
         // TODO: Figure out how to type this in FVTT-Types
         // @ts-ignore
-        data.subtemplate = `systems/${SYSTEM_NAME}/templates/item/Armor.html`;
+        data.subtemplate = `systems/${SYSTEM_NAME}/templates/item/ArmorSheet.html`;
 
         return data;
     }

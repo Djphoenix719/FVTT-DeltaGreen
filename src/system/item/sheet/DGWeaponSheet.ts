@@ -38,7 +38,7 @@ export class DGWeaponSheet extends DGGearSheet {
 
         // TODO: Figure out how to type this in FVTT-Types
         // @ts-ignore
-        data.subtemplate = `systems/${SYSTEM_NAME}/templates/item/Weapon.html`;
+        data.subtemplate = `systems/${SYSTEM_NAME}/templates/item/WeaponSheet.html`;
 
         const skills: SelectOption[] = [
             {

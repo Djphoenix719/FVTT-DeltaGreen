@@ -19,7 +19,7 @@ import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 export class DGSkillSheet extends ItemSheet {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/Skill.html`;
+        options.template = `systems/${SYSTEM_NAME}/templates/item/SkillSheet.html`;
         options.classes = options.classes ?? [];
         options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
         options.width = 500;

@@ -36,9 +36,11 @@ export async function registerHandlebarsTemplatesAndPartials() {
         `templates/actor/tabs/Psychological.html`,
         `templates/actor/tabs/SkillsList.html`,
 
-        `templates/item/Gear.html`,
-        `templates/item/Weapon.html`,
-        `templates/item/Armor.html`,
+        `templates/item/GearSheet.html`,
+        `templates/item/WeaponSheet.html`,
+        `templates/item/ArmorSheet.html`,
+        `templates/item/BondSheet.html`,
+        `templates/item/SkillSheet.html`,
 
         ...Object.values(partials),
     ];

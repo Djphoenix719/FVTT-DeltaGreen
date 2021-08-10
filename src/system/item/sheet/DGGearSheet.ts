@@ -20,7 +20,7 @@ import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 export class DGGearSheet extends ItemSheet {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/Gear.html`;
+        options.template = `systems/${SYSTEM_NAME}/templates/item/GearSheet.html`;
         options.classes = options.classes ?? [];
         options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
         options.width = 500;
