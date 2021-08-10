@@ -49,6 +49,7 @@ interface AgentDataSourceData {
             [TType in AdaptationType]: boolean[];
         };
     };
+    luck: Value<number>;
     statistics: {
         [TType in StatisticType]: Statistic<TType>;
     };

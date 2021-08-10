@@ -59,8 +59,8 @@ export class DGActor extends Actor {
      */
     public get sanityMax() {
         let value = 99;
-        const skill = this.items.get(UNNATURAL_ID) as DGItem;
-        if (skill.data.type === 'skill') {
+        const skill = this.items.get(UNNATURAL_ID) as DGItem | undefined;
+        if (skill && skill.data.type === 'skill') {
             value -= skill.data.data.value ?? 0;
         }
         return value;
@@ -73,7 +73,7 @@ export class DGActor extends Actor {
         let value = 0;
         for (const item of this.items) {
             if (item.data.type === ItemTypeArmor) {
-                if (!item.data.data.equipped) {
+                if (!item.data.data.equipped.value) {
                     continue;
                 }
                 value += item.data.data.armorRating.value;

@@ -1,0 +1,27 @@
+<div class="delta-green">
+    {{#if actor}}
+        <div class="roll-header">
+            <div class="avatar">
+                <img src="{{actor.img}}">
+            </div>
+            <div class="name">
+                {{actor.name}}
+            </div>
+        </div>
+    {{/if}}
+    <div class="roll-title">
+        <div class="label">{{label}}</div>
+        <div class="label">{{target}}%</div>
+    </div>
+    <div class="roll-body">
+        <div class="dice-rolls {{success.type}}">
+            {{#each results as |die|}}
+                <div class="roll die d{{die.size}}">{{die.value}}</div>
+            {{/each}}
+        </div>
+        <div class="total">{{total}}</div>
+    </div>
+    <div class="roll-result {{success.type}}">
+        {{success.label}}
+    </div>
+</div>

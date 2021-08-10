@@ -24,8 +24,10 @@ import {
     ItemTypeSkill,
     ItemTypeWeapon,
     NEW_SKILL_DEFAULTS,
+    StatisticType,
 } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
+import { rollPercentile } from '../../Dice';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -85,11 +87,39 @@ export class DGActorSheet extends ActorSheet {
             return $(event.currentTarget);
         };
 
+        /**
+         * Roll a basic roll w/ a target and label
+         * @param target
+         * @param label
+         */
+        const basicRoll = async (target: number, label: string) => {
+            const rollResult = await rollPercentile(target);
+            const templateData: Record<string, any> = { ...rollResult };
+            templateData['actor'] = this.actor;
+            templateData['label'] = label;
+            templateData['target'] = rollResult.target;
+            const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
+            await ChatMessage.create({
+                content: renderedTemplate,
+            });
+        };
+
+        /**
+         * Roll a skill based on the skill's id.
+         * @param id
+         */
+        const rollSkill = async (id: string) => {
+            const skill: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (skill.data.type === ItemTypeSkill) {
+                await basicRoll(skill.data.data.value ?? 0, skill.name ?? '');
+            }
+        };
+
         // Skill: Update failures
         html.find('div.skills-item input.failure').on('change', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.skills-item').data('id') as string;
-            const value = target.prop('checked');
+            const value = target.prop('checked') as boolean;
             await this.actor.updateEmbeddedDocuments('Item', [
                 {
                     _id: id,
@@ -141,6 +171,12 @@ export class DGActorSheet extends ActorSheet {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.skills-item').data('id') as string;
             await this.actor.deleteEmbeddedDocuments('Item', [id]);
+        });
+        // Skill: Roll skill
+        html.find('div.skills-item label.name').on('click', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.skills-item').data('id') as string;
+            await rollSkill(id);
         });
 
         // Inventory: Edit item
@@ -199,7 +235,7 @@ export class DGActorSheet extends ActorSheet {
                 });
             }
         });
-        // Inventory: Decrement ammo
+        // Inventory: Reload ammo
         html.find('div.inventory-group.weapon div.ammo label.reload').on('click', async (event) => {
             const target = preprocessEvent(event);
             const id = target.closest('div.inventory-item').data('id') as string;
@@ -215,8 +251,9 @@ export class DGActorSheet extends ActorSheet {
             const target = preprocessEvent(event);
             const id = target.closest('div.inventory-item').data('id') as string;
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            console.warn('roll attack');
-            console.warn(item);
+            if (item.data.type === ItemTypeWeapon) {
+                await rollSkill(item.data.data.skill.value);
+            }
         });
         // Inventory: Roll damage
         html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
@@ -226,6 +263,28 @@ export class DGActorSheet extends ActorSheet {
             console.warn('roll damage');
             console.warn(item);
         });
+        // Inventory: Toggle equipped state
+        html.find('div.inventory-item input.equipped').on('click', async (event) => {
+            // TODO: This should be fixed, but the placement of the collapsible prevents proper event handling.
+            //  The collapsibles should be refactored to prevent the need to manually update the input.
+            event.stopPropagation();
+            const target: JQuery<HTMLInputElement> = $(event.currentTarget) as JQuery<HTMLInputElement>;
+            const id = target.closest('div.inventory-item').data('id') as string;
+            const value = target.prop('checked') as boolean;
+
+            if (value) {
+                target.prop('checked', true);
+            } else {
+                target.removeProp('checked');
+            }
+
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (item.data.type === ItemTypeArmor) {
+                await item.update({
+                    ['data.equipped.value']: value,
+                });
+            }
+        });
 
         // Sanity: Reset breaking point
         html.find('div.breaking-point label.reset').on('click', async (event) => {
@@ -234,6 +293,25 @@ export class DGActorSheet extends ActorSheet {
             await this.actor.update({
                 [`data.sanity.breakingPoint.value`]: newBreakingPoint,
             });
+        });
+        // Sanity: Roll sanity
+        html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
+            preprocessEvent(event);
+            await basicRoll(this.actor.data.data.sanity.value, 'Sanity');
+        });
+
+        // Luck: Roll luck
+        html.find('section.attributes label.clickable.luck').on('click', async (event) => {
+            preprocessEvent(event);
+            await basicRoll(this.actor.data.data.luck.value, 'Luck');
+        });
+
+        // Stats: Roll stats*5
+        html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.stats-field').data('id') as StatisticType;
+            const statistic = this.actor.data.data.statistics[id];
+            await basicRoll(statistic.percentile ?? statistic.value * 5, statistic.label);
         });
 
         // Collapsibles: Toggle & update cache

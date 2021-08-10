@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-export enum DiceResultType {
-    CriticalFailure = 'criticalFailure',
-    Failure = 'failure',
-    Success = 'success',
-    CriticalSuccess = 'criticalSuccess',
-}
+import { RollResultType } from '../types/Constants';
 
+interface DieData {
+    size: number;
+    value: number;
+}
+interface SuccessData {
+    type: RollResultType;
+    label: string;
+}
 export interface DiceResult {
-    roll: Roll;
     total: number;
-    successType: DiceResultType;
+    target: number;
+    results: DieData[];
+    success: SuccessData;
 }
 
 /**
@@ -34,41 +38,54 @@ export interface DiceResult {
 export async function rollPercentile(target: number): Promise<DiceResult> {
     target = Math.clamped(target, 1, 100);
 
-    const roll = await new Roll('1d100').roll({ async: true });
+    const diceRoll = await new Roll('1d100').roll({ async: true });
 
-    if (!roll.total) {
+    if (!diceRoll.total) {
         throw new Error('Something went wrong with the roll.');
     }
 
-    const ones = roll.total % 10;
-    const tens = Math.floor(roll.total / 10);
+    const ones = diceRoll.total % 10;
+    const tens = Math.floor(diceRoll.total / 10);
 
-    let successType: DiceResultType;
+    let successType: RollResultType;
     if (ones === tens) {
-        if (roll.total <= target) {
-            successType = DiceResultType.CriticalSuccess;
+        if (diceRoll.total <= target) {
+            successType = RollResultType.CriticalSuccess;
         } else {
-            successType = DiceResultType.CriticalFailure;
+            successType = RollResultType.CriticalFailure;
         }
     } else {
-        if (roll.total <= target) {
-            successType = DiceResultType.Success;
+        if (diceRoll.total <= target) {
+            successType = RollResultType.Success;
         } else {
-            successType = DiceResultType.Failure;
+            successType = RollResultType.Failure;
         }
     }
 
-    if (roll.total === 100) {
-        successType = DiceResultType.CriticalFailure;
+    if (diceRoll.total === 100) {
+        successType = RollResultType.CriticalFailure;
     }
 
-    if (roll.total === 1) {
-        successType = DiceResultType.CriticalSuccess;
+    if (diceRoll.total === 1) {
+        successType = RollResultType.CriticalSuccess;
     }
 
     return {
-        roll,
-        total: roll.total,
-        successType,
+        total: tens * 10 + ones,
+        target: target,
+        results: [
+            {
+                value: tens,
+                size: 10,
+            },
+            {
+                value: ones,
+                size: 10,
+            },
+        ],
+        success: {
+            type: successType,
+            label: game.i18n.localize(`DG.DICE.${successType}`),
+        },
     };
 }

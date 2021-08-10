@@ -14,7 +14,16 @@
  * limitations under the License.
  */
 
-import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+/*********************
+ DICE CONSTANTS & ENUMS
+ *********************/
+
+export enum RollResultType {
+    CriticalFailure = 'criticalFailure',
+    Failure = 'failure',
+    Success = 'success',
+    CriticalSuccess = 'criticalSuccess',
+}
 
 /*********************
  ACTOR CONSTANTS & ENUMS

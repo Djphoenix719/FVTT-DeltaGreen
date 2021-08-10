@@ -23,6 +23,7 @@ import { DGGearSheet } from './item/sheet/DGGearSheet';
 import { DGArmorSheet } from './item/sheet/DGArmorSheet';
 import { DGWeaponSheet } from './item/sheet/DGWeaponSheet';
 import { DGSkillSheet } from './item/sheet/DGSkillSheet';
+import { rollPercentile } from './Dice';
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -69,6 +70,8 @@ Hooks.on('init', async () => {
     await registerHandlebarsTemplatesAndPartials();
     registerActorClasses();
     registerItemClasses();
+
+    (window as any).rollPercentile = rollPercentile;
 });
 
 Hooks.on('ready', async () => {

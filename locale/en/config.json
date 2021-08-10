@@ -61,6 +61,12 @@
             "current": "Cur.",
             "maximum": "Max.",
             "breakingPoint": "B. P."
+        },
+        "DICE": {
+            "criticalSuccess": "Critical Success",
+            "success": "Success",
+            "failure": "Failure",
+            "criticalFailure": "Critical Failure"
         }
     }
 }
