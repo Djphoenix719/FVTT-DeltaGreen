@@ -56,7 +56,7 @@
 
                 <div class="description collapse-target" {{#if (lookup @root.collapsibles weapon.id)}}{{else}}style='display: none'{{/if}}>
                     <div class="content">
-                        {{enrichHTML weapon.data.data.description.value}}
+                        {{{enrichHTML weapon.data.data.description.value}}}
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
 
                     <label class="flex-1">{{armor.data.data.armorRating.value}}</label>
 
-                    <input type="checkbox" class="equipped flex-1" {{checked armor.data.data.equipped.value}}>
+                    <input type="checkbox" class="equipped flex-1 modify-item" data-path="data.equipped.value" {{checked armor.data.data.equipped.value}}>
 
                     <div class="item-buttons">
                         <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
@@ -99,7 +99,7 @@
 
                 <div class="description collapse-target" {{#if (lookup @root.collapsibles armor.id)}}{{else}}style='display: none'{{/if}}>
                     <div class="content">
-                        {{enrichHTML armor.data.data.description.value}}
+                        {{{enrichHTML armor.data.data.description.value}}}
                     </div>
                 </div>
 
@@ -135,7 +135,7 @@
 
                 <div class="description collapse-target" {{#if (lookup @root.collapsibles gear.id)}}{{else}}style='display: none'{{/if}}>
                     <div class="content">
-                        {{enrichHTML gear.data.data.description.value}}
+                        {{{enrichHTML gear.data.data.description.value}}}
                     </div>
                 </div>
 

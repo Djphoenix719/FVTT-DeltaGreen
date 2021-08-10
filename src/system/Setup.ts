@@ -174,6 +174,9 @@ Hooks.on('ready', async () => {
                 type: 'bond',
                 name: 'Example Bond 1',
                 data: {
+                    score: {
+                        value: 15,
+                    },
                     description: {
                         value: 'Example Bond w/ Description 1',
                     },

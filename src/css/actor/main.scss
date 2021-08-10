@@ -317,6 +317,7 @@ div.delta-green.agent section.window-content {
             div.data {
                 display: flex;
                 flex-direction: row;
+                align-items: center;
                 width: 100%;
 
                 label:not(:first-of-type) {
@@ -334,16 +335,16 @@ div.delta-green.agent section.window-content {
                     border-right: $field-border-style;
                 }
             }
-            input[type='checkbox'] {
-                margin: 0;
+            input[type='number'] {
+                text-align: center;
             }
         }
 
         header.flex-header {
-            > label {
+            > label:first-of-type {
                 flex: 1;
                 text-align: left;
-                padding-left: 1.5rem;
+                padding-left: 2rem;
             }
         }
 
