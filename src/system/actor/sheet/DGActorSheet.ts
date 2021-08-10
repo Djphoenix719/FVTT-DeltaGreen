@@ -30,7 +30,7 @@ export class DGActorSheet extends ActorSheet {
             {
                 navSelector: 'nav.sheet-navigation',
                 contentSelector: 'section.sheet-body',
-                initial: 'tab-inventory',
+                initial: 'tab-skills',
             },
         ];
         options.width = 800;
@@ -64,11 +64,39 @@ export class DGActorSheet extends ActorSheet {
     public activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        const preprocessEvent = (event: JQuery.ClickEvent) => {
+        const preprocessEvent = (event: JQuery.ClickEvent | JQuery.ChangeEvent) => {
             event.preventDefault();
             event.stopPropagation();
             return $(event.currentTarget);
         };
+
+        // Skill Updates
+        html.find('div.skills-item input.failure').on('change', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.skills-item').data('id') as string;
+            const value = target.prop('checked');
+            await this.actor.updateEmbeddedDocuments('Item', [
+                {
+                    _id: id,
+                    data: {
+                        sessionFailure: value,
+                    },
+                },
+            ]);
+        });
+        html.find('div.skills-item input.value').on('change', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const id = target.closest('div.skills-item').data('id') as string;
+            const value = target.val();
+            await this.actor.updateEmbeddedDocuments('Item', [
+                {
+                    _id: id,
+                    data: {
+                        value: value,
+                    },
+                },
+            ]);
+        });
 
         html.find('label.clickable.roll').on('click', async (event) => {
             const domTarget = preprocessEvent(event);

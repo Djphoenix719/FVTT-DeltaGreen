@@ -1,97 +1,93 @@
-<section class="inventory">
+<header class="center-header">
+    <label class="flex-1">Weapon</label>
+</header>
+<div class="inventory-group weapon">
+    <header class="flex-header">
+        <label class="flex-2">Name</label>
+        <label class="flex-1">Skill</label>
+        <label class="flex-1">Damage</label>
+        <label class="flex-1">AP</label>
+        <label class="flex-1">Ammo</label>
+        <label class="flex-1">Range</label>
+        <div class="header-buttons">
+            <label class="clickable add-weapon"><i class="fas fa-plus"></i></label>
+        </div>
+    </header>
 
-    <div class="inventory-group weapon">
-        <header class="section-header">
-            <label class="flex-1">Weapon</label>
-        </header>
-        <header class="section-header">
-            <label class="flex-2">Name</label>
-            <label class="flex-1">Skill</label>
-            <label class="flex-1">Damage</label>
-            <label class="flex-1">AP</label>
-            <label class="flex-1">Ammo</label>
-            <label class="flex-1">Range</label>
-            <div class="header-buttons">
-                <label class="clickable add-weapon"><i class="fas fa-plus"></i> Add</label>
-            </div>
-        </header>
+    <div class="inventory-list weapon">
 
-        <div class="inventory-list weapon">
+        {{#each @root.inventory.weapons as |weapon|}}
+            <div class="inventory-item weapon" data-item-id="{{weapon.id}}">
 
-            {{#each @root.inventory.weapons as |weapon|}}
-                <div class="inventory-item weapon" data-item-id="{{weapon.id}}">
+                <label class="flex-2 clickable collapse">{{weapon.name}}</label>
 
-                    <label class="flex-2 clickable collapse">{{weapon.name}}</label>
+                {{#if weapon.data.data.skill.label}}
+                    <label class="flex-1 clickable attack">{{localize weapon.data.data.skill.label}}</label>
+                {{else}}
+                    <label class="flex-1">—</label>
+                {{/if}}
 
-                    {{#if weapon.data.data.skill.label}}
-                        <label class="flex-1 clickable attack">{{localize weapon.data.data.skill.label}}</label>
+                {{#if (gt weapon.data.data.lethality.value 0)}}
+                    <label class="clickable lethality flex-1">{{weapon.data.data.lethality.value}}%</label>
+                {{else}}
+                    <label class="clickable damage flex-1">{{weapon.data.data.damage.value}}</label>
+                {{/if}}
+
+                <label class="flex-1">{{weapon.data.data.armorPiercing.value}}</label>
+
+                <div class="ammo flex-1">
+                    {{#if (gt weapon.data.data.ammo.maximum 0)}}
+                        <label>{{weapon.data.data.ammo.value}}/{{weapon.data.data.ammo.maximum}}</label>
+                        <label class="clickable decrement-ammo"><i class="fas fa-minus"></i></label>
+                        <label class="clickable reload"><i class="fas fa-redo-alt"></i></label>
                     {{else}}
-                        <label class="flex-1">—</label>
+                        <label>—</label>
                     {{/if}}
-
-                    {{#if (gt weapon.data.data.lethality.value 0)}}
-                        <label class="clickable lethality flex-1">{{weapon.data.data.lethality.value}}%</label>
-                    {{else}}
-                        <label class="clickable damage flex-1">{{weapon.data.data.damage.value}}</label>
-                    {{/if}}
-
-                    <label class="flex-1">{{weapon.data.data.armorPiercing.value}}</label>
-
-                    <div class="ammo flex-1">
-                        {{#if (gt weapon.data.data.ammo.maximum 0)}}
-                            <label>{{weapon.data.data.ammo.value}}/{{weapon.data.data.ammo.maximum}}</label>
-                            <label class="clickable decrement-ammo"><i class="fas fa-minus"></i></label>
-                            <label class="clickable reload"><i class="fas fa-redo-alt"></i></label>
-                        {{else}}
-                            <label>—</label>
-                        {{/if}}
-                    </div>
-
-                    <label class="flex-1">{{weapon.data.data.range.value}}m</label>
-
-                    <div class="item-buttons">
-                        <label class="clickable edit"><i class="fas fa-edit"></i></label>
-                        <label class="clickable delete"><i class="far fa-trash-alt"></i></label>
-                    </div>
-
                 </div>
-            {{/each}}
 
-        </div>
-    </div>
+                <label class="flex-1">{{weapon.data.data.range.value}}m</label>
 
-    <div class="inventory-group armor">
-        <header class="section-header">
-            <label class="flex-1">Armor</label>
-        </header>
-        <header class="section-header">
-            <label class="flex-2">Name</label>
-            <label class="flex-1">Rating</label>
-            <label class="flex-1">Equipped</label>
-            <div class="header-buttons">
-                <label class="clickable add-armor"><i class="fas fa-plus"></i> Add</label>
+                <div class="item-buttons">
+                    <label class="clickable edit"><i class="fas fa-edit"></i></label>
+                    <label class="clickable delete"><i class="far fa-trash-alt"></i></label>
+                </div>
+
             </div>
-        </header>
+        {{/each}}
 
-        <div class="inventory-list armor">
-
-        </div>
     </div>
+</div>
 
-    <div class="inventory-group gear">
-        <header class="section-header">
-            <label class="flex-1">Gear</label>
-        </header>
-        <header class="section-header">
-            <label class="flex-2">Name</label>
-            <label class="flex-1">Equipped</label>
-            <div class="header-buttons">
-                <label class="clickable add-gear"><i class="fas fa-plus"></i> Add</label>
-            </div>
-        </header>
-
-        <div class="inventory-list gear">
+<header class="center-header">
+    <label>Armor</label>
+</header>
+<div class="inventory-group armor">
+    <header class="flex-header">
+        <label class="flex-2">Name</label>
+        <label class="flex-1">Rating</label>
+        <label class="flex-1">Equipped</label>
+        <div class="header-buttons">
+            <label class="clickable add-armor"><i class="fas fa-plus"></i> Add</label>
         </div>
-    </div>
+    </header>
 
-</section>
+    <div class="inventory-list armor">
+
+    </div>
+</div>
+
+<header class="center-header">
+    <label>Gear</label>
+</header>
+<div class="inventory-group gear">
+    <header class="flex-header">
+        <label class="flex-2">Name</label>
+        <label class="flex-1">Equipped</label>
+        <div class="header-buttons">
+            <label class="clickable add-gear"><i class="fas fa-plus"></i> Add</label>
+        </div>
+    </header>
+
+    <div class="inventory-list gear">
+    </div>
+</div>

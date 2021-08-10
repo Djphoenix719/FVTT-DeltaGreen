@@ -1,37 +1,33 @@
-<section class="biography">
+<label class="section-label">Personal Data</label>
 
-    <label class="section-label vertical">Personal Data</label>
+<div class="field-group row">
 
-    <div class="field-group row">
+    <div class="avatar">
+        <img class="avatar" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    </div>
 
-        <div class="avatar">
-            <img class="avatar" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    <div class="field-group col">
+
+        <div class="field-group row">
+            <div class="labeled-field">
+                <label for="name">Agent Name</label>
+                <input type="text" name="name" value="{{@root.actor.name}}">
+            </div>
+
+            {{> labeled-field key="data.biography.profession" field=@root.data.data.biography.profession}}
         </div>
 
-        <div class="field-group col">
+        <div class="field-group row">
+            {{> labeled-field key="data.biography.employer" field=@root.data.data.biography.employer}}
+            {{> labeled-field key="data.biography.nationality" field=@root.data.data.biography.nationality}}
+        </div>
 
-            <div class="field-group row">
-                <div class="labeled-field">
-                    <label for="name">Agent Name</label>
-                    <input type="text" name="name" value="{{@root.actor.name}}">
-                </div>
-
-                {{> labeled-field key="data.biography.profession" field=@root.data.data.biography.profession}}
-            </div>
-
-            <div class="field-group row">
-                {{> labeled-field key="data.biography.employer" field=@root.data.data.biography.employer}}
-                {{> labeled-field key="data.biography.nationality" field=@root.data.data.biography.nationality}}
-            </div>
-
-            <div class="field-group row">
-                {{> labeled-field key="data.biography.gender" field=@root.data.data.biography.gender}}
-                {{> labeled-field key="data.biography.age" field=@root.data.data.biography.age}}
-                {{> labeled-field key="data.biography.education" field=@root.data.data.biography.education}}
-            </div>
-
+        <div class="field-group row">
+            {{> labeled-field key="data.biography.gender" field=@root.data.data.biography.gender}}
+            {{> labeled-field key="data.biography.age" field=@root.data.data.biography.age}}
+            {{> labeled-field key="data.biography.education" field=@root.data.data.biography.education}}
         </div>
 
     </div>
 
-</section>
+</div>

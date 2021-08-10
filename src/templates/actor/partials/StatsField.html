@@ -1,11 +1,11 @@
 <div class="stats-field">
-    <label class="clickable roll"
+    <label class="clickable roll flex-2"
            data-roll="data.statistics.{{statistic.id}}.value"
            data-multiple="5"
     >
         {{statistic.label}}
     </label>
-    <input type="number" name="data.statistics.{{statistic.id}}.value" value="{{statistic.value}}">
-    <input type="number" value="{{statistic.percentile}}" disabled>
-    <input type="text" name="data.statistics.{{statistic.id}}.feature" {{statistic.feature}}>
+    <input class="flex-1" type="number" name="data.statistics.{{statistic.id}}.value" value="{{statistic.value}}">
+    <input class="flex-1" type="number" value="{{statistic.percentile}}" disabled>
+    <input class="flex-6" type="text" name="data.statistics.{{statistic.id}}.feature" {{statistic.feature}}>
 </div>
