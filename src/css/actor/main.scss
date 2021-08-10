@@ -288,5 +288,9 @@ div.delta-green.agent section.window-content {
                 }
             }
         }
+
+        > header.center-header:not(:first-of-type) {
+            margin-top: 0.25rem;
+        }
     }
 }

@@ -85,6 +85,11 @@ interface SkillDefinition {
 }
 
 export const UNNATURAL_ID = '4l35w618j8doxnfq';
+
+export const DEFAULT_WEAPON_NAME = 'New Weapon'; // TODO: Localization
+export const DEFAULT_ARMOR_NAME = 'New Armor'; // TODO: Localization
+export const DEFAULT_GEAR_NAME = 'New Gear'; // TODO: Localization
+
 // We generate a new id when using the new Skill Button
 export const NEW_SKILL_DEFAULTS: Omit<SkillDefinition, '_id'> = {
     name: 'New Skill', // TODO: Localization

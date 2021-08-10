@@ -16,7 +16,16 @@
 
 import { ActorSkillType, Skill } from '../../../types/Actor';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import { ItemTypeSkill, NEW_SKILL_DEFAULTS } from '../../../types/Constants';
+import {
+    DEFAULT_ARMOR_NAME,
+    DEFAULT_GEAR_NAME,
+    DEFAULT_WEAPON_NAME,
+    ItemTypeArmor,
+    ItemTypeGear,
+    ItemTypeSkill,
+    ItemTypeWeapon,
+    NEW_SKILL_DEFAULTS,
+} from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
 
 export class DGActorSheet extends ActorSheet {
@@ -144,11 +153,41 @@ export class DGActorSheet extends ActorSheet {
                 item.sheet.render(true);
             }
         });
-        // Skill: Delete skill
+        // Inventory: Delete skill
         html.find('div.inventory-item label.delete').on('click', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div.inventory-item').data('id') as string;
             await this.actor.deleteEmbeddedDocuments('Item', [id]);
+        });
+        // Inventory: Add Weapon
+        html.find('div.inventory-group.weapon label.add').on('click', async (event) => {
+            preprocessEvent(event);
+            await this.actor.createEmbeddedDocuments('Item', [
+                {
+                    type: ItemTypeWeapon,
+                    name: DEFAULT_WEAPON_NAME,
+                },
+            ]);
+        });
+        // Inventory: Add Armor
+        html.find('div.inventory-group.armor label.add').on('click', async (event) => {
+            preprocessEvent(event);
+            await this.actor.createEmbeddedDocuments('Item', [
+                {
+                    type: ItemTypeArmor,
+                    name: DEFAULT_ARMOR_NAME,
+                },
+            ]);
+        });
+        // Inventory: Add Gear
+        html.find('div.inventory-group.gear label.add').on('click', async (event) => {
+            preprocessEvent(event);
+            await this.actor.createEmbeddedDocuments('Item', [
+                {
+                    type: ItemTypeGear,
+                    name: DEFAULT_GEAR_NAME,
+                },
+            ]);
         });
 
         // Sanity: Reset breaking point
