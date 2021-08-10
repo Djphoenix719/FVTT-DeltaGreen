@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DEFAULT_SKILLS_DEFINITION, ItemTypeSkill, UNNATURAL_ID } from '../../types/Constants';
+import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, UNNATURAL_ID } from '../../types/Constants';
 import { DGItem } from '../item/DGItem';
 
 declare global {
@@ -62,6 +62,22 @@ export class DGActor extends Actor {
         const skill = this.items.get(UNNATURAL_ID) as DGItem;
         if (skill.data.type === 'skill') {
             value -= skill.data.data.value ?? 0;
+        }
+        return value;
+    }
+
+    /**
+     * Calculate in-the-moment equipped armor rating.
+     */
+    public get armorRating() {
+        let value = 0;
+        for (const item of this.items) {
+            if (item.data.type === ItemTypeArmor) {
+                if (!item.data.data.equipped) {
+                    continue;
+                }
+                value += item.data.data.armorRating.value;
+            }
         }
         return value;
     }
