@@ -193,4 +193,4 @@ Hooks.on('ready', async () => {
     }, 250);
 });
 
-CONFIG.debug.hooks = true;
+// CONFIG.debug.hooks = true;
