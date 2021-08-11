@@ -43,6 +43,7 @@ export class DGActorSheet extends ActorSheet {
                 initial: 'tab-skills',
             },
         ];
+        options.scrollY = [...options.scrollY, 'section.sheet-body'];
         options.width = 800;
         options.height = 900;
         return options;
