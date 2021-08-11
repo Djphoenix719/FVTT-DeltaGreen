@@ -3,15 +3,15 @@
     <section class="common">
 
         <div class="labeled-field">
-            <label for="name">Motivation Name</label>
+            <label>{{localize "DG.ITEM.name"}}</label>
             <input type="text" name="name" value="{{@root.item.name}}">
         </div>
 
     </section>
 
     <nav class="sheet-navigation" data-group="primary">
-        <a class="item" data-tab="tab-description" title="Motivation Description">Motivation Description</a>
-        <a class="item active" data-tab="tab-data" title="Motivation Data">Motivation Data</a>
+        <a class="item" data-tab="tab-description" title="{{localize "DG.ITEM.description"}}">{{localize "DG.ITEM.description"}}</a>
+        <a class="item active" data-tab="tab-data" title="{{localize "DG.ITEM.data"}}">{{localize "DG.ITEM.data"}}</a>
     </nav>
 
     <section class="sheet-body">
@@ -19,7 +19,7 @@
         <div class="tab tab-data" data-group="primary" data-tab="tab-data">
 
             <div class="labeled-field">
-                <label for="data.crossed.value">Motivation Crossed</label>
+                <label>{{localize "DG.ITEM.crossed"}}</label>
                 <input type="checkbox" name="data.crossed.value" {{checked @root.data.data.crossed.value}}>
             </div>
 

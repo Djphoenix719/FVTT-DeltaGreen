@@ -2,7 +2,7 @@
     "DG": {
         "SystemName": "Delta Green",
         "SKILLS": {
-            "CORE": {
+            "NAME": {
                 "accounting": "Accounting",
                 "alertness": "Alertness",
                 "anthropology": "Anthropology",
@@ -10,22 +10,22 @@
                 "artillery": "Artillery",
                 "athletics": "Athletics",
                 "bureaucracy": "Bureaucracy",
-                "computer_science": "Computer Science",
+                "computerScience": "Computer Science",
                 "criminology": "Criminology",
                 "demolitions": "Demolitions",
                 "disguise": "Disguise",
                 "dodge": "Dodge",
                 "drive": "Drive",
                 "firearms": "Firearms",
-                "first_aid": "First Aid",
+                "firstAid": "First Aid",
                 "forensics": "Forensics",
-                "heavy_machinery": "Heavy Machinery",
-                "heavy_weapons": "Heavy Weapons",
+                "heavyMachinery": "Heavy Machinery",
+                "heavyWeapons": "Heavy Weapons",
                 "history": "History",
-                "human_intelligence": "HUMINT",
+                "humint": "HUMINT",
                 "law": "Law",
                 "medicine": "Medicine",
-                "melee_weapons": "Melee Weapons",
+                "meleeWeapons": "Melee Weapons",
                 "navigate": "Navigate",
                 "occult": "Occult",
                 "persuade": "Persuade",
@@ -33,17 +33,28 @@
                 "psychotherapy": "Psychotherapy",
                 "ride": "Ride",
                 "search": "Search",
-                "signal_intelligence": "SIGINT",
+                "sigint": "SIGINT",
                 "stealth": "Stealth",
                 "surgery": "Surgery",
                 "survival": "Survival",
                 "swim": "Swim",
-                "unarmed_combat": "Unarmed Combat",
+                "unarmedCombat": "Unarmed Combat",
                 "unnatural": "Unnatural"
             },
-            "CUSTOM": {
-                "AddSkill": "Add Skill"
-            }
+
+            "newSkill": "New Skill",
+            "defaultGroup": "Default Group",
+            "value": "Value",
+            "skill": "Skill"
+        },
+        "BIOGRAPHY": {
+            "name": "Name",
+            "profession": "Profession",
+            "employer": "Employer",
+            "nationality": "Nationality",
+            "gender": "Gender",
+            "age": "Age",
+            "education": "Education"
         },
         "ATTRIBUTES": {
             "hitPoints": "Hit Points (HP)",
@@ -60,7 +71,63 @@
 
             "current": "Cur.",
             "max": "Max.",
-            "breakingPoint": "B. P."
+            "breakingPoint": "B. P.",
+
+            "statistic": "Statistic",
+            "score": "Score",
+            "x5": "x5",
+            "distinguishingFeature": "Distinguishing Feature"
+        },
+        "INVENTORY": {
+            "weapon": "Weapon",
+            "armor": "Armor",
+            "gear": "Gear",
+            "name": "Name",
+            "skill": "Skill",
+            "damage": "Damage",
+            "ap": "AP",
+            "ammo": "Ammo",
+            "range": "Range",
+            "rating": "Rating",
+            "equipped": "Equipped"
+        },
+        "PSYCHOLOGY": {
+            "adaptations": "Adaptations",
+            "bonds": "Bonds",
+            "score": "Score",
+            "motivations": "Motivations",
+            "disorders": "Disorders"
+        },
+        "NAVIGATION": {
+            "statistics": "Statistics",
+            "skills": "Skills",
+            "psychological": "Psychological",
+            "inventory": "Inventory"
+        },
+        "ITEM": {
+            "name": "Name",
+            "expense": "Expense",
+            "equipped": "Equipped",
+            "carried": "Carried",
+            "description": "Description",
+            "data": "Data",
+            "armor": "Armor",
+            "score": "Score",
+            "damaged": "Damaged",
+            "cured": "Cured",
+            "crossed": "Crossed",
+            "skillGroup": "Group",
+            "value": "Value",
+            "failureImproves": "Failure Improves",
+            "failedThisSession": "Failed This Session",
+            "damage": "Damage",
+            "lethality": "Lethality",
+            "armorPiercing": "Armor Piercing",
+            "range": "Range",
+            "killRadius": "Kill Radius (meters)",
+            "ammoCurrent": "Ammo (Current)",
+            "ammoMax": "Ammo (Maximum)",
+            "skill": "Skill"
         },
         "DICE": {
             "criticalSuccess": "Critical Success",

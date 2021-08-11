@@ -9,41 +9,46 @@
     <div class="field-group col">
 
         <div class="field-group row">
-            <div class="labeled-field">
-                <label>Agent Name</label>
-                <input type="text" name="name" value="{{@root.actor.name}}">
-            </div>
 
             <div class="labeled-field">
-                <label>Biography</label>
+                <label>{{localize "DG.BIOGRAPHY.name"}}</label>
+                <input type="text" name="name" value="{{@root.actor.name}}">
+            </div>
+            <div class="labeled-field">
+                <label>{{localize "DG.BIOGRAPHY.profession"}}</label>
                 <input type="text" name="data.biography.profession.value" value="{{@root.data.data.biography.profession.value}}">
             </div>
+
         </div>
 
         <div class="field-group row">
+
             <div class="labeled-field">
-                <label>Employer</label>
+                <label>{{localize "DG.BIOGRAPHY.employer"}}</label>
                 <input type="text" name="data.biography.employer.value" value="{{@root.data.data.biography.employer.value}}">
             </div>
             <div class="labeled-field">
-                <label>Nationality</label>
+                <label>{{localize "DG.BIOGRAPHY.nationality"}}</label>
                 <input type="text" name="data.biography.nationality.value" value="{{@root.data.data.biography.nationality.value}}">
             </div>
+
         </div>
 
         <div class="field-group row">
+
             <div class="labeled-field">
-                <label>Gender</label>
+                <label>{{localize "DG.BIOGRAPHY.gender"}}</label>
                 <input type="text" name="data.biography.gender.value" value="{{@root.data.data.biography.gender.value}}">
             </div>
             <div class="labeled-field">
-                <label>Age</label>
+                <label>{{localize "DG.BIOGRAPHY.age"}}</label>
                 <input type="text" name="data.biography.age.value" value="{{@root.data.data.biography.age.value}}">
             </div>
             <div class="labeled-field">
-                <label>Education</label>
+                <label>{{localize "DG.BIOGRAPHY.education"}}</label>
                 <input type="text" name="data.biography.education.value" value="{{@root.data.data.biography.education.value}}">
             </div>
+
         </div>
 
     </div>

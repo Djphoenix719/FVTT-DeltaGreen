@@ -11,12 +11,12 @@
             <div class="field-group col">
 
                 <div class="labeled-field">
-                    <label for="name">Gear Name</label>
+                    <label>{{localize "DG.ITEM.name"}}</label>
                     <input type="text" name="name" value="{{@root.item.name}}">
                 </div>
 
                 <div class="field-group row">
-                    <label for="data.expense.value">Expense</label>
+                    <label>{{localize "DG.ITEM.expense"}}</label>
                     <select name="data.expense.value">
                         {{#select data.data.expense.value}}
                             {{#each constants.expense as |option|}}
@@ -27,12 +27,12 @@
                 </div>
 
                 <div class="field-group row">
-                    <label for="data.equipped.value">Equipped</label>
+                    <label>{{localize "DG.ITEM.equipped"}}</label>
                     <input type="checkbox" name="data.equipped.value" id="data.equipped.value" value="{{data.data.equipped.value}}" {{checked data.data.equipped.value}}>
                 </div>
 
                 <div class="field-group row">
-                    <label for="data.carried.value">Carried</label>
+                    <label>{{localize "DG.ITEM.carried"}}</label>
                     <input type="checkbox" name="data.carried.value" id="data.carried.value" value="{{data.data.carried.value}}" {{checked data.data.carried.value}}>
                 </div>
 
@@ -43,8 +43,8 @@
     </section>
 
     <nav class="sheet-navigation" data-group="primary">
-        <a class="item" data-tab="tab-description" title="Item Description">Item Description</a>
-        <a class="item active" data-tab="tab-data" title="Item Data">Item Data</a>
+        <a class="item" data-tab="tab-description" title="{{localize "DG.ITEM.description"}}">{{localize "DG.ITEM.description"}}</a>
+        <a class="item active" data-tab="tab-data" title="{{localize "DG.ITEM.data"}}">{{localize "DG.ITEM.data"}}</a>
     </nav>
 
     <section class="sheet-body">

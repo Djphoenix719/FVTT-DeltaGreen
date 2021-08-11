@@ -20,11 +20,7 @@ type TemplatePath = `templates/${string}`;
 export async function registerHandlebarsTemplatesAndPartials() {
     const templatePath = (relative: TemplatePath) => `systems/${SYSTEM_NAME}/${relative}`;
 
-    const partials: Record<string, TemplatePath> = {
-        'stats-field': 'templates/actor/partials/StatsField.html',
-        'labeled-field': 'templates/actor/partials/LabeledField.html',
-        'actor-statistics': 'templates/actor/tabs/Statistics.html',
-    };
+    const partials: Record<string, TemplatePath> = {};
 
     const templates: TemplatePath[] = [
         `templates/actor/Agent.html`,

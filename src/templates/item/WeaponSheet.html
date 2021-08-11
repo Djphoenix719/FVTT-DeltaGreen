@@ -1,48 +1,47 @@
 <section class="weapon">
 
     <div class="field-group row">
-        <label for="data.damage.value">Damage</label>
+        <label>{{localize "DG.ITEM.damage"}}</label>
 
         {{#ifgt @root.data.data.lethality.value 0}}
             <input type="text" name="data.damage.value" value="2D10" disabled>
         {{else}}
             <input type="text" name="data.damage.value" value="{{@root.data.data.damage.value}}">
         {{/ifgt}}
-
     </div>
 
     <div class="field-group row">
-        <label for="data.lethality.value">Lethality</label>
+        <label>{{localize "DG.ITEM.lethality"}}</label>
         <input type="number" min="0" name="data.lethality.value" value="{{@root.data.data.lethality.value}}">
     </div>
 
     <div class="field-group row">
-        <label for="data.armorPiercing.value">Armor Piercing</label>
+        <label>{{localize "DG.ITEM.armorPiercing"}}</label>
         <input type="number" min="0" name="data.armorPiercing.value" value="{{@root.data.data.armorPiercing.value}}">
     </div>
 
     <div class="field-group row">
-        <label for="data.range.value">Range (Meters)</label>
+        <label>{{localize "DG.ITEM.range"}}</label>
         <input type="number" min="0" name="data.range.value" value="{{@root.data.data.range.value}}">
     </div>
 
     <div class="field-group row">
-        <label for="data.killRadius.value">Kill Radius (Meters)</label>
+        <label>{{localize "DG.ITEM.killRadius"}}</label>
         <input type="number" min="0" name="data.killRadius.value" value="{{@root.data.data.killRadius.value}}">
     </div>
 
     <div class="field-group row">
-        <label for="data.ammo.value">Ammo (Current)</label>
+        <label>{{localize "DG.ITEM.ammoCurrent"}}</label>
         <input type="number" min="0" name="data.ammo.value" value="{{@root.data.data.ammo.value}}">
     </div>
     <div class="field-group row">
-        <label for="data.ammo.value">Ammo (max)</label>
+        <label>{{localize "DG.ITEM.ammoMax"}}</label>
         <input type="number" min="0" name="data.ammo.max" value="{{@root.data.data.ammo.max}}">
     </div>
 
     {{#if @root.item.actor}}
         <div class="field-group row">
-            <label for="data.skill.value">Skill</label>
+            <label>{{localize "DG.ITEM.skill"}}</label>
             <select name="data.skill.value">
                 {{#select @root.data.data.skill.value}}
                     {{#each @root.skills as |option|}}

@@ -31,7 +31,16 @@ type PreCreateActorOptions = {
 };
 Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: string) =>
     actor.data.update({
-        items: DEFAULT_SKILLS_DEFINITION,
+        items: DEFAULT_SKILLS_DEFINITION.map((skill) => {
+            return {
+                name: game.i18n.localize(skill.name),
+                type: skill.type,
+                data: {
+                    ...skill.data,
+                    group: game.i18n.localize(skill.data.group),
+                },
+            };
+        }),
     }),
 );
 

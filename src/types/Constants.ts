@@ -99,11 +99,11 @@ export const UNNATURAL_ID = '4l35w618j8doxnfq';
 
 // We generate a new id when using the new Skill Button
 export const NEW_SKILL_DEFAULTS: Omit<SkillDefinition, '_id'> = {
-    name: 'New Skill', // TODO: Localization
+    name: 'DG.SKILLS.newSkill',
     type: 'skill',
     data: {
         value: 0,
-        group: 'Default Skill Group',
+        group: 'DG.SKILLS.defaultGroup',
         failureImproves: true,
         sessionFailure: false,
         canDelete: true,
@@ -113,11 +113,11 @@ export const NEW_SKILL_DEFAULTS: Omit<SkillDefinition, '_id'> = {
 export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     {
         _id: 'vqioy388qui94jhn',
-        name: 'Accounting',
+        name: 'DG.SKILLS.NAME.accounting',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -125,11 +125,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'y2q8eq7kskotutkd',
-        name: 'Alertness',
+        name: 'DG.SKILLS.NAME.alertness',
         type: 'skill',
         data: {
             value: 20,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -137,11 +137,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: '19gu3j166ykyi4hh',
-        name: 'Athletics',
+        name: 'DG.SKILLS.NAME.athletics',
         type: 'skill',
         data: {
             value: 30,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -149,11 +149,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: '0kmmjqo6znb6xk2q',
-        name: 'Bureaucracy',
+        name: 'DG.SKILLS.NAME.bureaucracy',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -161,11 +161,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: '9ciuss1ij6fem9rv',
-        name: 'Criminology',
+        name: 'DG.SKILLS.NAME.criminology',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -173,11 +173,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'ees261e9lnchdaxc',
-        name: 'Disguise',
+        name: 'DG.SKILLS.NAME.disguise',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -185,11 +185,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'ohjvi3gzvqi2x97f',
-        name: 'Dodge',
+        name: 'DG.SKILLS.NAME.dodge',
         type: 'skill',
         data: {
             value: 30,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -197,11 +197,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'moahtggd9185nun3',
-        name: 'Drive',
+        name: 'DG.SKILLS.NAME.drive',
         type: 'skill',
         data: {
             value: 20,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -209,11 +209,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'rfrdw98rykpr84ca',
-        name: 'Firearms',
+        name: 'DG.SKILLS.NAME.firearms',
         type: 'skill',
         data: {
             value: 20,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -221,11 +221,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'h7zzd5ktaqtivgpr',
-        name: 'First Aid',
+        name: 'DG.SKILLS.NAME.firstAid',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -233,11 +233,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: '9uewucfi1goeqnta',
-        name: 'Heavy Machinery',
+        name: 'DG.SKILLS.NAME.heavyMachinery',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -245,11 +245,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: '57escpcf83o3wzfj',
-        name: 'History',
+        name: 'DG.SKILLS.NAME.history',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -257,11 +257,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'qhcmfwgcq4kg3din',
-        name: 'HUMINT',
+        name: 'DG.SKILLS.NAME.humint',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -269,11 +269,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: '06s5h4abkvl8nx0c',
-        name: 'Melee Weapons',
+        name: 'DG.SKILLS.NAME.meleeWeapons',
         type: 'skill',
         data: {
             value: 30,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -281,11 +281,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'x36jfmlib5lh6s9c',
-        name: 'Navigate',
+        name: 'DG.SKILLS.NAME.navigate',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -293,11 +293,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'cjeosj0hkvm26uv3',
-        name: 'Occult',
+        name: 'DG.SKILLS.NAME.occult',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -305,11 +305,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'c6wccm0bjz4o5vpb',
-        name: 'Persuade',
+        name: 'DG.SKILLS.NAME.persuade',
         type: 'skill',
         data: {
             value: 20,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -317,11 +317,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'axeehmeq2xqurzmi',
-        name: 'Psychotherapy',
+        name: 'DG.SKILLS.NAME.psychotherapy',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -329,11 +329,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'mwt6ho4el6bnezbz',
-        name: 'Ride',
+        name: 'DG.SKILLS.NAME.ride',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -341,11 +341,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: '1pvi1u4e73qbur2l',
-        name: 'Search',
+        name: 'DG.SKILLS.NAME.search',
         type: 'skill',
         data: {
             value: 20,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -353,11 +353,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'tup281l2q7n62qwh',
-        name: 'Stealth',
+        name: 'DG.SKILLS.NAME.stealth',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -365,11 +365,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'k03j9ybabcimlw7w',
-        name: 'Survival',
+        name: 'DG.SKILLS.NAME.survival',
         type: 'skill',
         data: {
             value: 10,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -377,11 +377,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: '5cx7lv1roaowq9hd',
-        name: 'Swim',
+        name: 'DG.SKILLS.NAME.swim',
         type: 'skill',
         data: {
             value: 20,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -389,11 +389,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: 'am25rt6d74jjx93v',
-        name: 'Unarmed Combat',
+        name: 'DG.SKILLS.NAME.unarmedCombat',
         type: 'skill',
         data: {
             value: 40,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: true,
             sessionFailure: false,
             canDelete: false,
@@ -401,11 +401,11 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
     {
         _id: UNNATURAL_ID,
-        name: 'Unnatural',
+        name: 'DG.SKILLS.NAME.unnatural',
         type: 'skill',
         data: {
             value: 0,
-            group: 'Default Skill Group',
+            group: 'DG.SKILLS.defaultGroup',
             failureImproves: false,
             sessionFailure: false,
             canDelete: false,
