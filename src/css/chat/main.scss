@@ -92,6 +92,12 @@ li.chat-message {
                     background-size: $chat-dice-size $chat-dice-size;
                 }
 
+                div.d20 {
+                    background-image: url(/icons/svg/d12-grey.svg);
+                }
+                div.d12 {
+                    background-image: url(/icons/svg/d20-grey.svg);
+                }
                 div.d10 {
                     background-image: url(/icons/svg/d10-grey.svg);
                 }
