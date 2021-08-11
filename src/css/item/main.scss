@@ -37,7 +37,8 @@ div.delta-green.item {
         background: rgba(255, 255, 255, 0.25);
 
         img {
-            max-height: $avatar-height - 1.5rem;
+            height: $avatar-height - 1.5rem;
+            background: gray;
             border: 0;
         }
     }
