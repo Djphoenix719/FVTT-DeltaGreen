@@ -59,7 +59,7 @@
             "charisma": "Charisma (CHA)",
 
             "current": "Cur.",
-            "maximum": "Max.",
+            "max": "Max.",
             "breakingPoint": "B. P."
         },
         "DICE": {

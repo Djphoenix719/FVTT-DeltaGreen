@@ -37,7 +37,7 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
 
 export class DGActor extends Actor {
     /**
-     * Calculate in-the-moment maximum willpower.
+     * Calculate in-the-moment max willpower.
      */
     public get willpowerMax() {
         let value = 0;
@@ -46,7 +46,7 @@ export class DGActor extends Actor {
     }
 
     /**
-     * Calculate in-the-moment maximum health.
+     * Calculate in-the-moment max health.
      */
     public get healthMax() {
         let value = 0;
@@ -56,7 +56,7 @@ export class DGActor extends Actor {
     }
 
     /**
-     * Calculate in-the-moment maximum sanity.
+     * Calculate in-the-moment max sanity.
      */
     public get sanityMax() {
         let value = 99;
@@ -120,9 +120,9 @@ export class DGActor extends Actor {
 
         const data = this.data.data;
 
-        data.health.maximum = this.healthMax;
-        data.willpower.maximum = this.willpowerMax;
-        data.sanity.maximum = this.sanityMax;
+        data.health.max = this.healthMax;
+        data.willpower.max = this.willpowerMax;
+        data.sanity.max = this.sanityMax;
 
         for (const statistic of Object.values(data.statistics)) {
             data.statistics[statistic.id].percentile = statistic.value * 5;

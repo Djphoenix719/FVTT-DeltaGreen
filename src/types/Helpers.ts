@@ -18,15 +18,15 @@ export interface Value<T> {
     value: T;
 }
 
-export interface Minimum<T> {
-    minimum: T;
+export interface Min<T> {
+    min: T;
 }
 
-export interface Maximum<T> {
-    maximum: T;
+export interface Max<T> {
+    max: T;
 }
 
-export interface Bounded<T> extends Value<T>, Minimum<T>, Maximum<T> {}
+export interface Bounded<T> extends Value<T>, Min<T>, Max<T> {}
 
 export interface Label<T extends string> {
     label: T;

@@ -196,7 +196,7 @@ export class DGActorSheet extends ActorSheet {
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
                 await item.update({
-                    ['data.ammo.value']: item.data.data.ammo.maximum,
+                    ['data.ammo.value']: item.data.data.ammo.max,
                 });
             }
         });

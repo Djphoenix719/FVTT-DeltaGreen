@@ -5,15 +5,15 @@
             "health": {
                 "health": {
                     "value": 10,
-                    "minimum": 0,
-                    "maximum": 10
+                    "min": 0,
+                    "max": 10
                 }
             },
             "willpower": {
                 "willpower": {
                     "value": 10,
-                    "minimum": 0,
-                    "maximum": 10
+                    "min": 0,
+                    "max": 10
                 }
             },
             "luck": {
@@ -64,8 +64,8 @@
             "sanity": {
                 "sanity": {
                     "value": 99,
-                    "minimum": 0,
-                    "maximum": 99,
+                    "min": 0,
+                    "max": 99,
                     "breakingPoint": {
                         "value": 0
                     },
@@ -175,7 +175,7 @@
             },
             "ammo": {
                 "value": 0,
-                "maximum": 0
+                "max": 0
             }
         },
         "armor": {

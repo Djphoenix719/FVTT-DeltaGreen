@@ -37,9 +37,9 @@
                     <label class="flex-1">{{weapon.data.data.armorPiercing.value}}</label>
 
                     <div class="ammo flex-1">
-                        {{#if (gt weapon.data.data.ammo.maximum 0)}}
+                        {{#if (gt weapon.data.data.ammo.max 0)}}
                             <label class="clickable decrement"><i class="fas fa-minus"></i></label>
-                            <label>{{weapon.data.data.ammo.value}}/{{weapon.data.data.ammo.maximum}}</label>
+                            <label>{{weapon.data.data.ammo.value}}/{{weapon.data.data.ammo.max}}</label>
                             <label class="clickable reload"><i class="fas fa-redo-alt"></i></label>
                         {{else}}
                             <label>—</label>

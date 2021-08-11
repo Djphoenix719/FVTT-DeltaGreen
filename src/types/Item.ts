@@ -15,7 +15,7 @@
  */
 
 import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon, ItemTypeSkill, ItemTypeBond, ItemTypeMotivation, ItemTypeDisorder, ExpenseType } from './Constants';
-import { Label, Maximum, Value } from './Helpers';
+import { Label, Max, Value } from './Helpers';
 import { ActorSkillType } from './Actor';
 
 export type ItemTypeSkill = typeof ItemTypeSkill;
@@ -133,7 +133,7 @@ interface WeaponDataSourceData extends GearDataSourceData {
     armorPiercing: Value<number>;
     lethality: Value<number>;
     killRadius: Value<number>;
-    ammo: Value<number> & Maximum<number>;
+    ammo: Value<number> & Max<number>;
 }
 interface WeaponDataPropertyData extends WeaponDataSourceData {
     skill: Value<ActorSkillType> & Partial<Label<string>>;

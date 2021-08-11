@@ -6,7 +6,7 @@
     "minimumCoreVersion": "0.8.0",
     "compatibleCoreVersion": "0.8",
     "templateVersion": 2,
-    "author": "Andrew Cuccinello [DJ#1982], TheLastScrub (https://github.com/TheLastScrub)",
+    "author": "Andrew Cuccinello [DJ#1982]",
     "esmodules": ["./bundle.js"],
     "styles": ["./bundle.css"],
     "scripts": [],
@@ -18,10 +18,11 @@
             "path": "locale/en/config.json"
         }
     ],
+
     "gridDistance": 1,
     "gridUnits": "m",
-    "primaryTokenAttribute": "health",
-    "secondaryTokenAttribute": "willpower",
+    "initiative": "@statistics.dexterity.value",
+
     "url": "",
     "manifest": "",
     "download": "",
