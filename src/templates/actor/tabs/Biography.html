@@ -10,22 +10,40 @@
 
         <div class="field-group row">
             <div class="labeled-field">
-                <label for="name">Agent Name</label>
+                <label>Agent Name</label>
                 <input type="text" name="name" value="{{@root.actor.name}}">
             </div>
 
-            {{> labeled-field key="data.biography.profession" field=@root.data.data.biography.profession}}
+            <div class="labeled-field">
+                <label>Biography</label>
+                <input type="text" name="data.biography.profession.value" value="{{@root.data.data.biography.profession.value}}">
+            </div>
         </div>
 
         <div class="field-group row">
-            {{> labeled-field key="data.biography.employer" field=@root.data.data.biography.employer}}
-            {{> labeled-field key="data.biography.nationality" field=@root.data.data.biography.nationality}}
+            <div class="labeled-field">
+                <label>Employer</label>
+                <input type="text" name="data.biography.employer.value" value="{{@root.data.data.biography.employer.value}}">
+            </div>
+            <div class="labeled-field">
+                <label>Nationality</label>
+                <input type="text" name="data.biography.nationality.value" value="{{@root.data.data.biography.nationality.value}}">
+            </div>
         </div>
 
         <div class="field-group row">
-            {{> labeled-field key="data.biography.gender" field=@root.data.data.biography.gender}}
-            {{> labeled-field key="data.biography.age" field=@root.data.data.biography.age}}
-            {{> labeled-field key="data.biography.education" field=@root.data.data.biography.education}}
+            <div class="labeled-field">
+                <label>Gender</label>
+                <input type="text" name="data.biography.gender.value" value="{{@root.data.data.biography.gender.value}}">
+            </div>
+            <div class="labeled-field">
+                <label>Age</label>
+                <input type="text" name="data.biography.age.value" value="{{@root.data.data.biography.age.value}}">
+            </div>
+            <div class="labeled-field">
+                <label>Education</label>
+                <input type="text" name="data.biography.education.value" value="{{@root.data.data.biography.education.value}}">
+            </div>
         </div>
 
     </div>
