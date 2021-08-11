@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, UNNATURAL_ID } from '../../types/Constants';
+import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, StatisticType, UNNATURAL_ID } from '../../types/Constants';
 import { DGItem } from '../item/DGItem';
 import { ItemType } from '../../types/Item';
+import { DGPercentileRoll, DGRollTargetPart } from '../dice/DGPercentileRoll';
 
 declare global {
     interface DocumentClassConfig {
@@ -45,6 +46,8 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
 );
 
 export class DGActor extends Actor {
+    // <editor-fold desc="Properties">
+
     /**
      * Calculate in-the-moment max willpower.
      */
@@ -116,6 +119,8 @@ export class DGActor extends Actor {
         return groups;
     }
 
+    // </editor-fold>
+
     /**
      * Get all items of a specific type.
      * @param type
@@ -123,6 +128,129 @@ export class DGActor extends Actor {
     public getItemsOfType(type: ItemType) {
         return this.items.filter((item) => item.type === type);
     }
+
+    /**
+     * Get the name of a skill.
+     * @param id The id of the skill.
+     */
+    public getSkillName(id: string): string | undefined {
+        const skill = this.items.get(id);
+        if (skill?.data.type === ItemTypeSkill) {
+            return skill.name!;
+        }
+        return undefined;
+    }
+
+    // <editor-fold desc="Rolls">
+
+    /**
+     * Roll a skill with a specified name.
+     * @param name The name of the skill.
+     * @param modifiers Target modifiers.
+     */
+    public async rollSkillName(name: string, modifiers: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+        const skill = this.items.getName(name);
+
+        if (skill?.data.type === ItemTypeSkill) {
+            return this.rollSkill(skill.id!, modifiers);
+        }
+
+        throw new Error(`No skill with name of "${name}" found on actor.`);
+    }
+
+    /**
+     * Roll a skill with a specified id.
+     * @param id The id of the skill.
+     * @param modifiers Target modifiers.
+     */
+    public async rollSkill(id: string, modifiers?: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        const skill = this.items.get(id);
+        if (skill?.data.type === ItemTypeSkill) {
+            return new DGPercentileRoll({
+                label: skill.name!,
+                target: {
+                    base: {
+                        label: skill.name!,
+                        value: skill.data.data.value ?? 0,
+                    },
+                    parts: modifiers,
+                },
+            }).roll();
+        }
+
+        throw new Error(`No skill with id of "${id}" found on actor.`);
+    }
+
+    /**
+     * Roll a statistic * 5 check for the actor.
+     * @param id The statistic to target.
+     * @param modifiers Target modifiers.
+     */
+    public async rollStatistic(id: StatisticType, modifiers?: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        const statistic = this.data.data.statistics[id];
+        return new DGPercentileRoll({
+            label: statistic.label,
+            target: {
+                base: {
+                    label: statistic.label,
+                    value: statistic.value * 5,
+                },
+                parts: modifiers,
+            },
+        }).roll();
+    }
+
+    /**
+     * Roll a sanity check for the actor.
+     * @param modifiers Target modifiers.
+     */
+    public async rollSanity(modifiers?: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        return new DGPercentileRoll({
+            label: game.i18n.localize(`DG.DICE.sanity`),
+            target: {
+                base: {
+                    label: game.i18n.localize('DG.ATTRIBUTES.sanity'),
+                    value: this.data.data.sanity.value,
+                },
+                parts: modifiers,
+            },
+        }).roll();
+    }
+
+    /**
+     * Roll a luck check for the actor.
+     * @param modifiers Target modifiers.
+     */
+    public async rollLuck(modifiers?: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        return new DGPercentileRoll({
+            label: game.i18n.localize(`DG.DICE.luck`),
+            target: {
+                base: {
+                    label: game.i18n.localize('DG.ATTRIBUTES.luck'),
+                    value: this.data.data.luck.value,
+                },
+                parts: modifiers,
+            },
+        }).roll();
+    }
+
+    // </editor-fold>
 
     prepareData() {
         super.prepareData();

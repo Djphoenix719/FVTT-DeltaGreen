@@ -18,20 +18,17 @@ import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import {
     AdaptationType,
     DEFAULT_ITEM_NAME,
-    ItemTypeArmor,
     ItemTypeBond,
     ItemTypeDisorder,
-    ItemTypeGear,
     ItemTypeMotivation,
     ItemTypeSkill,
     ItemTypeWeapon,
-    NEW_SKILL_DEFAULTS,
     StatisticType,
 } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
-import { rollPercentile, DicePart, rollDamage } from '../../Dice';
 import { ItemType } from '../../../types/Item';
 import { ModifierDialog } from '../../dialog/ModifierDialog';
+import { DGPercentileRoll } from '../../dice/DGPercentileRoll';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -93,7 +90,7 @@ export class DGActorSheet extends ActorSheet {
         super.activateListeners(html);
 
         /**
-         * Preprocess an event; call stopPropagation and preventDefault, wrap the target in JQuery.
+         * Preprocess an event; call stopPropagation and preventDefault, wrap the currentTarget in JQuery.
          * @param event
          */
         const preprocessEvent = (event: JQuery.ClickEvent | JQuery.ChangeEvent | JQuery.ContextMenuEvent) => {
@@ -102,81 +99,171 @@ export class DGActorSheet extends ActorSheet {
             return $(event.currentTarget);
         };
 
-        /**
-         * Roll a basic roll w/ a target and label
-         * @param label
-         * @param modifiers
-         */
-        const basicRoll = async (label: string, modifiers: DicePart[]) => {
-            const rollResult = await rollPercentile(modifiers);
-            const templateData: Record<string, any> = { ...rollResult };
+        const sendRollToChat = async (roll: DGPercentileRoll) => {
+            const templateData: Record<string, any> = { roll };
             templateData['actor'] = this.actor;
-            const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
+
             await ChatMessage.create({
-                content: renderedTemplate,
+                user: game.user?.id,
+                content: await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData),
             });
         };
 
         /**
-         * Roll a skill based on the skill's id.
-         * @param id
-         * @param modifier Display the modifier prompt?
+         * Prompt the user for a modifier by displaying the roll modifier dialog.
+         * Resolves when the user hits confirm, NEVER RESOLVES OTHERWISE.
+         * @param label The window title.
          */
-        const rollSkill = async (id: string, modifier: boolean) => {
-            const skill: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (skill.data.type === ItemTypeSkill) {
-                if (modifier) {
-                    await rollWithModifierPrompt(
-                        skill.name ?? '',
-                        [
-                            {
-                                value: skill.data.data.value ?? 0,
-                                label: skill.name ?? 'Base',
-                            },
-                        ],
-                        basicRoll,
-                    );
-                } else {
-                    await basicRoll(skill.name ?? '', [
-                        {
-                            value: skill.data.data.value ?? 0,
-                            label: skill.name ?? 'Base',
-                        },
-                    ]);
-                }
-            }
+        const promptUserModifier = (label: string): Promise<number> => {
+            return new Promise<number>((resolve) => {
+                const dialog = new ModifierDialog({
+                    title: `${game.i18n.localize('DG.DICE.roll')}: ${game.i18n.localize(label)}`,
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
+                    value: 20,
+                    callback: async (value: number | string) => {
+                        resolve(parseInt(value.toString()));
+                    },
+                });
+                dialog.render(true);
+            });
         };
 
-        type ModifierPromptCallback = (label: string, modifiers: DicePart[]) => Promise<void>;
-        const rollWithModifierPrompt = async (label: string, modifiers: DicePart[], callback: ModifierPromptCallback) => {
-            const dialog = new ModifierDialog({
-                title: `${label} Roll`,
-                label: `Modifier`,
-                value: 20,
-                callback: async (value: any) => {
-                    await callback(label, [
-                        ...modifiers,
-                        {
-                            value: parseInt(value),
-                            label: 'Modifier',
-                        },
-                    ]);
-                },
-            });
-            dialog.render(true);
-        };
+        // <editor-fold desc="Rolls">
 
         // Skill: Roll skill
         html.find('div.skills-item label.name').on('click', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div.skills-item').data('id') as string;
-            await rollSkill(id, false);
+            const id = target.closest('div[data-id]').data('id') as string;
+            const roll = await this.actor.rollSkill(id);
+            await sendRollToChat(roll);
         });
         html.find('div.skills-item label.name').on('contextmenu', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div.skills-item').data('id') as string;
-            await rollSkill(id, true);
+            const id = target.closest('div[data-id]').data('id') as string;
+
+            const skillName = this.actor.getSkillName(id);
+            if (skillName) {
+                const modifier = await promptUserModifier(skillName);
+                const roll = await this.actor.rollSkill(id, [
+                    {
+                        label: game.i18n.localize('DG.ROLL.modifier'),
+                        value: modifier,
+                    },
+                ]);
+                await sendRollToChat(roll);
+            }
         });
+
+        // Inventory: Roll attack
+        html.find('div.inventory-group.weapon label.attack').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const itemId = target.closest('div[data-id]').data('id') as string;
+            const item = this.actor.getEmbeddedDocument('Item', itemId) as DGItem | undefined;
+            if (item?.data.type === ItemTypeWeapon) {
+                if (item.data.data.skill.value !== '') {
+                    const roll = await this.actor.rollSkill(item.data.data.skill.value);
+                    await sendRollToChat(roll);
+                }
+            }
+        });
+        html.find('div.inventory-group.weapon label.attack').on('contextmenu', async (event) => {
+            const target = preprocessEvent(event);
+            const itemId = target.closest('div[data-id]').data('id') as string;
+            const item = this.actor.getEmbeddedDocument('Item', itemId) as DGItem | undefined;
+            if (item?.data.type === ItemTypeWeapon) {
+                const skillName = this.actor.getSkillName(itemId);
+                if (skillName && skillName !== '') {
+                    const modifier = await promptUserModifier(skillName);
+                    const roll = await this.actor.rollSkill(item.data.data.skill.value, [
+                        {
+                            label: game.i18n.localize('DG.ROLL.modifier'),
+                            value: modifier,
+                        },
+                    ]);
+                    await sendRollToChat(roll);
+                }
+            }
+        });
+
+        // Sanity: Roll sanity
+        html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
+            preprocessEvent(event);
+            const roll = await this.actor.rollSanity();
+            await sendRollToChat(roll);
+        });
+        html.find('section.attributes label.clickable.sanity').on('contextmenu', async (event) => {
+            preprocessEvent(event);
+            const modifier = await promptUserModifier(`DG.DICE.sanityCheck`);
+            const roll = await this.actor.rollSanity([
+                {
+                    label: game.i18n.localize('DG.ROLL.modifier'),
+                    value: modifier,
+                },
+            ]);
+            await sendRollToChat(roll);
+        });
+
+        // Luck: Roll luck
+        html.find('section.attributes label.clickable.luck').on('click', async (event) => {
+            preprocessEvent(event);
+            const roll = await this.actor.rollLuck();
+            await sendRollToChat(roll);
+        });
+        html.find('section.attributes label.clickable.luck').on('contextmenu', async (event) => {
+            preprocessEvent(event);
+            const modifier = await promptUserModifier(`DG.DICE.luckCheck`);
+            const roll = await this.actor.rollSanity([
+                {
+                    label: game.i18n.localize('DG.ROLL.modifier'),
+                    value: modifier,
+                },
+            ]);
+            await sendRollToChat(roll);
+        });
+
+        // Stats: Roll stats*5
+        html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.stats-field').data('id') as StatisticType;
+            const roll = await this.actor.rollStatistic(id);
+            await sendRollToChat(roll);
+        });
+        html.find('div.stats-field label.clickable.stats').on('contextmenu', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.stats-field').data('id') as StatisticType;
+            const modifier = await promptUserModifier('DG.DICE.statisticCheck');
+            const roll = await this.actor.rollStatistic(id, [
+                {
+                    label: game.i18n.localize('DG.ROLL.modifier'),
+                    value: modifier,
+                },
+            ]);
+            await sendRollToChat(roll);
+        });
+
+        // Inventory: Roll damage
+        // html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
+        //     // TODO: This whole damage roll process is atrocious. It should be multiple types of rolls or something.
+        //     const target = preprocessEvent(event);
+        //     const id = target.closest('div[data-id]').data('id') as string;
+        //     const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+        //     if (item.data.type === ItemTypeWeapon) {
+        //         const rollResult = await rollDamage(item.data.data.damage.value, item.data.data.lethality.value, this.actor);
+        //         const templateData: Record<string, any> = { ...rollResult };
+        //         templateData['actor'] = this.actor;
+        //
+        //         if (!templateData.hasOwnProperty('success')) {
+        //             templateData['label'] = 'Damage';
+        //         }
+        //
+        //         const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
+        //         await ChatMessage.create({
+        //             content: renderedTemplate,
+        //         });
+        //     }
+        // });
+
+        // </editor-fold>
 
         // Inventory: Decrement ammo
         html.find('div.inventory-group.weapon div.ammo label.decrement').on('click', async (event) => {
@@ -200,44 +287,6 @@ export class DGActorSheet extends ActorSheet {
                 });
             }
         });
-        // Inventory: Roll attack
-        html.find('div.inventory-group.weapon label.attack').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.inventory-item').data('id') as string;
-            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item.data.type === ItemTypeWeapon) {
-                await rollSkill(item.data.data.skill.value, false);
-            }
-        });
-        html.find('div.inventory-group.weapon label.attack').on('contextmenu', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.inventory-item').data('id') as string;
-            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item.data.type === ItemTypeWeapon) {
-                await rollSkill(item.data.data.skill.value, true);
-            }
-        });
-        // Inventory: Roll damage
-        html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
-            // TODO: This whole damage roll process is atrocious. It should be multiple types of rolls or something.
-            const target = preprocessEvent(event);
-            const id = target.closest('div.inventory-item').data('id') as string;
-            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item.data.type === ItemTypeWeapon) {
-                const rollResult = await rollDamage(item.data.data.damage.value, item.data.data.lethality.value, this.actor);
-                const templateData: Record<string, any> = { ...rollResult };
-                templateData['actor'] = this.actor;
-
-                if (!templateData.hasOwnProperty('success')) {
-                    templateData['label'] = 'Damage';
-                }
-
-                const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
-                await ChatMessage.create({
-                    content: renderedTemplate,
-                });
-            }
-        });
 
         // Sanity: Reset breaking point
         html.find('div.breaking-point label.reset').on('click', async (event) => {
@@ -246,29 +295,6 @@ export class DGActorSheet extends ActorSheet {
             await this.actor.update({
                 [`data.sanity.breakingPoint.value`]: newBreakingPoint,
             });
-        });
-        // Sanity: Roll sanity
-        html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
-            preprocessEvent(event);
-            await basicRoll('Sanity', [
-                {
-                    value: this.actor.data.data.sanity.value,
-                    label: 'Sanity',
-                },
-            ]);
-        });
-        html.find('section.attributes label.clickable.sanity').on('contextmenu', async (event) => {
-            preprocessEvent(event);
-            await rollWithModifierPrompt(
-                'Sanity',
-                [
-                    {
-                        value: this.actor.data.data.sanity.value,
-                        label: 'Sanity',
-                    },
-                ],
-                basicRoll,
-            );
         });
         // Sanity: Adaptations
         html.find('div.adaptations input[type="checkbox"]').on('change', async (event) => {
@@ -289,58 +315,6 @@ export class DGActorSheet extends ActorSheet {
             } else {
                 target.removeProp('checked');
             }
-        });
-
-        // Luck: Roll luck
-        html.find('section.attributes label.clickable.luck').on('click', async (event) => {
-            preprocessEvent(event);
-            await basicRoll('Luck', [
-                {
-                    value: this.actor.data.data.luck.value,
-                    label: 'Luck',
-                },
-            ]);
-        });
-        html.find('section.attributes label.clickable.luck').on('contextmenu', async (event) => {
-            preprocessEvent(event);
-            await rollWithModifierPrompt(
-                'Luck',
-                [
-                    {
-                        value: this.actor.data.data.luck.value,
-                        label: 'Luck',
-                    },
-                ],
-                basicRoll,
-            );
-        });
-
-        // Stats: Roll stats*5
-        html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.stats-field').data('id') as StatisticType;
-            const statistic = this.actor.data.data.statistics[id];
-            await basicRoll(statistic.label, [
-                {
-                    value: statistic.percentile ?? statistic.value * 5,
-                    label: statistic.label,
-                },
-            ]);
-        });
-        html.find('div.stats-field label.clickable.stats').on('contextmenu', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.stats-field').data('id') as StatisticType;
-            const statistic = this.actor.data.data.statistics[id];
-            await rollWithModifierPrompt(
-                statistic.label,
-                [
-                    {
-                        value: statistic.percentile ?? statistic.value * 5,
-                        label: statistic.label,
-                    },
-                ],
-                basicRoll,
-            );
         });
 
         // Bonds: Damage bond

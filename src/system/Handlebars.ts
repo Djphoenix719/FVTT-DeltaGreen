@@ -31,6 +31,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
         `templates/actor/tabs/Miscellaneous.html`,
         `templates/actor/tabs/Psychological.html`,
         `templates/actor/tabs/SkillsList.html`,
+        `templates/actor/tabs/Statistics.html`,
 
         `templates/item/GearSheet.html`,
         `templates/item/WeaponSheet.html`,

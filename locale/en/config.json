@@ -57,17 +57,10 @@
             "education": "Education"
         },
         "ATTRIBUTES": {
-            "hitPoints": "Hit Points (HP)",
-            "willpower": "Willpower (WP)",
-            "sanity": "Sanity (SAN)",
+            "hitPoints": "Hit Points",
+            "willpower": "Willpower",
+            "sanity": "Sanity",
             "luck": "Luck",
-
-            "strength": "Strength (STR)",
-            "constitution": "Constitution (CON)",
-            "dexterity": "Dexterity (DEX)",
-            "intelligence": "Intelligence (INT)",
-            "power": "Power (POW)",
-            "charisma": "Charisma (CHA)",
 
             "current": "Cur.",
             "max": "Max.",
@@ -77,6 +70,14 @@
             "score": "Score",
             "x5": "x5",
             "distinguishingFeature": "Distinguishing Feature"
+        },
+        "STATISTICS": {
+            "strength": "Strength",
+            "constitution": "Constitution",
+            "dexterity": "Dexterity",
+            "intelligence": "Intelligence",
+            "power": "Power",
+            "charisma": "Charisma"
         },
         "INVENTORY": {
             "weapon": "Weapon",
@@ -130,10 +131,17 @@
             "skill": "Skill"
         },
         "DICE": {
+            "roll": "Roll",
+            "rollModifier": "Roll Modifier",
+            "percentileRoll": "Percentile Roll",
             "criticalSuccess": "Critical Success",
             "success": "Success",
             "failure": "Failure",
-            "criticalFailure": "Critical Failure"
+            "criticalFailure": "Critical Failure",
+
+            "sanityCheck": "Sanity Check",
+            "luckCheck": "Luck Check",
+            "statisticCheck": "Statistic Check"
         }
     }
 }

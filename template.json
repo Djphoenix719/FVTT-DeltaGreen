@@ -25,37 +25,37 @@
                 "statistics": {
                     "strength": {
                         "id": "strength",
-                        "label": "Strength (STR)",
+                        "label": "DG.STATISTICS.strength",
                         "value": 10,
                         "feature": ""
                     },
                     "constitution": {
                         "id": "constitution",
-                        "label": "Constitution (CON)",
+                        "label": "DG.STATISTICS.constitution",
                         "value": 10,
                         "feature": ""
                     },
                     "dexterity": {
                         "id": "dexterity",
-                        "label": "Dexterity (DEX)",
+                        "label": "DG.STATISTICS.dexterity",
                         "value": 10,
                         "feature": ""
                     },
                     "intelligence": {
                         "id": "intelligence",
-                        "label": "Intelligence (INT)",
+                        "label": "DG.STATISTICS.intelligence",
                         "value": 10,
                         "feature": ""
                     },
                     "power": {
                         "id": "power",
-                        "label": "Power (POW)",
+                        "label": "DG.STATISTICS.power",
                         "value": 10,
                         "feature": ""
                     },
                     "charisma": {
                         "id": "charisma",
-                        "label": "Charisma (CHA)",
+                        "label": "DG.STATISTICS.charisma",
                         "value": 10,
                         "feature": ""
                     }
@@ -95,27 +95,21 @@
             },
             "biography": {
                 "profession": {
-                    "label": "Profession",
                     "value": ""
                 },
                 "employer": {
-                    "label": "Employer",
                     "value": ""
                 },
                 "nationality": {
-                    "label": "Nationality",
                     "value": ""
                 },
                 "gender": {
-                    "label": "Gender",
                     "value": ""
                 },
                 "age": {
-                    "label": "Age",
                     "value": ""
                 },
                 "education": {
-                    "label": "Education",
                     "value": ""
                 }
             }
@@ -147,8 +141,8 @@
             }
         },
         "skill": {
-            "label": "New Skill",
-            "group": "Default Skill Group",
+            "label": "DG.SKILL.newSkill",
+            "group": "DG.SKILL.defaultGroup",
             "failureImproves": true,
             "sessionFailure": false,
             "canDelete": true
@@ -162,7 +156,7 @@
                 "value": 10
             },
             "damage": {
-                "value": "1D8"
+                "value": "1d8"
             },
             "armorPiercing": {
                 "value": 0
