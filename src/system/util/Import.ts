@@ -48,3 +48,36 @@
 // victim’s body.
 //     SANITY LOSS: 0/1D4 SAN from the unnatural, or 1/1D6
 // SAN if the marionette was known in life.
+
+export async function importBlockToActor(block: string, actor: Actor) {
+    const updates: Record<string, any> = {};
+    const split = block.split('\n');
+    const joined = split.join(' ');
+
+    const attributeMatchTerms = {
+        'STR': 'data.statistics.strength.value',
+        'CON': 'data.statistics.constitution.value',
+        'DEX': 'data.statistics.dexterity.value',
+        'INT': 'data.statistics.intelligence.value',
+        'POW': 'data.statistics.power.value',
+        'CHA': 'data.statistics.charisma.value',
+        'HP': 'data.health.value',
+        'WP': 'data.willpower.value',
+        'SAN': 'data.sanity.value',
+        'BREAKING POINT': 'data.sanity.breakingPoint.value',
+    };
+
+    updates['name'] = split[0];
+    updates['data.biography.profession.value'] = split[1];
+
+    for (const [term, path] of Object.entries(attributeMatchTerms)) {
+        const regex = new RegExp(`(${term}) ([0-9]+)`);
+        const matches = regex.exec(joined);
+        if (!matches) continue;
+
+        updates[path] = parseInt(matches[2]);
+    }
+
+    await actor.update(updates);
+    return;
+}

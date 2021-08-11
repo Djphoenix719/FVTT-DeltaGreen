@@ -28,6 +28,7 @@ import { DGBondSheet } from './item/sheet/DGBondSheet';
 import { DGMotivationSheet } from './item/sheet/DGMotivationSheet';
 import { DGDisorderSheet } from './item/sheet/DGDisorderSheet';
 import { registerChatHooks } from './Chat';
+import { importBlockToActor } from './util/Import';
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -97,11 +98,47 @@ Hooks.on('init', async () => {
     (window as any).rollPercentile = rollPercentile;
 });
 
+// const testData =
+//     'Marionette\n' +
+//     'Foot soldiers of Carcosa\n' +
+//     'STR 10 CON 20 DEX 10 INT 10 POW 10\n' +
+//     'HP 15 WP 10\n' +
+//     'ARMOR: See METAL AND PORCELAIN.\n' +
+//     '    ATTACKS: Impale 35%, Lethality 10%, Armor Piercing 2\n' +
+//     '(see SWARM AND SPIKE).\n' +
+//     'ENDLESS EXITS: Marionettes are impossible to trap.\n' +
+//     '    Placing one in a room or a box or even burying\n' +
+//     'it underground fails to contain it. The moment it is\n' +
+//     'unobserved, it returns to Carcosa to continue its work.\n' +
+//     '    IMPOSSIBLE GEARS: The construction of each marionette\n' +
+//     'is unique and impossible. Anyone examining its\n' +
+//     'machinery loses 0/1D4 SAN from the unnatural as\n' +
+//     '    they realize it is powered by nothing. Those with Craft\n' +
+//     '(Mechanics) at 30%+ or who make a successful roll at\n' +
+//     '+20% automatically lose 4 SAN from the unnatural and\n' +
+//     'gain +1 Corruption. It should not be able to move at all.\n' +
+//     '    METAL AND PORCELAIN: Beneath the costume, each\n' +
+//     'marionette is made of metal and porcelain. An attack\n' +
+//     'on a marionette that rolls an odd amount of damage\n' +
+//     'or with an odd-numbered Lethality roll inflicts only 1\n' +
+//     'damage. There is an endless army of marionettes to\n' +
+//     'replace any that might be destroyed.\n' +
+//     '    SWARM AND SPIKE: To attack, marionettes swarm a\n' +
+//     'target and make single impale attack roll. The victim\n' +
+//     'can attempt to Dodge or fight back, as usual. If the\n' +
+//     'victim loses, they are surrounded and treated as\n' +
+//     '    pinned. If the victim is pinned when the marionettes\n' +
+//     'next act, the victim suffers a Lethality 10% roll as the\n' +
+//     'swarm releases dozens of spring-loaded spikes into the\n' +
+//     'victim’s body.\n' +
+//     '    SANITY LOSS: 0/1D4 SAN from the unnatural, or 1/1D6\n' +
+//     'SAN if the marionette was known in life.';
 Hooks.on('ready', async () => {
     setTimeout(async () => {
-        // await game.actors?.getName('Test Agent')?.delete();
-        // await Actor.create({ name: 'Test Agent', type: 'agent', img: 'worlds/delta-green/mcmurtry.jpg' });
-        // await game.actors?.getName('Test Agent')?.sheet?.render(true);
+        await game.actors?.getName('Test Agent')?.delete();
+        const actor = (await Actor.create({ name: 'Test Agent', type: 'agent', img: 'worlds/delta-green/mcmurtry.jpg' })) as DGActor;
+        // await importBlockToActor(testData, actor);
+        await game.actors?.getName('Test Agent')?.sheet?.render(true);
         //
         // const actor = game.actors?.getName('Test Agent') as DGActor;
         // const item = await actor.createEmbeddedDocuments('Item', [
