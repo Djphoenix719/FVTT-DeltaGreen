@@ -91,14 +91,25 @@ export class DGActorSheet extends ActorSheet {
     public activateListeners(html: JQuery) {
         super.activateListeners(html);
 
+        type HandledValidEventTypes = JQuery.ClickEvent | JQuery.ChangeEvent | JQuery.ContextMenuEvent;
+
         /**
          * Preprocess an event; call stopPropagation and preventDefault, wrap the currentTarget in JQuery.
          * @param event
          */
-        const preprocessEvent = (event: JQuery.ClickEvent | JQuery.ChangeEvent | JQuery.ContextMenuEvent) => {
+        const preprocessEvent = (event: HandledValidEventTypes) => {
             event.preventDefault();
             event.stopPropagation();
             return $(event.currentTarget);
+        };
+        /**
+         * Preprocess an event as above, but also pull the id out.
+         * @param event
+         */
+        const preprocessEventWithId = (event: HandledValidEventTypes) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div[data-id]').data('id') as string;
+            return { target, id };
         };
 
         // TODO: Pass sound as an option
@@ -145,14 +156,12 @@ export class DGActorSheet extends ActorSheet {
 
         // Skill: Roll skill
         html.find('div.skills-item label.name').on('click', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div[data-id]').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             const roll = await this.actor.rollSkill(id);
             await sendPercentileRollToChat(roll);
         });
         html.find('div.skills-item label.name').on('contextmenu', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div[data-id]').data('id') as string;
+            const { id } = preprocessEventWithId(event);
 
             const skillName = this.actor.getSkillName(id);
             if (skillName) {
@@ -194,7 +203,7 @@ export class DGActorSheet extends ActorSheet {
         html.find('section.attributes label.clickable.luck').on('contextmenu', async (event) => {
             preprocessEvent(event);
             const modifier = await promptUserModifier(`DG.DICE.luckCheck`);
-            const roll = await this.actor.rollSanity([
+            const roll = await this.actor.rollLuck([
                 {
                     label: game.i18n.localize('DG.DICE.rollModifier'),
                     value: modifier,
@@ -205,16 +214,14 @@ export class DGActorSheet extends ActorSheet {
 
         // Stats: Roll stats*5
         html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.stats-field').data('id') as StatisticType;
-            const roll = await this.actor.rollStatistic(id);
+            const { id } = preprocessEventWithId(event);
+            const roll = await this.actor.rollStatistic(id as StatisticType);
             await sendPercentileRollToChat(roll);
         });
         html.find('div.stats-field label.clickable.stats').on('contextmenu', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.stats-field').data('id') as StatisticType;
+            const { id } = preprocessEventWithId(event);
             const modifier = await promptUserModifier('DG.DICE.statisticCheck');
-            const roll = await this.actor.rollStatistic(id, [
+            const roll = await this.actor.rollStatistic(id as StatisticType, [
                 {
                     label: game.i18n.localize('DG.DICE.rollModifier'),
                     value: modifier,
@@ -225,9 +232,8 @@ export class DGActorSheet extends ActorSheet {
 
         // Inventory: Roll attack
         html.find('div.inventory-group.weapon label.attack').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const itemId = target.closest('div[data-id]').data('id') as string;
-            const item = this.actor.getEmbeddedDocument('Item', itemId) as DGItem | undefined;
+            const { id } = preprocessEventWithId(event);
+            const item = this.actor.getEmbeddedDocument('Item', id) as DGItem | undefined;
             if (item?.data.type === ItemTypeWeapon) {
                 if (item.data.data.skill.value !== '') {
                     const roll = await this.actor.rollSkill(item.data.data.skill.value);
@@ -236,9 +242,8 @@ export class DGActorSheet extends ActorSheet {
             }
         });
         html.find('div.inventory-group.weapon label.attack').on('contextmenu', async (event) => {
-            const target = preprocessEvent(event);
-            const itemId = target.closest('div[data-id]').data('id') as string;
-            const item = this.actor.getEmbeddedDocument('Item', itemId) as DGItem | undefined;
+            const { id } = preprocessEventWithId(event);
+            const item = this.actor.getEmbeddedDocument('Item', id) as DGItem | undefined;
             if (item?.data.type === ItemTypeWeapon) {
                 const skillName = this.actor.getSkillName(item.data.data.skill.value);
                 if (skillName && skillName !== '') {
@@ -256,8 +261,7 @@ export class DGActorSheet extends ActorSheet {
 
         // Inventory: Roll damage
         html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div[data-id]').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
                 if (item.data.data.lethality.value > 0) {
@@ -270,8 +274,7 @@ export class DGActorSheet extends ActorSheet {
         });
         // TODO: Allow damage modifications
         html.find('div.inventory-group.weapon label.damage').on('contextmenu', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div[data-id]').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
                 if (item.data.data.lethality.value > 0) {
@@ -292,8 +295,7 @@ export class DGActorSheet extends ActorSheet {
 
         // Inventory: Decrement ammo
         html.find('div.inventory-group.weapon div.ammo label.decrement').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.inventory-item').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
                 await item.update({
@@ -303,8 +305,7 @@ export class DGActorSheet extends ActorSheet {
         });
         // Inventory: Reload ammo
         html.find('div.inventory-group.weapon div.ammo label.reload').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.inventory-item').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
                 await item.update({
@@ -344,8 +345,7 @@ export class DGActorSheet extends ActorSheet {
 
         // Bonds: Damage bond
         html.find('div.bond-item input.damaged').on('click', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div.bond-item').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === 'bond') {
                 await item.update({
@@ -356,8 +356,7 @@ export class DGActorSheet extends ActorSheet {
 
         // Items: Cross an item
         html.find('label.cross-item').on('click', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div[data-id]').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeBond || item.data.type === ItemTypeMotivation || item.data.type === ItemTypeDisorder) {
                 await item.update({
@@ -378,27 +377,23 @@ export class DGActorSheet extends ActorSheet {
         });
         // Items: Edit an item
         html.find('label.edit-item').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div[data-id]').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-
             if (item && item.sheet) {
                 item.sheet.render(true);
             }
         });
         // Items: Delete an item
         html.find('label.delete-item').on('click', async (event) => {
-            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
-            const id = target.closest('div[data-id]').data('id') as string;
+            const { id } = preprocessEventWithId(event);
             await this.actor.deleteEmbeddedDocuments('Item', [id]);
         });
 
         // Items: Inline update of check boxes
         html.find('input.modify-item[type="checkbox"]').on('change', async (event) => {
-            const target: JQuery = preprocessEvent(event);
+            const { target, id } = preprocessEventWithId(event);
             const value = target.prop('checked') as boolean;
             const path = target.data('path') as string;
-            const id = target.closest('div[data-id]').data('id') as string;
 
             await this.actor.updateEmbeddedDocuments('Item', [
                 {
@@ -409,10 +404,9 @@ export class DGActorSheet extends ActorSheet {
         });
         // Items: Inline update of inputs
         html.find('input.modify-item:not([type="checkbox"])').on('change', async (event) => {
-            const target: JQuery = preprocessEvent(event);
+            const { target, id } = preprocessEventWithId(event);
             let value = target.val() as string | number;
             const path = target.data('path') as string;
-            const id = target.closest('div[data-id]').data('id') as string;
 
             if (target.attr('type') === 'number') {
                 value = parseInt(value.toString());
