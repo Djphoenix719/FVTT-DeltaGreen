@@ -14,74 +14,16 @@
  * limitations under the License.
  */
 
-import { CSS_CLASSES, SYSTEM_NAME } from '../Constants';
-import { createDeflateRaw } from 'zlib';
+import { InputDialog, InputDialogResults } from './InputDialog';
+import { SYSTEM_NAME } from '../Constants';
 
-/**
- * Data returned by the modifier dialog.
- */
-export interface ModifierDialogCallbackArgs {
+export interface PercentileModifierDialogResults extends InputDialogResults {
     modifier: number;
 }
 
-/**
- * Callback type for select apps
- * @internal
- */
-export type ModifierDialogCallback = (data: ModifierDialogCallbackArgs) => void;
-
-/**
- * Constructor options for a modifier dialog.
- */
-export interface ModifierDialogOptions {
-    callback: ModifierDialogCallback;
-    defaults?: ModifierDialogCallbackArgs;
-    title: string;
-}
-
-/**
- * Base class for app that uses a select drop down
- * @internal
- */
-export class ModifierDialog extends FormApplication<FormApplication.Options, ModifierDialogCallbackArgs> {
-    static get defaultOptions() {
-        const options = super.defaultOptions;
-        options.classes = [...options.classes, CSS_CLASSES.BASE, ...CSS_CLASSES.DIALOG.MODIFIER];
-        options.template = `systems/${SYSTEM_NAME}/templates/dialog/ModifierDialog.html`;
-        options.width = 250;
-        options.height = 'auto';
-        return options;
-    }
-
-    public get title(): string {
-        return game.i18n.localize(this._title);
-    }
-
-    private readonly _title: string;
-    private readonly _callback: ModifierDialogCallback;
-    private readonly _defaults: ModifierDialogCallbackArgs;
-
-    public constructor(inputOptions: ModifierDialogOptions, options?: FormApplication.Options) {
-        super({}, options);
-
-        this._callback = inputOptions.callback;
-        this._defaults = inputOptions.defaults ?? {
-            modifier: 0,
-        };
-        this._title = inputOptions.title;
-    }
-
-    public async getData(options?: Application.RenderOptions): Promise<ModifierDialogCallbackArgs> {
-        const renderData = await super.getData(options);
-
-        renderData.modifier = this._defaults.modifier;
-
-        return renderData;
-    }
-
-    protected _updateObject(event: Event, formData: ModifierDialogCallbackArgs): Promise<void> {
-        this._callback(formData);
-        return Promise.resolve();
+export class PercentileModifierDialog extends InputDialog<PercentileModifierDialogResults> {
+    public get template(): string {
+        return `systems/${SYSTEM_NAME}/templates/dialog/PercentileModifierDialog.html`;
     }
 
     public activateListeners(html: JQuery) {

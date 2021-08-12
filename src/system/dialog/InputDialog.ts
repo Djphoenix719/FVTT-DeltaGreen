@@ -17,98 +17,68 @@
 import { CSS_CLASSES, SYSTEM_NAME } from '../Constants';
 
 /**
- * Valid type for the input app.
+ * Data returned by the modifier dialog.
  */
-type InputAppValue = string | number;
+export interface InputDialogResults {}
 
 /**
  * Callback type for select apps
  * @internal
  */
-export type InputAppCallback<T> = (value: T) => void;
+export type InputDialogCallback<TResults extends InputDialogResults> = (data: TResults) => void;
 
-export interface InputAppOptions<T extends InputAppValue> {
-    value: T;
-    callback: InputAppCallback<T>;
+/**
+ * Constructor options for a modifier dialog.
+ */
+export interface InputDialogOptions<TResults extends InputDialogResults> {
+    callback: InputDialogCallback<TResults>;
+    defaults: TResults;
     title: string;
-    label: string;
 }
 
 /**
  * Base class for app that uses a select drop down
  * @internal
  */
-export class InputDialog<T extends InputAppValue> extends Application {
-    // <editor-fold desc="Static Properties">
-
+export abstract class InputDialog<TResults extends InputDialogResults> extends FormApplication<FormApplication.Options, Record<string, any>> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.classes = [...options.classes, CSS_CLASSES.BASE];
-        options.template = `systems/${SYSTEM_NAME}/templates/dialog/InputDialog.html`;
-        options.width = 200;
+        options.classes = [...options.classes, CSS_CLASSES.BASE, ...CSS_CLASSES.DIALOG.MODIFIER];
+        options.width = 250;
         options.height = 'auto';
         return options;
     }
 
-    // </editor-fold>
-    // <editor-fold desc="Static Methods"></editor-fold>
-    // <editor-fold desc="Properties">
-
-    private readonly _value?: T;
-    private readonly _label: string;
-    private readonly _title: string;
-    private readonly _callback?: InputAppCallback<T>;
-
-    // </editor-fold>
-    // <editor-fold desc="Constructor & Initialization">
-
-    public constructor(inputOptions: InputAppOptions<T>, options?: Application.Options) {
-        super(options);
-
-        this._value = inputOptions.value;
-        this._callback = inputOptions.callback;
-        this._title = inputOptions.title;
-        this._label = inputOptions.label;
-    }
-
-    // </editor-fold>
-    // <editor-fold desc="Getters & Setters">
+    abstract get template(): string;
 
     public get title(): string {
         return game.i18n.localize(this._title);
     }
 
-    // </editor-fold>
-    // <editor-fold desc="Instance Methods">
+    private readonly _title: string;
+    private readonly _callback: InputDialogCallback<TResults>;
+    private readonly _defaults: TResults;
 
-    getData(options?: any): any | Promise<any> {
-        const data: any = super.getData(options);
+    public constructor(inputOptions: InputDialogOptions<TResults>, options?: FormApplication.Options) {
+        super({}, options);
 
-        data.data = {
-            label: this._label,
-            value: this._value,
-            type: typeof this._value == 'string' ? 'text' : 'number',
-        };
-
-        return data;
+        this._callback = inputOptions.callback;
+        this._defaults = inputOptions.defaults;
+        this._title = inputOptions.title;
     }
 
-    public activateListeners(html: JQuery): void {
-        super.activateListeners(html);
+    public async getData(options?: Application.RenderOptions): Promise<InputDialogResults> {
+        const renderData = await super.getData(options);
 
-        const button = html.find(`button.confirm`);
-        button.on('click', async (event) => {
-            event.preventDefault();
+        for (const key in this._defaults) {
+            renderData[key] = this._defaults[key];
+        }
 
-            const input = html.find(`input, select`) as JQuery<HTMLInputElement>;
-
-            const value = input.val() as string;
-            if (this._callback !== undefined) {
-                this._callback(value as T);
-            }
-            await this.close();
-        });
+        return renderData;
     }
 
-    // </editor-fold>
+    protected _updateObject(event: Event, formData: TResults): Promise<void> {
+        this._callback(formData);
+        return Promise.resolve();
+    }
 }

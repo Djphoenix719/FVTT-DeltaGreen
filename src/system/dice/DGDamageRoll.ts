@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
+export enum DamagePartType {
+    Add = 'add',
+    Multiply = 'multiply',
+}
+
 /**
  * A modifier for the target number of a percentile roll.
  */
 export interface DGDamageRollPart {
     label: string;
-    value: number;
+    value: number | string;
+    type: DamagePartType;
 }
 
 /**
@@ -31,13 +37,23 @@ export interface DGDamageRollData {
      */
     label: string;
     /**
-     * Base damage formula. Will be overwritten by lethality.
-     */
-    formula: string;
-    /**
      * Percentage chance for lethality (0-100, not 0-1).
      */
     lethality: number;
+
+    /**
+     * Data used to calculate damage.
+     */
+    damage: {
+        /**
+         * Base damage formula. Will be overwritten by lethality.
+         */
+        formula: string;
+        /**
+         * Gets added to base formula/lethality formula.
+         */
+        parts?: DGDamageRollPart[];
+    };
 }
 
 /**
@@ -55,13 +71,46 @@ export interface DGDamageDieResult {
 }
 
 export class DGDamageRoll extends Roll<DGDamageRollData> {
-    public constructor(data: DGDamageRollData, options?: Roll['options']) {
-        let formula = data.formula;
-        if (data.lethality > 0) {
-            formula = '2d10';
+    private static formulaFromParts(base: string, parts: DGDamageRollPart[]): string {
+        let formula = base;
+        for (const part of parts) {
+            switch (part.type) {
+                case DamagePartType.Add:
+                    formula += `+${part.value}`;
+                    break;
+                case DamagePartType.Multiply:
+                    formula = `(${formula})*${part.value}`;
+                    break;
+            }
         }
+        return formula;
+    }
 
-        super(formula, data, options);
+    public constructor(data: DGDamageRollData | string, options?: Roll['options']) {
+        if (typeof data === 'string') {
+            super(data, undefined, options);
+        } else {
+            let formula = data.damage.formula;
+
+            if (data.lethality > 0) {
+                formula = '2d10';
+            }
+
+            if (data.damage.parts === undefined) {
+                data.damage.parts = [];
+            }
+
+            formula = DGDamageRoll.formulaFromParts(formula, data.damage.parts);
+
+            super(formula, data, options);
+        }
+    }
+
+    /**
+     * Return a modified formula.
+     */
+    public get modifiedFormula(): string {
+        return DGDamageRoll.formulaFromParts(this.data.damage.formula, this.data.damage.parts ?? []);
     }
 
     /**

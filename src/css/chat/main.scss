@@ -50,6 +50,31 @@ li.chat-message {
             }
         }
 
+        div.parts {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            div.base,
+            div.part {
+                display: flex;
+                justify-content: space-between;
+                font-size: 16px;
+            }
+
+            div.base:hover {
+                cursor: pointer;
+                text-shadow: $hover-shadow-style;
+            }
+
+            div.list {
+                padding: 0.25rem;
+                background: rgba(0, 0, 0, 0.25);
+                border-left: $form-border-style;
+                border-right: $form-border-style;
+            }
+        }
+
         div.dice {
             display: flex;
             justify-content: space-between;
@@ -111,33 +136,6 @@ li.chat-message {
             }
             &.criticalSuccess {
                 color: green;
-            }
-        }
-    }
-
-    div.delta-green.percentile {
-        div.parts {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-
-            div.base,
-            div.part {
-                display: flex;
-                justify-content: space-between;
-                font-size: 16px;
-            }
-
-            div.base:hover {
-                cursor: pointer;
-                text-shadow: $hover-shadow-style;
-            }
-
-            div.list {
-                padding: 0.25rem;
-                background: rgba(0, 0, 0, 0.25);
-                border-left: $form-border-style;
-                border-right: $form-border-style;
             }
         }
     }

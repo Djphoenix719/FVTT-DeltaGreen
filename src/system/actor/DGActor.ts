@@ -148,7 +148,7 @@ export class DGActor extends Actor {
     /**
      * Roll a skill with a specified name.
      * @param name The name of the skill.
-     * @param modifiers Target modifiers.
+     * @param modifiers Roll modifiers.
      */
     public async rollSkillName(name: string, modifiers: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         const skill = this.items.getName(name);
@@ -163,7 +163,7 @@ export class DGActor extends Actor {
     /**
      * Roll a skill with a specified id.
      * @param id The id of the skill.
-     * @param modifiers Target modifiers.
+     * @param modifiers Roll modifiers.
      */
     public async rollSkill(id: string, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {
@@ -190,7 +190,7 @@ export class DGActor extends Actor {
     /**
      * Roll a statistic * 5 check for the actor.
      * @param id The statistic to target.
-     * @param modifiers Target modifiers.
+     * @param modifiers Roll modifiers.
      */
     public async rollStatistic(id: StatisticType, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {
@@ -212,7 +212,7 @@ export class DGActor extends Actor {
 
     /**
      * Roll a sanity check for the actor.
-     * @param modifiers Target modifiers.
+     * @param modifiers Roll modifiers.
      */
     public async rollSanity(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {
@@ -233,7 +233,7 @@ export class DGActor extends Actor {
 
     /**
      * Roll a luck check for the actor.
-     * @param modifiers Target modifiers.
+     * @param modifiers Roll modifiers.
      */
     public async rollLuck(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {
@@ -255,14 +255,18 @@ export class DGActor extends Actor {
     /**
      * Roll a weapon's damage.
      * @param id The id of the weapon.
+     * @param modifiers Roll modifiers.
      */
-    public async rollDamageForWeapon(id: string): Promise<DGDamageRoll> {
+    public async rollDamageForWeapon(id: string, modifiers?: DGDamageRollPart[]): Promise<DGDamageRoll> {
         const weapon = this.items.get(id);
         if (weapon?.data.type === ItemTypeWeapon) {
             return new DGDamageRoll({
                 label: `${weapon.name!}: ${game.i18n.localize('DG.DICE.damage')}`,
-                formula: weapon.data.data.damage.value,
                 lethality: weapon.data.data.lethality.value,
+                damage: {
+                    formula: weapon.data.data.damage.value,
+                    parts: modifiers,
+                },
             }).roll();
         }
 
@@ -272,7 +276,7 @@ export class DGActor extends Actor {
     /**
      * Roll a weapon's lethality.
      * @param id The id of the weapon.
-     * @param modifiers
+     * @param modifiers Roll modifiers.
      */
     public async rollLethalityForWeapon(id: string, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {

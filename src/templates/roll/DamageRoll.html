@@ -17,6 +17,25 @@
         </div>
     {{/if}}
 
+    <div class="parts">
+        <div class="base">
+            <div class="label">{{localize "DG.DICE.damage"}}</div>
+            <div class="label">{{roll.modifiedFormula}}</div>
+        </div>
+        <div class="list" style="display: none;">
+            <div class="part">
+                <div class="label">{{localize "DG.DICE.damage"}}</div>
+                <div class="label">{{roll.data.damage.formula}}</div>
+            </div>
+            {{#each roll.data.damage.parts as |part|}}
+                <div class="part">
+                    <div class="label">{{localize "DG.DICE.rollModifier"}}</div>
+                    <div class="label">{{#if (eq part.type "multiply")}}*{{/if}}{{part.value}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
     <div class="dice">
         <div class="list">
             {{#each roll.results as |result|}}

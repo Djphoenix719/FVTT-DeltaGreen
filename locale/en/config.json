@@ -139,6 +139,7 @@
             "rollModifier": "Roll Modifier",
             "percentileRoll": "Percentile Roll",
             "damage": "Damage",
+            "damageRoll": "Damage Roll",
 
             "criticalSuccess": "Critical Success",
             "success": "Success",
@@ -156,7 +157,9 @@
             "-20%": "-20%",
             "0%": "0%",
             "+20%": "+20%",
-            "+40%": "+40%"
+            "+40%": "+40%",
+            "add": "Add",
+            "multiply": "Multiply"
         }
     }
 }

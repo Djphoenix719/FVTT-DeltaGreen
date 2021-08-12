@@ -18,11 +18,11 @@ import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import { AdaptationType, DEFAULT_ITEM_NAME, ItemTypeBond, ItemTypeDisorder, ItemTypeMotivation, ItemTypeWeapon, StatisticType } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
 import { ItemType } from '../../../types/Item';
-import { ModifierDialog } from '../../dialog/ModifierDialog';
 import { DGPercentileRoll } from '../../dice/DGPercentileRoll';
-import { DGDamageRoll } from '../../dice/DGDamageRoll';
+import { DamagePartType, DGDamageRoll, DGDamageRollPart } from '../../dice/DGDamageRoll';
 import { ChatMessageDataConstructorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData';
-import { DiceRollMode } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/constants.mjs';
+import { PercentileModifierDialog, PercentileModifierDialogResults } from '../../dialog/PercentileModifierDialog';
+import { DamageModifierDialog, DamageModifierDialogResults } from '../../dialog/DamageModifierDialog';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -143,12 +143,34 @@ export class DGActorSheet extends ActorSheet {
          * Resolves when the user hits confirm, NEVER RESOLVES OTHERWISE.
          * @param label The window title.
          */
-        const promptUserModifier = (label: string): Promise<number> => {
-            return new Promise<number>((resolve) => {
-                const dialog = new ModifierDialog({
+        const promptPercentileModifier = (label: string): Promise<PercentileModifierDialogResults> => {
+            return new Promise<PercentileModifierDialogResults>((resolve) => {
+                const dialog = new PercentileModifierDialog({
                     title: `${game.i18n.localize('DG.DICE.roll')}: ${game.i18n.localize(label)}`,
+                    defaults: {
+                        modifier: 0,
+                    },
+                    callback: resolve,
+                });
+                dialog.render(true);
+            });
+        };
+
+        const promptDamageModifier = (label: string): Promise<DamageModifierDialogResults> => {
+            return new Promise<DamageModifierDialogResults>((resolve) => {
+                const dialog = new DamageModifierDialog({
+                    title: `${game.i18n.localize('DG.DICE.roll')}: ${game.i18n.localize(label)}`,
+                    defaults: {
+                        add: '',
+                        multiply: '',
+                    },
                     callback: async (data) => {
-                        resolve(parseInt(data.modifier.toString()));
+                        console.warn('data results');
+                        console.warn(data);
+                        resolve({
+                            add: data.add,
+                            multiply: data.multiply,
+                        });
                     },
                 });
                 dialog.render(true);
@@ -168,11 +190,11 @@ export class DGActorSheet extends ActorSheet {
 
             const skillName = this.actor.getSkillName(id);
             if (skillName) {
-                const modifier = await promptUserModifier(skillName);
+                const dialogResults = await promptPercentileModifier(skillName);
                 const roll = await this.actor.rollSkill(id, [
                     {
                         label: game.i18n.localize('DG.DICE.rollModifier'),
-                        value: modifier,
+                        value: dialogResults.modifier,
                     },
                 ]);
                 await sendRollToChat(roll);
@@ -187,11 +209,11 @@ export class DGActorSheet extends ActorSheet {
         });
         html.find('section.attributes label.clickable.sanity').on('contextmenu', async (event) => {
             preprocessEvent(event);
-            const modifier = await promptUserModifier(`DG.DICE.sanityCheck`);
+            const dialogResults = await promptPercentileModifier(`DG.DICE.sanityCheck`);
             const roll = await this.actor.rollSanity([
                 {
                     label: game.i18n.localize('DG.DICE.rollModifier'),
-                    value: modifier,
+                    value: dialogResults.modifier,
                 },
             ]);
             await sendRollToChat(roll);
@@ -205,11 +227,11 @@ export class DGActorSheet extends ActorSheet {
         });
         html.find('section.attributes label.clickable.luck').on('contextmenu', async (event) => {
             preprocessEvent(event);
-            const modifier = await promptUserModifier(`DG.DICE.luckCheck`);
+            const dialogResults = await promptPercentileModifier(`DG.DICE.luckCheck`);
             const roll = await this.actor.rollLuck([
                 {
                     label: game.i18n.localize('DG.DICE.rollModifier'),
-                    value: modifier,
+                    value: dialogResults.modifier,
                 },
             ]);
             await sendRollToChat(roll);
@@ -223,11 +245,11 @@ export class DGActorSheet extends ActorSheet {
         });
         html.find('div.stats-field label.clickable.stats').on('contextmenu', async (event) => {
             const { id } = preprocessEventWithId(event);
-            const modifier = await promptUserModifier('DG.DICE.statisticCheck');
+            const dialogResults = await promptPercentileModifier('DG.DICE.statisticCheck');
             const roll = await this.actor.rollStatistic(id as StatisticType, [
                 {
                     label: game.i18n.localize('DG.DICE.rollModifier'),
-                    value: modifier,
+                    value: dialogResults.modifier,
                 },
             ]);
             await sendRollToChat(roll);
@@ -250,11 +272,11 @@ export class DGActorSheet extends ActorSheet {
             if (item?.data.type === ItemTypeWeapon) {
                 const skillName = this.actor.getSkillName(item.data.data.skill.value);
                 if (skillName && skillName !== '') {
-                    const modifier = await promptUserModifier(skillName);
+                    const dialogResults = await promptPercentileModifier(skillName);
                     const roll = await this.actor.rollSkill(item.data.data.skill.value, [
                         {
                             label: game.i18n.localize('DG.DICE.rollModifier'),
-                            value: modifier,
+                            value: dialogResults.modifier,
                         },
                     ]);
                     await sendRollToChat(roll);
@@ -281,15 +303,38 @@ export class DGActorSheet extends ActorSheet {
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
                 if (item.data.data.lethality.value > 0) {
+                    const percentileDialogResults = await promptPercentileModifier('DG.DICE.lethalityCheck');
                     const lethalityRoll = await this.actor.rollLethalityForWeapon(id, [
                         {
-                            label: game.i18n.localize('DG.DICE.criticalSuccess'),
-                            value: item.data.data.lethality.value,
+                            label: game.i18n.localize('DG.DICE.rollModifier'),
+                            value: percentileDialogResults.modifier,
                         },
                     ]);
                     await sendRollToChat(lethalityRoll, false);
                 }
-                const damageRoll = await this.actor.rollDamageForWeapon(id);
+
+                const damageDialogResults = await promptDamageModifier('DG.DICE.damageRoll');
+
+                console.warn('damageDialogResults');
+                console.warn(damageDialogResults);
+
+                let modifiers: DGDamageRollPart[] = [];
+                if (damageDialogResults.add) {
+                    modifiers.push({
+                        value: damageDialogResults.add,
+                        label: game.i18n.localize('DG.DICE.rollModifier'),
+                        type: DamagePartType.Add,
+                    });
+                }
+                if (damageDialogResults.multiply) {
+                    modifiers.push({
+                        value: damageDialogResults.multiply,
+                        label: game.i18n.localize('DG.DICE.rollModifier'),
+                        type: DamagePartType.Multiply,
+                    });
+                }
+
+                const damageRoll = await this.actor.rollDamageForWeapon(id, modifiers);
                 await sendRollToChat(damageRoll);
             }
         });
