@@ -127,7 +127,7 @@ export class DGActorSheet extends ActorSheet {
                 content: await renderTemplate(template, templateData),
                 roll: JSON.stringify(roll),
                 speaker: {
-                    actor: this.actor.id,
+                    alias: this.actor.name,
                 },
             };
 
@@ -164,14 +164,7 @@ export class DGActorSheet extends ActorSheet {
                         add: '',
                         multiply: '',
                     },
-                    callback: async (data) => {
-                        console.warn('data results');
-                        console.warn(data);
-                        resolve({
-                            add: data.add,
-                            multiply: data.multiply,
-                        });
-                    },
+                    callback: resolve,
                 });
                 dialog.render(true);
             });
@@ -297,26 +290,22 @@ export class DGActorSheet extends ActorSheet {
                 await sendRollToChat(damageRoll);
             }
         });
-        // TODO: Allow damage modifications
         html.find('div.inventory-group.weapon label.damage').on('contextmenu', async (event) => {
             const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
+                let lethalityRoll: DGPercentileRoll | undefined = undefined;
                 if (item.data.data.lethality.value > 0) {
                     const percentileDialogResults = await promptPercentileModifier('DG.DICE.lethalityCheck');
-                    const lethalityRoll = await this.actor.rollLethalityForWeapon(id, [
+                    lethalityRoll = await this.actor.rollLethalityForWeapon(id, [
                         {
                             label: game.i18n.localize('DG.DICE.rollModifier'),
                             value: percentileDialogResults.modifier,
                         },
                     ]);
-                    await sendRollToChat(lethalityRoll, false);
                 }
 
                 const damageDialogResults = await promptDamageModifier('DG.DICE.damageRoll');
-
-                console.warn('damageDialogResults');
-                console.warn(damageDialogResults);
 
                 let modifiers: DGDamageRollPart[] = [];
                 if (damageDialogResults.add) {
@@ -335,6 +324,9 @@ export class DGActorSheet extends ActorSheet {
                 }
 
                 const damageRoll = await this.actor.rollDamageForWeapon(id, modifiers);
+                if (lethalityRoll) {
+                    await sendRollToChat(lethalityRoll, false);
+                }
                 await sendRollToChat(damageRoll);
             }
         });
