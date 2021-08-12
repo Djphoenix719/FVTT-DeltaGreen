@@ -19,7 +19,7 @@ import { RollResultType } from '../../types/Constants';
 /**
  * A modifier for the target number of a percentile roll.
  */
-export interface DGRollTargetPart {
+export interface DGPercentageRollPart {
     label: string;
     value: number;
 }
@@ -33,8 +33,8 @@ export interface DGPercentileRollData {
      */
     label: string;
     target: {
-        base: DGRollTargetPart;
-        parts: DGRollTargetPart[];
+        base: DGPercentageRollPart;
+        parts: DGPercentageRollPart[];
     };
 }
 

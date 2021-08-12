@@ -17,7 +17,8 @@
 import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, StatisticType, UNNATURAL_ID } from '../../types/Constants';
 import { DGItem } from '../item/DGItem';
 import { ItemType } from '../../types/Item';
-import { DGPercentileRoll, DGRollTargetPart } from '../dice/DGPercentileRoll';
+import { DGPercentileRoll, DGPercentageRollPart } from '../dice/DGPercentileRoll';
+import { DGDamageRoll, DGDamageRollPart } from '../dice/DGDamageRoll';
 
 declare global {
     interface DocumentClassConfig {
@@ -149,7 +150,7 @@ export class DGActor extends Actor {
      * @param name The name of the skill.
      * @param modifiers Target modifiers.
      */
-    public async rollSkillName(name: string, modifiers: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+    public async rollSkillName(name: string, modifiers: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         const skill = this.items.getName(name);
 
         if (skill?.data.type === ItemTypeSkill) {
@@ -164,7 +165,7 @@ export class DGActor extends Actor {
      * @param id The id of the skill.
      * @param modifiers Target modifiers.
      */
-    public async rollSkill(id: string, modifiers?: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+    public async rollSkill(id: string, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {
             modifiers = [];
         }
@@ -191,7 +192,7 @@ export class DGActor extends Actor {
      * @param id The statistic to target.
      * @param modifiers Target modifiers.
      */
-    public async rollStatistic(id: StatisticType, modifiers?: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+    public async rollStatistic(id: StatisticType, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {
             modifiers = [];
         }
@@ -213,7 +214,7 @@ export class DGActor extends Actor {
      * Roll a sanity check for the actor.
      * @param modifiers Target modifiers.
      */
-    public async rollSanity(modifiers?: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+    public async rollSanity(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {
             modifiers = [];
         }
@@ -234,7 +235,7 @@ export class DGActor extends Actor {
      * Roll a luck check for the actor.
      * @param modifiers Target modifiers.
      */
-    public async rollLuck(modifiers?: DGRollTargetPart[]): Promise<DGPercentileRoll> {
+    public async rollLuck(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
         if (modifiers === undefined) {
             modifiers = [];
         }
@@ -249,6 +250,10 @@ export class DGActor extends Actor {
                 parts: modifiers,
             },
         }).roll();
+    }
+
+    public async rollDamageForWeapon(modifiers?: DGDamageRollPart[]): Promise<DGDamageRoll> {
+        throw new Error();
     }
 
     // </editor-fold>

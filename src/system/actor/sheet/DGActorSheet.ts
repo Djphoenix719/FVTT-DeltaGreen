@@ -174,7 +174,7 @@ export class DGActorSheet extends ActorSheet {
             const itemId = target.closest('div[data-id]').data('id') as string;
             const item = this.actor.getEmbeddedDocument('Item', itemId) as DGItem | undefined;
             if (item?.data.type === ItemTypeWeapon) {
-                const skillName = this.actor.getSkillName(itemId);
+                const skillName = this.actor.getSkillName(item.data.data.skill.value);
                 if (skillName && skillName !== '') {
                     const modifier = await promptUserModifier(skillName);
                     const roll = await this.actor.rollSkill(item.data.data.skill.value, [
@@ -245,26 +245,26 @@ export class DGActorSheet extends ActorSheet {
         });
 
         // Inventory: Roll damage
-        // html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
-        //     // TODO: This whole damage roll process is atrocious. It should be multiple types of rolls or something.
-        //     const target = preprocessEvent(event);
-        //     const id = target.closest('div[data-id]').data('id') as string;
-        //     const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-        //     if (item.data.type === ItemTypeWeapon) {
-        //         const rollResult = await rollDamage(item.data.data.damage.value, item.data.data.lethality.value, this.actor);
-        //         const templateData: Record<string, any> = { ...rollResult };
-        //         templateData['actor'] = this.actor;
-        //
-        //         if (!templateData.hasOwnProperty('success')) {
-        //             templateData['label'] = 'Damage';
-        //         }
-        //
-        //         const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
-        //         await ChatMessage.create({
-        //             content: renderedTemplate,
-        //         });
-        //     }
-        // });
+        html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
+            // TODO: This whole damage roll process is atrocious. It should be multiple types of rolls or something.
+            const target = preprocessEvent(event);
+            const id = target.closest('div[data-id]').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (item.data.type === ItemTypeWeapon) {
+                // const rollResult = await rollDamage(item.data.data.damage.value, item.data.data.lethality.value, this.actor);
+                // const templateData: Record<string, any> = { ...rollResult };
+                // templateData['actor'] = this.actor;
+                //
+                // if (!templateData.hasOwnProperty('success')) {
+                //     templateData['label'] = 'Damage';
+                // }
+                //
+                // const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
+                // await ChatMessage.create({
+                //     content: renderedTemplate,
+                // });
+            }
+        });
 
         // </editor-fold>
 
