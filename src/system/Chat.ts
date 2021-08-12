@@ -16,9 +16,9 @@
 
 export const registerChatHooks = () => {
     Hooks.on('renderChatMessage', async (message, html) => {
-        const header = html.find('header.parts-header');
+        const header = html.find('div.parts div.base');
         header.on('click', (event) => {
-            header.next('div.parts-list').toggle({
+            header.next('div.list').toggle({
                 duration: 200,
             });
         });

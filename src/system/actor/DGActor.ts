@@ -34,6 +34,7 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
     actor.data.update({
         items: DEFAULT_SKILLS_DEFINITION.map((skill) => {
             return {
+                _id: skill._id,
                 name: game.i18n.localize(skill.name),
                 type: skill.type,
                 data: {

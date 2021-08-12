@@ -134,6 +134,7 @@
             "roll": "Roll",
             "rollModifier": "Roll Modifier",
             "percentileRoll": "Percentile Roll",
+
             "criticalSuccess": "Critical Success",
             "success": "Success",
             "failure": "Failure",

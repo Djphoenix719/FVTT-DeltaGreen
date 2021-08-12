@@ -20,11 +20,16 @@ li.chat-message {
     background: url('static/image/sheet/background-plain.png') top;
     font-family: 'Futura Standard Book', 'Signika', sans-serif;
 
-    div.delta-green {
+    div.delta-green.percentile {
         background-size: contain;
         position: relative;
 
-        div.roll-header {
+        div.header {
+            text-align: center;
+            font-size: large;
+        }
+
+        div.actor {
             display: flex;
             border-top: $field-border-style;
             border-bottom: $field-border-style;
@@ -43,37 +48,39 @@ li.chat-message {
                 font-weight: bolder;
             }
         }
-        div.roll-parts {
+
+        div.parts {
             display: flex;
             flex-direction: column;
             width: 100%;
 
-            header.parts-header,
+            div.base,
             div.part {
                 display: flex;
                 justify-content: space-between;
                 font-size: 16px;
             }
 
-            header.parts-header:hover {
+            div.base:hover {
                 cursor: pointer;
                 text-shadow: $hover-shadow-style;
             }
 
-            div.parts-list {
+            div.list {
                 padding: 0.25rem;
                 background: rgba(0, 0, 0, 0.25);
                 border-left: $field-border-style;
                 border-right: $field-border-style;
             }
         }
-        div.roll-body {
+
+        div.dice {
             display: flex;
             justify-content: space-between;
             font-size: $chat-dice-size - $chat-dice-size/3;
             line-height: $chat-dice-size;
 
-            div.dice-rolls {
+            div.list {
                 display: flex;
                 flex-wrap: wrap;
 
@@ -118,9 +125,11 @@ li.chat-message {
                 }
             }
         }
-        div.roll-result {
+
+        div.result {
             font-size: 16px;
             text-align: center;
+
             &.criticalFailure {
                 color: red;
             }

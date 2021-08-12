@@ -107,11 +107,13 @@ export class DGActorSheet extends ActorSheet {
             await ChatMessage.create({
                 user: game.user?.id,
                 content: await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData),
+                roll: JSON.stringify(roll),
+                sound: `/sounds/dice.wav`,
             });
         };
 
         /**
-         * Prompt the user for a modifier by displaying the roll modifier dialog.
+         * Prompt the user for a modifier by displaying the DICE.rollModifier dialog.
          * Resolves when the user hits confirm, NEVER RESOLVES OTHERWISE.
          * @param label The window title.
          */
@@ -147,7 +149,7 @@ export class DGActorSheet extends ActorSheet {
                 const modifier = await promptUserModifier(skillName);
                 const roll = await this.actor.rollSkill(id, [
                     {
-                        label: game.i18n.localize('DG.ROLL.modifier'),
+                        label: game.i18n.localize('DG.DICE.rollModifier'),
                         value: modifier,
                     },
                 ]);
@@ -177,7 +179,7 @@ export class DGActorSheet extends ActorSheet {
                     const modifier = await promptUserModifier(skillName);
                     const roll = await this.actor.rollSkill(item.data.data.skill.value, [
                         {
-                            label: game.i18n.localize('DG.ROLL.modifier'),
+                            label: game.i18n.localize('DG.DICE.rollModifier'),
                             value: modifier,
                         },
                     ]);
@@ -197,7 +199,7 @@ export class DGActorSheet extends ActorSheet {
             const modifier = await promptUserModifier(`DG.DICE.sanityCheck`);
             const roll = await this.actor.rollSanity([
                 {
-                    label: game.i18n.localize('DG.ROLL.modifier'),
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
                     value: modifier,
                 },
             ]);
@@ -215,7 +217,7 @@ export class DGActorSheet extends ActorSheet {
             const modifier = await promptUserModifier(`DG.DICE.luckCheck`);
             const roll = await this.actor.rollSanity([
                 {
-                    label: game.i18n.localize('DG.ROLL.modifier'),
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
                     value: modifier,
                 },
             ]);
@@ -235,7 +237,7 @@ export class DGActorSheet extends ActorSheet {
             const modifier = await promptUserModifier('DG.DICE.statisticCheck');
             const roll = await this.actor.rollStatistic(id, [
                 {
-                    label: game.i18n.localize('DG.ROLL.modifier'),
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
                     value: modifier,
                 },
             ]);
@@ -386,9 +388,13 @@ export class DGActorSheet extends ActorSheet {
         // Items: Inline update of inputs
         html.find('input.modify-item:not([type="checkbox"])').on('change', async (event) => {
             const target: JQuery = preprocessEvent(event);
-            const value = target.val() as string | number;
+            let value = target.val() as string | number;
             const path = target.data('path') as string;
             const id = target.closest('div[data-id]').data('id') as string;
+
+            if (target.attr('type') === 'number') {
+                value = parseInt(value.toString());
+            }
 
             await this.actor.updateEmbeddedDocuments('Item', [
                 {

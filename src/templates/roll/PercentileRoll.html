@@ -1,46 +1,54 @@
-<div class="delta-green">
+<div class="delta-green percentile">
+
+    {{#if roll.data.label}}
+        <div class="header">
+            {{localize roll.data.label}}
+        </div>
+    {{/if}}
+
     {{#if actor}}
-        <div class="roll-header">
+        <div class="actor">
             <div class="avatar">
-                <img src="{{actor.img}}">
+                <img src="{{actor.img}}" title="{{actor.name}}">
             </div>
             <div class="name">
                 {{actor.name}}
             </div>
         </div>
     {{/if}}
-    {{#if target}}
-        <div class="roll-parts">
-            <header class="parts-header">
-                <div class="label">{{target.base.label}}</div>
-                <div class="label">{{target.total}}%</div>
-            </header>
-            <div class="parts-list" style="display: none;">
-                {{#each target.modifiers as |part|}}
+
+    {{#if roll.target}}
+        <div class="parts">
+            <div class="base">
+                <div class="label">{{localize roll.data.target.base.label}}</div>
+                <div class="label">{{roll.target}}%</div>
+            </div>
+            <div class="list" style="display: none;">
+                <div class="part">
+                    <div class="label">{{localize roll.data.target.base.label}}</div>
+                    <div class="label">{{roll.data.target.base.value}}%</div>
+                </div>
+                {{#each roll.data.target.parts as |part|}}
                     <div class="part">
-                        <div class="label">{{part.label}}</div>
+                        <div class="label">{{localize part.label}}</div>
                         <div class="label">{{part.value}}%</div>
                     </div>
                 {{/each}}
             </div>
         </div>
     {{/if}}
-    <div class="roll-body">
-        <div class="dice-rolls {{success.type}}">
-            {{#each results.dice as |die|}}
-                <div class="roll die d{{die.size}}">{{die.value}}</div>
-            {{/each}}
+
+    <div class="dice">
+        <div class="list">
+            <div class="roll die d10">{{roll.tens}}</div>
+            <div class="roll die d10">{{roll.ones}}</div>
         </div>
-        <div class="total">{{results.value}}</div>
+        <div class="total">{{roll.total}}</div>
     </div>
-    {{#if success}}
-        <div class="roll-result {{success.type}}">
-            {{success.label}}
-        </div>
-    {{/if}}
-    {{#if label}}
-        <div class="roll-result">
-            {{label}}
+
+    {{#if roll.successType}}
+        <div class="result {{roll.successType}}">
+            {{localize roll.successTypeLabel}}
         </div>
     {{/if}}
 </div>

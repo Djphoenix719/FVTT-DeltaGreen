@@ -113,4 +113,15 @@ export class DGPercentileRoll extends Roll<DGPercentileRollData> {
 
         return successType;
     }
+
+    /**
+     * Get the appropriate label for the roll's success type.
+     */
+    public get successTypeLabel(): string | undefined {
+        if (this.successType === undefined) {
+            return undefined;
+        }
+
+        return `DG.DICE.${this.successType}`;
+    }
 }
