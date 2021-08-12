@@ -14,24 +14,50 @@
  * limitations under the License.
  */
 
+@import '../constants';
+
+$nav-pad-amount: 20px;
 div.delta-green {
     nav.sheet-navigation {
-        padding: 0 2rem;
-        margin-top: 0.5rem;
+        display: flex;
+        justify-content: center;
 
+        margin-top: 0.5rem;
         background: black;
         color: white;
-
-        display: flex;
         text-transform: uppercase;
 
         a.item {
-            flex: 1;
+            padding: 0 $nav-pad-amount/4;
             text-align: center;
+
+            transition: padding 200ms;
         }
         a.item.active {
-            font-style: italic;
-            font-weight: bold;
+            position: relative;
+            padding: 0 $nav-pad-amount;
+            text-shadow: $hover-shadow-style;
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                border: solid white;
+                border-width: 0 4px 4px 0;
+                display: inline-block;
+                padding: 4px;
+                top: 3px;
+            }
+            &:before {
+                left: -$nav-pad-amount/5;
+                transform: rotate(-45deg);
+                -webkit-transform: rotate(-45deg);
+            }
+            &:after {
+                right: -$nav-pad-amount/5;
+                transform: rotate(135deg);
+                -webkit-transform: rotate(135deg);
+            }
         }
     }
 }
