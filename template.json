@@ -85,14 +85,6 @@
         "agent": {
             "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills"],
             "schemaVersion": "1.0.0",
-            "description": {
-                "appearance": {
-                    "value": ""
-                },
-                "wounds": {
-                    "value": ""
-                }
-            },
             "biography": {
                 "profession": {
                     "value": ""
@@ -110,6 +102,15 @@
                     "value": ""
                 },
                 "education": {
+                    "value": ""
+                },
+                "appearance": {
+                    "value": ""
+                },
+                "wounds": {
+                    "value": ""
+                },
+                "notes": {
                     "value": ""
                 }
             }

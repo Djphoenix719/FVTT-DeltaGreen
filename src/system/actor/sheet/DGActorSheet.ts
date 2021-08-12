@@ -41,7 +41,7 @@ export class DGActorSheet extends ActorSheet {
             {
                 navSelector: 'nav.sheet-navigation',
                 contentSelector: 'section.sheet-body',
-                initial: 'tab-skills',
+                initial: 'tab-description',
             },
         ];
         options.scrollY = [...options.scrollY, 'section.sheet-body'];

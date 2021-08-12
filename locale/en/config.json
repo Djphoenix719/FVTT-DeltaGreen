@@ -54,7 +54,9 @@
             "nationality": "Nationality",
             "gender": "Gender",
             "age": "Age",
-            "education": "Education"
+            "education": "Education",
+            "appearance": "Appearance",
+            "notes": "Notes"
         },
         "ATTRIBUTES": {
             "hitPoints": "Hit Points",
@@ -103,7 +105,9 @@
             "statistics": "Statistics",
             "skills": "Skills",
             "psychological": "Psychological",
-            "inventory": "Inventory"
+            "inventory": "Inventory",
+            "description": "Description",
+            "miscellaneous": "Miscellaneous"
         },
         "ITEM": {
             "name": "Name",

@@ -64,6 +64,7 @@ div.delta-green.agent section.window-content {
 
     section.sheet-body {
         overflow-y: auto;
+        height: 100%;
     }
 
     section.sheet-header {
@@ -179,6 +180,28 @@ div.delta-green.agent section.window-content {
                     left: 3px;
                     height: 26px;
                     line-height: 26px;
+                }
+            }
+        }
+    }
+
+    div.tab-description {
+        height: 100%;
+
+        section.description {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            div.editor {
+                flex: 1;
+                height: 100%;
+                border-left: $form-border-style;
+                border-right: $form-border-style;
+
+                &:not(:first-of-type) {
+                    flex: 3;
+                    border-bottom: $form-border-style;
                 }
             }
         }

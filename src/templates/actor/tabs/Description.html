@@ -1,0 +1,19 @@
+<section class="description">
+    <header class="center-header">
+        <label class="flex-1">{{localize "DG.BIOGRAPHY.appearance"}}</label>
+    </header>
+    {{editor content=data.data.biography.appearance.value
+             target="data.biography.appearance.value"
+             button=true
+             owner=owner
+             editable=editable}}
+
+    <header class="center-header">
+        <label class="flex-1">{{localize "DG.BIOGRAPHY.notes"}}</label>
+    </header>
+    {{editor content=data.data.biography.notes.value
+             target="data.biography.notes.value"
+             button=true
+             owner=owner
+             editable=editable}}
+</section>
