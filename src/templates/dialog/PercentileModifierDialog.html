@@ -4,11 +4,11 @@
         <input type="number" name="modifier" value="{{modifier}}" min="-200" max="200">
     </div>
     <div class="dialog-row buttons">
-        <button class="quick-set {{#if (eq modifier  40)}}active{{/if}}" data-value="+40">{{localize "DG.DIALOG.+40%"}}</button>
-        <button class="quick-set {{#if (eq modifier  20)}}active{{/if}}" data-value="+20">{{localize "DG.DIALOG.+20%"}}</button>
-        <button class="quick-set {{#if (eq modifier   0)}}active{{/if}}" data-value="0">{{localize "DG.DIALOG.0%"}}</button>
-        <button class="quick-set {{#if (eq modifier -20)}}active{{/if}}" data-value="-20">{{localize "DG.DIALOG.-20%"}}</button>
         <button class="quick-set {{#if (eq modifier -40)}}active{{/if}}" data-value="-40">{{localize "DG.DIALOG.-40%"}}</button>
+        <button class="quick-set {{#if (eq modifier -20)}}active{{/if}}" data-value="-20">{{localize "DG.DIALOG.-20%"}}</button>
+        <button class="quick-set {{#if (eq modifier   0)}}active{{/if}}" data-value="0">{{localize "DG.DIALOG.0%"}}</button>
+        <button class="quick-set {{#if (eq modifier  20)}}active{{/if}}" data-value="+20">{{localize "DG.DIALOG.+20%"}}</button>
+        <button class="quick-set {{#if (eq modifier  40)}}active{{/if}}" data-value="+40">{{localize "DG.DIALOG.+40%"}}</button>
     </div>
     <div class="dialog-row submit">
         <input type="submit" value="Confirm">
