@@ -20,7 +20,8 @@ li.chat-message {
     background: url('static/image/sheet/background-plain.png') top;
     font-family: 'Futura Standard Book', 'Signika', sans-serif;
 
-    div.delta-green.percentile {
+    div.delta-green.percentile,
+    div.delta-green.damage {
         background-size: contain;
         position: relative;
 
@@ -46,31 +47,6 @@ li.chat-message {
                 text-align: right;
                 line-height: 32px;
                 font-weight: bolder;
-            }
-        }
-
-        div.parts {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-
-            div.base,
-            div.part {
-                display: flex;
-                justify-content: space-between;
-                font-size: 16px;
-            }
-
-            div.base:hover {
-                cursor: pointer;
-                text-shadow: $hover-shadow-style;
-            }
-
-            div.list {
-                padding: 0.25rem;
-                background: rgba(0, 0, 0, 0.25);
-                border-left: $field-border-style;
-                border-right: $field-border-style;
             }
         }
 
@@ -135,6 +111,33 @@ li.chat-message {
             }
             &.criticalSuccess {
                 color: green;
+            }
+        }
+    }
+
+    div.delta-green.percentile {
+        div.parts {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            div.base,
+            div.part {
+                display: flex;
+                justify-content: space-between;
+                font-size: 16px;
+            }
+
+            div.base:hover {
+                cursor: pointer;
+                text-shadow: $hover-shadow-style;
+            }
+
+            div.list {
+                padding: 0.25rem;
+                background: rgba(0, 0, 0, 0.25);
+                border-left: $field-border-style;
+                border-right: $field-border-style;
             }
         }
     }

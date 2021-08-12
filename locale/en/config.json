@@ -134,12 +134,14 @@
             "roll": "Roll",
             "rollModifier": "Roll Modifier",
             "percentileRoll": "Percentile Roll",
+            "damage": "Damage",
 
             "criticalSuccess": "Critical Success",
             "success": "Success",
             "failure": "Failure",
             "criticalFailure": "Critical Failure",
 
+            "lethalityCheck": "Lethality Check",
             "sanityCheck": "Sanity Check",
             "luckCheck": "Luck Check",
             "statisticCheck": "Statistic Check"

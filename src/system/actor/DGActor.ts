@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, StatisticType, UNNATURAL_ID } from '../../types/Constants';
+import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType, UNNATURAL_ID } from '../../types/Constants';
 import { DGItem } from '../item/DGItem';
 import { ItemType } from '../../types/Item';
 import { DGPercentileRoll, DGPercentageRollPart } from '../dice/DGPercentileRoll';
@@ -252,8 +252,48 @@ export class DGActor extends Actor {
         }).roll();
     }
 
-    public async rollDamageForWeapon(modifiers?: DGDamageRollPart[]): Promise<DGDamageRoll> {
-        throw new Error();
+    /**
+     * Roll a weapon's damage.
+     * @param id The id of the weapon.
+     */
+    public async rollDamageForWeapon(id: string): Promise<DGDamageRoll> {
+        const weapon = this.items.get(id);
+        if (weapon?.data.type === ItemTypeWeapon) {
+            return new DGDamageRoll({
+                label: `${weapon.name!}: ${game.i18n.localize('DG.DICE.damage')}`,
+                formula: weapon.data.data.damage.value,
+                lethality: weapon.data.data.lethality.value,
+            }).roll();
+        }
+
+        throw new Error(`No weapon with id of "${id}" found on actor.`);
+    }
+
+    /**
+     * Roll a weapon's lethality.
+     * @param id The id of the weapon.
+     * @param modifiers
+     */
+    public async rollLethalityForWeapon(id: string, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        const weapon = this.items.get(id);
+        if (weapon?.data.type === ItemTypeWeapon) {
+            return new DGPercentileRoll({
+                label: game.i18n.localize('DG.DICE.lethalityCheck'),
+                target: {
+                    base: {
+                        label: game.i18n.localize('DG.ITEM.lethality'),
+                        value: weapon.data.data.lethality.value,
+                    },
+                    parts: modifiers,
+                },
+            }).roll();
+        }
+
+        throw new Error(`No weapon with id of "${id}" found on actor.`);
     }
 
     // </editor-fold>

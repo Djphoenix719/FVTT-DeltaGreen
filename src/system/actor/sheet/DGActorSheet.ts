@@ -21,14 +21,15 @@ import {
     ItemTypeBond,
     ItemTypeDisorder,
     ItemTypeMotivation,
-    ItemTypeSkill,
     ItemTypeWeapon,
+    RollResultType,
     StatisticType,
 } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
 import { ItemType } from '../../../types/Item';
 import { ModifierDialog } from '../../dialog/ModifierDialog';
 import { DGPercentileRoll } from '../../dice/DGPercentileRoll';
+import { DGDamageRoll } from '../../dice/DGDamageRoll';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -100,7 +101,8 @@ export class DGActorSheet extends ActorSheet {
             return $(event.currentTarget);
         };
 
-        const sendRollToChat = async (roll: DGPercentileRoll) => {
+        // TODO: Pass sound as an option
+        const sendPercentileRollToChat = async (roll: DGPercentileRoll) => {
             const templateData: Record<string, any> = { roll };
             templateData['actor'] = this.actor;
 
@@ -109,6 +111,16 @@ export class DGActorSheet extends ActorSheet {
                 content: await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData),
                 roll: JSON.stringify(roll),
                 sound: `/sounds/dice.wav`,
+            });
+        };
+        const sendDamageRollToChat = async (roll: DGDamageRoll) => {
+            const templateData: Record<string, any> = { roll };
+            templateData['actor'] = this.actor;
+
+            await ChatMessage.create({
+                user: game.user?.id,
+                content: await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/DamageRoll.html`, templateData),
+                roll: JSON.stringify(roll),
             });
         };
 
@@ -138,7 +150,7 @@ export class DGActorSheet extends ActorSheet {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
             const id = target.closest('div[data-id]').data('id') as string;
             const roll = await this.actor.rollSkill(id);
-            await sendRollToChat(roll);
+            await sendPercentileRollToChat(roll);
         });
         html.find('div.skills-item label.name').on('contextmenu', async (event) => {
             const target: JQuery<HTMLInputElement> = preprocessEvent(event);
@@ -153,8 +165,64 @@ export class DGActorSheet extends ActorSheet {
                         value: modifier,
                     },
                 ]);
-                await sendRollToChat(roll);
+                await sendPercentileRollToChat(roll);
             }
+        });
+
+        // Sanity: Roll sanity
+        html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
+            preprocessEvent(event);
+            const roll = await this.actor.rollSanity();
+            await sendPercentileRollToChat(roll);
+        });
+        html.find('section.attributes label.clickable.sanity').on('contextmenu', async (event) => {
+            preprocessEvent(event);
+            const modifier = await promptUserModifier(`DG.DICE.sanityCheck`);
+            const roll = await this.actor.rollSanity([
+                {
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
+                    value: modifier,
+                },
+            ]);
+            await sendPercentileRollToChat(roll);
+        });
+
+        // Luck: Roll luck
+        html.find('section.attributes label.clickable.luck').on('click', async (event) => {
+            preprocessEvent(event);
+            const roll = await this.actor.rollLuck();
+            await sendPercentileRollToChat(roll);
+        });
+        html.find('section.attributes label.clickable.luck').on('contextmenu', async (event) => {
+            preprocessEvent(event);
+            const modifier = await promptUserModifier(`DG.DICE.luckCheck`);
+            const roll = await this.actor.rollSanity([
+                {
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
+                    value: modifier,
+                },
+            ]);
+            await sendPercentileRollToChat(roll);
+        });
+
+        // Stats: Roll stats*5
+        html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.stats-field').data('id') as StatisticType;
+            const roll = await this.actor.rollStatistic(id);
+            await sendPercentileRollToChat(roll);
+        });
+        html.find('div.stats-field label.clickable.stats').on('contextmenu', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div.stats-field').data('id') as StatisticType;
+            const modifier = await promptUserModifier('DG.DICE.statisticCheck');
+            const roll = await this.actor.rollStatistic(id, [
+                {
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
+                    value: modifier,
+                },
+            ]);
+            await sendPercentileRollToChat(roll);
         });
 
         // Inventory: Roll attack
@@ -165,7 +233,7 @@ export class DGActorSheet extends ActorSheet {
             if (item?.data.type === ItemTypeWeapon) {
                 if (item.data.data.skill.value !== '') {
                     const roll = await this.actor.rollSkill(item.data.data.skill.value);
-                    await sendRollToChat(roll);
+                    await sendPercentileRollToChat(roll);
                 }
             }
         });
@@ -183,86 +251,42 @@ export class DGActorSheet extends ActorSheet {
                             value: modifier,
                         },
                     ]);
-                    await sendRollToChat(roll);
+                    await sendPercentileRollToChat(roll);
                 }
             }
         });
 
-        // Sanity: Roll sanity
-        html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
-            preprocessEvent(event);
-            const roll = await this.actor.rollSanity();
-            await sendRollToChat(roll);
-        });
-        html.find('section.attributes label.clickable.sanity').on('contextmenu', async (event) => {
-            preprocessEvent(event);
-            const modifier = await promptUserModifier(`DG.DICE.sanityCheck`);
-            const roll = await this.actor.rollSanity([
-                {
-                    label: game.i18n.localize('DG.DICE.rollModifier'),
-                    value: modifier,
-                },
-            ]);
-            await sendRollToChat(roll);
-        });
-
-        // Luck: Roll luck
-        html.find('section.attributes label.clickable.luck').on('click', async (event) => {
-            preprocessEvent(event);
-            const roll = await this.actor.rollLuck();
-            await sendRollToChat(roll);
-        });
-        html.find('section.attributes label.clickable.luck').on('contextmenu', async (event) => {
-            preprocessEvent(event);
-            const modifier = await promptUserModifier(`DG.DICE.luckCheck`);
-            const roll = await this.actor.rollSanity([
-                {
-                    label: game.i18n.localize('DG.DICE.rollModifier'),
-                    value: modifier,
-                },
-            ]);
-            await sendRollToChat(roll);
-        });
-
-        // Stats: Roll stats*5
-        html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.stats-field').data('id') as StatisticType;
-            const roll = await this.actor.rollStatistic(id);
-            await sendRollToChat(roll);
-        });
-        html.find('div.stats-field label.clickable.stats').on('contextmenu', async (event) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div.stats-field').data('id') as StatisticType;
-            const modifier = await promptUserModifier('DG.DICE.statisticCheck');
-            const roll = await this.actor.rollStatistic(id, [
-                {
-                    label: game.i18n.localize('DG.DICE.rollModifier'),
-                    value: modifier,
-                },
-            ]);
-            await sendRollToChat(roll);
-        });
-
         // Inventory: Roll damage
         html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
-            // TODO: This whole damage roll process is atrocious. It should be multiple types of rolls or something.
             const target = preprocessEvent(event);
             const id = target.closest('div[data-id]').data('id') as string;
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
-                // const rollResult = await rollDamage(item.data.data.damage.value, item.data.data.lethality.value, this.actor);
-                // const templateData: Record<string, any> = { ...rollResult };
-                // templateData['actor'] = this.actor;
-                //
-                // if (!templateData.hasOwnProperty('success')) {
-                //     templateData['label'] = 'Damage';
-                // }
-                //
-                // const renderedTemplate = await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData);
-                // await ChatMessage.create({
-                //     content: renderedTemplate,
-                // });
+                if (item.data.data.lethality.value > 0) {
+                    const lethalityRoll = await this.actor.rollLethalityForWeapon(id);
+                    await sendPercentileRollToChat(lethalityRoll);
+                }
+                const damageRoll = await this.actor.rollDamageForWeapon(id);
+                await sendDamageRollToChat(damageRoll);
+            }
+        });
+        // TODO: Allow damage modifications
+        html.find('div.inventory-group.weapon label.damage').on('contextmenu', async (event) => {
+            const target = preprocessEvent(event);
+            const id = target.closest('div[data-id]').data('id') as string;
+            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+            if (item.data.type === ItemTypeWeapon) {
+                if (item.data.data.lethality.value > 0) {
+                    const lethalityRoll = await this.actor.rollLethalityForWeapon(id, [
+                        {
+                            label: game.i18n.localize('DG.DICE.criticalSuccess'),
+                            value: item.data.data.lethality.value,
+                        },
+                    ]);
+                    await sendPercentileRollToChat(lethalityRoll);
+                }
+                const damageRoll = await this.actor.rollDamageForWeapon(id);
+                await sendDamageRollToChat(damageRoll);
             }
         });
 

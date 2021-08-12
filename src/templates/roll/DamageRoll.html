@@ -1,0 +1,34 @@
+<div class="delta-green damage">
+
+    {{#if roll.data.label}}
+        <div class="header">
+            {{localize roll.data.label}}
+        </div>
+    {{/if}}
+
+    {{#if actor}}
+        <div class="actor">
+            <div class="avatar">
+                <img src="{{actor.img}}" title="{{actor.name}}">
+            </div>
+            <div class="name">
+                {{actor.name}}
+            </div>
+        </div>
+    {{/if}}
+
+    <div class="dice">
+        <div class="list">
+            {{#each roll.results as |result|}}
+                <div class="roll die d{{result.size}}">{{result.value}}</div>
+            {{/each}}
+        </div>
+        <div class="total">{{roll.total}}</div>
+    </div>
+
+    {{#if roll.successType}}
+        <div class="result {{roll.successType}}">
+            {{localize roll.successTypeLabel}}
+        </div>
+    {{/if}}
+</div>
