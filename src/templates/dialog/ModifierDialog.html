@@ -1,13 +1,16 @@
-<div class="dialog input-dialog">
-    <div class="labeled-field">
-        <label>{{ localize data.label }}</label>
-        <select>
-            <option value='-40'>-40%</option>
-            <option value='-20'>-20%</option>
-            <option value='0' selected>0%</option>
-            <option value='20'>+20%</option>
-            <option value='40'>+40%</option>
-        </select>
+<form>
+    <div class="dialog-row field">
+        <label>{{localize "DG.DIALOG.modifier"}}</label>
+        <input type="number" name="modifier" value="{{modifier}}" min="-200" max="200">
     </div>
-    <button class="confirm">Confirm</button>
-</div>
+    <div class="dialog-row buttons">
+        <button class="quick-set {{#if (eq modifier  40)}}active{{/if}}" data-value="+40">{{localize "DG.DIALOG.+40%"}}</button>
+        <button class="quick-set {{#if (eq modifier  20)}}active{{/if}}" data-value="+20">{{localize "DG.DIALOG.+20%"}}</button>
+        <button class="quick-set {{#if (eq modifier   0)}}active{{/if}}" data-value="0">{{localize "DG.DIALOG.0%"}}</button>
+        <button class="quick-set {{#if (eq modifier -20)}}active{{/if}}" data-value="-20">{{localize "DG.DIALOG.-20%"}}</button>
+        <button class="quick-set {{#if (eq modifier -40)}}active{{/if}}" data-value="-40">{{localize "DG.DIALOG.-40%"}}</button>
+    </div>
+    <div class="dialog-row submit">
+        <input type="submit" value="Confirm">
+    </div>
+</form>

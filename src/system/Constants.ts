@@ -20,4 +20,7 @@ export const CSS_CLASSES = {
     BASE: 'delta-green',
     AGENT: 'agent',
     ITEM: 'item',
+    DIALOG: {
+        MODIFIER: ['dialog', 'modifier'],
+    },
 };

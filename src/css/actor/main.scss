@@ -70,7 +70,7 @@ div.delta-green.agent section.window-content {
         display: flex;
         max-height: $avatar-height;
         background: rgba(255, 255, 255, 0.25);
-        border-right: $field-border-style;
+        border-right: $form-border-style;
 
         label.section-label {
             text-align: center;
@@ -87,19 +87,19 @@ div.delta-green.agent section.window-content {
                 height: $avatar-height;
                 border-left: 0;
                 border-right: 0;
-                border-bottom: $field-border-style;
-                border-top: $field-border-style;
+                border-bottom: $form-border-style;
+                border-top: $form-border-style;
             }
         }
 
         div.field-group.col {
-            border-top: $field-border-style;
+            border-top: $form-border-style;
         }
 
         div.labeled-field {
             height: $avatar-height/3;
-            border-left: $field-border-style;
-            border-bottom: $field-border-style;
+            border-left: $form-border-style;
+            border-bottom: $form-border-style;
             input {
                 height: $avatar-height/3;
                 padding-top: 0.5rem;
@@ -113,17 +113,17 @@ div.delta-green.agent section.window-content {
         flex-direction: row;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
-        border-right: $field-border-style;
-        border-top: $field-border-style;
+        border-right: $form-border-style;
+        border-top: $form-border-style;
 
         label.icon {
             padding: 0 0.5rem;
             height: 100%;
             line-height: 52px;
 
-            border-left: $field-border-style;
-            border-right: $field-border-style;
-            border-bottom: $field-border-style;
+            border-left: $form-border-style;
+            border-right: $form-border-style;
+            border-bottom: $form-border-style;
         }
 
         div.attribute {
@@ -160,7 +160,7 @@ div.delta-green.agent section.window-content {
                 flex-direction: row;
 
                 div.labeled-field:first-child {
-                    border-right: $field-border-style;
+                    border-right: $form-border-style;
                 }
 
                 label.clickable.reset {
@@ -174,7 +174,7 @@ div.delta-green.agent section.window-content {
             }
 
             div.labeled-field {
-                border-bottom: $field-border-style;
+                border-bottom: $form-border-style;
                 label {
                     left: 3px;
                     height: 26px;
@@ -190,21 +190,21 @@ div.delta-green.agent section.window-content {
             flex-direction: row;
             align-items: center;
 
-            border-left: $field-border-style;
-            border-right: $field-border-style;
-            border-bottom: $field-border-style;
+            border-left: $form-border-style;
+            border-right: $form-border-style;
+            border-bottom: $form-border-style;
 
             input.value {
                 text-align: center;
-                border-left: $field-border-style;
-                border-right: $field-border-style;
+                border-left: $form-border-style;
+                border-right: $form-border-style;
             }
         }
     }
 
     div.tab-statistics {
         header label {
-            border-left: $field-border-style;
+            border-left: $form-border-style;
             &:first-child {
                 padding-left: 0.25rem;
             }
@@ -214,10 +214,10 @@ div.delta-green.agent section.window-content {
             display: flex;
             align-items: center;
 
-            border-left: $field-border-style;
-            border-top: $field-border-style;
+            border-left: $form-border-style;
+            border-top: $form-border-style;
             &:last-child {
-                border-bottom: $field-border-style;
+                border-bottom: $form-border-style;
             }
 
             label {
@@ -227,11 +227,11 @@ div.delta-green.agent section.window-content {
 
             input[type='number'] {
                 text-align: center;
-                border-left: $field-border-style;
+                border-left: $form-border-style;
             }
             input[type='text'] {
-                border-left: $field-border-style;
-                border-right: $field-border-style;
+                border-left: $form-border-style;
+                border-right: $form-border-style;
             }
         }
     }
@@ -253,9 +253,9 @@ div.delta-green.agent section.window-content {
                 display: flex;
                 flex-direction: column;
 
-                border-left: $field-border-style;
-                border-right: $field-border-style;
-                border-bottom: $field-border-style;
+                border-left: $form-border-style;
+                border-right: $form-border-style;
+                border-bottom: $form-border-style;
 
                 div.data {
                     display: flex;
@@ -276,8 +276,8 @@ div.delta-green.agent section.window-content {
                     padding: 0.25rem;
                     div.content {
                         padding: 0.25rem;
-                        border-left: $field-border-style;
-                        border-right: $field-border-style;
+                        border-left: $form-border-style;
+                        border-right: $form-border-style;
                     }
                 }
             }
@@ -331,8 +331,8 @@ div.delta-green.agent section.window-content {
                 padding: 0.25rem;
                 div.content {
                     padding: 0.25rem;
-                    border-left: $field-border-style;
-                    border-right: $field-border-style;
+                    border-left: $form-border-style;
+                    border-right: $form-border-style;
                 }
             }
             input[type='number'] {

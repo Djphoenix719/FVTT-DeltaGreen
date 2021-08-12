@@ -32,8 +32,8 @@ li.chat-message {
 
         div.actor {
             display: flex;
-            border-top: $field-border-style;
-            border-bottom: $field-border-style;
+            border-top: $form-border-style;
+            border-bottom: $form-border-style;
 
             div.avatar,
             div.avatar img {
@@ -136,8 +136,8 @@ li.chat-message {
             div.list {
                 padding: 0.25rem;
                 background: rgba(0, 0, 0, 0.25);
-                border-left: $field-border-style;
-                border-right: $field-border-style;
+                border-left: $form-border-style;
+                border-right: $form-border-style;
             }
         }
     }

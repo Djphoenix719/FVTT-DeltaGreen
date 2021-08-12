@@ -14,7 +14,25 @@
  * limitations under the License.
  */
 
-$field-border-style: 1px solid black;
-$avatar-height: 8rem;
-$chat-dice-size: 36px;
+/****************************************
+ FORM STYLING
+ ****************************************/
+$form-background: rgba(255, 255, 255, 0.5);
+$form-border-style: 1px solid black;
+
+$form-line-height: 26px;
+
+$button-background: rgba(255, 255, 240, 0.8);
+$button-border: 1px solid #b5b3a4;
+
 $hover-shadow-style: rgba(255, 0, 0, 0.9) 0px 0px 16px;
+
+/****************************************
+ AGENT STYLING
+ ****************************************/
+$avatar-height: 8rem;
+
+/****************************************
+ CHAT STYLING
+ ****************************************/
+$chat-dice-size: 36px;

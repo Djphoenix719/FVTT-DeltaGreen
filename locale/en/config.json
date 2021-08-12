@@ -145,6 +145,14 @@
             "sanityCheck": "Sanity Check",
             "luckCheck": "Luck Check",
             "statisticCheck": "Statistic Check"
+        },
+        "DIALOG": {
+            "modifier": "Modifier",
+            "-40%": "-40%",
+            "-20%": "-20%",
+            "0%": "0%",
+            "+20%": "+20%",
+            "+40%": "+40%"
         }
     }
 }

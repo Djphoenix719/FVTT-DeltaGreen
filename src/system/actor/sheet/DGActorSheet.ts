@@ -133,10 +133,8 @@ export class DGActorSheet extends ActorSheet {
             return new Promise<number>((resolve) => {
                 const dialog = new ModifierDialog({
                     title: `${game.i18n.localize('DG.DICE.roll')}: ${game.i18n.localize(label)}`,
-                    label: game.i18n.localize('DG.DICE.rollModifier'),
-                    value: 20,
-                    callback: async (value: number | string) => {
-                        resolve(parseInt(value.toString()));
+                    callback: async (data) => {
+                        resolve(parseInt(data.modifier.toString()));
                     },
                 });
                 dialog.render(true);
