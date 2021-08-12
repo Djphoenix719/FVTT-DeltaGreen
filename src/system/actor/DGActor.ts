@@ -241,7 +241,7 @@ export class DGActor extends Actor {
         }
 
         return new DGPercentileRoll({
-            label: game.i18n.localize(`DG.DICE.luck`),
+            label: game.i18n.localize(`DG.DICE.luckCheck`),
             target: {
                 base: {
                     label: game.i18n.localize('DG.ATTRIBUTES.luck'),

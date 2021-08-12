@@ -28,6 +28,12 @@ import { DGMotivationSheet } from './item/sheet/DGMotivationSheet';
 import { DGDisorderSheet } from './item/sheet/DGDisorderSheet';
 import { registerChatHooks } from './Chat';
 import { DGPercentileRoll } from './dice/DGPercentileRoll';
+import { DGDamageRoll } from './dice/DGDamageRoll';
+
+function registerDiceClasses() {
+    CONFIG.Dice.rolls.push(DGPercentileRoll);
+    CONFIG.Dice.rolls.push(DGDamageRoll);
+}
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -93,6 +99,7 @@ Hooks.on('init', async () => {
     registerActorClasses();
     registerItemClasses();
     registerChatHooks();
+    registerDiceClasses();
 });
 
 // const testData =
@@ -132,9 +139,13 @@ Hooks.on('init', async () => {
 //     'SAN if the marionette was known in life.';
 Hooks.on('ready', async () => {
     setTimeout(async () => {
-        (window as any).DGPercentileDie = DGPercentileRoll;
         await game.actors?.getName('Test Agent')?.delete();
-        const actor = (await Actor.create({ name: 'Test Agent', type: 'agent', img: 'worlds/delta-green/mcmurtry.jpg' })) as DGActor;
+        const actor = (await Actor.create({
+            name: 'Test Agent',
+            type: 'agent',
+            img: 'worlds/delta-green/mcmurtry.jpg',
+            permission: { default: 2 },
+        })) as DGActor;
         // await importBlockToActor(testData, actor);
         await game.actors?.getName('Test Agent')?.sheet?.render(true);
 

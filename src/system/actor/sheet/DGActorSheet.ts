@@ -15,21 +15,14 @@
  */
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import {
-    AdaptationType,
-    DEFAULT_ITEM_NAME,
-    ItemTypeBond,
-    ItemTypeDisorder,
-    ItemTypeMotivation,
-    ItemTypeWeapon,
-    RollResultType,
-    StatisticType,
-} from '../../../types/Constants';
+import { AdaptationType, DEFAULT_ITEM_NAME, ItemTypeBond, ItemTypeDisorder, ItemTypeMotivation, ItemTypeWeapon, StatisticType } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
 import { ItemType } from '../../../types/Item';
 import { ModifierDialog } from '../../dialog/ModifierDialog';
 import { DGPercentileRoll } from '../../dice/DGPercentileRoll';
 import { DGDamageRoll } from '../../dice/DGDamageRoll';
+import { ChatMessageDataConstructorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData';
+import { DiceRollMode } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/constants.mjs';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -112,27 +105,37 @@ export class DGActorSheet extends ActorSheet {
             return { target, id };
         };
 
-        // TODO: Pass sound as an option
-        const sendPercentileRollToChat = async (roll: DGPercentileRoll) => {
+        /**
+         * Send a roll to the chat by rendering the proper template with extra data.
+         * @param roll The roll to base the chat card on.
+         * @param sound Play dice roll sound.
+         */
+        const sendRollToChat = async (roll: DGPercentileRoll | DGDamageRoll, sound: boolean = true) => {
             const templateData: Record<string, any> = { roll };
             templateData['actor'] = this.actor;
 
-            await ChatMessage.create({
-                user: game.user?.id,
-                content: await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`, templateData),
-                roll: JSON.stringify(roll),
-                sound: `/sounds/dice.wav`,
-            });
-        };
-        const sendDamageRollToChat = async (roll: DGDamageRoll) => {
-            const templateData: Record<string, any> = { roll };
-            templateData['actor'] = this.actor;
+            let template: string;
+            if (roll instanceof DGPercentileRoll) {
+                template = `systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`;
+            } else {
+                template = `systems/${SYSTEM_NAME}/templates/roll/DamageRoll.html`;
+            }
 
-            await ChatMessage.create({
+            let data: ChatMessageDataConstructorData = {
                 user: game.user?.id,
-                content: await renderTemplate(`systems/${SYSTEM_NAME}/templates/roll/DamageRoll.html`, templateData),
+                type: foundry.CONST.CHAT_MESSAGE_TYPES.ROLL,
+                content: await renderTemplate(template, templateData),
                 roll: JSON.stringify(roll),
-            });
+                speaker: {
+                    actor: this.actor.id,
+                },
+            };
+
+            if (sound) {
+                data.sound = `/sounds/dice.wav`;
+            }
+
+            await ChatMessage.create(data);
         };
 
         /**
@@ -158,7 +161,7 @@ export class DGActorSheet extends ActorSheet {
         html.find('div.skills-item label.name').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const roll = await this.actor.rollSkill(id);
-            await sendPercentileRollToChat(roll);
+            await sendRollToChat(roll);
         });
         html.find('div.skills-item label.name').on('contextmenu', async (event) => {
             const { id } = preprocessEventWithId(event);
@@ -172,7 +175,7 @@ export class DGActorSheet extends ActorSheet {
                         value: modifier,
                     },
                 ]);
-                await sendPercentileRollToChat(roll);
+                await sendRollToChat(roll);
             }
         });
 
@@ -180,7 +183,7 @@ export class DGActorSheet extends ActorSheet {
         html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
             preprocessEvent(event);
             const roll = await this.actor.rollSanity();
-            await sendPercentileRollToChat(roll);
+            await sendRollToChat(roll);
         });
         html.find('section.attributes label.clickable.sanity').on('contextmenu', async (event) => {
             preprocessEvent(event);
@@ -191,14 +194,14 @@ export class DGActorSheet extends ActorSheet {
                     value: modifier,
                 },
             ]);
-            await sendPercentileRollToChat(roll);
+            await sendRollToChat(roll);
         });
 
         // Luck: Roll luck
         html.find('section.attributes label.clickable.luck').on('click', async (event) => {
             preprocessEvent(event);
             const roll = await this.actor.rollLuck();
-            await sendPercentileRollToChat(roll);
+            await sendRollToChat(roll);
         });
         html.find('section.attributes label.clickable.luck').on('contextmenu', async (event) => {
             preprocessEvent(event);
@@ -209,14 +212,14 @@ export class DGActorSheet extends ActorSheet {
                     value: modifier,
                 },
             ]);
-            await sendPercentileRollToChat(roll);
+            await sendRollToChat(roll);
         });
 
         // Stats: Roll stats*5
         html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const roll = await this.actor.rollStatistic(id as StatisticType);
-            await sendPercentileRollToChat(roll);
+            await sendRollToChat(roll);
         });
         html.find('div.stats-field label.clickable.stats').on('contextmenu', async (event) => {
             const { id } = preprocessEventWithId(event);
@@ -227,7 +230,7 @@ export class DGActorSheet extends ActorSheet {
                     value: modifier,
                 },
             ]);
-            await sendPercentileRollToChat(roll);
+            await sendRollToChat(roll);
         });
 
         // Inventory: Roll attack
@@ -237,7 +240,7 @@ export class DGActorSheet extends ActorSheet {
             if (item?.data.type === ItemTypeWeapon) {
                 if (item.data.data.skill.value !== '') {
                     const roll = await this.actor.rollSkill(item.data.data.skill.value);
-                    await sendPercentileRollToChat(roll);
+                    await sendRollToChat(roll);
                 }
             }
         });
@@ -254,7 +257,7 @@ export class DGActorSheet extends ActorSheet {
                             value: modifier,
                         },
                     ]);
-                    await sendPercentileRollToChat(roll);
+                    await sendRollToChat(roll);
                 }
             }
         });
@@ -266,10 +269,10 @@ export class DGActorSheet extends ActorSheet {
             if (item.data.type === ItemTypeWeapon) {
                 if (item.data.data.lethality.value > 0) {
                     const lethalityRoll = await this.actor.rollLethalityForWeapon(id);
-                    await sendPercentileRollToChat(lethalityRoll);
+                    await sendRollToChat(lethalityRoll, false);
                 }
                 const damageRoll = await this.actor.rollDamageForWeapon(id);
-                await sendDamageRollToChat(damageRoll);
+                await sendRollToChat(damageRoll);
             }
         });
         // TODO: Allow damage modifications
@@ -284,10 +287,10 @@ export class DGActorSheet extends ActorSheet {
                             value: item.data.data.lethality.value,
                         },
                     ]);
-                    await sendPercentileRollToChat(lethalityRoll);
+                    await sendRollToChat(lethalityRoll, false);
                 }
                 const damageRoll = await this.actor.rollDamageForWeapon(id);
-                await sendDamageRollToChat(damageRoll);
+                await sendRollToChat(damageRoll);
             }
         });
 
