@@ -81,4 +81,16 @@ export abstract class InputDialog<TResults extends InputDialogResults> extends F
         this._callback(formData);
         return Promise.resolve();
     }
+
+    public activateListeners(html: JQuery) {
+        super.activateListeners(html);
+
+        html.find('input').on('keydown', async (event) => {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                await this.submit();
+            }
+        });
+    }
 }
