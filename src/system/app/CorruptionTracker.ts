@@ -78,8 +78,6 @@ export class CorruptionTracker extends Application {
         // @ts-ignore
         data.corruption = corruption;
 
-        console.warn(data);
-
         return data;
     }
 
