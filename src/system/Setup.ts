@@ -29,6 +29,7 @@ import { DGDisorderSheet } from './item/sheet/DGDisorderSheet';
 import { registerChatHooks } from './Chat';
 import { DGPercentileRoll } from './dice/DGPercentileRoll';
 import { DGDamageRoll } from './dice/DGDamageRoll';
+import { CorruptionTracker } from './app/CorruptionTracker';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -100,6 +101,8 @@ Hooks.on('init', async () => {
     registerItemClasses();
     registerChatHooks();
     registerDiceClasses();
+
+    Hooks.on('getSceneControlButtons', CorruptionTracker.getSceneControlButtons);
 });
 
 // const testData =
@@ -146,7 +149,7 @@ Hooks.on('ready', async () => {
             img: 'worlds/delta-green/mcmurtry.jpg',
             permission: { default: 2 },
         })) as DGActor;
-        // await importBlockToActor(testData, actor);
+
         await game.actors?.getName('Test Agent')?.sheet?.render(true);
 
         await actor.createEmbeddedDocuments('Item', [
@@ -231,7 +234,29 @@ Hooks.on('ready', async () => {
                 },
             },
         ]);
+
+        // static renderSceneControls(controls, html) {
+        //     html.find('[data-tool="overwatch-score-tracker"]').on('click', (event) => {
+        //         event.preventDefault();
+        //         new OverwatchScoreTracker().render(true);
+        //     });
+        // }
         //
+        // static getSceneControlButtons(controls) {
+        //     const tokenControls = controls.find((c) => c.name === 'token');
+        //
+        //     if (game.user?.isGM) {
+        //         tokenControls.tools.push({
+        //             name: 'overwatch-score-tracker',
+        //             title: 'CONTROLS.SR5.OverwatchScoreTracker',
+        //             icon: 'fas fa-network-wired',
+        //             button: true
+        //         });
+        //     }
+        //
+        //     tokenControls.tools.push(EnvModifiersApplication.getControl());
+        // }
+
         // await game.items?.getName('Test Gear')?.delete();
         // await Item.create({ name: 'Test Gear', type: 'weapon', img: 'icons/equipment/chest/breastplate-metal-pieced-grey-02.webp' });
         // await game.items?.getName('Test Gear')?.sheet?.render(true);

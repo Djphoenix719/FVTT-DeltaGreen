@@ -1,0 +1,8 @@
+{{#each actors as |actor|}}
+    <div class="actor-row" data-id="{{actor.id}}">
+        <label>{{actor.name}}</label>
+        <label class="clickable increase"><i class="fas fa-plus"></i></label>
+        <label>{{lookup ../corruption actor.id}}</label>
+        <label class="clickable decrease"><i class="fas fa-minus"></i></label>
+    </div>
+{{/each}}

@@ -160,6 +160,11 @@
             "+40%": "+40%",
             "add": "Add",
             "multiply": "Multiply"
+        },
+        "APP": {
+            "CORRUPTION": {
+                "title": "IL Corruption Tracker"
+            }
         }
     }
 }
