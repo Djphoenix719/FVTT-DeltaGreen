@@ -2,7 +2,7 @@
     {{#each skills as |group|}}
         <div class="skills-group">
             <header class="center-header">
-                <label>{{@key}}</label>
+                <label>{{group.name}}</label>
             </header>
             <header class="flex-header">
                 <label class="flex-0">1d4</label>
@@ -12,7 +12,7 @@
                     <label class="clickable add-item" data-type="skill"><i class="fas fa-plus"></i></label>
                 </div>
             </header>
-            {{#each group as |skill|}}
+            {{#each group.skills as |skill|}}
                 <div class="skills-item" data-id="{{skill.id}}">
                     {{#if skill.data.data.failureImproves}}
                         <input class="failure modify-item" type="checkbox" data-path="data.sessionFailure" {{checked skill.data.data.sessionFailure}}>

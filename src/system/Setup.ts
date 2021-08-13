@@ -30,6 +30,7 @@ import { registerChatHooks } from './Chat';
 import { DGPercentileRoll } from './dice/DGPercentileRoll';
 import { DGDamageRoll } from './dice/DGDamageRoll';
 import { CorruptionTracker } from './app/CorruptionTracker';
+import { improveSkills } from './macro/ImproveSkills';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -103,6 +104,10 @@ Hooks.on('init', async () => {
     registerDiceClasses();
 
     Hooks.on('getSceneControlButtons', CorruptionTracker.getSceneControlButtons);
+
+    (game as any)['DG'] = {
+        improveSkills,
+    };
 });
 
 // const testData =

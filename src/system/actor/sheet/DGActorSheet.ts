@@ -49,15 +49,24 @@ export class DGActorSheet extends ActorSheet {
         const renderData = await super.getData(options);
 
         // TODO: Figure out how to type this in FVTT-Types
-        // @ts-ignore
-        renderData.skills = this.actor.groupedSkills;
-        // @ts-ignore
-        for (const groupId in renderData.skills) {
-            // @ts-ignore
-            renderData.skills[groupId].sort((a: DGItem, b: DGItem) => {
+
+        const skillGroups = Object.entries(this.actor.skillGroups).map(([key, value]) => {
+            return {
+                name: key,
+                skills: value,
+            };
+        });
+        for (const group of skillGroups) {
+            group.skills.sort((a, b) => {
                 return a.data.name.localeCompare(b.data.name);
             });
         }
+        skillGroups.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        });
+
+        // @ts-ignore
+        renderData.skills = skillGroups;
 
         // @ts-ignore
         renderData.collapsibles = this._collapsibles;

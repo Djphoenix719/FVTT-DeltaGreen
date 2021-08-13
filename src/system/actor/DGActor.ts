@@ -107,18 +107,17 @@ export class DGActor extends Actor {
     /**
      * Get in-the-moment groups of skills as a record of skill arrays.
      */
-    public get groupedSkills() {
-        let groups: Record<string, DGItem[]> = {};
-
+    public get skillGroups() {
+        let map: Record<string, DGItem[]> = {};
         for (const item of this.items) {
             if (item.data.type === ItemTypeSkill) {
                 const groupId = item.data.data.group;
-                groups[groupId] = groups[groupId] ?? [];
-                groups[groupId].push(item);
+                map[groupId] = map[groupId] ?? [];
+                map[groupId].push(item);
             }
         }
 
-        return groups;
+        return map;
     }
 
     // </editor-fold>
