@@ -142,8 +142,7 @@
             }
         },
         "skill": {
-            "label": "DG.SKILL.newSkill",
-            "group": "DG.SKILL.defaultGroup",
+            "group": "DG.SKILLS.defaultGroup",
             "failureImproves": true,
             "sessionFailure": false,
             "canDelete": true

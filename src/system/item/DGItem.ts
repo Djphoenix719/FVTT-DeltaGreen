@@ -14,11 +14,23 @@
  * limitations under the License.
  */
 
-import { ItemTypeWeapon } from '../../types/Constants';
+import { ItemTypeSkill } from '../../types/Constants';
 
 declare global {
     interface DocumentClassConfig {
         Item: typeof DGItem;
     }
 }
-export class DGItem extends Item {}
+export class DGItem extends Item {
+    public prepareData() {
+        super.prepareData();
+
+        prepareSkillData(this);
+    }
+}
+
+function prepareSkillData(item: DGItem) {
+    if (item.data.type === ItemTypeSkill) {
+        item.data.data.group = game.i18n.localize(item.data.data.group);
+    }
+}
