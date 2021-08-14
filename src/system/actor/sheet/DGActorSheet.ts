@@ -15,7 +15,16 @@
  */
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import { AdaptationType, DEFAULT_ITEM_NAME, ItemTypeBond, ItemTypeDisorder, ItemTypeMotivation, ItemTypeWeapon, StatisticType } from '../../../types/Constants';
+import {
+    AdaptationType,
+    DEFAULT_ITEM_NAME,
+    ItemTypeBond,
+    ItemTypeDisorder,
+    ItemTypeMotivation,
+    ItemTypeSkill,
+    ItemTypeWeapon,
+    StatisticType,
+} from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
 import { ItemType } from '../../../types/Item';
 import { DGPercentileRoll } from '../../dice/DGPercentileRoll';
@@ -23,6 +32,8 @@ import { DamagePartType, DGDamageRoll, DGDamageRollPart } from '../../dice/DGDam
 import { ChatMessageDataConstructorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData';
 import { PercentileModifierDialog, PercentileModifierDialogResults } from '../../dialog/PercentileModifierDialog';
 import { DamageModifierDialog, DamageModifierDialogResults } from '../../dialog/DamageModifierDialog';
+import { Skill } from '../../../types/Actor';
+import { preprocessEvent, preprocessEventWithId } from '../../util/Sheet';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -34,7 +45,7 @@ export class DGActorSheet extends ActorSheet {
             {
                 navSelector: 'nav.sheet-navigation',
                 contentSelector: 'section.sheet-body',
-                initial: 'tab-description',
+                initial: 'tab-skills',
             },
         ];
         options.scrollY = [...options.scrollY, 'section.sheet-body'];
@@ -92,27 +103,6 @@ export class DGActorSheet extends ActorSheet {
 
     public activateListeners(html: JQuery) {
         super.activateListeners(html);
-
-        type HandledValidEventTypes = JQuery.ClickEvent | JQuery.ChangeEvent | JQuery.ContextMenuEvent;
-
-        /**
-         * Preprocess an event; call stopPropagation and preventDefault, wrap the currentTarget in JQuery.
-         * @param event
-         */
-        const preprocessEvent = (event: HandledValidEventTypes) => {
-            event.preventDefault();
-            event.stopPropagation();
-            return $(event.currentTarget);
-        };
-        /**
-         * Preprocess an event as above, but also pull the id out.
-         * @param event
-         */
-        const preprocessEventWithId = (event: HandledValidEventTypes) => {
-            const target = preprocessEvent(event);
-            const id = target.closest('div[data-id]').data('id') as string;
-            return { target, id };
-        };
 
         /**
          * Send a roll to the chat by rendering the proper template with extra data.
