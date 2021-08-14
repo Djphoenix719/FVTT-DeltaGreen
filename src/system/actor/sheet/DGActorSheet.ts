@@ -32,7 +32,6 @@ import { DamagePartType, DGDamageRoll, DGDamageRollPart } from '../../dice/DGDam
 import { ChatMessageDataConstructorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData';
 import { PercentileModifierDialog, PercentileModifierDialogResults } from '../../dialog/PercentileModifierDialog';
 import { DamageModifierDialog, DamageModifierDialogResults } from '../../dialog/DamageModifierDialog';
-import { Skill } from '../../../types/Actor';
 import { preprocessEvent, preprocessEventWithId } from '../../util/Sheet';
 
 export class DGActorSheet extends ActorSheet {

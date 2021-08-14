@@ -27,7 +27,7 @@ export interface Statistic<T extends StatisticType> extends Value<number>, Label
     percentile?: number;
 }
 
-export interface Skill<T extends string> extends Value<number>, Label<string> {
+export interface Skill<T extends string> extends Value<number> {
     id: T;
     failure?: boolean;
     delete: boolean;
