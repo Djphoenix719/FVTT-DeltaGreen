@@ -31,6 +31,7 @@ import { DGPercentileRoll } from './dice/DGPercentileRoll';
 import { DGDamageRoll } from './dice/DGDamageRoll';
 import { CorruptionTracker } from './app/CorruptionTracker';
 import { improveSkills } from './macro/ImproveSkills';
+import { createTestDocuments } from './TestData';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -110,139 +111,8 @@ Hooks.on('init', async () => {
     };
 });
 
-// const testData =
-//     'Marionette\n' +
-//     'Foot soldiers of Carcosa\n' +
-//     'STR 10 CON 20 DEX 10 INT 10 POW 10\n' +
-//     'HP 15 WP 10\n' +
-//     'ARMOR: See METAL AND PORCELAIN.\n' +
-//     '    ATTACKS: Impale 35%, Lethality 10%, Armor Piercing 2\n' +
-//     '(see SWARM AND SPIKE).\n' +
-//     'ENDLESS EXITS: Marionettes are impossible to trap.\n' +
-//     '    Placing one in a room or a box or even burying\n' +
-//     'it underground fails to contain it. The moment it is\n' +
-//     'unobserved, it returns to Carcosa to continue its work.\n' +
-//     '    IMPOSSIBLE GEARS: The construction of each marionette\n' +
-//     'is unique and impossible. Anyone examining its\n' +
-//     'machinery loses 0/1D4 SAN from the unnatural as\n' +
-//     '    they realize it is powered by nothing. Those with Craft\n' +
-//     '(Mechanics) at 30%+ or who make a successful roll at\n' +
-//     '+20% automatically lose 4 SAN from the unnatural and\n' +
-//     'gain +1 Corruption. It should not be able to move at all.\n' +
-//     '    METAL AND PORCELAIN: Beneath the costume, each\n' +
-//     'marionette is made of metal and porcelain. An attack\n' +
-//     'on a marionette that rolls an odd amount of damage\n' +
-//     'or with an odd-numbered Lethality roll inflicts only 1\n' +
-//     'damage. There is an endless army of marionettes to\n' +
-//     'replace any that might be destroyed.\n' +
-//     '    SWARM AND SPIKE: To attack, marionettes swarm a\n' +
-//     'target and make single impale attack roll. The victim\n' +
-//     'can attempt to Dodge or fight back, as usual. If the\n' +
-//     'victim loses, they are surrounded and treated as\n' +
-//     '    pinned. If the victim is pinned when the marionettes\n' +
-//     'next act, the victim suffers a Lethality 10% roll as the\n' +
-//     'swarm releases dozens of spring-loaded spikes into the\n' +
-//     'victim’s body.\n' +
-//     '    SANITY LOSS: 0/1D4 SAN from the unnatural, or 1/1D6\n' +
-//     'SAN if the marionette was known in life.';
 Hooks.on('ready', async () => {
-    setTimeout(async () => {
-        // await game.actors?.getName('Test Agent')?.delete();
-        // const actor = (await Actor.create({
-        //     name: 'Test Agent',
-        //     type: 'agent',
-        //     img: 'worlds/delta-green/mcmurtry.jpg',
-        //     permission: { default: 2 },
-        // })) as DGActor;
-        //
-        // await game.actors?.getName('Test Agent')?.sheet?.render(true);
-        //
-        // await actor.createEmbeddedDocuments('Item', [
-        //     {
-        //         type: 'weapon',
-        //         name: 'Example Weapon 1',
-        //         data: {
-        //             lethality: {
-        //                 value: 25,
-        //             },
-        //             skill: {
-        //                 value: 'rfrdw98rykpr84ca',
-        //             },
-        //             description: {
-        //                 value: 'Example Weapon w/ Description',
-        //             },
-        //         },
-        //     },
-        //     {
-        //         type: 'weapon',
-        //         name: 'Example Weapon 2',
-        //         data: {
-        //             ammo: {
-        //                 value: 30,
-        //                 max: 30,
-        //             },
-        //             skill: {
-        //                 value: '06s5h4abkvl8nx0c',
-        //             },
-        //             description: {
-        //                 value: 'Example Weapon w/ Description 2',
-        //             },
-        //         },
-        //     },
-        //     {
-        //         type: 'weapon',
-        //         name: 'Example Weapon 3',
-        //         data: {
-        //             ammo: {
-        //                 value: 15,
-        //                 max: 30,
-        //             },
-        //             damage: {
-        //                 value: '8d4',
-        //             },
-        //             description: {
-        //                 value: 'Example Weapon w/ Description 3',
-        //             },
-        //         },
-        //     },
-        //     {
-        //         type: 'armor',
-        //         name: 'Example Armor 1',
-        //         data: {
-        //             armorRating: {
-        //                 value: 3,
-        //             },
-        //             description: {
-        //                 value: 'Example Armor w/ Description 1',
-        //             },
-        //         },
-        //     },
-        //     {
-        //         type: 'gear',
-        //         name: 'Example Gear 1',
-        //         data: {
-        //             description: {
-        //                 value: 'Example Gear w/ Description 1',
-        //             },
-        //         },
-        //     },
-        //     {
-        //         type: 'bond',
-        //         name: 'Example Bond 1',
-        //         data: {
-        //             score: {
-        //                 value: 15,
-        //             },
-        //             description: {
-        //                 value: 'Example Bond w/ Description 1',
-        //             },
-        //         },
-        //     },
-        // ]);
-        // await game.items?.getName('Test Gear')?.delete();
-        // await Item.create({ name: 'Test Gear', type: 'weapon', img: 'icons/equipment/chest/breastplate-metal-pieced-grey-02.webp' });
-        // await game.items?.getName('Test Gear')?.sheet?.render(true);
-    }, 250);
+    createTestDocuments();
 });
 
-// CONFIG.debug.hooks = true;
+CONFIG.debug.hooks = true;
