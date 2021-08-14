@@ -33,6 +33,7 @@ export class CorruptionTracker extends Application {
         options.classes = options.classes ?? [];
         options.classes = [...options.classes, CSS_CLASSES.BASE, 'corruption-tracker'];
         options.width = 300;
+        options.height = 'auto';
         return options;
     }
 

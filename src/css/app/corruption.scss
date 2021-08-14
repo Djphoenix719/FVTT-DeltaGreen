@@ -18,9 +18,6 @@
 
 div.delta-green.corruption-tracker {
     section.window-content {
-        background: url('static/image/sheet/background-plain.png') center;
-        background-size: 125%;
-
         display: flex;
         flex-direction: column;
 
@@ -28,9 +25,7 @@ div.delta-green.corruption-tracker {
             flex: 1;
             display: flex;
             flex-direction: row;
-            height: 2rem;
-
-            &:not(:first-of-type) {
+            &:not(:last-of-type) {
                 border-bottom: $form-border-style;
             }
 
