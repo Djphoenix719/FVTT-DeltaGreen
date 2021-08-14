@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import Document, { Context } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs';
+
 export interface Value<T> {
     value: T;
 }
@@ -30,4 +32,10 @@ export interface Bounded<T> extends Value<T>, Min<T>, Max<T> {}
 
 export interface Label<T extends string> {
     label: T;
+}
+
+export interface DGContext<Parent extends Document<any, any> | null> extends Context<Parent> {
+    dg?: {
+        ready: boolean;
+    }
 }

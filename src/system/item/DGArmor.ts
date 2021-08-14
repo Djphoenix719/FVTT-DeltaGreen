@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-import { ItemType, ItemTypeMap } from './Item';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
+import { ArmorDataProperties } from '../../types/Item';
+import { DGItemPhysical } from './DGItemPhysical';
 
-export type VersionNumber = `${number}.${number}.${number}`;
-
-declare global {
-    interface CONFIG {
-        DG: {
-            Item: {
-                documentClasses: {
-                    [T in ItemType]: ItemTypeMap[T]['cls'];
-                };
-            };
-        };
-    }
+export class DGArmor extends DGItemPhysical {}
+export interface DGArmor extends DGItemPhysical {
+    readonly data: ItemData & ArmorDataProperties;
 }

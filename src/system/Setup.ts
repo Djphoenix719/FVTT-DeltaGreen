@@ -32,6 +32,13 @@ import { DGDamageRoll } from './dice/DGDamageRoll';
 import { CorruptionTracker } from './app/CorruptionTracker';
 import { improveSkills } from './macro/ImproveSkills';
 import { createTestDocuments } from './TestData';
+import { DGArmor } from './item/DGArmor';
+import { DGBond } from './item/DGBond';
+import { DGDisorder } from './item/DGDisorder';
+import { DGGear } from './item/DGGear';
+import { DGMotivation } from './item/DGMotivation';
+import { DGSkill } from './item/DGSkill';
+import { DGWeapon } from './item/DGWeapon';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -95,6 +102,19 @@ function registerItemClasses() {
     });
 
     CONFIG.Item.documentClass = DGItem;
+    CONFIG.DG = {
+        Item: {
+            documentClasses: {
+                armor: DGArmor,
+                bond: DGBond,
+                disorder: DGDisorder,
+                gear: DGGear,
+                motivation: DGMotivation,
+                skill: DGSkill,
+                weapon: DGWeapon,
+            },
+        },
+    };
 }
 
 Hooks.on('init', async () => {

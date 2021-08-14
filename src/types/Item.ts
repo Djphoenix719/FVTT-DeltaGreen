@@ -17,35 +17,45 @@
 import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon, ItemTypeSkill, ItemTypeBond, ItemTypeMotivation, ItemTypeDisorder, ExpenseType } from './Constants';
 import { Label, Max, Value } from './Helpers';
 import { ActorSkillType } from './Actor';
+import { DGItem } from '../system/item/DGItem';
+import { DGSkill } from '../system/item/DGSkill';
+import { DGBond } from '../system/item/DGBond';
+import { DGMotivation } from '../system/item/DGMotivation';
+import { DGDisorder } from '../system/item/DGDisorder';
+import { DGGear } from '../system/item/DGGear';
+import { DGArmor } from '../system/item/DGArmor';
+import { DGWeapon } from '../system/item/DGWeapon';
 
 export type ItemTypeSkill = typeof ItemTypeSkill;
-export type ItemTypeGear = typeof ItemTypeGear;
-export type ItemTypeArmor = typeof ItemTypeArmor;
-export type ItemTypeWeapon = typeof ItemTypeWeapon;
 export type ItemTypeBond = typeof ItemTypeBond;
 export type ItemTypeMotivation = typeof ItemTypeMotivation;
 export type ItemTypeDisorder = typeof ItemTypeDisorder;
 
-export type ItemType = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon | ItemTypeSkill | ItemTypeBond | ItemTypeMotivation | ItemTypeDisorder;
+export type ItemTypeGear = typeof ItemTypeGear;
+export type ItemTypeArmor = typeof ItemTypeArmor;
+export type ItemTypeWeapon = typeof ItemTypeWeapon;
+export type ItemTypePhysical = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon;
+
+export type ItemType = ItemTypePhysical | ItemTypeSkill | ItemTypeBond | ItemTypeMotivation | ItemTypeDisorder;
 
 /*********************
  SKILL DATA & PROPERTIES
  *********************/
 
-interface SkillDataSourceData {
+export interface SkillDataSourceData {
     value?: number;
     group: string;
     failureImproves: boolean;
     sessionFailure: boolean;
     canDelete: boolean;
 }
-interface SkillDataPropertyData extends SkillDataSourceData {}
+export interface SkillDataPropertyData extends SkillDataSourceData {}
 
-interface SkillDataSource {
+export interface SkillDataSource {
     type: ItemTypeSkill;
     data: SkillDataSourceData;
 }
-interface SkillDataProperties {
+export interface SkillDataProperties {
     type: ItemTypeSkill;
     data: SkillDataPropertyData;
 }
@@ -54,19 +64,19 @@ interface SkillDataProperties {
  BOND DATA & PROPERTIES
  *********************/
 
-interface BondDataSourceData {
+export interface BondDataSourceData {
     description: Value<string>;
     score: Value<number>;
     crossed: Value<boolean>;
     damaged: Value<boolean>;
 }
-interface BondDataPropertyData extends BondDataSourceData {}
+export interface BondDataPropertyData extends BondDataSourceData {}
 
-interface BondDataSource {
+export interface BondDataSource {
     type: ItemTypeBond;
     data: BondDataSourceData;
 }
-interface BondDataProperties {
+export interface BondDataProperties {
     type: ItemTypeBond;
     data: BondDataPropertyData;
 }
@@ -75,17 +85,17 @@ interface BondDataProperties {
  MOTIVATION DATA & PROPERTIES
  *********************/
 
-interface MotivationDataSourceData {
+export interface MotivationDataSourceData {
     description: Value<string>;
     crossed: Value<boolean>;
 }
-interface MotivationDataPropertyData extends MotivationDataSourceData {}
+export interface MotivationDataPropertyData extends MotivationDataSourceData {}
 
-interface MotivationDataSource {
+export interface MotivationDataSource {
     type: ItemTypeMotivation;
     data: MotivationDataSourceData;
 }
-interface MotivationDataProperties {
+export interface MotivationDataProperties {
     type: ItemTypeMotivation;
     data: MotivationDataPropertyData;
 }
@@ -94,17 +104,17 @@ interface MotivationDataProperties {
  BOND DATA & PROPERTIES
  *********************/
 
-interface DisorderDataSourceData {
+export interface DisorderDataSourceData {
     description: Value<string>;
     crossed: Value<boolean>;
 }
-interface DisorderDataPropertyData extends DisorderDataSourceData {}
+export interface DisorderDataPropertyData extends DisorderDataSourceData {}
 
-interface DisorderDataSource {
+export interface DisorderDataSource {
     type: ItemTypeDisorder;
     data: DisorderDataSourceData;
 }
-interface DisorderDataProperties {
+export interface DisorderDataProperties {
     type: ItemTypeDisorder;
     data: DisorderDataPropertyData;
 }
@@ -113,20 +123,44 @@ interface DisorderDataProperties {
  GEAR DATA & PROPERTIES
  *********************/
 
-interface GearDataSourceData {
+export interface PhysicalDataSourceData {
     expense: Value<ExpenseType>;
     equipped: Value<boolean>;
     carried: Value<boolean>;
     description: Value<string>;
 }
-interface GearDataPropertyData extends GearDataSourceData {}
+export interface PhysicalDataPropertyData extends PhysicalDataSourceData {}
 
-interface ArmorDataSourceData extends GearDataSourceData {
+// GEAR
+export interface GearDataSourceData extends PhysicalDataSourceData {}
+export interface GearDataPropertyData extends GearDataSourceData {}
+
+export interface GearDataSource {
+    type: ItemTypeGear;
+    data: GearDataSourceData;
+}
+export interface GearDataProperties {
+    type: ItemTypeGear;
+    data: GearDataPropertyData;
+}
+
+// ARMOR
+export interface ArmorDataSourceData extends PhysicalDataSourceData {
     armorRating: Value<number>;
 }
-interface ArmorDataPropertyData extends ArmorDataSourceData {}
+export interface ArmorDataPropertyData extends ArmorDataSourceData {}
 
-interface WeaponDataSourceData extends GearDataSourceData {
+export interface ArmorDataSource {
+    type: ItemTypeArmor;
+    data: ArmorDataSourceData;
+}
+export interface ArmorDataProperties {
+    type: ItemTypeArmor;
+    data: ArmorDataPropertyData;
+}
+
+// WEAPON
+export interface WeaponDataSourceData extends PhysicalDataSourceData {
     skill: Value<ActorSkillType>;
     range: Value<number>;
     damage: Value<string>;
@@ -135,39 +169,19 @@ interface WeaponDataSourceData extends GearDataSourceData {
     killRadius: Value<number>;
     ammo: Value<number> & Max<number>;
 }
-interface WeaponDataPropertyData extends WeaponDataSourceData {
-    skill: Value<ActorSkillType> & Partial<Label<string>>;
-}
+export interface WeaponDataPropertyData extends WeaponDataSourceData {}
 
-interface GearDataSource {
-    type: ItemTypeGear;
-    data: GearDataSourceData;
-}
-interface GearDataProperties {
-    type: ItemTypeGear;
-    data: GearDataPropertyData;
-}
-
-interface ArmorDataSource {
-    type: ItemTypeArmor;
-    data: ArmorDataSourceData;
-}
-interface ArmorDataProperties {
-    type: ItemTypeArmor;
-    data: ArmorDataPropertyData;
-}
-
-interface WeaponDataSource {
+export interface WeaponDataSource {
     type: ItemTypeWeapon;
     data: WeaponDataSourceData;
 }
-interface WeaponDataProperties {
+export interface WeaponDataProperties {
     type: ItemTypeWeapon;
     data: WeaponDataPropertyData;
 }
 
-type ItemDataSource = GearDataSource | ArmorDataSource | WeaponDataSource | SkillDataSource | BondDataSource | MotivationDataSource | DisorderDataSource;
-type ItemDataProperties =
+export type ItemDataSource = GearDataSource | ArmorDataSource | WeaponDataSource | SkillDataSource | BondDataSource | MotivationDataSource | DisorderDataSource;
+export type ItemDataProperties =
     | GearDataProperties
     | ArmorDataProperties
     | WeaponDataProperties
@@ -176,7 +190,68 @@ type ItemDataProperties =
     | MotivationDataProperties
     | DisorderDataProperties;
 
+interface ItemTypeMapEntry {
+    properties: ItemDataProperties;
+    source: ItemDataSource;
+    type: ItemType;
+    cls: typeof DGItem;
+}
+
+export interface ItemTypeMap extends Record<ItemType, ItemTypeMapEntry> {
+    skill: {
+        properties: SkillDataProperties;
+        source: SkillDataSource;
+        type: ItemTypeSkill;
+        cls: typeof DGSkill;
+    };
+    bond: {
+        properties: BondDataProperties;
+        source: BondDataSource;
+        type: ItemTypeBond;
+        cls: typeof DGBond;
+    };
+    motivation: {
+        properties: MotivationDataProperties;
+        source: MotivationDataSource;
+        type: ItemTypeMotivation;
+        cls: typeof DGMotivation;
+    };
+    disorder: {
+        properties: DisorderDataProperties;
+        source: DisorderDataSource;
+        type: ItemTypeDisorder;
+        cls: typeof DGDisorder;
+    };
+    gear: {
+        properties: GearDataProperties;
+        source: GearDataSource;
+        type: ItemTypeGear;
+        cls: typeof DGGear;
+    };
+    armor: {
+        properties: ArmorDataProperties;
+        source: ArmorDataSource;
+        type: ItemTypeArmor;
+        cls: typeof DGArmor;
+    };
+    weapon: {
+        properties: WeaponDataProperties;
+        source: WeaponDataSource;
+        type: ItemTypeWeapon;
+        cls: typeof DGWeapon;
+    };
+}
+
 declare global {
+    interface CONFIG {
+        DG: {
+            Item: {
+                documentClasses: {
+                    [T in ItemType]: ItemTypeMap[T]['cls'];
+                };
+            };
+        };
+    }
     interface SourceConfig {
         Item: ItemDataSource;
     }

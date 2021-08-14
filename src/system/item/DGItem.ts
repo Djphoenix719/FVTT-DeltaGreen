@@ -14,23 +14,28 @@
  * limitations under the License.
  */
 
-import { ItemTypeSkill } from '../../types/Constants';
+import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
+import { DGActor } from '../actor/DGActor';
+import { DGContext } from '../../types/Helpers';
+import { WeaponDataProperties } from '../../types/Item';
 
 declare global {
     interface DocumentClassConfig {
         Item: typeof DGItem;
     }
 }
-export class DGItem extends Item {
-    public prepareData() {
-        super.prepareData();
 
-        prepareSkillData(this);
+export class DGItem extends Item {
+    constructor(data: ConstructorDataType<ItemData>, context: DGContext<InstanceType<typeof DGActor>>) {
+        if (context.dg?.ready) {
+            super(data, context);
+        } else {
+            const ready = { dg: { ready: true } };
+            return new CONFIG.DG.Item.documentClasses[data.type](data, { ...context, ...ready });
+        }
     }
 }
-
-function prepareSkillData(item: DGItem) {
-    if (item.data.type === ItemTypeSkill) {
-        item.data.data.group = game.i18n.localize(item.data.data.group);
-    }
+export interface DGItem extends Item {
+    readonly data: ItemData;
 }

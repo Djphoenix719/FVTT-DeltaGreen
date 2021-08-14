@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-import { ItemType, ItemTypeMap } from './Item';
+import { DGItem } from './DGItem';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
+import { SkillDataProperties } from '../../types/Item';
 
-export type VersionNumber = `${number}.${number}.${number}`;
-
-declare global {
-    interface CONFIG {
-        DG: {
-            Item: {
-                documentClasses: {
-                    [T in ItemType]: ItemTypeMap[T]['cls'];
-                };
-            };
-        };
+export class DGSkill extends DGItem {
+    prepareData() {
+        super.prepareData();
+        this.data.data.group = game.i18n.localize(this.data.data.group);
     }
+}
+export interface DGSkill extends DGItem {
+    readonly data: ItemData & SkillDataProperties;
 }

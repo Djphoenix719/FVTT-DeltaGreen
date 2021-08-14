@@ -33,6 +33,7 @@ import { ChatMessageDataConstructorData } from '@league-of-foundry-developers/fo
 import { PercentileModifierDialog, PercentileModifierDialogResults } from '../../dialog/PercentileModifierDialog';
 import { DamageModifierDialog, DamageModifierDialogResults } from '../../dialog/DamageModifierDialog';
 import { preprocessEvent, preprocessEventWithId } from '../../util/Sheet';
+import { DGWeapon } from '../../item/DGWeapon';
 
 export class DGActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -290,43 +291,41 @@ export class DGActorSheet extends ActorSheet {
         });
         html.find('div.inventory-group.weapon label.damage').on('contextmenu', async (event) => {
             const { id } = preprocessEventWithId(event);
-            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item.data.type === ItemTypeWeapon) {
-                let lethalityRoll: DGPercentileRoll | undefined = undefined;
-                if (item.data.data.lethality.value > 0) {
-                    const percentileDialogResults = await promptPercentileModifier('DG.DICE.lethalityCheck');
-                    lethalityRoll = await this.actor.rollLethalityForWeapon(id, [
-                        {
-                            label: game.i18n.localize('DG.DICE.rollModifier'),
-                            value: percentileDialogResults.modifier,
-                        },
-                    ]);
-                }
-
-                const damageDialogResults = await promptDamageModifier('DG.DICE.damageRoll');
-
-                let modifiers: DGDamageRollPart[] = [];
-                if (damageDialogResults.add) {
-                    modifiers.push({
-                        value: damageDialogResults.add,
+            const item: DGWeapon = this.actor.getEmbeddedDocument('Item', id) as DGWeapon;
+            let lethalityRoll: DGPercentileRoll | undefined = undefined;
+            if (item.data.data.lethality.value > 0) {
+                const percentileDialogResults = await promptPercentileModifier('DG.DICE.lethalityCheck');
+                lethalityRoll = await this.actor.rollLethalityForWeapon(id, [
+                    {
                         label: game.i18n.localize('DG.DICE.rollModifier'),
-                        type: DamagePartType.Add,
-                    });
-                }
-                if (damageDialogResults.multiply) {
-                    modifiers.push({
-                        value: damageDialogResults.multiply,
-                        label: game.i18n.localize('DG.DICE.rollModifier'),
-                        type: DamagePartType.Multiply,
-                    });
-                }
-
-                const damageRoll = await this.actor.rollDamageForWeapon(id, modifiers);
-                if (lethalityRoll) {
-                    await sendRollToChat(lethalityRoll, false);
-                }
-                await sendRollToChat(damageRoll);
+                        value: percentileDialogResults.modifier,
+                    },
+                ]);
             }
+
+            const damageDialogResults = await promptDamageModifier('DG.DICE.damageRoll');
+
+            let modifiers: DGDamageRollPart[] = [];
+            if (damageDialogResults.add) {
+                modifiers.push({
+                    value: damageDialogResults.add,
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
+                    type: DamagePartType.Add,
+                });
+            }
+            if (damageDialogResults.multiply) {
+                modifiers.push({
+                    value: damageDialogResults.multiply,
+                    label: game.i18n.localize('DG.DICE.rollModifier'),
+                    type: DamagePartType.Multiply,
+                });
+            }
+
+            const damageRoll = await this.actor.rollDamageForWeapon(id, modifiers);
+            if (lethalityRoll) {
+                await sendRollToChat(lethalityRoll, false);
+            }
+            await sendRollToChat(damageRoll);
         });
 
         // </editor-fold>

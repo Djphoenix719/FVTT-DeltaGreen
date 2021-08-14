@@ -14,18 +14,7 @@
  * limitations under the License.
  */
 
-import { ItemType, ItemTypeMap } from './Item';
+import { DGItem } from './DGItem';
 
-export type VersionNumber = `${number}.${number}.${number}`;
-
-declare global {
-    interface CONFIG {
-        DG: {
-            Item: {
-                documentClasses: {
-                    [T in ItemType]: ItemTypeMap[T]['cls'];
-                };
-            };
-        };
-    }
-}
+export class DGItemPhysical extends DGItem {}
+export interface DGItemPhysical extends DGItem {}
