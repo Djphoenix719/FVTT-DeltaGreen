@@ -47,60 +47,50 @@ function registerDiceClasses() {
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
-
     Actors.registerSheet(SYSTEM_NAME, DGActorSheet, {
         label: 'Agent',
         types: ['agent'],
         makeDefault: true,
     });
-
     CONFIG.Actor.documentClass = DGActor;
 }
 function registerItemClasses() {
     Items.unregisterSheet('core', ItemSheet);
-
     Items.registerSheet(SYSTEM_NAME, DGGearSheet, {
         label: 'Gear',
         types: ['gear'],
         makeDefault: true,
     });
-
     Items.registerSheet(SYSTEM_NAME, DGArmorSheet, {
         label: 'Armor',
         types: ['armor'],
         makeDefault: true,
     });
-
     Items.registerSheet(SYSTEM_NAME, DGWeaponSheet, {
         label: 'Weapon',
         types: ['weapon'],
         makeDefault: true,
     });
-
     Items.registerSheet(SYSTEM_NAME, DGSkillSheet, {
         label: 'Skill',
         types: ['skill'],
         makeDefault: true,
     });
-
     Items.registerSheet(SYSTEM_NAME, DGBondSheet, {
         label: 'Bond',
         types: ['bond'],
         makeDefault: true,
     });
-
     Items.registerSheet(SYSTEM_NAME, DGMotivationSheet, {
         label: 'Motivation',
         types: ['motivation'],
         makeDefault: true,
     });
-
     Items.registerSheet(SYSTEM_NAME, DGDisorderSheet, {
         label: 'Disorder',
         types: ['disorder'],
         makeDefault: true,
     });
-
     CONFIG.Item.documentClass = DGItem;
     CONFIG.DG = {
         Item: {
