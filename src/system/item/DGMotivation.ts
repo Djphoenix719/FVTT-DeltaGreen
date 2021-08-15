@@ -16,7 +16,22 @@
 
 import { DGItem } from './DGItem';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
-import { MotivationDataProperties } from '../../types/Item';
+import { Value } from '../../types/Helpers';
+import { ItemTypeMotivation } from '../../types/Item';
+
+export interface MotivationDataSourceData {
+    description: Value<string>;
+    crossed: Value<boolean>;
+}
+export interface MotivationDataPropertyData extends MotivationDataSourceData {}
+export interface MotivationDataSource {
+    type: ItemTypeMotivation;
+    data: MotivationDataSourceData;
+}
+export interface MotivationDataProperties {
+    type: ItemTypeMotivation;
+    data: MotivationDataPropertyData;
+}
 
 export class DGMotivation extends DGItem {}
 export interface DGMotivation extends DGItem {

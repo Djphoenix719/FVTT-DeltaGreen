@@ -16,7 +16,25 @@
 
 import { DGItem } from './DGItem';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
-import { SkillDataProperties } from '../../types/Item';
+import { ItemTypeSkill } from '../../types/Item';
+
+export interface SkillDataSourceData {
+    value?: number;
+    group: string;
+    failureImproves: boolean;
+    sessionFailure: boolean;
+    canDelete: boolean;
+}
+
+export interface SkillDataPropertyData extends SkillDataSourceData {}
+export interface SkillDataSource {
+    type: ItemTypeSkill;
+    data: SkillDataSourceData;
+}
+export interface SkillDataProperties {
+    type: ItemTypeSkill;
+    data: SkillDataPropertyData;
+}
 
 export class DGSkill extends DGItem {
     prepareData() {

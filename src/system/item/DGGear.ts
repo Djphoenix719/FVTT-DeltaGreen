@@ -15,8 +15,19 @@
  */
 
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
-import { GearDataProperties } from '../../types/Item';
-import { DGItemPhysical } from './DGItemPhysical';
+import { DGItemPhysical, PhysicalDataSourceData } from './DGItemPhysical';
+import { ItemTypeGear } from '../../types/Item';
+
+export interface GearDataSourceData extends PhysicalDataSourceData {}
+export interface GearDataPropertyData extends GearDataSourceData {}
+export interface GearDataSource {
+    type: ItemTypeGear;
+    data: GearDataSourceData;
+}
+export interface GearDataProperties {
+    type: ItemTypeGear;
+    data: GearDataPropertyData;
+}
 
 export class DGGear extends DGItemPhysical {}
 export interface DGGear extends DGItemPhysical {

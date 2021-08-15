@@ -14,9 +14,31 @@
  * limitations under the License.
  */
 
-import { WeaponDataProperties } from '../../types/Item';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
-import { DGItemPhysical } from './DGItemPhysical';
+import { DGItemPhysical, PhysicalDataSourceData } from './DGItemPhysical';
+import { Max, Value } from '../../types/Helpers';
+import { ActorSkillType } from '../../types/Actor';
+import { ItemTypeWeapon } from '../../types/Item';
+
+export interface WeaponDataSourceData extends PhysicalDataSourceData {
+    skill: Value<ActorSkillType>;
+    range: Value<number>;
+    damage: Value<string>;
+    armorPiercing: Value<number>;
+    lethality: Value<number>;
+    killRadius: Value<number>;
+    ammo: Value<number> & Max<number>;
+}
+export interface WeaponDataPropertyData extends WeaponDataSourceData {}
+export interface WeaponDataSource {
+    type: ItemTypeWeapon;
+    data: WeaponDataSourceData;
+}
+
+export interface WeaponDataProperties {
+    type: ItemTypeWeapon;
+    data: WeaponDataPropertyData;
+}
 
 export class DGWeapon extends DGItemPhysical {}
 export interface DGWeapon extends DGItemPhysical {

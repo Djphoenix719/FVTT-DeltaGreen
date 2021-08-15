@@ -15,6 +15,16 @@
  */
 
 import { DGItem } from './DGItem';
+import { Value } from '../../types/Helpers';
+import { ExpenseType } from '../../types/Constants';
+
+export interface PhysicalDataSourceData {
+    expense: Value<ExpenseType>;
+    equipped: Value<boolean>;
+    carried: Value<boolean>;
+    description: Value<string>;
+}
+export interface PhysicalDataPropertyData extends PhysicalDataSourceData {}
 
 export class DGItemPhysical extends DGItem {}
 export interface DGItemPhysical extends DGItem {}

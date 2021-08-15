@@ -16,7 +16,24 @@
 
 import { DGItem } from './DGItem';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
-import { BondDataProperties } from '../../types/Item';
+import { Value } from '../../types/Helpers';
+import { ItemTypeBond } from '../../types/Item';
+
+export interface BondDataSourceData {
+    description: Value<string>;
+    score: Value<number>;
+    crossed: Value<boolean>;
+    damaged: Value<boolean>;
+}
+export interface BondDataPropertyData extends BondDataSourceData {}
+export interface BondDataSource {
+    type: ItemTypeBond;
+    data: BondDataSourceData;
+}
+export interface BondDataProperties {
+    type: ItemTypeBond;
+    data: BondDataPropertyData;
+}
 
 export class DGBond extends DGItem {}
 export interface DGBond extends DGItem {

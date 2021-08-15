@@ -15,8 +15,22 @@
  */
 
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
-import { ArmorDataProperties } from '../../types/Item';
-import { DGItemPhysical } from './DGItemPhysical';
+import { DGItemPhysical, PhysicalDataSourceData } from './DGItemPhysical';
+import { ItemTypeArmor } from '../../types/Item';
+import { Value } from '../../types/Helpers';
+
+export interface ArmorDataSourceData extends PhysicalDataSourceData {
+    armorRating: Value<number>;
+}
+export interface ArmorDataPropertyData extends ArmorDataSourceData {}
+export interface ArmorDataSource {
+    type: ItemTypeArmor;
+    data: ArmorDataSourceData;
+}
+export interface ArmorDataProperties {
+    type: ItemTypeArmor;
+    data: ArmorDataPropertyData;
+}
 
 export class DGArmor extends DGItemPhysical {}
 export interface DGArmor extends DGItemPhysical {

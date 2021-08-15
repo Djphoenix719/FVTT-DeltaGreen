@@ -16,7 +16,22 @@
 
 import { DGItem } from './DGItem';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
-import { DisorderDataProperties } from '../../types/Item';
+import { ItemTypeDisorder } from '../../types/Item';
+import { Value } from '../../types/Helpers';
+
+export interface DisorderDataSourceData {
+    description: Value<string>;
+    crossed: Value<boolean>;
+}
+export interface DisorderDataPropertyData extends DisorderDataSourceData {}
+export interface DisorderDataSource {
+    type: ItemTypeDisorder;
+    data: DisorderDataSourceData;
+}
+export interface DisorderDataProperties {
+    type: ItemTypeDisorder;
+    data: DisorderDataPropertyData;
+}
 
 export class DGDisorder extends DGItem {}
 export interface DGDisorder extends DGItem {
