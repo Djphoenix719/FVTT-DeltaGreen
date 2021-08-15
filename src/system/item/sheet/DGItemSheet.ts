@@ -21,9 +21,10 @@ export interface DGItemSheetData extends ItemSheet.Data {}
 export abstract class DGItemSheet<TOptions extends DGItemSheetOptions, TData extends DGItemSheetData> extends ItemSheet<TOptions, TData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
+        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM.BASE];
         options.width = 500;
         options.height = 'auto';
+        options.resizable = true;
         options.tabs = [
             {
                 navSelector: 'nav.sheet-navigation',

@@ -19,7 +19,9 @@ export const SYSTEM_NAME = `delta-green`;
 export const CSS_CLASSES = {
     BASE: 'delta-green',
     AGENT: 'agent',
-    ITEM: 'item',
+    ITEM: {
+        BASE: 'item',
+    },
     DIALOG: {
         MODIFIER: ['dialog', 'modifier'],
     },

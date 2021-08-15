@@ -1,55 +1,79 @@
-<section class="weapon">
+<form class="{{cssClass}}">
 
-    <div class="field-group row">
-        <label>{{localize "DG.ITEM.damage"}}</label>
+    {{> systems/delta-green/templates/item/partial/PhysicalItemCommon.html }}
 
-        {{#ifgt @root.data.data.lethality.value 0}}
-            <input type="text" name="data.damage.value" value="2D10" disabled>
-        {{else}}
-            <input type="text" name="data.damage.value" value="{{@root.data.data.damage.value}}">
-        {{/ifgt}}
-    </div>
+    <nav class="sheet-navigation" data-group="primary">
+        <a class="item" data-tab="tab-description" title="{{localize "DG.ITEM.description"}}">{{localize "DG.ITEM.description"}}</a>
+        <a class="item active" data-tab="tab-data" title="{{localize "DG.ITEM.data"}}">{{localize "DG.ITEM.data"}}</a>
+    </nav>
 
-    <div class="field-group row">
-        <label>{{localize "DG.ITEM.lethality"}}</label>
-        <input type="number" min="0" name="data.lethality.value" value="{{@root.data.data.lethality.value}}">
-    </div>
+    <section class="sheet-body">
 
-    <div class="field-group row">
-        <label>{{localize "DG.ITEM.armorPiercing"}}</label>
-        <input type="number" min="0" name="data.armorPiercing.value" value="{{@root.data.data.armorPiercing.value}}">
-    </div>
+        <div class="tab tab-data" data-group="primary" data-tab="tab-data">
 
-    <div class="field-group row">
-        <label>{{localize "DG.ITEM.range"}}</label>
-        <input type="number" min="0" name="data.range.value" value="{{@root.data.data.range.value}}">
-    </div>
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.damage"}}</label>
 
-    <div class="field-group row">
-        <label>{{localize "DG.ITEM.killRadius"}}</label>
-        <input type="number" min="0" name="data.killRadius.value" value="{{@root.data.data.killRadius.value}}">
-    </div>
+                {{#ifgt @root.data.data.lethality.value 0}}
+                    <input type="text" name="data.damage.value" value="2D10" disabled>
+                {{else}}
+                    <input type="text" name="data.damage.value" value="{{@root.data.data.damage.value}}">
+                {{/ifgt}}
+            </div>
 
-    <div class="field-group row">
-        <label>{{localize "DG.ITEM.ammoCurrent"}}</label>
-        <input type="number" min="0" name="data.ammo.value" value="{{@root.data.data.ammo.value}}">
-    </div>
-    <div class="field-group row">
-        <label>{{localize "DG.ITEM.ammoMax"}}</label>
-        <input type="number" min="0" name="data.ammo.max" value="{{@root.data.data.ammo.max}}">
-    </div>
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.lethality"}}</label>
+                <input type="number" min="0" name="data.lethality.value" value="{{@root.data.data.lethality.value}}">
+            </div>
 
-    {{#if @root.item.actor}}
-        <div class="field-group row">
-            <label>{{localize "DG.ITEM.skill"}}</label>
-            <select name="data.skill.value">
-                {{#select @root.data.data.skill.value}}
-                    {{#each @root.skills as |option|}}
-                        <option value="{{option.value}}">{{option.label}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.armorPiercing"}}</label>
+                <input type="number" min="0" name="data.armorPiercing.value" value="{{@root.data.data.armorPiercing.value}}">
+            </div>
+
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.range"}}</label>
+                <input type="number" min="0" name="data.range.value" value="{{@root.data.data.range.value}}">
+            </div>
+
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.killRadius"}}</label>
+                <input type="number" min="0" name="data.killRadius.value" value="{{@root.data.data.killRadius.value}}">
+            </div>
+
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.ammoCurrent"}}</label>
+                <input type="number" min="0" name="data.ammo.value" value="{{@root.data.data.ammo.value}}">
+            </div>
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.ammoMax"}}</label>
+                <input type="number" min="0" name="data.ammo.max" value="{{@root.data.data.ammo.max}}">
+            </div>
+
+            {{#if @root.item.actor}}
+                <div class="field-group row">
+                    <label>{{localize "DG.ITEM.skill"}}</label>
+                    <select name="data.skill.value">
+                        {{#select @root.data.data.skill.value}}
+                            {{#each @root.skills as |option|}}
+                                <option value="{{option.value}}">{{option.label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            {{/if}}
+
+
         </div>
-    {{/if}}
 
-</section>
+        <div class="tab tab-description" data-group="primary" data-tab="tab-description">
+            {{editor content=data.data.description.value
+                     target="data.description.value"
+                     button=true
+                     owner=owner
+                     editable=editable}}
+        </div>
+
+    </section>
+
+</form>

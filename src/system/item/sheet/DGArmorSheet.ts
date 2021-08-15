@@ -25,14 +25,4 @@ export class DGArmorSheet extends DGItemPhysicalSheet<DGArmorSheetOptions, DGArm
         options.template = `systems/${SYSTEM_NAME}/templates/item/ArmorSheet.html`;
         return options;
     }
-
-    public async getData(options?: Application.RenderOptions): Promise<DGArmorSheetData> {
-        const data = await super.getData(options);
-
-        // TODO: Figure out how to type this in FVTT-Types
-        // @ts-ignore
-        data.subtemplate = `systems/${SYSTEM_NAME}/templates/item/ArmorSheet.html`;
-
-        return data;
-    }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { SYSTEM_NAME } from '../../Constants';
 import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
 
 export interface DGSkillSheetOptions extends DGItemSheetOptions {}
@@ -23,10 +23,6 @@ export class DGSkillSheet extends DGItemSheet<DGSkillSheetOptions, DGSkillSheetD
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/item/SkillSheet.html`;
-        options.classes = options.classes ?? [];
-        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
-        options.width = 500;
-        options.height = 350;
         return options;
     }
 }

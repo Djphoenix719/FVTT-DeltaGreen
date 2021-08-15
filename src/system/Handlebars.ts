@@ -39,6 +39,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
         `templates/item/ArmorSheet.html`,
         `templates/item/BondSheet.html`,
         `templates/item/SkillSheet.html`,
+        `templates/item/partial/PhysicalItemCommon.html`,
 
         ...Object.values(partials),
     ];

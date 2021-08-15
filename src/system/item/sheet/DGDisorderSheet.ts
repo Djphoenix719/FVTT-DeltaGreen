@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { SYSTEM_NAME } from '../../Constants';
 import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
 
 export interface DGDisorderSheetOptions extends DGItemSheetOptions {}
@@ -23,17 +23,6 @@ export class DGDisorderSheet extends DGItemSheet<DGDisorderSheetOptions, DGDisor
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/item/DisorderSheet.html`;
-        options.classes = options.classes ?? [];
-        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
-        options.width = 500;
-        options.height = 350;
-        options.tabs = [
-            {
-                navSelector: 'nav.sheet-navigation',
-                contentSelector: 'section.sheet-body',
-                initial: 'tab-description',
-            },
-        ];
         return options;
     }
 }
