@@ -83,15 +83,6 @@ export interface ItemTypeMap extends Record<ItemType, ItemTypeMapEntry> {
 }
 
 declare global {
-    interface CONFIG {
-        DG: {
-            Item: {
-                documentClasses: {
-                    [T in ItemType]: ItemTypeMap[T]['cls'];
-                };
-            };
-        };
-    }
     interface SourceConfig {
         Item: ItemDataSource;
     }

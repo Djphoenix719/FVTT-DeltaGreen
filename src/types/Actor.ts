@@ -28,7 +28,6 @@ export interface Statistic<T extends StatisticType> extends Value<number>, Label
 }
 
 export interface Skill<T extends string> extends Value<number> {
-    id: T;
     failure?: boolean;
     delete: boolean;
     type: 'core' | 'custom';
