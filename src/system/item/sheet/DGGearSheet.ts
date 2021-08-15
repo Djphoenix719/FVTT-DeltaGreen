@@ -14,41 +14,15 @@
  * limitations under the License.
  */
 
-import { ExpenseType } from '../../../types/Constants';
-import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { SYSTEM_NAME } from '../../Constants';
+import { DGItemPhysicalSheet, DGItemSheetPhysicalData, DGItemSheetPhysicalOptions } from './DGItemPhysicalSheet';
 
-export class DGGearSheet extends ItemSheet {
+export interface DGGearSheetOptions extends DGItemSheetPhysicalOptions {}
+export interface DGGearSheetData extends DGItemSheetPhysicalData {}
+export class DGGearSheet extends DGItemPhysicalSheet<DGGearSheetOptions, DGGearSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/item/GearSheet.html`;
-        options.classes = options.classes ?? [];
-        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
-        options.width = 500;
-        options.height = 350;
-        options.tabs = [
-            {
-                navSelector: 'nav.sheet-navigation',
-                contentSelector: 'section.sheet-body',
-                initial: 'tab-description',
-            },
-        ];
         return options;
-    }
-
-    public async getData(options?: Application.RenderOptions): Promise<ItemSheet.Data> {
-        const data = await super.getData(options);
-
-        // TODO: Figure out how to type this in FVTT-Types
-        // @ts-ignore
-        data.constants = {
-            expense: Object.values(ExpenseType).map((type) => {
-                return {
-                    value: type,
-                    label: type.capitalize(),
-                };
-            }),
-        };
-
-        return data;
     }
 }

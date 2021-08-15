@@ -16,29 +16,22 @@
 
 import { SelectOption } from '../../../types/Sheet';
 import { SYSTEM_NAME } from '../../Constants';
-import { DGGearSheet } from './DGGearSheet';
 import { ItemTypeSkill } from '../../../types/Constants';
+import { DGItemPhysicalSheet, DGItemSheetPhysicalData, DGItemSheetPhysicalOptions } from './DGItemPhysicalSheet';
 
-export class DGWeaponSheet extends DGGearSheet {
-    public static get defaultOptions() {
+export interface DGWeaponSheetOptions extends DGItemSheetPhysicalOptions {}
+export interface DGWeaponSheetData extends DGItemSheetPhysicalData {
+    skills: SelectOption[];
+}
+export class DGWeaponSheet extends DGItemPhysicalSheet<DGWeaponSheetOptions, DGWeaponSheetData> {
+    static get defaultOptions() {
         const options = super.defaultOptions;
-        options.height = 500;
-        options.tabs = [
-            {
-                navSelector: 'nav.sheet-navigation',
-                contentSelector: 'section.sheet-body',
-                initial: 'tab-data',
-            },
-        ];
+        options.template = `systems/${SYSTEM_NAME}/templates/item/Weapon.html`;
         return options;
     }
 
-    public async getData(options?: Application.RenderOptions): Promise<ItemSheet.Data> {
+    public async getData(options?: Application.RenderOptions): Promise<DGWeaponSheetData> {
         const data = await super.getData(options);
-
-        // TODO: Figure out how to type this in FVTT-Types
-        // @ts-ignore
-        data.subtemplate = `systems/${SYSTEM_NAME}/templates/item/WeaponSheet.html`;
 
         const skills: SelectOption[] = [
             {
@@ -57,10 +50,7 @@ export class DGWeaponSheet extends DGGearSheet {
                 }),
             );
         }
-
         skills.sort((a, b) => a.label.localeCompare(b.label));
-
-        // @ts-ignore
         data.skills = skills;
 
         return data;

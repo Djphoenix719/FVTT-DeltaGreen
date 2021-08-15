@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
-import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
+import { CSS_CLASSES } from '../../Constants';
 
-export interface DGSkillSheetOptions extends DGItemSheetOptions {}
-export interface DGSkillSheetData extends DGItemSheetData {}
-export class DGSkillSheet extends DGItemSheet<DGSkillSheetOptions, DGSkillSheetData> {
+export interface DGItemSheetOptions extends ItemSheet.Options {}
+export interface DGItemSheetData extends ItemSheet.Data {}
+export abstract class DGItemSheet<TOptions extends DGItemSheetOptions, TData extends DGItemSheetData> extends ItemSheet<TOptions, TData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/SkillSheet.html`;
-        options.classes = options.classes ?? [];
         options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ITEM];
         options.width = 500;
-        options.height = 350;
+        options.height = 'auto';
+        options.tabs = [
+            {
+                navSelector: 'nav.sheet-navigation',
+                contentSelector: 'section.sheet-body',
+                initial: 'tab-description',
+            },
+        ];
         return options;
     }
 }

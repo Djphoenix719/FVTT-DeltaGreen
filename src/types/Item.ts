@@ -15,7 +15,7 @@
  */
 
 import { ItemTypeGear, ItemTypeArmor, ItemTypeWeapon, ItemTypeSkill, ItemTypeBond, ItemTypeMotivation, ItemTypeDisorder, ExpenseType } from './Constants';
-import { Label, Max, Value } from './Helpers';
+import { Max, Value } from './Helpers';
 import { ActorSkillType } from './Actor';
 import { DGItem } from '../system/item/DGItem';
 import { DGSkill } from '../system/item/DGSkill';

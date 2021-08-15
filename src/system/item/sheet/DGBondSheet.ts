@@ -15,8 +15,11 @@
  */
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
 
-export class DGBondSheet extends ItemSheet {
+export interface DGBondSheetOptions extends DGItemSheetOptions {}
+export interface DGBondSheetData extends DGItemSheetData {}
+export class DGBondSheet extends DGItemSheet<DGBondSheetOptions, DGBondSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/item/BondSheet.html`;

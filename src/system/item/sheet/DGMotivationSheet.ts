@@ -15,8 +15,11 @@
  */
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
 
-export class DGMotivationSheet extends ItemSheet {
+export interface DGMotivationSheetOptions extends DGItemSheetOptions {}
+export interface DGMotivationSheetData extends DGItemSheetData {}
+export class DGMotivationSheet extends DGItemSheet<DGMotivationSheetOptions, DGMotivationSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/item/MotivationSheet.html`;

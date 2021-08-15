@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CSS_CLASSES, SYSTEM_NAME } from '../Constants';
+import { CSS_CLASSES} from '../Constants';
 
 /**
  * Data returned by the modifier dialog.

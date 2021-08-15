@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-import { DGGearSheet } from './DGGearSheet';
 import { SYSTEM_NAME } from '../../Constants';
+import { DGItemPhysicalSheet, DGItemSheetPhysicalData, DGItemSheetPhysicalOptions } from './DGItemPhysicalSheet';
 
-export class DGArmorSheet extends DGGearSheet {
-    public static get defaultOptions() {
+export interface DGArmorSheetOptions extends DGItemSheetPhysicalOptions {}
+export interface DGArmorSheetData extends DGItemSheetPhysicalData {}
+export class DGArmorSheet extends DGItemPhysicalSheet<DGArmorSheetOptions, DGArmorSheetData> {
+    static get defaultOptions() {
         const options = super.defaultOptions;
-        options.height = 300;
-        options.tabs = [
-            {
-                navSelector: 'nav.sheet-navigation',
-                contentSelector: 'section.sheet-body',
-                initial: 'tab-data',
-            },
-        ];
+        options.template = `systems/${SYSTEM_NAME}/templates/item/ArmorSheet.html`;
         return options;
     }
 
-    public async getData(options?: Application.RenderOptions): Promise<ItemSheet.Data> {
+    public async getData(options?: Application.RenderOptions): Promise<DGArmorSheetData> {
         const data = await super.getData(options);
 
         // TODO: Figure out how to type this in FVTT-Types

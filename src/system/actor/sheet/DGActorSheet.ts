@@ -21,7 +21,6 @@ import {
     ItemTypeBond,
     ItemTypeDisorder,
     ItemTypeMotivation,
-    ItemTypeSkill,
     ItemTypeWeapon,
     StatisticType,
 } from '../../../types/Constants';

@@ -18,7 +18,6 @@ import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-t
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
 import { DGActor } from '../actor/DGActor';
 import { DGContext } from '../../types/Helpers';
-import { WeaponDataProperties } from '../../types/Item';
 
 declare global {
     interface DocumentClassConfig {

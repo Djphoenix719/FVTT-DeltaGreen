@@ -15,8 +15,11 @@
  */
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
 
-export class DGDisorderSheet extends ItemSheet {
+export interface DGDisorderSheetOptions extends DGItemSheetOptions {}
+export interface DGDisorderSheetData extends DGItemSheetData {}
+export class DGDisorderSheet extends DGItemSheet<DGDisorderSheetOptions, DGDisorderSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/item/DisorderSheet.html`;
