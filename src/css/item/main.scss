@@ -68,7 +68,11 @@ div.delta-green.item {
     }
 
     label {
-        padding: 0 0.5rem;
         white-space: nowrap;
+    }
+    section.common {
+        label {
+            padding: 0 0.5rem;
+        }
     }
 }
