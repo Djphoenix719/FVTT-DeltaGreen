@@ -14,9 +14,64 @@
  * limitations under the License.
  */
 
-import { ItemType, ItemTypeMap } from './Item';
+import { ItemType, ItemTypeArmor, ItemTypeBond, ItemTypeDisorder, ItemTypeGear, ItemTypeMotivation, ItemTypeSkill, ItemTypeWeapon } from './Item';
+import { DGAgent } from '../system/actor/DGAgent';
+import { DGItem } from '../system/item/DGItem';
+import { DGSkill } from '../system/item/DGSkill';
+import { DGBond } from '../system/item/DGBond';
+import { DGMotivation } from '../system/item/DGMotivation';
+import { DGDisorder } from '../system/item/DGDisorder';
+import { DGGear } from '../system/item/DGGear';
+import { DGArmor } from '../system/item/DGArmor';
+import { DGWeapon } from '../system/item/DGWeapon';
+import { ActorType, ActorTypeAgent } from './Actor';
+import { DGActor } from '../system/actor/DGActor';
 
 export type VersionNumber = `${number}.${number}.${number}`;
+
+interface TypeMapEntry<TType, TItem> {
+    type: TType;
+    cls: TItem;
+}
+type TypeMap<TType extends string, TItem> = {
+    [TValue in TType]: TypeMapEntry<TValue, TItem>;
+};
+export interface ItemTypeMap extends TypeMap<ItemType, typeof DGItem> {
+    skill: {
+        type: ItemTypeSkill;
+        cls: typeof DGSkill;
+    };
+    bond: {
+        type: ItemTypeBond;
+        cls: typeof DGBond;
+    };
+    motivation: {
+        type: ItemTypeMotivation;
+        cls: typeof DGMotivation;
+    };
+    disorder: {
+        type: ItemTypeDisorder;
+        cls: typeof DGDisorder;
+    };
+    gear: {
+        type: ItemTypeGear;
+        cls: typeof DGGear;
+    };
+    armor: {
+        type: ItemTypeArmor;
+        cls: typeof DGArmor;
+    };
+    weapon: {
+        type: ItemTypeWeapon;
+        cls: typeof DGWeapon;
+    };
+}
+export interface ActorTypeMap extends TypeMap<ActorType, typeof DGActor> {
+    agent: {
+        type: ActorTypeAgent;
+        cls: typeof DGAgent;
+    };
+}
 
 declare global {
     interface CONFIG {
@@ -26,6 +81,15 @@ declare global {
                     [T in ItemType]: ItemTypeMap[T]['cls'];
                 };
             };
+            Actor: {
+                documentClasses: {
+                    [T in ActorType]: ActorTypeMap[T]['cls'];
+                };
+            };
         };
+    }
+    interface DocumentClassConfig {
+        Actor: typeof DGAgent;
+        Item: typeof DGItem;
     }
 }

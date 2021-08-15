@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DGActor } from './actor/DGActor';
+import { DGAgent } from './actor/DGAgent';
 
 export const createTestDocuments = async () => {
     createTestActor();
@@ -29,7 +29,7 @@ export const createTestActor = async () => {
             type: 'agent',
             img: 'worlds/delta-green/mcmurtry.jpg',
             permission: { default: 2 },
-        })) as DGActor;
+        })) as DGAgent;
 
         await game.actors?.getName('Test Agent')?.sheet?.render(true);
 

@@ -16,8 +16,8 @@
 
 import { registerHandlebarsTemplatesAndPartials } from './Handlebars';
 import { SYSTEM_NAME } from './Constants';
-import { DGActor } from './actor/DGActor';
-import { DGActorSheet } from './actor/sheet/DGActorSheet';
+import { DGAgent } from './actor/DGAgent';
+import { DGAgentSheet } from './actor/sheet/DGAgentSheet';
 import { DGItem } from './item/DGItem';
 import { DGGearSheet } from './item/sheet/DGGearSheet';
 import { DGArmorSheet } from './item/sheet/DGArmorSheet';
@@ -47,12 +47,12 @@ function registerDiceClasses() {
 
 function registerActorClasses() {
     Actors.unregisterSheet('core', ActorSheet);
-    Actors.registerSheet(SYSTEM_NAME, DGActorSheet, {
+    Actors.registerSheet(SYSTEM_NAME, DGAgentSheet, {
         label: 'Agent',
         types: ['agent'],
         makeDefault: true,
     });
-    CONFIG.Actor.documentClass = DGActor;
+    CONFIG.Actor.documentClass = DGAgent;
 }
 function registerItemClasses() {
     Items.unregisterSheet('core', ItemSheet);
@@ -104,6 +104,11 @@ function registerItemClasses() {
                 weapon: DGWeapon,
             },
         },
+        Actor: {
+            documentClasses: {
+                agent: DGAgent,
+            }
+        }
     };
 }
 

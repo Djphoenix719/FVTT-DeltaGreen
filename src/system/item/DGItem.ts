@@ -16,17 +16,11 @@
 
 import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
-import { DGActor } from '../actor/DGActor';
+import { DGAgent } from '../actor/DGAgent';
 import { DGContext } from '../../types/Helpers';
 
-declare global {
-    interface DocumentClassConfig {
-        Item: typeof DGItem;
-    }
-}
-
 export class DGItem extends Item {
-    constructor(data: ConstructorDataType<ItemData>, context: DGContext<InstanceType<typeof DGActor>>) {
+    constructor(data: ConstructorDataType<ItemData>, context: DGContext<InstanceType<typeof DGAgent>>) {
         if (context.dg?.ready) {
             super(data, context);
         } else {

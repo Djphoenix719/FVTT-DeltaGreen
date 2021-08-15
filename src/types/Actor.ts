@@ -14,77 +14,26 @@
  * limitations under the License.
  */
 
-import { ActorTypeAgent, AdaptationType, CoreSkillType, StatisticType } from './Constants';
-import { VersionNumber } from './System';
-import { Bounded, Label, Value } from './Helpers';
+import { ActorTypeAgent, StatisticType } from './Constants';
+import { Label, Value } from './Helpers';
+import { AgentDataProperties, AgentDataSource } from '../system/actor/DGAgent';
 
 export type ActorTypeAgent = typeof ActorTypeAgent;
-
-export type ActorType = ActorTypeAgent;
 
 export interface Statistic<T extends StatisticType> extends Value<number>, Label<string> {
     id: T;
     percentile?: number;
 }
 
-export interface Skill<T extends string> extends Value<number> {
-    failure?: boolean;
-    delete: boolean;
-    type: 'core' | 'custom';
-}
-
-export type ActorSkillType = CoreSkillType | string;
-
-/**
- * Template.json data for actors.
- */
-interface AgentDataSourceData {
-    schema: VersionNumber;
-    health: Bounded<number>;
-    willpower: Bounded<number>;
-    sanity: Bounded<number> & {
-        breakingPoint: Value<number>;
-        adaptations: {
-            [TType in AdaptationType]: {
-                adapted: boolean;
-                value: boolean[];
-            };
-        };
-    };
-    luck: Value<number>;
-    statistics: {
-        [TType in StatisticType]: Statistic<TType>;
-    };
-    description: {
-        appearance: Value<string>;
-        wounds: Value<string>;
-    };
-    biography: {
-        profession: Value<string> & Label<string>;
-        employer: Value<string> & Label<string>;
-        nationality: Value<string> & Label<string>;
-        gender: Value<string> & Label<string>;
-        age: Value<string> & Label<string>;
-        education: Value<string> & Label<string>;
-    };
-}
-
-interface AgentDataPropertiesData extends AgentDataSourceData {}
-
-interface AgentDataSource {
-    type: ActorTypeAgent;
-    data: AgentDataSourceData;
-}
-interface AgentDataProperties {
-    type: ActorTypeAgent;
-    data: AgentDataPropertiesData;
-}
+export type ActorType = ActorTypeAgent;
+export type ActorDataSource = AgentDataSource;
+export type ActorDataProperties = AgentDataProperties;
 
 declare global {
     interface SourceConfig {
-        Actor: AgentDataSource;
+        Actor: ActorDataSource;
     }
     interface DataConfig {
-        Actor: AgentDataProperties;
+        Actor: ActorDataProperties;
     }
 }

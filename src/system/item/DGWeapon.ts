@@ -17,11 +17,10 @@
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
 import { DGItemPhysical, PhysicalDataSourceData } from './DGItemPhysical';
 import { Max, Value } from '../../types/Helpers';
-import { ActorSkillType } from '../../types/Actor';
 import { ItemTypeWeapon } from '../../types/Item';
 
 export interface WeaponDataSourceData extends PhysicalDataSourceData {
-    skill: Value<ActorSkillType>;
+    skill: Value<string>;
     range: Value<number>;
     damage: Value<string>;
     armorPiercing: Value<number>;
