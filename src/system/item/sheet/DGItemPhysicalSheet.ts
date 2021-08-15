@@ -35,7 +35,7 @@ export abstract class DGItemPhysicalSheet<TOptions extends DGItemSheetPhysicalOp
             expense: Object.values(ExpenseType).map((type) => {
                 return {
                     value: type,
-                    label: type.capitalize(),
+                    label: game.i18n.localize(`DG.EXPENSE.${type}`),
                 };
             }),
         };

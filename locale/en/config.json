@@ -161,6 +161,13 @@
             "add": "Add",
             "multiply": "Multiply"
         },
+        "EXPENSE": {
+            "trivial": "Trivial",
+            "standard": "Standard",
+            "unusual": "Unusual",
+            "major": "Major",
+            "extreme": "Extreme"
+        },
         "APP": {
             "CORRUPTION": {
                 "title": "IL Corruption Tracker"
