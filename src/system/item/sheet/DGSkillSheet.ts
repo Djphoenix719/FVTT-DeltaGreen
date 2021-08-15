@@ -16,13 +16,31 @@
 
 import { SYSTEM_NAME } from '../../Constants';
 import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
+import { SelectOption } from '../../../types/Sheet';
 
 export interface DGSkillSheetOptions extends DGItemSheetOptions {}
-export interface DGSkillSheetData extends DGItemSheetData {}
+export interface DGSkillSheetData extends DGItemSheetData {
+    groups: SelectOption[];
+}
 export class DGSkillSheet extends DGItemSheet<DGSkillSheetOptions, DGSkillSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/item/SkillSheet.html`;
         return options;
+    }
+
+    async getData(options?: Application.RenderOptions): Promise<DGSkillSheetData> {
+        const data = await super.getData(options);
+
+        if (this.item.actor) {
+            data.groups = Object.keys(this.item.actor.skillGroups).map((group) => {
+                return {
+                    label: group,
+                    value: group,
+                };
+            });
+        }
+
+        return data;
     }
 }

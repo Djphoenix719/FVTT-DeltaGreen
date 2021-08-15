@@ -2,28 +2,33 @@
 
     <section class="sheet-body">
 
-        <div class="labeled-field">
+        <div class="field-group row">
             <label>{{localize "DG.ITEM.name"}}</label>
             <input type="text" name="name" value="{{@root.item.name}}">
         </div>
 
-        <div class="labeled-field">
+        <div class="field-group row">
             <label>{{localize "DG.ITEM.skillGroup"}}</label>
-            <input type="text" name="data.group" value="{{@root.data.data.group}}">
+            <input type="text" list="existing-groups" name="data.group" value="{{@root.data.data.group}}">
+            <datalist id="existing-groups">
+                {{#each groups as |option|}}
+                    <option value="{{option.value}}">{{option.label}}</option>
+                {{/each}}
+            </datalist>
         </div>
 
-        <div class="labeled-field">
+        <div class="field-group row">
             <label>{{localize "DG.ITEM.value"}}</label>
             <input type="number" min="0" max="99" name="data.value" value="{{@root.data.data.value}}">
         </div>
 
-        <div class="labeled-field">
+        <div class="field-group row">
             <label>{{localize "DG.ITEM.failureImproves"}}</label>
             <input type="checkbox" name="data.failureImproves" {{checked @root.data.data.failureImproves}}>
         </div>
 
         {{#if @root.data.data.failureImproves}}
-            <div class="labeled-field">
+            <div class="field-group row">
                 <label>{{localize "DG.ITEM.failedThisSession"}}</label>
                 <input type="checkbox" name="data.sessionFailure" {{checked @root.data.data.sessionFailure}}>
             </div>
