@@ -42,46 +42,6 @@ export enum StatisticType {
     Charisma = 'charisma',
 }
 
-export enum CoreSkillType {
-    Accounting = 'accounting',
-    Alertness = 'alertness',
-    Anthropology = 'anthropology',
-    Archeology = 'archeology',
-    Artillery = 'artillery',
-    Athletics = 'athletics',
-    Bureaucracy = 'bureaucracy',
-    computer_science = 'computer_science',
-    Criminology = 'criminology',
-    Demolitions = 'demolitions',
-    Disguise = 'disguise',
-    Dodge = 'dodge',
-    Drive = 'drive',
-    Firearms = 'firearms',
-    FirstAid = 'first_aid',
-    Forensics = 'forensics',
-    HeavyMachinery = 'heavy_machinery',
-    HeavyWeapons = 'heavy_weapons',
-    History = 'history',
-    HumanIntelligence = 'human_intelligence',
-    Law = 'law',
-    Medicine = 'medicine',
-    MeleeWeapons = 'melee_weapons',
-    Navigate = 'navigate',
-    Occult = 'occult',
-    Persuade = 'persuade',
-    Pharmacy = 'pharmacy',
-    Psychotherapy = 'psychotherapy',
-    Ride = 'ride',
-    Search = 'search',
-    SignalIntelligence = 'signal_intelligence',
-    Stealth = 'stealth',
-    Surgery = 'surgery',
-    Survival = 'survival',
-    Swim = 'swim',
-    UnarmedCombat = 'unarmed_combat',
-    Unnatural = 'unnatural',
-}
-
 interface SkillDefinition {
     _id: string;
     name: string;
