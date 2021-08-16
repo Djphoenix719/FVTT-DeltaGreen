@@ -208,7 +208,7 @@ div.delta-green.agent section.window-content {
     }
 
     div.tab-skills {
-        div.skills-item {
+        div.list-item.skill {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -272,7 +272,7 @@ div.delta-green.agent section.window-content {
             border: 0;
         }
         div.inventory-list {
-            div.inventory-item {
+            div.list-item {
                 display: flex;
                 flex-direction: column;
 
@@ -304,7 +304,7 @@ div.delta-green.agent section.window-content {
                     }
                 }
             }
-            div.inventory-item.armor {
+            div.list-item.armor {
                 input[type='checkbox'] {
                     height: 18px;
                     margin: 0;
@@ -331,35 +331,37 @@ div.delta-green.agent section.window-content {
             }
         }
 
-        div.bond-item,
-        div.motivation-item,
-        div.disorder-item {
-            display: flex;
-            flex-direction: column;
-
-            div.data {
+        div.list-item {
+            &.bond,
+            &.motivation,
+            &.disorder {
                 display: flex;
-                flex-direction: row;
-                align-items: center;
-                width: 100%;
+                flex-direction: column;
 
-                label:not(:first-of-type) {
+                div.data {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    width: 100%;
+
+                    label:not(:first-of-type) {
+                        text-align: center;
+                    }
+                    label:first-of-type {
+                        padding-left: 0.25rem;
+                    }
+                }
+                div.description {
+                    padding: 0.25rem;
+                    div.content {
+                        padding: 0.25rem;
+                        border-left: $form-border-style;
+                        border-right: $form-border-style;
+                    }
+                }
+                input[type='number'] {
                     text-align: center;
                 }
-                label:first-of-type {
-                    padding-left: 0.25rem;
-                }
-            }
-            div.description {
-                padding: 0.25rem;
-                div.content {
-                    padding: 0.25rem;
-                    border-left: $form-border-style;
-                    border-right: $form-border-style;
-                }
-            }
-            input[type='number'] {
-                text-align: center;
             }
         }
 

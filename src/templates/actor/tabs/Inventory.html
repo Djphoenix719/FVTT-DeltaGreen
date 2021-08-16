@@ -17,7 +17,7 @@
     <div class="inventory-list weapon">
 
         {{#each @root.inventory.weapons as |weapon|}}
-            <div class="inventory-item weapon" data-id="{{weapon.id}}">
+            <div class="list-item weapon" data-id="{{weapon.id}}">
 
                 <div class="data">
                     <label class="flex-2 clickable collapsible" data-collapse-id="{{weapon.id}}">{{weapon.name}}</label>
@@ -82,7 +82,7 @@
     <div class="inventory-list armor">
 
         {{#each @root.inventory.armor as |armor|}}
-            <div class="inventory-item armor" data-id="{{armor.id}}">
+            <div class="list-item armor" data-id="{{armor.id}}">
 
                 <div class="data">
                     <label class="clickable flex-2 collapsible" data-collapse-id="{{armor.id}}">{{armor.name}}</label>
@@ -122,7 +122,7 @@
     <div class="inventory-list gear">
 
         {{#each @root.inventory.gear as |gear|}}
-            <div class="inventory-item armor" data-id="{{gear.id}}">
+            <div class="list-item armor" data-id="{{gear.id}}">
 
                 <div class="data">
                     <label class="clickable flex-2 collapsible" data-collapse-id="{{gear.id}}">{{gear.name}}</label>

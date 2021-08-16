@@ -13,7 +13,7 @@
                 </div>
             </header>
             {{#each group.skills as |skill|}}
-                <div class="skills-item" data-id="{{skill.id}}">
+                <div class="list-item skill" data-id="{{skill.id}}">
                     {{#if skill.data.data.failureImproves}}
                         <input class="failure modify-item" type="checkbox" data-path="data.sessionFailure" {{checked skill.data.data.sessionFailure}}>
                     {{else}}

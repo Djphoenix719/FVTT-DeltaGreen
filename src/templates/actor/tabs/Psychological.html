@@ -4,13 +4,13 @@
     </header>
     <div class="adaptations">
         <div class="adaptation">
-            <label {{#if @root.data.data.sanity.adaptations.violence.adapted}}class="crossed"{{/if}}>Violence</label>
+            <label {{#if @root.data.data.sanity.adaptations.violence.adapted}}class="crossed"{{/if}}>{{localize "DG.PSYCHOLOGY.violence"}}</label>
             {{#each @root.data.data.sanity.adaptations.violence.value as |value index|}}
                 <input type="checkbox" data-type="violence" data-index="{{index}}" {{checked value}}>
             {{/each}}
         </div>
         <div class="adaptation">
-            <label {{#if @root.data.data.sanity.adaptations.helplessness.adapted}}class="crossed"{{/if}}>Helplessness</label>
+            <label {{#if @root.data.data.sanity.adaptations.helplessness.adapted}}class="crossed"{{/if}}>{{localize "DG.PSYCHOLOGY.violence"}}</label>
             {{#each @root.data.data.sanity.adaptations.helplessness.value as |value index|}}
                 <input type="checkbox" data-type="helplessness" data-index="{{index}}" {{checked value}}>
             {{/each}}
@@ -30,7 +30,7 @@
     <div class="bond-list">
 
         {{#each @root.bonds as |bond|}}
-            <div class="bond-item" data-id="{{bond.id}}">
+            <div class="list-item bond" data-id="{{bond.id}}">
 
                 <div class="data">
                     <input class="modify-item" data-path="data.damaged.value" type="checkbox" {{checked bond.data.data.damaged.value}}>
@@ -68,7 +68,7 @@
     <div class="motivations-list">
 
         {{#each @root.motivations as |motivation|}}
-            <div class="motivation-item" data-id="{{motivation.id}}">
+            <div class="list-item motivation" data-id="{{motivation.id}}">
 
                 <div class="data">
                     <label class="clickable flex-2 {{#if motivation.data.data.crossed.value}}crossed{{/if}} collapsible" data-collapse-id="{{motivation.id}}">{{motivation.name}}</label>

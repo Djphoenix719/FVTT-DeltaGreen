@@ -96,6 +96,8 @@
         },
         "PSYCHOLOGY": {
             "adaptations": "Adaptations",
+            "violence": "Violence",
+            "helplessness": "Helplessness",
             "bonds": "Bonds",
             "score": "Score",
             "motivations": "Motivations",
