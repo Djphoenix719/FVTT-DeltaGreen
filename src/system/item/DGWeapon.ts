@@ -39,7 +39,15 @@ export interface WeaponDataProperties {
     data: WeaponDataPropertyData;
 }
 
-export class DGWeapon extends DGItemPhysical {}
+export class DGWeapon extends DGItemPhysical {
+    public prepareData() {
+        super.prepareData();
+
+        if (!this.actor && this.data.data.skill.value !== '') {
+            this.data.data.skill.value = '';
+        }
+    }
+}
 export interface DGWeapon extends DGItemPhysical {
     readonly data: ItemData & WeaponDataProperties;
 }
