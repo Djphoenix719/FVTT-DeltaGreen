@@ -142,6 +142,7 @@
             }
         },
         "skill": {
+            "value": 0,
             "group": "DG.SKILLS.defaultGroup",
             "failureImproves": true,
             "sessionFailure": false,
