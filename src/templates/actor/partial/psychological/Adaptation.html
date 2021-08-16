@@ -1,0 +1,7 @@
+<div class="adaptation">
+    {{log data}}
+    <label {{#if (lookup data "adapted")}}class="crossed"{{/if}}>{{localize label}}</label>
+    {{#each data.value as |value index|}}
+        <input type="checkbox" data-type="{{../type}}" data-index="{{index}}" {{checked value}}>
+    {{/each}}
+</div>

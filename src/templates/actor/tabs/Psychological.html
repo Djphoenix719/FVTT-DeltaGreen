@@ -3,18 +3,8 @@
         <label>{{localize "DG.PSYCHOLOGY.adaptations"}}</label>
     </header>
     <div class="adaptations">
-        <div class="adaptation">
-            <label {{#if @root.data.data.sanity.adaptations.violence.adapted}}class="crossed"{{/if}}>{{localize "DG.PSYCHOLOGY.violence"}}</label>
-            {{#each @root.data.data.sanity.adaptations.violence.value as |value index|}}
-                <input type="checkbox" data-type="violence" data-index="{{index}}" {{checked value}}>
-            {{/each}}
-        </div>
-        <div class="adaptation">
-            <label {{#if @root.data.data.sanity.adaptations.helplessness.adapted}}class="crossed"{{/if}}>{{localize "DG.PSYCHOLOGY.helplessness"}}</label>
-            {{#each @root.data.data.sanity.adaptations.helplessness.value as |value index|}}
-                <input type="checkbox" data-type="helplessness" data-index="{{index}}" {{checked value}}>
-            {{/each}}
-        </div>
+        {{> list-adaptation data=@root.data.data.sanity.adaptations.violence type="violence" label="DG.PSYCHOLOGY.violence" }}
+        {{> list-adaptation data=@root.data.data.sanity.adaptations.helplessness type="helplessness" label="DG.PSYCHOLOGY.helplessness" }}
     </div>
 </div>
 

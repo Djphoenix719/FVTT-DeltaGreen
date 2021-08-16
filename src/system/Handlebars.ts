@@ -28,6 +28,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
         'list-item-disorder': 'templates/actor/partial/psychological/ListItemDisorder.html',
         'list-item-motivation': 'templates/actor/partial/psychological/ListItemMotivation.html',
         'list-item-skill': 'templates/actor/partial/skill/ListItemSkill.html',
+        'list-adaptation': 'templates/actor/partial/psychological/Adaptation.html',
     };
 
     const templates: TemplatePath[] = [
