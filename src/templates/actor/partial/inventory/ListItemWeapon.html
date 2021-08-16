@@ -1,0 +1,44 @@
+<div class="list-item weapon" data-id="{{id}}">
+
+    <div class="data">
+        <label class="flex-2 clickable left collapsible" data-collapse-id="{{id}}">{{name}}</label>
+
+        {{#if skill}}
+            <label class="flex-1 clickable attack">{{skill.name}}</label>
+        {{else}}
+            <label class="flex-1">—</label>
+        {{/if}}
+
+        {{#if (gt data.lethality.value 0)}}
+            <label class="clickable damage flex-1">{{data.lethality.value}}%</label>
+        {{else}}
+            <label class="clickable damage flex-1">{{data.damage.value}}</label>
+        {{/if}}
+
+        <label class="flex-1">{{data.armorPiercing.value}}</label>
+
+        <div class="ammo flex-1">
+            {{#if (gt data.ammo.max 0)}}
+                <label class="clickable decrement"><i class="fas fa-minus"></i></label>
+                <label>{{data.ammo.value}}/{{data.ammo.max}}</label>
+                <label class="clickable reload"><i class="fas fa-redo-alt"></i></label>
+            {{else}}
+                <label>—</label>
+            {{/if}}
+        </div>
+
+        <label class="flex-1">{{data.range.value}}m</label>
+
+        <div class="list-buttons">
+            <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+            <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
+        </div>
+    </div>
+
+    <div class="description collapse-target" {{#if (lookup @root.collapsibles id)}}{{else}}style='display: none'{{/if}}>
+        <div class="content">
+            {{{enrichHTML data.description.value}}}
+        </div>
+    </div>
+
+</div>

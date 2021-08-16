@@ -114,6 +114,24 @@ export const createTestActor = async () => {
                     },
                 },
             },
+            {
+                type: 'motivation',
+                name: 'Example Motivation 1',
+                data: {
+                    description: {
+                        value: 'Example Bond w/ Motivation 1',
+                    },
+                },
+            },
+            {
+                type: 'disorder',
+                name: 'Example Disorder 1',
+                data: {
+                    description: {
+                        value: 'Example Bond w/ Disorder 1',
+                    },
+                },
+            },
         ]);
     }, 250);
 };

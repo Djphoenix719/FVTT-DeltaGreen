@@ -1,0 +1,73 @@
+/*!
+ * Copyright 2021 Andrew Cuccinello
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import '../constants';
+
+div.delta-green {
+    div.item-list {
+        display: flex;
+        flex-direction: column;
+
+        div.list-item {
+            display: flex;
+            flex-direction: column;
+
+            border-left: $form-border-style;
+            border-right: $form-border-style;
+            border-bottom: $form-border-style;
+
+            div.data {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+
+                div.left,
+                label.left {
+                    text-align: left;
+                }
+
+                div.list-buttons {
+                    flex-basis: 10%;
+                    text-align: right;
+                    padding-right: 0.25rem;
+                }
+
+                input[type='number'] {
+                    text-align: center;
+                }
+
+                label:first-of-type {
+                    margin-left: 4px;
+                }
+                input[type='checkbox'] {
+                    margin: 0 0 0 4px;
+                }
+            }
+
+            div.description {
+                padding: 0.25rem;
+
+                div.content {
+                    padding: 0.25rem;
+                    border-left: $form-border-style;
+                    border-right: $form-border-style;
+                }
+            }
+        }
+    }
+}

@@ -14,53 +14,10 @@
         </div>
     </header>
 
-    <div class="inventory-list weapon">
+    <div class="item-list weapon">
 
-        {{#each @root.inventory.weapons as |weapon|}}
-            <div class="list-item weapon" data-id="{{weapon.id}}">
-
-                <div class="data">
-                    <label class="flex-2 clickable collapsible" data-collapse-id="{{weapon.id}}">{{weapon.name}}</label>
-
-                    {{#if weapon.data.data.skill.value}}
-                        <label class="flex-1 clickable attack">{{getItemName weapon.data.data.skill.value @root.actor}}</label>
-                    {{else}}
-                        <label class="flex-1">—</label>
-                    {{/if}}
-
-                    {{#if (gt weapon.data.data.lethality.value 0)}}
-                        <label class="clickable damage flex-1">{{weapon.data.data.lethality.value}}%</label>
-                    {{else}}
-                        <label class="clickable damage flex-1">{{weapon.data.data.damage.value}}</label>
-                    {{/if}}
-
-                    <label class="flex-1">{{weapon.data.data.armorPiercing.value}}</label>
-
-                    <div class="ammo flex-1">
-                        {{#if (gt weapon.data.data.ammo.max 0)}}
-                            <label class="clickable decrement"><i class="fas fa-minus"></i></label>
-                            <label>{{weapon.data.data.ammo.value}}/{{weapon.data.data.ammo.max}}</label>
-                            <label class="clickable reload"><i class="fas fa-redo-alt"></i></label>
-                        {{else}}
-                            <label>—</label>
-                        {{/if}}
-                    </div>
-
-                    <label class="flex-1">{{weapon.data.data.range.value}}m</label>
-
-                    <div class="item-buttons">
-                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
-                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
-                    </div>
-                </div>
-
-                <div class="description collapse-target" {{#if (lookup @root.collapsibles weapon.id)}}{{else}}style='display: none'{{/if}}>
-                    <div class="content">
-                        {{{enrichHTML weapon.data.data.description.value}}}
-                    </div>
-                </div>
-
-            </div>
+        {{#each @root.inventory.weapons as |item|}}
+            {{> list-item-weapon id=item.id name=item.name data=item.data.data skill=item.skillItem}}
         {{/each}}
 
     </div>
@@ -79,31 +36,10 @@
         </div>
     </header>
 
-    <div class="inventory-list armor">
+    <div class="item-list armor">
 
-        {{#each @root.inventory.armor as |armor|}}
-            <div class="list-item armor" data-id="{{armor.id}}">
-
-                <div class="data">
-                    <label class="clickable flex-2 collapsible" data-collapse-id="{{armor.id}}">{{armor.name}}</label>
-
-                    <label class="flex-1">{{armor.data.data.armorRating.value}}</label>
-
-                    <input type="checkbox" class="equipped flex-1 modify-item" data-path="data.equipped.value" {{checked armor.data.data.equipped.value}}>
-
-                    <div class="item-buttons">
-                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
-                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
-                    </div>
-                </div>
-
-                <div class="description collapse-target" {{#if (lookup @root.collapsibles armor.id)}}{{else}}style='display: none'{{/if}}>
-                    <div class="content">
-                        {{{enrichHTML armor.data.data.description.value}}}
-                    </div>
-                </div>
-
-            </div>
+        {{#each @root.inventory.armor as |item|}}
+            {{> list-item-armor id=item.id name=item.name data=item.data.data}}
         {{/each}}
     </div>
 </div>
@@ -119,27 +55,10 @@
         </div>
     </header>
 
-    <div class="inventory-list gear">
+    <div class="item-list gear">
 
-        {{#each @root.inventory.gear as |gear|}}
-            <div class="list-item armor" data-id="{{gear.id}}">
-
-                <div class="data">
-                    <label class="clickable flex-2 collapsible" data-collapse-id="{{gear.id}}">{{gear.name}}</label>
-
-                    <div class="item-buttons">
-                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
-                        <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
-                    </div>
-                </div>
-
-                <div class="description collapse-target" {{#if (lookup @root.collapsibles gear.id)}}{{else}}style='display: none'{{/if}}>
-                    <div class="content">
-                        {{{enrichHTML gear.data.data.description.value}}}
-                    </div>
-                </div>
-
-            </div>
+        {{#each @root.inventory.gear as |item|}}
+            {{> list-item-gear id=item.id name=item.name data=item.data.data}}
         {{/each}}
 
     </div>

@@ -18,6 +18,7 @@ import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/fo
 import { DGItemPhysical, PhysicalDataSourceData } from './DGItemPhysical';
 import { Max, Value } from '../../types/Helpers';
 import { ItemTypeWeapon } from '../../types/Item';
+import { DGSkill } from './DGSkill';
 
 export interface WeaponDataSourceData extends PhysicalDataSourceData {
     skill: Value<string>;
@@ -40,6 +41,20 @@ export interface WeaponDataProperties {
 }
 
 export class DGWeapon extends DGItemPhysical {
+    /**
+     * Get associated skill item for the skill the weapon uses.
+     */
+    public get skillItem(): DGSkill | undefined {
+        if (!this.actor) {
+            return undefined;
+        }
+        if (this.data.data.skill.value === '') {
+            return undefined;
+        }
+
+        return this.actor.items.get(this.data.data.skill.value) as DGSkill;
+    }
+
     public prepareData() {
         super.prepareData();
 

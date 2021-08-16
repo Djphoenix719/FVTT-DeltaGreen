@@ -14,11 +14,11 @@
             <div class="field-group row">
                 <label>{{localize "DG.ITEM.damage"}}</label>
 
-                {{#ifgt @root.data.data.lethality.value 0}}
+                {{#if (gt @root.data.data.lethality.value 0)}}
                     <input type="text" name="data.damage.value" value="2D10" disabled>
                 {{else}}
                     <input type="text" name="data.damage.value" value="{{@root.data.data.damage.value}}">
-                {{/ifgt}}
+                {{/if}}
             </div>
 
             <div class="field-group row">

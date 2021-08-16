@@ -20,7 +20,15 @@ type TemplatePath = `templates/${string}`;
 export async function registerHandlebarsTemplatesAndPartials() {
     const templatePath = (relative: TemplatePath) => `systems/${SYSTEM_NAME}/${relative}`;
 
-    const partials: Record<string, TemplatePath> = {};
+    const partials: Record<string, TemplatePath> = {
+        'list-item-weapon': 'templates/actor/partial/inventory/ListItemWeapon.html',
+        'list-item-armor': 'templates/actor/partial/inventory/ListItemArmor.html',
+        'list-item-gear': 'templates/actor/partial/inventory/ListItemGear.html',
+        'list-item-bond': 'templates/actor/partial/psychological/ListItemBond.html',
+        'list-item-disorder': 'templates/actor/partial/psychological/ListItemDisorder.html',
+        'list-item-motivation': 'templates/actor/partial/psychological/ListItemMotivation.html',
+        'list-item-skill': 'templates/actor/partial/skill/ListItemSkill.html',
+    };
 
     const templates: TemplatePath[] = [
         `templates/actor/Agent.html`,
@@ -53,19 +61,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
 }
 
 export function registerHelpers() {
-    Handlebars.registerHelper('ifgt', function (this: any, a: any, b: any, options: Handlebars.HelperOptions) {
-        if (typeof a === 'number' && typeof b === 'number' && a > b) {
-            return options.fn(this);
-        } else {
-            return options.inverse !== undefined ? options.inverse(this) : undefined;
-        }
-    });
-
     Handlebars.registerHelper('enrichHTML', (content: string) => {
         return TextEditor.enrichHTML(content);
-    });
-
-    Handlebars.registerHelper('getItemName', (id: string, actor: Actor) => {
-        return actor.items.get(id)?.name;
     });
 }

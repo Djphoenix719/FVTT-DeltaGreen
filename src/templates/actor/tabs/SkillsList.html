@@ -1,6 +1,6 @@
 <section class="skills-content">
     {{#each skills as |group|}}
-        <div class="skills-group">
+        <div class="item-list">
             <header class="center-header">
                 <label>{{group.name}}</label>
             </header>
@@ -13,21 +13,7 @@
                 </div>
             </header>
             {{#each group.skills as |skill|}}
-                <div class="list-item skill" data-id="{{skill.id}}">
-                    {{#if skill.data.data.failureImproves}}
-                        <input class="failure modify-item" type="checkbox" data-path="data.sessionFailure" {{checked skill.data.data.sessionFailure}}>
-                    {{else}}
-                        <input class="failure" type="checkbox" disabled>
-                    {{/if}}
-                    <label class="flex-4 name clickable">{{skill.data.name}}</label>
-                    <input class="flex-1 value modify-item" data-path="data.value"  type="number" min="0" max="99" value="{{skill.data.data.value}}">
-                    <div class="item-buttons">
-                        {{#if skill.data.data.canDelete}}
-                            <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
-                        {{/if}}
-                        <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
-                    </div>
-                </div>
+                {{> list-item-skill id=skill.id name=skill.name data=skill.data.data }}
             {{/each}}
         </div>
     {{/each}}
