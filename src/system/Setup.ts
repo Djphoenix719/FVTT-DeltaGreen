@@ -39,6 +39,7 @@ import { DGGear } from './item/DGGear';
 import { DGMotivation } from './item/DGMotivation';
 import { DGSkill } from './item/DGSkill';
 import { DGWeapon } from './item/DGWeapon';
+import { SystemSettings } from './SystemSettings';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -124,6 +125,10 @@ Hooks.on('init', async () => {
     (game as any)['DG'] = {
         improveSkills,
     };
+});
+
+Hooks.on('setup', async () => {
+    await SystemSettings.registerAll();
 });
 
 Hooks.on('ready', async () => {

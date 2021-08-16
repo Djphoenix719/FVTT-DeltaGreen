@@ -15,6 +15,7 @@
  */
 
 import { RollResultType } from '../../types/Constants';
+import { SystemSetting, SystemSettings } from '../SystemSettings';
 
 /**
  * A modifier for the target number of a percentile roll.
@@ -108,6 +109,10 @@ export class DGPercentileRoll extends Roll<DGPercentileRollData> {
         }
 
         if (this.total === 1) {
+            successType = RollResultType.CriticalSuccess;
+        }
+
+        if (this.total === 69 && SystemSettings.get(SystemSetting.NiceCriticals)) {
             successType = RollResultType.CriticalSuccess;
         }
 

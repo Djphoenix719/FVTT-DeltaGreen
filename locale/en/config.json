@@ -173,6 +173,10 @@
         "LICENSE": {
             "view": "Delta Green Licensing"
         },
+        "SETTINGS": {
+            "niceCriticalsName": "Nice Criticals",
+            "niceCriticalsHint": "Should 69 count as a critical success?"
+        },
         "APP": {
             "CORRUPTION": {
                 "title": "IL Corruption Tracker"
