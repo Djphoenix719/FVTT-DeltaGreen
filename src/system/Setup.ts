@@ -107,8 +107,8 @@ function registerItemClasses() {
         Actor: {
             documentClasses: {
                 agent: DGAgent,
-            }
-        }
+            },
+        },
     };
 }
 
@@ -128,6 +128,16 @@ Hooks.on('init', async () => {
 
 Hooks.on('ready', async () => {
     createTestDocuments();
+});
+
+// TODO: More permanent display of additional information is required
+Hooks.on('renderSettings', (app: Application, html: JQuery) => {
+    const text = game.i18n.localize('DG.LICENSE.view');
+    const button = $(`<button data-action="license"><i class="fas fa-balance-scale"></i> ${text}</button>`);
+    button.on('click', (event) => {
+        window.open('https://github.com/Djphoenix719/FVTT-DeltaGreen/blob/main/OpenGamingLicense.md', '_blank');
+    });
+    html.find('div#settings-documentation').append(button);
 });
 
 CONFIG.debug.hooks = true;

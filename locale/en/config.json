@@ -168,6 +168,9 @@
             "major": "Major",
             "extreme": "Extreme"
         },
+        "LICENSE": {
+            "view": "Delta Green Licensing"
+        },
         "APP": {
             "CORRUPTION": {
                 "title": "IL Corruption Tracker"
