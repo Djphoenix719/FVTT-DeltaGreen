@@ -19,6 +19,7 @@
  *********************/
 
 import { ItemType } from './Item';
+import { Value } from './Helpers';
 
 export enum RollResultType {
     CriticalFailure = 'criticalFailure',
@@ -32,6 +33,7 @@ export enum RollResultType {
  *********************/
 
 export const ActorTypeAgent = 'agent';
+export const ActorTypeNPC = 'npc';
 
 export enum StatisticType {
     Strength = 'strength',
@@ -47,28 +49,15 @@ interface SkillDefinition {
     name: string;
     type: 'skill';
     data: {
-        value: number;
-        group: string;
-        failureImproves: boolean;
-        sessionFailure: boolean;
-        canDelete: boolean;
+        rating: Value<number>;
+        group: Value<string>;
+        failureImproves: Value<boolean>;
+        sessionFailure: Value<boolean>;
+        canDelete: Value<boolean>;
     };
 }
 
 export const UNNATURAL_ID = '4l35w618j8doxnfq';
-
-// We generate a new id when using the new Skill Button
-export const NEW_SKILL_DEFAULTS: Omit<SkillDefinition, '_id'> = {
-    name: 'DG.SKILLS.newSkill',
-    type: 'skill',
-    data: {
-        value: 0,
-        group: 'DG.SKILLS.defaultGroup',
-        failureImproves: true,
-        sessionFailure: false,
-        canDelete: true,
-    },
-};
 
 export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     {
@@ -76,11 +65,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.accounting',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -88,11 +87,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.alertness',
         type: 'skill',
         data: {
-            value: 20,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 20,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -100,11 +109,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.athletics',
         type: 'skill',
         data: {
-            value: 30,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 30,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -112,11 +131,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.bureaucracy',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -124,11 +153,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.criminology',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -136,11 +175,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.disguise',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -148,11 +197,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.dodge',
         type: 'skill',
         data: {
-            value: 30,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 30,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -160,11 +219,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.drive',
         type: 'skill',
         data: {
-            value: 20,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 20,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -172,11 +241,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.firearms',
         type: 'skill',
         data: {
-            value: 20,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 20,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -184,11 +263,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.firstAid',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -196,11 +285,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.heavyMachinery',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -208,11 +307,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.history',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -220,11 +329,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.humint',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -232,11 +351,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.meleeWeapons',
         type: 'skill',
         data: {
-            value: 30,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 30,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -244,11 +373,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.navigate',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -256,11 +395,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.occult',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -268,11 +417,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.persuade',
         type: 'skill',
         data: {
-            value: 20,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 20,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -280,11 +439,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.psychotherapy',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -292,11 +461,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.ride',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -304,11 +483,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.search',
         type: 'skill',
         data: {
-            value: 20,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 20,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -316,11 +505,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.stealth',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -328,11 +527,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.survival',
         type: 'skill',
         data: {
-            value: 10,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 10,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -340,11 +549,21 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.swim',
         type: 'skill',
         data: {
-            value: 20,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 20,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
@@ -352,23 +571,43 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
         name: 'DG.SKILLS.NAME.unarmedCombat',
         type: 'skill',
         data: {
-            value: 40,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: true,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 40,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: true,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
     {
-        _id: UNNATURAL_ID,
+        _id: '4l35w618j8doxnfq',
         name: 'DG.SKILLS.NAME.unnatural',
         type: 'skill',
         data: {
-            value: 0,
-            group: 'DG.SKILLS.defaultGroup',
-            failureImproves: false,
-            sessionFailure: false,
-            canDelete: false,
+            rating: {
+                value: 0,
+            },
+            group: {
+                value: 'DG.SKILLS.defaultGroup',
+            },
+            failureImproves: {
+                value: false,
+            },
+            sessionFailure: {
+                value: false,
+            },
+            canDelete: {
+                value: false,
+            },
         },
     },
 ];

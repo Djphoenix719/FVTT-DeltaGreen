@@ -1,6 +1,6 @@
 {
     "Actor": {
-        "types": ["agent"],
+        "types": ["agent", "npc", "unnatural"],
         "templates": {
             "health": {
                 "health": {
@@ -84,7 +84,7 @@
         },
         "agent": {
             "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills"],
-            "schemaVersion": "2.0.0",
+            "schemaVersion": 2,
             "biography": {
                 "profession": {
                     "value": ""
@@ -114,6 +114,10 @@
                     "value": ""
                 }
             }
+        },
+        "npc": {
+            "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills"],
+            "schemaVersion": 2
         }
     },
     "Item": {
@@ -142,11 +146,21 @@
             }
         },
         "skill": {
-            "value": 0,
-            "group": "DG.SKILLS.defaultGroup",
-            "failureImproves": true,
-            "sessionFailure": false,
-            "canDelete": true
+            "rating": {
+                "value": 0
+            },
+            "group": {
+                "value": "DG.SKILLS.defaultGroup"
+            },
+            "failureImproves": {
+                "value": true
+            },
+            "sessionFailure": {
+                "value": false
+            },
+            "canDelete": {
+                "value": true
+            }
         },
         "weapon": {
             "templates": ["description", "physical"],

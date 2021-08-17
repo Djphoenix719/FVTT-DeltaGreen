@@ -1,15 +1,15 @@
 <div class="list-item skill" data-id="{{id}}">
     
     <div class="data">
-        {{#if data.failureImproves}}
-            <input class="failure modify-item" type="checkbox" data-path="data.sessionFailure" {{checked data.sessionFailure}}>
+        {{#if data.failureImproves.value}}
+            <input class="failure modify-item" type="checkbox" data-path="data.sessionFailure.value" {{checked data.sessionFailure.value}}>
         {{else}}
             <input class="failure" type="checkbox" disabled>
         {{/if}}
         <label class="flex-4 name left clickable">{{name}}</label>
-        <input class="flex-1 value modify-item" data-path="data.value" type="number" min="0" max="99" value="{{data.value}}">
+        <input class="flex-1 value modify-item" data-path="data.rating.value" type="number" min="0" max="99" value="{{data.rating.value}}">
         <div class="list-buttons">
-            {{#if data.canDelete}}
+            {{#if data.canDelete.value}}
                 <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
             {{/if}}
             <label class="clickable edit-item"><i class="fas fa-edit"></i></label>

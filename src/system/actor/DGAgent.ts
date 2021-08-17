@@ -19,8 +19,8 @@ import { DGItem } from '../item/DGItem';
 import { ItemType } from '../../types/Item';
 import { DGPercentageRollPart, DGPercentileRoll } from '../dice/DGPercentileRoll';
 import { DGDamageRoll, DGDamageRollPart } from '../dice/DGDamageRoll';
-import { ItemTypeMap, VersionNumber } from '../../types/System';
-import { Bounded, Label, Value } from '../../types/Helpers';
+import { ItemTypeMap } from '../../types/System';
+import { Bounded, Value } from '../../types/Helpers';
 import { ActorTypeAgent, Statistic } from '../../types/Actor';
 import { DGActor } from './DGActor';
 import { DGSkill } from '../item/DGSkill';
@@ -39,7 +39,9 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
                 type: skill.type,
                 data: {
                     ...skill.data,
-                    group: game.i18n.localize(skill.data.group),
+                    group: {
+                        value: game.i18n.localize(skill.data.group.value)
+                    },
                 },
             };
         }),
@@ -47,7 +49,7 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
 );
 
 interface AgentDataSourceData {
-    schema: VersionNumber;
+    schemaVersion: number;
     health: Bounded<number>;
     willpower: Bounded<number>;
     sanity: Bounded<number> & {
@@ -63,17 +65,15 @@ interface AgentDataSourceData {
     statistics: {
         [TType in StatisticType]: Statistic<TType>;
     };
-    description: {
-        appearance: Value<string>;
-        wounds: Value<string>;
-    };
     biography: {
-        profession: Value<string> & Label<string>;
-        employer: Value<string> & Label<string>;
-        nationality: Value<string> & Label<string>;
-        gender: Value<string> & Label<string>;
-        age: Value<string> & Label<string>;
-        education: Value<string> & Label<string>;
+        profession: Value<string>;
+        employer: Value<string>;
+        nationality: Value<string>;
+        gender: Value<string>;
+        age: Value<string>;
+        education: Value<string>;
+        appearance: Value<string>;
+        notes: Value<string>;
     };
 }
 
@@ -118,7 +118,7 @@ export class DGAgent extends DGActor {
         let value = 99;
         const skill = this.items.get(UNNATURAL_ID) as DGItem | undefined;
         if (skill && skill.data.type === 'skill') {
-            value -= skill.data.data.value ?? 0;
+            value -= skill.data.data.rating.value ?? 0;
         }
         return value;
     }
@@ -153,7 +153,7 @@ export class DGAgent extends DGActor {
         let map: Record<string, DGSkill[]> = {};
         for (const item of this.items) {
             if (item.data.type === ItemTypeSkill) {
-                const groupId = item.data.data.group;
+                const groupId = item.data.data.group.value;
                 map[groupId] = map[groupId] ?? [];
                 map[groupId].push(item as DGSkill);
             }
@@ -218,7 +218,7 @@ export class DGAgent extends DGActor {
                 target: {
                     base: {
                         label: skill.name!,
-                        value: skill.data.data.value ?? 0,
+                        value: skill.data.data.rating.value ?? 0,
                     },
                     parts: modifiers,
                 },

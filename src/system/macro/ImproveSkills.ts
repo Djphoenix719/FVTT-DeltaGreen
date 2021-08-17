@@ -44,7 +44,7 @@ export async function improveSkills() {
                 const amount = await new Roll('1d4').roll({ async: true });
                 if (amount.total !== undefined) {
                     await item.update({
-                        ['data.value']: (item.data.data.value ?? 0) + amount.total,
+                        ['data.value']: (item.data.data.rating.value ?? 0) + amount.total,
                         ['data.sessionFailure']: false,
                     });
                     improvements[item.name!] = amount.total;

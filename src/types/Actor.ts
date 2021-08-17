@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-import { ActorTypeAgent, StatisticType } from './Constants';
+import { ActorTypeAgent, ActorTypeNPC, StatisticType } from './Constants';
 import { Label, Value } from './Helpers';
 import { AgentDataProperties, AgentDataSource } from '../system/actor/DGAgent';
 
 export type ActorTypeAgent = typeof ActorTypeAgent;
+export type ActorTypeNPC = typeof ActorTypeNPC;
 
 export interface Statistic<T extends StatisticType> extends Value<number>, Label<string> {
     id: T;
     percentile?: number;
 }
 
-export type ActorType = ActorTypeAgent;
+export type ActorType = ActorTypeAgent | ActorTypeNPC | 'unnatural';
 export type ActorDataSource = AgentDataSource;
 export type ActorDataProperties = AgentDataProperties;
 

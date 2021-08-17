@@ -9,7 +9,7 @@
 
         <div class="field-group row">
             <label>{{localize "DG.ITEM.skillGroup"}}</label>
-            <input type="text" list="existing-groups" name="data.group" value="{{@root.data.data.group}}">
+            <input type="text" list="existing-groups" name="data.group.value" value="{{@root.data.data.group.value}}">
             <datalist id="existing-groups">
                 {{#each groups as |option|}}
                     <option value="{{option.value}}">{{option.label}}</option>
@@ -19,18 +19,18 @@
 
         <div class="field-group row">
             <label>{{localize "DG.ITEM.value"}}</label>
-            <input type="number" min="0" max="99" name="data.value" value="{{@root.data.data.value}}">
+            <input type="number" min="0" max="99" name="data.rating.value" value="{{@root.data.data.rating.value}}">
         </div>
 
         <div class="field-group row">
             <label>{{localize "DG.ITEM.failureImproves"}}</label>
-            <input type="checkbox" name="data.failureImproves" {{checked @root.data.data.failureImproves}}>
+            <input type="checkbox" name="data.failureImproves.value" {{checked @root.data.data.failureImproves.value}}>
         </div>
 
         {{#if @root.data.data.failureImproves}}
             <div class="field-group row">
                 <label>{{localize "DG.ITEM.failedThisSession"}}</label>
-                <input type="checkbox" name="data.sessionFailure" {{checked @root.data.data.sessionFailure}}>
+                <input type="checkbox" name="data.sessionFailure.value" {{checked @root.data.data.sessionFailure.value}}>
             </div>
         {{/if}}
 

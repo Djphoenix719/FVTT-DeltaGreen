@@ -17,13 +17,14 @@
 import { DGItem } from './DGItem';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
 import { ItemTypeSkill } from '../../types/Item';
+import { Value } from '../../types/Helpers';
 
 export interface SkillDataSourceData {
-    value?: number;
-    group: string;
-    failureImproves: boolean;
-    sessionFailure: boolean;
-    canDelete: boolean;
+    rating: Value<number>;
+    group: Value<string>;
+    failureImproves: Value<boolean>;
+    sessionFailure: Value<boolean>;
+    canDelete: Value<boolean>;
 }
 
 export interface SkillDataPropertyData extends SkillDataSourceData {}
@@ -39,7 +40,7 @@ export interface SkillDataProperties {
 export class DGSkill extends DGItem {
     prepareData() {
         super.prepareData();
-        this.data.data.group = game.i18n.localize(this.data.data.group);
+        this.data.data.group.value = game.i18n.localize(this.data.data.group.value);
     }
 }
 export interface DGSkill extends DGItem {

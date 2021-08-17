@@ -40,6 +40,7 @@ import { DGMotivation } from './item/DGMotivation';
 import { DGSkill } from './item/DGSkill';
 import { DGWeapon } from './item/DGWeapon';
 import { SystemSettings } from './SystemSettings';
+import { Migrate_v1v2 } from './migration/v2/Migrate_v1v2';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -54,6 +55,16 @@ function registerActorClasses() {
         makeDefault: true,
     });
     CONFIG.Actor.documentClass = DGAgent;
+    CONFIG.DG = {
+        ...CONFIG.DG,
+        Actor: {
+            documentClasses: {
+                agent: DGAgent,
+                npc: DGAgent,
+                unnatural: DGAgent,
+            },
+        },
+    };
 }
 function registerItemClasses() {
     Items.unregisterSheet('core', ItemSheet);
@@ -94,6 +105,7 @@ function registerItemClasses() {
     });
     CONFIG.Item.documentClass = DGItem;
     CONFIG.DG = {
+        ...CONFIG.DG,
         Item: {
             documentClasses: {
                 armor: DGArmor,
@@ -103,11 +115,6 @@ function registerItemClasses() {
                 motivation: DGMotivation,
                 skill: DGSkill,
                 weapon: DGWeapon,
-            },
-        },
-        Actor: {
-            documentClasses: {
-                agent: DGAgent,
             },
         },
     };
@@ -132,7 +139,9 @@ Hooks.on('setup', async () => {
 });
 
 Hooks.on('ready', async () => {
-    createTestDocuments();
+    const migrator = new Migrate_v1v2();
+    await migrator.run();
+    // createTestDocuments();
 });
 
 // TODO: More permanent display of additional information is required
