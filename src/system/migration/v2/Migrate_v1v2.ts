@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-import { AgentDataProperties, DGAgent } from '../../actor/DGAgent';
-import { StatisticType, UNNATURAL_ID } from '../../../types/Constants';
-import { Value } from '../../../types/Helpers';
-import { DGSkill } from '../../item/DGSkill';
+import { Bounded, Label, Max, Value } from '../../../types/Helpers';
+import { ExpenseType } from '../../../types/Constants';
 
 interface Updatable {
     update(data: Record<string, any>): Promise<void>;
     delete(): Promise<void>;
 }
-interface V100Agent extends Updatable {
-    items: Map<string, V100Item>;
+interface V1Agent extends Updatable {
+    items: Collection<V1Item>;
     data: {
+        _id: string;
         type: 'agent';
         name: string;
 
@@ -122,8 +121,8 @@ interface V100Agent extends Updatable {
         };
     };
 }
-interface V100NPC extends Updatable {
-    items: Map<string, V100Item>;
+interface V1NPC extends Updatable {
+    items: Collection<V1Item>;
     data: {
         type: 'npc';
         name: string;
@@ -198,8 +197,8 @@ interface V100NPC extends Updatable {
         };
     };
 }
-interface V100Unnatural extends Updatable {
-    items: Map<string, V100Item>;
+interface V1Unnatural extends Updatable {
+    items: Collection<V1Item>;
     data: {
         type: 'unnatural';
         name: string;
@@ -276,10 +275,11 @@ interface V100Unnatural extends Updatable {
         };
     };
 }
-type V100Actor = V100Agent | V100NPC | V100Unnatural;
+type V1Actor = V1Agent | V1NPC | V1Unnatural;
 
-interface V100ItemWeapon extends Updatable {
+interface V1ItemWeapon extends Updatable {
     data: {
+        _id: string;
         type: 'weapon';
         name: string;
 
@@ -299,8 +299,9 @@ interface V100ItemWeapon extends Updatable {
         };
     };
 }
-interface V100ItemArmor extends Updatable {
+interface V1ItemArmor extends Updatable {
     data: {
+        _id: string;
         name: string;
         type: 'armor';
 
@@ -313,8 +314,9 @@ interface V100ItemArmor extends Updatable {
         };
     };
 }
-interface V100ItemMotivation extends Updatable {
+interface V1ItemMotivation extends Updatable {
     data: {
+        _id: string;
         name: string;
         type: 'motivation';
 
@@ -327,8 +329,9 @@ interface V100ItemMotivation extends Updatable {
         };
     };
 }
-interface V100ItemBond extends Updatable {
+interface V1ItemBond extends Updatable {
     data: {
+        _id: string;
         name: string;
         type: 'bond';
 
@@ -340,8 +343,9 @@ interface V100ItemBond extends Updatable {
         };
     };
 }
-interface V100ItemGear extends Updatable {
+interface V1ItemGear extends Updatable {
     data: {
+        _id: string;
         name: string;
         type: 'gear';
 
@@ -353,32 +357,98 @@ interface V100ItemGear extends Updatable {
         };
     };
 }
-type V100Item = V100ItemWeapon | V100ItemArmor | V100ItemMotivation | V100ItemBond | V100ItemGear;
+type V1Item = V1ItemWeapon | V1ItemArmor | V1ItemMotivation | V1ItemBond | V1ItemGear;
+
+const UNNATURAL_ID = '4l35w618j8doxnfq';
+enum AdaptationType {
+    Violence = 'violence',
+    Helplessness = 'helplessness',
+}
+enum StatisticType {
+    Strength = 'strength',
+    Constitution = 'constitution',
+    Dexterity = 'dexterity',
+    Intelligence = 'intelligence',
+    Power = 'power',
+    Charisma = 'charisma',
+}
+interface Statistic<T extends StatisticType> extends Value<number>, Label<string> {
+    id: T;
+    percentile?: number;
+}
+
+interface V2Agent extends Updatable {
+    type: 'agent';
+    name: string;
+
+    data: {
+        schemaVersion: number;
+        health: Bounded<number>;
+        willpower: Bounded<number>;
+        sanity: Bounded<number> & {
+            breakingPoint: Value<number>;
+            adaptations: {
+                [TType in AdaptationType]: {
+                    adapted: boolean;
+                    value: boolean[];
+                };
+            };
+        };
+        luck: Value<number>;
+        statistics: {
+            [TType in StatisticType]: Statistic<TType>;
+        };
+        biography: {
+            profession: Value<string>;
+            employer: Value<string>;
+            nationality: Value<string>;
+            gender: Value<string>;
+            age: Value<string>;
+            education: Value<string>;
+            appearance: Value<string>;
+            notes: Value<string>;
+        };
+    };
+}
+
+type ActorUpdates = DeepPartial<V2Agent>;
+interface ActorConversionResult {
+    actorUpdates: Record<string, any>;
+    itemUpdates: Record<string, any>[];
+}
 
 export class Migrate_v1v2 {
     public async updateScene(scene: Scene) {}
 
-    public async convertActor(oldActor: V100Actor) {
+    public getActorUpdates(oldActor: V1Actor): ActorUpdates {
         console.warn(`Converting actor: "${oldActor.data.name}"`);
         switch (oldActor.data.type) {
             case 'agent':
-                return this.convertAgent(oldActor as V100Agent);
+                return this.getAgentUpdates(oldActor as V1Agent);
             case 'npc':
-                return this.convertNPC(oldActor as V100NPC);
+                return {};
+                return this.getNPCUpdates(oldActor as V1NPC);
             case 'unnatural':
-                return this.convertUnnatural(oldActor as V100Unnatural);
+                return {};
+                return this.getUnnaturalUpdates(oldActor as V1Unnatural);
         }
     }
-    public async convertAgent(oldActor: V100Agent) {
-        const updateData: DeepPartial<AgentDataProperties> = {};
-        updateData.type = 'agent';
-        updateData.data = {};
 
-        updateData.data.health = {
+    public getAgentUpdates(oldActor: V1Agent): ActorUpdates {
+        const actorUpdates: DeepPartial<V2Agent> = {};
+
+        actorUpdates.data = {};
+
+        actorUpdates.data.health = {
             value: oldActor.data.data.health.value,
         };
 
-        updateData.data.statistics = {
+        actorUpdates.data.willpower = {
+            value: oldActor.data.data.wp.value,
+            max: oldActor.data.data.wp.min,
+        };
+
+        actorUpdates.data.statistics = {
             [StatisticType.Strength]: {
                 id: StatisticType.Strength,
                 value: oldActor.data.data.statistics.str.value,
@@ -411,7 +481,7 @@ export class Migrate_v1v2 {
             },
         };
 
-        updateData.data.biography = {
+        actorUpdates.data.biography = {
             profession: { value: oldActor.data.data.biography.profession },
             employer: { value: oldActor.data.data.biography.employer },
             nationality: { value: oldActor.data.data.biography.nationality },
@@ -428,7 +498,6 @@ export class Migrate_v1v2 {
             oldActor.data.data.sanity.adaptations.violence.incident3,
         ];
         const violenceAdapted = !violence.some((v) => !v);
-
         const helplessness = [
             oldActor.data.data.sanity.adaptations.helplessness.incident1,
             oldActor.data.data.sanity.adaptations.helplessness.incident2,
@@ -436,7 +505,7 @@ export class Migrate_v1v2 {
         ];
         const helplessnessAdapted = !helplessness.some((v) => !v);
 
-        updateData.data.sanity = {
+        actorUpdates.data.sanity = {
             value: oldActor.data.data.sanity.value,
             adaptations: {
                 violence: {
@@ -450,86 +519,263 @@ export class Migrate_v1v2 {
             },
         };
 
-        const newSkills: DGSkill[] = [];
+        actorUpdates.data.schemaVersion = 2;
+
+        return actorUpdates;
+    }
+    public getNPCUpdates(oldActor: V1NPC): ActorUpdates {
+        throw new Error('');
+    }
+    public getUnnaturalUpdates(oldActor: V1Unnatural): ActorUpdates {
+        throw new Error('');
+    }
+
+    public getActorSkills(oldActor: V1Actor): Record<string, any>[] {
+        const skills: Record<string, any>[] = [];
         const allSkills = mergeObject(oldActor.data.data.skills, oldActor.data.data.typedSkills);
-        for (const [oldKey, oldSkill] of Object.entries(allSkills)) {
+        for (const key in allSkills) {
+            const skillData = allSkills[key];
+
             let id: string;
-            if (oldKey === 'unnatural') {
+            if (key === 'unnatural') {
                 id = UNNATURAL_ID;
             } else {
-                if (oldSkill.proficiency === 0) {
+                if (skillData.proficiency === 0) {
                     continue;
                 }
                 id = foundry.utils.randomID(16);
             }
 
-            newSkills.push(
-                new DGSkill(
-                    {
-                        _id: id,
-                        type: 'skill',
-                        name: oldSkill.label,
-                        data: {
-                            rating: { value: oldSkill.proficiency },
-                            group: { value: '' },
-                            canDelete: { value: true },
-                            failureImproves: { value: oldSkill.hasOwnProperty('failure') },
-                            sessionFailure: { value: oldSkill.failure ?? false },
-                        },
+            skills.push({
+                _id: id,
+                name: skillData.label,
+                type: 'skill',
+                data: {
+                    rating: {
+                        value: skillData.proficiency,
                     },
-                    {},
-                ),
-            );
+                    group: {
+                        value: '',
+                    },
+                    failureImproves: {
+                        value: skillData.failure !== undefined,
+                    },
+                    sessionFailure: {
+                        value: skillData.failure ?? false,
+                    },
+                    canDelete: {
+                        value: true,
+                    },
+                },
+            });
         }
-
-        for (const item of Object.values(oldActor.items)) {
-            await this.convertItem(item);
-        }
-
-        updateData.data.schemaVersion = 2;
-
-        console.warn('old data');
-        console.warn(oldActor);
-        console.warn('new data');
-        console.warn(newSkills);
-        console.warn(updateData);
+        return skills;
     }
-    public async convertNPC(oldActor: V100NPC) {}
-    public async convertUnnatural(oldActor: V100Unnatural) {}
 
-    public async convertItem(oldItem: V100Item) {
+    public getItemUpdates(oldItem: V1Item): Record<string, any> {
         console.info(`Converting item: "${oldItem.data.name}"`);
         switch (oldItem.data.type) {
             case 'weapon':
-                return this.convertWeapon(oldItem as V100ItemWeapon);
+                return this.getWeaponUpdates(oldItem as V1ItemWeapon);
             case 'armor':
-                return this.convertArmor(oldItem as V100ItemArmor);
+                return this.getArmorUpdates(oldItem as V1ItemArmor);
             case 'motivation':
-                return this.convertMotivation(oldItem as V100ItemMotivation);
+                return this.getMotivationUpdates(oldItem as V1ItemMotivation);
             case 'bond':
-                return this.convertBond(oldItem as V100ItemBond);
+                return this.getBondUpdates(oldItem as V1ItemBond);
             case 'gear':
-                return this.convertGear(oldItem as V100ItemGear);
+                return this.getGearUpdates(oldItem as V1ItemGear);
         }
     }
-    public async convertWeapon(oldItem: V100ItemWeapon) {}
-    public async convertArmor(oldItem: V100ItemArmor) {}
-    public async convertMotivation(oldItem: V100ItemMotivation) {}
-    public async convertBond(oldItem: V100ItemBond) {}
-    public async convertGear(oldItem: V100ItemGear) {}
+    public getWeaponUpdates(oldItem: V1ItemWeapon): Record<string, any> {
+        const updates: Record<string, any> = {};
+        updates['_id'] = oldItem.data._id;
+
+        // expense: Value<ExpenseType>;
+        // equipped: Value<boolean>;
+        // carried: Value<boolean>;
+        // description: Value<string>;
+
+        // skill: Value<string>;
+        // range: Value<number>;
+        // damage: Value<string>;
+        // armorPiercing: Value<number>;
+        // lethality: Value<number>;
+        // killRadius: Value<number>;
+        // ammo: Value<number> & Max<number>;
+
+        updates['data.expense.value'] = oldItem.data.data.expense;
+        updates['data.equipped.value'] = oldItem.data.data.equipped;
+        updates['data.carried.value'] = true;
+        updates['data.description.value'] = oldItem.data.data.description;
+
+        updates['data.skill.value'] = oldItem.data.data.skill;
+        updates['data.range.value'] = oldItem.data.data.range;
+        updates['data.damage.value'] = oldItem.data.data.damage;
+        updates['data.armorPiercing.value'] = oldItem.data.data.armorPiercing;
+        updates['data.lethality.value'] = oldItem.data.data.lethality;
+        updates['data.killRadius.value'] = oldItem.data.data.killRadius;
+        updates['data.ammo.value'] = oldItem.data.data.ammo;
+        updates['data.ammo.max'] = oldItem.data.data.ammo;
+
+        updates['data.-=name'] = null;
+        updates['data.-=isLethal'] = null;
+
+        return updates;
+    }
+    public getArmorUpdates(oldItem: V1ItemArmor): Record<string, any> {
+        const updates: Record<string, any> = {};
+        updates['_id'] = oldItem.data._id;
+
+        // expense: Value<ExpenseType>;
+        // equipped: Value<boolean>;
+        // carried: Value<boolean>;
+        // description: Value<string>;
+
+        // armorRating: Value<number>;
+
+        updates['data.expense.value'] = oldItem.data.data.expense;
+        updates['data.equipped.value'] = oldItem.data.data.equipped;
+        updates['data.carried.value'] = true;
+        updates['data.description.value'] = oldItem.data.data.description;
+
+        updates['data.armorRating.value'] = oldItem.data.data.protection;
+
+        updates['data.-=name'] = null;
+        updates['data.-=protection'] = null;
+
+        return updates;
+    }
+    public getGearUpdates(oldItem: V1ItemGear): Record<string, any> {
+        const updates: Record<string, any> = {};
+        updates['_id'] = oldItem.data._id;
+
+        // expense: Value<ExpenseType>;
+        // equipped: Value<boolean>;
+        // carried: Value<boolean>;
+        // description: Value<string>;
+
+        updates['data.expense.value'] = oldItem.data.data.expense;
+        updates['data.equipped.value'] = oldItem.data.data.equipped;
+        updates['data.carried.value'] = true;
+        updates['data.description.value'] = oldItem.data.data.description;
+
+        updates['data.-=name'] = null;
+
+        return updates;
+    }
+    public getMotivationUpdates(oldItem: V1ItemMotivation): Record<string, any> {
+        const updates: Record<string, any> = {};
+        updates['_id'] = oldItem.data._id;
+
+        // description: Value<string>;
+        // crossed: Value<boolean>;
+
+        updates['data.crossed.value'] = oldItem.data.data.crossedOut;
+        updates['data.description.value'] = oldItem.data.data.description;
+
+        updates['data.-=name'] = null;
+        updates['data.-=crossedOut'] = null;
+        updates['data.-=disorder'] = null;
+        updates['data.-=disorderCured'] = null;
+
+        return updates;
+    }
+    public getDisorderUpdates(oldItem: V1ItemMotivation): Record<string, any> | undefined {
+        const updates: Record<string, any> = {};
+
+        if (oldItem.data.data.disorder === '') {
+            return undefined;
+        }
+
+        updates['_id'] = foundry.utils.randomID(16);
+        updates['name'] = oldItem.data.data.disorder;
+        updates['type'] = 'disorder';
+
+        // description: Value<string>;
+        // crossed: Value<boolean>;
+
+        updates['data.crossed.value'] = oldItem.data.data.disorderCured;
+        updates['data.description.value'] = oldItem.data.data.description;
+
+        return updates;
+    }
+    public getBondUpdates(oldItem: V1ItemBond): Record<string, any> {
+        const updates: Record<string, any> = {};
+        updates['_id'] = oldItem.data._id;
+
+        return updates;
+    }
 
     public async updateItemDirectory() {
         for (let item of game.items!) {
-            const oldItem = item as unknown as V100Item;
-            if (oldItem.data.data.hasOwnProperty('schemaVersion')) {
+            const oldItem = item as unknown as V1Item;
+            const version: number = (oldItem.data.data as any).schemaVersion ?? 1;
+            if (version !== 1) {
+                continue;
             }
+
+            await this.getItemUpdates(oldItem);
         }
     }
     public async updateActorDirectory() {
         for (let actor of game.actors!) {
-            const oldActor = actor as unknown as V100Actor;
+            const oldActor = actor as unknown as V1Actor;
+            const version: number = oldActor.data.data.schemaVersion ?? 1;
+            if (version !== 1) {
+                console.warn(`Actor "${actor.name}" does not require updating`);
+                continue;
+            }
+
+            if (actor.data.type !== 'agent') {
+                continue;
+            }
+
+            const newData: Record<string, any> = flattenObject(this.getActorUpdates(oldActor));
+
+            newData[`data.biography.-=sex`] = null;
+            newData[`data.statistics.-=cha`] = null;
+            newData[`data.statistics.-=pow`] = null;
+            newData[`data.statistics.-=str`] = null;
+            newData[`data.statistics.-=dex`] = null;
+            newData[`data.statistics.-=int`] = null;
+            newData[`data.statistics.-=con`] = null;
+            newData[`data.-=skills`] = null;
+            newData[`data.-=typedSkills`] = null;
+            newData[`data.-=wp`] = null;
+            newData[`data.-=physical`] = null;
+            newData[`data.health.-=min`] = null;
+            newData[`data.health.-=max`] = null;
+            newData[`data.health.-=protection`] = null;
+            newData[`data.sanity.-=min`] = null;
+            newData[`data.sanity.-=max`] = null;
+            newData[`data.sanity.-=currentBreakingPoint`] = null;
+            newData[`data.-=physicalDescription`] = null;
+
+            const newItems: Record<string, any>[] = this.getActorSkills(oldActor);
+
+            let itemUpdates: Record<string, any>[] = [];
+            for (const oldItem of oldActor.items) {
+                itemUpdates.push(this.getItemUpdates(oldItem));
+                if (oldItem.data.type === 'motivation') {
+                    const disorder = this.getDisorderUpdates(oldItem as V1ItemMotivation);
+                    if (disorder !== undefined) {
+                        newItems.push(disorder);
+                    }
+                }
+            }
+
+            console.warn(newItems);
+            console.warn(itemUpdates);
+
+            await actor.update(expandObject(newData));
+            await actor.updateEmbeddedDocuments('Item', itemUpdates);
+            await actor.createEmbeddedDocuments('Item', newItems);
         }
     }
 
-    public async run() {}
+    public async run() {
+        // await this.updateItemDirectory();
+        await this.updateActorDirectory();
+    }
 }

@@ -5,14 +5,12 @@
             "health": {
                 "health": {
                     "value": 10,
-                    "min": 0,
                     "max": 10
                 }
             },
             "willpower": {
                 "willpower": {
                     "value": 10,
-                    "min": 0,
                     "max": 10
                 }
             },
@@ -64,7 +62,6 @@
             "sanity": {
                 "sanity": {
                     "value": 99,
-                    "min": 0,
                     "max": 99,
                     "breakingPoint": {
                         "value": 0
@@ -105,9 +102,6 @@
                     "value": ""
                 },
                 "appearance": {
-                    "value": ""
-                },
-                "wounds": {
                     "value": ""
                 },
                 "notes": {

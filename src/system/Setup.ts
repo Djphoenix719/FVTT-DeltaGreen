@@ -154,4 +154,4 @@ Hooks.on('renderSettings', (app: Application, html: JQuery) => {
     html.find('div#settings-documentation').append(button);
 });
 
-CONFIG.debug.hooks = true;
+// CONFIG.debug.hooks = true;

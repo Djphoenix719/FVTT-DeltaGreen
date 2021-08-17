@@ -40,7 +40,7 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
                 data: {
                     ...skill.data,
                     group: {
-                        value: game.i18n.localize(skill.data.group.value)
+                        value: game.i18n.localize(skill.data.group.value),
                     },
                 },
             };
