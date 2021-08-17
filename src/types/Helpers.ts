@@ -20,15 +20,11 @@ export interface Value<T> {
     value: T;
 }
 
-export interface Min<T> {
-    min: T;
-}
-
 export interface Max<T> {
     max: T;
 }
 
-export interface Bounded<T> extends Value<T>, Min<T>, Max<T> {}
+export interface Bounded<T> extends Value<T>, Max<T> {}
 
 export interface Label<T extends string> {
     label: T;
@@ -37,5 +33,16 @@ export interface Label<T extends string> {
 export interface DGContext<Parent extends Document<any, any> | null> extends Context<Parent> {
     dg?: {
         ready: boolean;
-    }
+    };
 }
+
+/**
+ * Maps an object's keys to a . joined path, e.g. 'data.x.y.z'
+ */
+export type RecursiveKeyOf<TObj extends object> = {
+    [TKey in keyof TObj & (string | number)]: RecursiveKeyOfHandleValue<TObj[TKey], `${TKey}`>;
+}[keyof TObj & (string | number)];
+type RecursiveKeyOfInner<TObj extends object> = {
+    [TKey in keyof TObj & (string | number)]: RecursiveKeyOfHandleValue<TObj[TKey], `.${TKey}`>;
+}[keyof TObj & (string | number)];
+type RecursiveKeyOfHandleValue<TValue, Text extends string> = TValue extends object ? Text | `${Text}${RecursiveKeyOfInner<TValue>}` : Text;

@@ -20,11 +20,13 @@ import { SYSTEM_NAME } from './Constants';
  * All system settings.
  */
 export enum SystemSetting {
+    SchemaVersion = 'schema-version',
     NiceCriticals = 'nice-criticals',
 }
 
 interface SystemSettingTypes {
     [SystemSetting.NiceCriticals]: boolean;
+    [SystemSetting.SchemaVersion]: number;
 }
 
 export class SystemSettings {
@@ -41,7 +43,7 @@ export class SystemSettings {
      * @param key The setting key.
      * @param value The value of the setting.
      */
-    public static async set<TKey extends SystemSetting>(key: TKey, value: SystemSettingTypes[TKey]): Promise<boolean> {
+    public static async set<TKey extends SystemSetting>(key: TKey, value: SystemSettingTypes[TKey]): Promise<SystemSettingTypes[TKey]> {
         return game.settings.set(SYSTEM_NAME, key, value);
     }
 
@@ -56,5 +58,15 @@ export class SystemSettings {
             type: Boolean,
             config: true,
         });
+
+        game.settings.register(SYSTEM_NAME, SystemSetting.SchemaVersion, {
+            name: 'Schema Version',
+            scope: 'world',
+            type: Number,
+            config: false,
+        });
+
+        if (this.get(SystemSetting.SchemaVersion) === undefined) {
+        }
     }
 }

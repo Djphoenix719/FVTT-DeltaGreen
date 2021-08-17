@@ -4,13 +4,40 @@
     "description": "",
     "version": "2.0.0",
     "minimumCoreVersion": "0.8.0",
-    "compatibleCoreVersion": "0.8.8",
+    "compatibleCoreVersion": "0.8.9",
     "templateVersion": 2,
     "author": "Andrew Cuccinello [DJ#1982]",
     "esmodules": ["./bundle.js"],
     "styles": ["./bundle.css"],
     "scripts": [],
-    "packs": [],
+
+    "packs": [
+        {
+            "name": "dg-weapons",
+            "label": "Weapons",
+            "system": "delta-green",
+            "module": "delta-green",
+            "entity": "Item",
+            "path": "./static/packs/dg-weapons.db"
+        },
+        {
+            "name": "dg-armor",
+            "label": "Armor",
+            "system": "delta-green",
+            "module": "delta-green",
+            "entity": "Item",
+            "path": "./static/packs/dg-armor.db"
+        },
+        {
+            "name": "dg-pregens",
+            "label": "Pre-generated Agents",
+            "system": "delta-green",
+            "module": "delta-green",
+            "entity": "Actor",
+            "path": "./static/packs/dg-pregens.db"
+        }
+    ],
+
     "languages": [
         {
             "lang": "en",

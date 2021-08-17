@@ -16,7 +16,7 @@
 
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
 import { DGItemPhysical, PhysicalDataSourceData } from './DGItemPhysical';
-import { Max, Value } from '../../types/Helpers';
+import { Bounded, Max, Value } from '../../types/Helpers';
 import { ItemTypeWeapon } from '../../types/Item';
 import { DGSkill } from './DGSkill';
 
@@ -27,7 +27,7 @@ export interface WeaponDataSourceData extends PhysicalDataSourceData {
     armorPiercing: Value<number>;
     lethality: Value<number>;
     killRadius: Value<number>;
-    ammo: Value<number> & Max<number>;
+    ammo: Bounded<number>;
 }
 export interface WeaponDataPropertyData extends WeaponDataSourceData {}
 export interface WeaponDataSource {

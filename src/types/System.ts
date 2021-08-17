@@ -27,6 +27,7 @@ import { DGWeapon } from '../system/item/DGWeapon';
 import { ActorType, ActorTypeAgent } from './Actor';
 import { DGActor } from '../system/actor/DGActor';
 
+export const SYSTEM_DATA_SCHEMA_VERSION = 2;
 
 interface TypeMapEntry<TType, TItem> {
     type: TType;

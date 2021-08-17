@@ -170,6 +170,13 @@
             "major": "Major",
             "extreme": "Extreme"
         },
+        "MIGRATION": {
+            "title": "System Data Migration",
+            "warning": "WARNING!",
+            "message1": "The Delta Green system must be migrated to a new data model. If you have not made a backup of your world, DO SO NOW BEFORE YOU BEGIN MIGRATION.",
+            "message2": "NO SUPPORT WILL BE PROVIDED IF SOMETHING GOES WRONG AND YOU CANNOT PROVIDE A BACKUP OF YOUR WORLD BEFORE THE MIGRATION.",
+            "confirm": "Ok - I made a backup. Begin the migration."
+        },
         "LICENSE": {
             "view": "Delta Green Licensing"
         },
