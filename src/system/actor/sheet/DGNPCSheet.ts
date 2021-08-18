@@ -16,10 +16,14 @@
 
 import { DGActorSheet, DGActorSheetData, DGActorSheetOptions } from './DGActorSheet';
 import { DGNPC } from '../DGNPC';
+import { SYSTEM_NAME } from '../../Constants';
 
 export interface DGNPCSheetOptions extends DGActorSheetOptions {}
 export interface DGNPCSheetData extends DGActorSheetData {}
 export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGActorSheetData, DGNPC> {
-
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        options.template = `systems/${SYSTEM_NAME}/templates/actor/npc/NPCSheet.html`;
+        return options;
+    }
 }
-

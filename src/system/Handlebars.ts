@@ -21,27 +21,27 @@ export async function registerHandlebarsTemplatesAndPartials() {
     const templatePath = (relative: TemplatePath) => `systems/${SYSTEM_NAME}/${relative}`;
 
     const partials: Record<string, TemplatePath> = {
-        'list-item-weapon': 'templates/actor/partial/inventory/ListItemWeapon.html',
-        'list-item-armor': 'templates/actor/partial/inventory/ListItemArmor.html',
-        'list-item-gear': 'templates/actor/partial/inventory/ListItemGear.html',
-        'list-item-bond': 'templates/actor/partial/psychological/ListItemBond.html',
-        'list-item-disorder': 'templates/actor/partial/psychological/ListItemDisorder.html',
-        'list-item-motivation': 'templates/actor/partial/psychological/ListItemMotivation.html',
-        'list-item-skill': 'templates/actor/partial/skill/ListItemSkill.html',
-        'list-adaptation': 'templates/actor/partial/psychological/Adaptation.html',
+        'list-item-weapon': 'templates/actor/agent/partial/inventory/ListItemWeapon.html',
+        'list-item-armor': 'templates/actor/agent/partial/inventory/ListItemArmor.html',
+        'list-item-gear': 'templates/actor/agent/partial/inventory/ListItemGear.html',
+        'list-item-bond': 'templates/actor/agent/partial/psychological/ListItemBond.html',
+        'list-item-disorder': 'templates/actor/agent/partial/psychological/ListItemDisorder.html',
+        'list-item-motivation': 'templates/actor/agent/partial/psychological/ListItemMotivation.html',
+        'list-item-skill': 'templates/actor/agent/partial/skill/ListItemSkill.html',
+        'list-adaptation': 'templates/actor/agent/partial/psychological/Adaptation.html',
     };
 
     const templates: TemplatePath[] = [
-        `templates/actor/Agent.html`,
+        `templates/actor/agent/AgentSheet.html`,
 
-        `templates/actor/tabs/Attributes.html`,
-        `templates/actor/tabs/Biography.html`,
-        `templates/actor/tabs/Inventory.html`,
-        `templates/actor/tabs/Miscellaneous.html`,
-        `templates/actor/tabs/Psychological.html`,
-        `templates/actor/tabs/SkillsList.html`,
-        `templates/actor/tabs/Statistics.html`,
-        `templates/actor/tabs/Description.html`,
+        `templates/actor/agent/tabs/Attributes.html`,
+        `templates/actor/agent/tabs/Biography.html`,
+        `templates/actor/agent/tabs/Inventory.html`,
+        `templates/actor/agent/tabs/Miscellaneous.html`,
+        `templates/actor/agent/tabs/Psychological.html`,
+        `templates/actor/agent/tabs/SkillsList.html`,
+        `templates/actor/agent/tabs/Statistics.html`,
+        `templates/actor/agent/tabs/Description.html`,
 
         `templates/item/GearSheet.html`,
         `templates/item/WeaponSheet.html`,

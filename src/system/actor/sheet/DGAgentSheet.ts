@@ -33,7 +33,7 @@ export interface DGAgentSheetData extends DGActorSheetData {
 export class DGAgentSheet extends DGActorSheet<DGAgentSheetOptions, DGAgentSheetData, DGAgent> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/actor/Agent.html`;
+        options.template = `systems/${SYSTEM_NAME}/templates/actor/agent/AgentSheet.html`;
         return options;
     }
 
