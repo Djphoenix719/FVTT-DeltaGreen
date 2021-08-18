@@ -22,9 +22,25 @@ import { PercentileModifierDialog, PercentileModifierDialogResults } from '../..
 import { DamageModifierDialog, DamageModifierDialogResults } from '../../dialog/DamageModifierDialog';
 import { preprocessEvent } from '../../util/Sheet';
 import { DGActor } from '../DGActor';
+import { DGSkill } from '../../item/DGSkill';
+import { DGWeapon } from '../../item/DGWeapon';
+import { DGArmor } from '../../item/DGArmor';
+import { DGGear } from '../../item/DGGear';
 
+export interface SkillGroup {
+    name: string;
+    skills: DGSkill[];
+}
 export interface DGActorSheetOptions extends ActorSheet.Options {}
-export interface DGActorSheetData extends ActorSheet.Data {}
+export interface DGActorSheetData extends ActorSheet.Data {
+    skills: SkillGroup[];
+    collapsibles: Record<string, boolean>;
+    inventory: {
+        weapons: DGWeapon[];
+        armor: DGArmor[];
+        gear: DGGear[];
+    };
+}
 
 export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData extends DGActorSheetData, TActor extends DGActor> extends ActorSheet<
     TOptions,
@@ -144,6 +160,36 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
             });
             dialog.render(true);
         });
+    }
+
+    public async getData(options?: Application.RenderOptions): Promise<TData> {
+        const renderData = await super.getData(options);
+
+        const skillGroups = Object.entries(this.actor.skillGroups).map(([key, value]) => {
+            return {
+                name: key,
+                skills: value,
+            };
+        });
+        for (const group of skillGroups) {
+            group.skills.sort((a, b) => {
+                return a.data.name.localeCompare(b.data.name);
+            });
+        }
+        skillGroups.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        });
+
+        renderData.skills = skillGroups;
+        renderData.inventory = {
+            weapons: this.actor.getItemsOfType('weapon'),
+            armor: this.actor.getItemsOfType('armor'),
+            gear: this.actor.getItemsOfType('gear'),
+        };
+
+        renderData.collapsibles = this._collapsibles;
+
+        return renderData;
     }
 
     public activateListeners(html: JQuery) {

@@ -21,7 +21,7 @@ import { DGPercentileRoll } from '../../dice/DGPercentileRoll';
 import { DamagePartType, DGDamageRoll, DGDamageRollPart } from '../../dice/DGDamageRoll';
 import { preprocessEvent, preprocessEventWithId } from '../../util/Sheet';
 import { DGWeapon } from '../../item/DGWeapon';
-import { DGActorSheet, DGActorSheetData, DGActorSheetOptions } from './DGActorSheet';
+import { DGActorSheet, DGActorSheetData, DGActorSheetOptions, SkillGroup } from './DGActorSheet';
 import { DGSkill } from '../../item/DGSkill';
 import { DGArmor } from '../../item/DGArmor';
 import { DGGear } from '../../item/DGGear';
@@ -31,19 +31,8 @@ import { DGDisorder } from '../../item/DGDisorder';
 import { SYSTEM_NAME } from '../../Constants';
 import { DGAgent } from '../DGAgent';
 
-interface SkillGroup {
-    name: string;
-    skills: DGSkill[];
-}
 export interface DGAgentSheetOptions extends DGActorSheetOptions {}
 export interface DGAgentSheetData extends DGActorSheetData {
-    skills: SkillGroup[];
-    collapsibles: Record<string, boolean>;
-    inventory: {
-        weapons: DGWeapon[];
-        armor: DGArmor[];
-        gear: DGGear[];
-    };
     bonds: DGBond[];
     motivations: DGMotivation[];
     disorders: DGDisorder[];
@@ -58,33 +47,9 @@ export class DGAgentSheet extends DGActorSheet<DGAgentSheetOptions, DGAgentSheet
     public async getData(options?: Application.RenderOptions): Promise<DGAgentSheetData> {
         const renderData = await super.getData(options);
 
-        const skillGroups = Object.entries(this.actor.skillGroups).map(([key, value]) => {
-            return {
-                name: key,
-                skills: value,
-            };
-        });
-        for (const group of skillGroups) {
-            group.skills.sort((a, b) => {
-                return a.data.name.localeCompare(b.data.name);
-            });
-        }
-        skillGroups.sort((a, b) => {
-            return a.name.localeCompare(b.name);
-        });
-
-        renderData.skills = skillGroups;
-
         renderData.bonds = this.actor.getItemsOfType('bond');
         renderData.motivations = this.actor.getItemsOfType('motivation');
         renderData.disorders = this.actor.getItemsOfType('disorder');
-        renderData.inventory = {
-            weapons: this.actor.getItemsOfType('weapon'),
-            armor: this.actor.getItemsOfType('armor'),
-            gear: this.actor.getItemsOfType('gear'),
-        };
-
-        renderData.collapsibles = this._collapsibles;
 
         return renderData;
     }
