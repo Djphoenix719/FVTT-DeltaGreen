@@ -16,7 +16,7 @@
 
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
 import { DGItemPhysical, PhysicalDataSourceData } from './DGItemPhysical';
-import { Bounded, Max, Value } from '../../types/Helpers';
+import { Bounded, Value } from '../../types/Helpers';
 import { ItemTypeWeapon } from '../../types/Item';
 import { DGSkill } from './DGSkill';
 

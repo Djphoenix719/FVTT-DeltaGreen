@@ -31,7 +31,6 @@ import { DGPercentileRoll } from './dice/DGPercentileRoll';
 import { DGDamageRoll } from './dice/DGDamageRoll';
 import { CorruptionTracker } from './app/CorruptionTracker';
 import { improveSkills } from './macro/ImproveSkills';
-import { createTestDocuments } from './TestData';
 import { DGArmor } from './item/DGArmor';
 import { DGBond } from './item/DGBond';
 import { DGDisorder } from './item/DGDisorder';
@@ -40,7 +39,6 @@ import { DGMotivation } from './item/DGMotivation';
 import { DGSkill } from './item/DGSkill';
 import { DGWeapon } from './item/DGWeapon';
 import { SystemSettings } from './SystemSettings';
-import { Migrate_v1v2 } from './migration/v2/Migrate_v1v2';
 import { DGNPC } from './actor/DGNPC';
 import { DGActor } from './actor/DGActor';
 

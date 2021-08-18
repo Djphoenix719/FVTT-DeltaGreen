@@ -18,8 +18,8 @@ import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-t
 import { Bounded, DGContext, Value } from '../../types/Helpers';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { BaseActor } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/documents.mjs';
-import { AdaptationType, DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType } from '../../types/Constants';
-import { ActorType, ActorTypeAgent, Statistic } from '../../types/Actor';
+import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType } from '../../types/Constants';
+import { Statistic } from '../../types/Actor';
 import { DGSkill } from '../item/DGSkill';
 import { ItemType } from '../../types/Item';
 import { ItemTypeMap } from '../../types/System';

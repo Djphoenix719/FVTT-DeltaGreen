@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-import { AdaptationType, DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType, UNNATURAL_ID } from '../../types/Constants';
+import { AdaptationType, UNNATURAL_ID } from '../../types/Constants';
 import { DGItem } from '../item/DGItem';
-import { ItemType } from '../../types/Item';
 import { DGPercentageRollPart, DGPercentileRoll } from '../dice/DGPercentileRoll';
-import { DGDamageRoll, DGDamageRollPart } from '../dice/DGDamageRoll';
-import { ItemTypeMap } from '../../types/System';
 import { Bounded, Value } from '../../types/Helpers';
 import { ActorTypeAgent } from '../../types/Actor';
 import { ActorDataSourceData, DGActor } from './DGActor';
-import { DGSkill } from '../item/DGSkill';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 
 interface AgentDataSourceData extends ActorDataSourceData {

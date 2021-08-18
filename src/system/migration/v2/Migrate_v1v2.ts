@@ -17,10 +17,7 @@
 import { RecursiveKeyOf } from '../../../types/Helpers';
 import { BaseMigration } from '../BaseMigration';
 import { SystemSetting, SystemSettings } from '../../SystemSettings';
-import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { SYSTEM_NAME } from '../../Constants';
-import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes';
-import { data } from 'jquery';
 
 // <editor-fold desc="V1 Types">
 interface DataStore<TType extends string, TData extends object> {
