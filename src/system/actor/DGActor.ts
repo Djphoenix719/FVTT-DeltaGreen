@@ -18,9 +18,13 @@ import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-t
 import { Bounded, DGContext, Value } from '../../types/Helpers';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { BaseActor } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/documents.mjs';
-import { AdaptationType, DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, StatisticType } from '../../types/Constants';
+import { AdaptationType, DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType } from '../../types/Constants';
 import { ActorType, ActorTypeAgent, Statistic } from '../../types/Actor';
 import { DGSkill } from '../item/DGSkill';
+import { ItemType } from '../../types/Item';
+import { ItemTypeMap } from '../../types/System';
+import { DGPercentageRollPart, DGPercentileRoll } from '../dice/DGPercentileRoll';
+import { DGDamageRoll, DGDamageRollPart } from '../dice/DGDamageRoll';
 
 type PreCreateActorOptions = {
     temporary: boolean;
@@ -94,13 +98,6 @@ export class DGActor extends Actor {
     }
 
     /**
-     * Get an in-the-moment listing of all skills, core and custom.
-     */
-    public get skills() {
-        return this.items.filter((item) => item.type === ItemTypeSkill);
-    }
-
-    /**
      * Get in-the-moment groups of skills as a record of skill arrays.
      */
     public get skillGroups() {
@@ -122,6 +119,172 @@ export class DGActor extends Actor {
         } else {
             const ready = { dg: { ready: true } };
             return new CONFIG.DG.Actor.documentClasses[data.type](data, { ...context, ...ready });
+        }
+    }
+
+    /**
+     * Get all items of a specific type.
+     * @param type
+     */
+    public getItemsOfType<TType extends ItemType>(type: TType): InstanceType<ItemTypeMap[TType]['cls']>[] {
+        return this.items.filter((item) => item.type === type) as InstanceType<ItemTypeMap[TType]['cls']>[];
+    }
+
+    /**
+     * Get the name of a skill.
+     * @param id The id of the skill.
+     */
+    public getSkillName(id: string): string | undefined {
+        const skill = this.items.get(id);
+        if (skill?.data.type === ItemTypeSkill) {
+            return skill.name!;
+        }
+        return undefined;
+    }
+
+    /**
+     * Roll a luck check for the actor.
+     * @param modifiers Roll modifiers.
+     */
+    public async rollLuck(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        return new DGPercentileRoll({
+            label: game.i18n.localize(`DG.DICE.luckCheck`),
+            target: {
+                base: {
+                    label: game.i18n.localize('DG.ATTRIBUTES.luck'),
+                    value: this.data.data.luck.value,
+                },
+                parts: modifiers,
+            },
+        }).roll();
+    }
+
+    /**
+     * Roll a skill with a specified name.
+     * @param name The name of the skill.
+     * @param modifiers Roll modifiers.
+     */
+    public async rollSkillName(name: string, modifiers: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        const skill = this.items.getName(name);
+
+        if (skill?.data.type === ItemTypeSkill) {
+            return this.rollSkill(skill.id!, modifiers);
+        }
+
+        throw new Error(`No skill with name of "${name}" found on actor.`);
+    }
+
+    /**
+     * Roll a skill with a specified id.
+     * @param id The id of the skill.
+     * @param modifiers Roll modifiers.
+     */
+    public async rollSkill(id: string, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        const skill = this.items.get(id);
+        if (skill?.data.type === ItemTypeSkill) {
+            return new DGPercentileRoll({
+                label: skill.name!,
+                target: {
+                    base: {
+                        label: skill.name!,
+                        value: skill.data.data.rating.value ?? 0,
+                    },
+                    parts: modifiers,
+                },
+            }).roll();
+        }
+
+        throw new Error(`No skill with id of "${id}" found on actor.`);
+    }
+
+    /**
+     * Roll a statistic * 5 check for the actor.
+     * @param id The statistic to target.
+     * @param modifiers Roll modifiers.
+     */
+    public async rollStatistic(id: StatisticType, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        const statistic = this.data.data.statistics[id];
+        return new DGPercentileRoll({
+            label: statistic.label,
+            target: {
+                base: {
+                    label: statistic.label,
+                    value: statistic.value * 5,
+                },
+                parts: modifiers,
+            },
+        }).roll();
+    }
+
+    /**
+     * Roll a weapon's damage.
+     * @param id The id of the weapon.
+     * @param modifiers Roll modifiers.
+     */
+    public async rollDamageForWeapon(id: string, modifiers?: DGDamageRollPart[]): Promise<DGDamageRoll> {
+        const weapon = this.items.get(id);
+        if (weapon?.data.type === ItemTypeWeapon) {
+            return new DGDamageRoll({
+                label: `${weapon.name!}: ${game.i18n.localize('DG.DICE.damage')}`,
+                lethality: weapon.data.data.lethality.value,
+                damage: {
+                    formula: weapon.data.data.damage.value,
+                    parts: modifiers,
+                },
+            }).roll();
+        }
+
+        throw new Error(`No weapon with id of "${id}" found on actor.`);
+    }
+
+    /**
+     * Roll a weapon's lethality.
+     * @param id The id of the weapon.
+     * @param modifiers Roll modifiers.
+     */
+    public async rollLethalityForWeapon(id: string, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        const weapon = this.items.get(id);
+        if (weapon?.data.type === ItemTypeWeapon) {
+            return new DGPercentileRoll({
+                label: game.i18n.localize('DG.DICE.lethalityCheck'),
+                target: {
+                    base: {
+                        label: game.i18n.localize('DG.ITEM.lethality'),
+                        value: weapon.data.data.lethality.value,
+                    },
+                    parts: modifiers,
+                },
+            }).roll();
+        }
+
+        throw new Error(`No weapon with id of "${id}" found on actor.`);
+    }
+
+    prepareData() {
+        super.prepareData();
+        const data = this.data.data;
+
+        data.health.max = this.healthMax;
+        data.willpower.max = this.willpowerMax;
+
+        for (const statistic of Object.values(data.statistics)) {
+            data.statistics[statistic.id].percentile = statistic.value * 5;
         }
     }
 }
