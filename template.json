@@ -1,7 +1,10 @@
 {
     "Actor": {
-        "types": ["agent", "npc", "unnatural"],
+        "types": ["agent", "npc", "unnatural", "schemaVersion"],
         "templates": {
+            "schemaVersion": {
+                "schemaVersion": 2
+            },
             "health": {
                 "health": {
                     "value": 10,
@@ -80,8 +83,7 @@
             }
         },
         "agent": {
-            "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills"],
-            "schemaVersion": 2,
+            "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills", "schemaVersion"],
             "biography": {
                 "profession": {
                     "value": ""
@@ -110,13 +112,15 @@
             }
         },
         "npc": {
-            "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills"],
-            "schemaVersion": 2
+            "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills", "schemaVersion"]
         }
     },
     "Item": {
-        "types": ["skill", "weapon", "armor", "gear", "bond", "motivation", "disorder"],
+        "types": ["skill", "weapon", "armor", "gear", "bond", "motivation", "disorder", "schemaVersion"],
         "templates": {
+            "schemaVersion": {
+                "schemaVersion": 2
+            },
             "crossed": {
                 "crossed": {
                     "value": false
@@ -140,6 +144,7 @@
             }
         },
         "skill": {
+            "templates": ["schemaVersion"],
             "rating": {
                 "value": 0
             },
@@ -157,7 +162,7 @@
             }
         },
         "weapon": {
-            "templates": ["description", "physical"],
+            "templates": ["description", "physical", "schemaVersion"],
             "skill": {
                 "value": ""
             },
@@ -182,16 +187,16 @@
             }
         },
         "armor": {
-            "templates": ["description", "physical"],
+            "templates": ["description", "physical", "schemaVersion"],
             "armorRating": {
                 "value": 0
             }
         },
         "gear": {
-            "templates": ["description", "physical"]
+            "templates": ["description", "physical", "schemaVersion"]
         },
         "wallet": {
-            "templates": ["description"],
+            "templates": ["description", "schemaVersion"],
             "trivial": 0,
             "standard": 0,
             "unusual": 0,
@@ -199,7 +204,7 @@
             "extreme": 0
         },
         "bond": {
-            "templates": ["description", "crossed"],
+            "templates": ["description", "crossed", "schemaVersion"],
             "damaged": {
                 "value": false
             },
@@ -208,10 +213,10 @@
             }
         },
         "motivation": {
-            "templates": ["description", "crossed"]
+            "templates": ["description", "crossed", "schemaVersion"]
         },
         "disorder": {
-            "templates": ["description", "crossed"]
+            "templates": ["description", "crossed", "schemaVersion"]
         }
     }
 }

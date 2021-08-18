@@ -30,7 +30,10 @@ type PreCreateActorOptions = {
     renderSheet: boolean;
     render: boolean;
 };
-Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: string) =>
+Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: string) => {
+    if (actor.items.filter((item) => item.type === ItemTypeSkill).length > 0) {
+        return;
+    }
     actor.data.update({
         items: DEFAULT_SKILLS_DEFINITION.map((skill) => {
             return {
@@ -45,8 +48,8 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
                 },
             };
         }),
-    }),
-);
+    });
+});
 
 interface AgentDataSourceData {
     schemaVersion: number;

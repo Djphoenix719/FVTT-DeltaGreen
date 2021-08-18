@@ -139,8 +139,6 @@ Hooks.on('setup', async () => {
 });
 
 Hooks.on('ready', async () => {
-    const migrator = new Migrate_v1v2();
-    await migrator.run();
     // createTestDocuments();
 });
 

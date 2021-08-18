@@ -14,43 +14,14 @@
  * limitations under the License.
  */
 
-import { Migrate_v1v2 } from './v2/Migrate_v1v2';
-
 export abstract class BaseMigration {
-    private static _migrations: BaseMigration[] = [new Migrate_v1v2()];
-    public static async run(): Promise<void> {
-        let shouldRun: BaseMigration[] = [];
-        for (const migration of this._migrations) {
-            if (!migration.shouldRun()) {
-                continue;
-            }
-
-            shouldRun = [...shouldRun, migration];
-        }
-
-        if (shouldRun.length > 0) {
-            new Dialog({
-                title: game.i18n.localize('DG.MIGRATION.title'),
-                content:
-                    `<h1>${game.i18n.localize('DG.MIGRATION.warning')}</h1>` +
-                    `<p>${game.i18n.localize('DG.MIGRATION.message1')}</p>` +
-                    `<p>${game.i18n.localize('DG.MIGRATION.message2')}</p>`,
-                buttons: {
-                    confirm: {
-                        label: game.i18n.localize('DG.MIGRATION.confirm'),
-                        callback: async () => {
-                            for (const migration of shouldRun) {
-                                await migration._run();
-                            }
-                        },
-                    },
-                },
-                default: 'confirm',
-            });
-        }
-    }
-
+    /**
+     * Should the migration run?
+     */
     public abstract shouldRun(): boolean;
 
-    protected abstract _run(): Promise<void>;
+    /**
+     * Run the migration to completion.
+     */
+    public abstract run(): Promise<void>;
 }

@@ -17,11 +17,10 @@
 import { RecursiveKeyOf } from '../../../types/Helpers';
 import { BaseMigration } from '../BaseMigration';
 import { SystemSetting, SystemSettings } from '../../SystemSettings';
-
-interface Updatable {
-    update(data: Record<string, any>): Promise<void>;
-    delete(): Promise<void>;
-}
+import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { SYSTEM_NAME } from '../../Constants';
+import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes';
+import { data } from 'jquery';
 
 // <editor-fold desc="V1 Types">
 interface DataStore<TType extends string, TData extends object> {
@@ -42,7 +41,7 @@ interface V1CustomSkill extends V1CoreSkill {
 }
 
 interface V1BaseActorData {
-    schemaVersion: 1.0;
+    schemaVersion: number;
     health: {
         value: number;
         min: number;
@@ -120,9 +119,8 @@ interface V1AgentData extends V1BaseActorData {
         education: string;
     };
 }
-interface V1Agent {
-    items: Collection<V1Item>;
-    data: DataStore<'agent', V1AgentData>;
+interface V1Agent extends DataStore<'agent', V1AgentData> {
+    items: V1Item[];
 }
 
 interface V1NPCData extends V1BaseActorData {
@@ -135,9 +133,8 @@ interface V1NPCData extends V1BaseActorData {
     shortDescription: string;
     showUntrainedSkills: boolean;
 }
-interface V1NPC {
-    items: Collection<V1Item>;
-    data: DataStore<'npc', V1NPCData>;
+interface V1NPC extends DataStore<'npc', V1NPCData> {
+    items: V1Item[];
 }
 
 interface V1UnnaturalData extends V1BaseActorData {
@@ -151,9 +148,8 @@ interface V1UnnaturalData extends V1BaseActorData {
     shortDescription: string;
     showUntrainedSkills: boolean;
 }
-interface V1Unnatural {
-    items: Collection<V1Item>;
-    data: DataStore<'unnatural', V1UnnaturalData>;
+interface V1Unnatural extends DataStore<'unnatural', V1UnnaturalData> {
+    items: V1Item[];
 }
 
 type V1Actor = V1Agent | V1NPC | V1Unnatural;
@@ -163,7 +159,7 @@ type V1Actor = V1Agent | V1NPC | V1Unnatural;
 interface V1BaseItemData {
     name: string;
     description: string;
-    schemaVersion?: 1.0;
+    schemaVersion?: number;
 }
 interface V1PhysicalItemData extends V1BaseItemData {
     equipped: boolean;
@@ -180,38 +176,28 @@ interface V1WeaponData extends V1PhysicalItemData {
     killRadius: string;
     ammo: string;
 }
-interface V1ItemWeapon extends Updatable {
-    data: DataStore<'weapon', V1WeaponData>;
-}
+interface V1ItemWeapon extends DataStore<'weapon', V1WeaponData> {}
 
 interface V1ArmorData extends V1PhysicalItemData {
     protection: number;
 }
-interface V1ItemArmor extends Updatable {
-    data: DataStore<'armor', V1ArmorData>;
-}
+interface V1ItemArmor extends DataStore<'armor', V1ArmorData> {}
 
 interface V1GearData extends V1PhysicalItemData {}
-interface V1ItemGear extends Updatable {
-    data: DataStore<'gear', V1GearData>;
-}
+interface V1ItemGear extends DataStore<'gear', V1GearData> {}
 
 interface V1MotivationData extends V1BaseItemData {
     disorder: string;
     crossedOut: boolean;
     disorderCured: boolean;
 }
-interface V1ItemMotivation extends Updatable {
-    data: DataStore<'motivation', V1MotivationData>;
-}
+interface V1ItemMotivation extends DataStore<'motivation', V1MotivationData> {}
 
 interface V1BondData extends V1BaseItemData {
     relationship: string;
     score: number;
 }
-interface V1ItemBond extends Updatable {
-    data: DataStore<'bond', V1BondData>;
-}
+interface V1ItemBond extends DataStore<'bond', V1BondData> {}
 
 type V1Item = V1ItemWeapon | V1ItemArmor | V1ItemMotivation | V1ItemBond | V1ItemGear;
 // </editor-fold>
@@ -288,8 +274,8 @@ interface V2AgentData {
         notes: Value<string>;
     };
 }
-interface V2ActorAgent {
-    data: DataStore<'agent', V2AgentData>;
+interface V2ActorAgent extends DataStore<'agent', V2AgentData> {
+    items: V2Item[];
 }
 
 interface V2PhysicalItemData {
@@ -299,12 +285,15 @@ interface V2PhysicalItemData {
     description: Value<string>;
 }
 
-interface V2GearData extends V2PhysicalItemData {}
+interface V2GearData extends V2PhysicalItemData {
+    schemaVersion: 2;
+}
 interface V2ItemGear {
     data: DataStore<'gear', V2GearData>;
 }
 
 interface V2WeaponData extends V2PhysicalItemData {
+    schemaVersion: 2;
     skill: Value<string>;
     range: Value<number>;
     damage: Value<string>;
@@ -318,6 +307,7 @@ interface V2ItemWeapon {
 }
 
 interface V2ArmorData extends V2PhysicalItemData {
+    schemaVersion: 2;
     armorRating: Value<number>;
 }
 interface V2ItemArmor {
@@ -325,6 +315,7 @@ interface V2ItemArmor {
 }
 
 interface V2SkillData {
+    schemaVersion: 2;
     rating: Value<number>;
     group: Value<string>;
     failureImproves: Value<boolean>;
@@ -336,6 +327,7 @@ interface V2ItemSkill {
 }
 
 interface V2MotivationData {
+    schemaVersion: 2;
     description: Value<string>;
     crossed: Value<boolean>;
 }
@@ -344,6 +336,7 @@ interface V2ItemMotivation {
 }
 
 interface V2DisorderData {
+    schemaVersion: 2;
     description: Value<string>;
     crossed: Value<boolean>;
 }
@@ -352,6 +345,7 @@ interface V2ItemDisorder {
 }
 
 interface V2BondData {
+    schemaVersion: 2;
     description: Value<string>;
     crossed: Value<boolean>;
     score: Value<number>;
@@ -369,354 +363,344 @@ type FlatDataMap<TData extends object> = {
 // </editor-fold>
 
 export class Migrate_v1v2 extends BaseMigration {
-    public getActorUpdates(oldActor: V1Actor): FlatDataMap<V2ActorAgent['data']> {
-        console.info(`Converting actor: "${oldActor.data.name}"`);
-        switch (oldActor.data.type) {
-            case 'agent':
-                return this.getAgentUpdates(oldActor as V1Agent);
-            case 'npc':
-                return {};
-                return this.getNPCUpdates(oldActor as V1NPC);
-            case 'unnatural':
-                return {};
-                return this.getUnnaturalUpdates(oldActor as V1Unnatural);
-        }
-    }
-
-    public getAgentUpdates(oldActor: V1Agent): FlatDataMap<V2ActorAgent['data']> {
-        const actorUpdates: FlatDataMap<V2ActorAgent['data']> = {};
-        const data = oldActor.data.data;
-
-        actorUpdates['data.schemaVersion'] = 2;
-
-        actorUpdates['data.health.value'] = data.health.value;
-        actorUpdates['data.willpower.value'] = data.wp.value;
-        actorUpdates['data.willpower.max'] = data.wp.min;
-
-        actorUpdates['data.statistics.strength.id'] = StatisticType.Strength;
-        actorUpdates['data.statistics.constitution.id'] = StatisticType.Constitution;
-        actorUpdates['data.statistics.dexterity.id'] = StatisticType.Dexterity;
-        actorUpdates['data.statistics.intelligence.id'] = StatisticType.Intelligence;
-        actorUpdates['data.statistics.power.id'] = StatisticType.Power;
-        actorUpdates['data.statistics.charisma.id'] = StatisticType.Charisma;
-
-        actorUpdates['data.statistics.strength.value'] = data.statistics.str.value;
-        actorUpdates['data.statistics.constitution.value'] = data.statistics.con.value;
-        actorUpdates['data.statistics.dexterity.value'] = data.statistics.dex.value;
-        actorUpdates['data.statistics.intelligence.value'] = data.statistics.int.value;
-        actorUpdates['data.statistics.power.value'] = data.statistics.pow.value;
-        actorUpdates['data.statistics.charisma.value'] = data.statistics.cha.value;
-
-        actorUpdates['data.statistics.strength.label'] = 'DG.STATISTICS.strength';
-        actorUpdates['data.statistics.constitution.label'] = 'DG.STATISTICS.constitution';
-        actorUpdates['data.statistics.dexterity.label'] = 'DG.STATISTICS.dexterity';
-        actorUpdates['data.statistics.intelligence.label'] = 'DG.STATISTICS.intelligence';
-        actorUpdates['data.statistics.power.label'] = 'DG.STATISTICS.power';
-        actorUpdates['data.statistics.charisma.label'] = 'DG.STATISTICS.charisma';
-
-        actorUpdates['data.biography.profession.value'] = data.biography.profession;
-        actorUpdates['data.biography.employer.value'] = data.biography.employer;
-        actorUpdates['data.biography.nationality.value'] = data.biography.nationality;
-        actorUpdates['data.biography.gender.value'] = data.biography.sex;
-        actorUpdates['data.biography.age.value'] = data.biography.age;
-        actorUpdates['data.biography.education.value'] = data.biography.education;
-        actorUpdates['data.biography.appearance.value'] = data.physical.description;
-        actorUpdates['data.biography.notes.value'] = data.physical.wounds;
-
-        const violence = [data.sanity.adaptations.violence.incident1, data.sanity.adaptations.violence.incident2, data.sanity.adaptations.violence.incident3];
-        const violenceAdapted = !violence.some((v) => !v);
-        const helplessness = [
-            data.sanity.adaptations.helplessness.incident1,
-            data.sanity.adaptations.helplessness.incident2,
-            data.sanity.adaptations.helplessness.incident3,
-        ];
-        const helplessnessAdapted = !helplessness.some((v) => !v);
-
-        actorUpdates['data.sanity.value'] = data.sanity.value;
-
-        actorUpdates['data.sanity.adaptations.violence.adapted'] = violenceAdapted;
-        actorUpdates['data.sanity.adaptations.violence.value'] = violence;
-
-        actorUpdates['data.sanity.adaptations.helplessness.adapted'] = helplessnessAdapted;
-        actorUpdates['data.sanity.adaptations.helplessness.value'] = helplessness;
-
-        return actorUpdates;
-    }
-    public getNPCUpdates(oldActor: V1NPC): FlatDataMap<V2ActorAgent['data']> {
-        throw new Error('');
-    }
-    public getUnnaturalUpdates(oldActor: V1Unnatural): FlatDataMap<V2ActorAgent['data']> {
-        throw new Error('');
-    }
-
-    public getActorSkills(oldActor: V1Actor): Record<string, any>[] {
+    public migrateActorData(oldActor: V1Actor): { updateData: Record<string, any>; newItems: Record<string, any>[] } {
+        const updates: FlatDataMap<V2ActorAgent> = {};
         const skills: Record<string, any>[] = [];
-        const allSkills = mergeObject(oldActor.data.data.skills, oldActor.data.data.typedSkills);
-        for (const key in allSkills) {
-            const skillData = allSkills[key];
 
-            let id: string;
-            if (key === 'unnatural') {
-                id = UNNATURAL_ID;
-            } else {
-                if (skillData.proficiency === 0) {
-                    continue;
+        updates['data.schemaVersion'] = 2;
+
+        if (oldActor.data.hasOwnProperty('wp')) {
+            updates['data.willpower.value'] = oldActor.data.wp.value;
+            updates['data.willpower.max'] = oldActor.data.wp.min;
+            (updates as any)[`data.-=wp`] = null;
+        }
+
+        if (oldActor.data.hasOwnProperty('health')) {
+            updates['data.health.value'] = oldActor.data.health.value;
+            (updates as any)[`data.health.-=min`] = null;
+            (updates as any)[`data.health.-=max`] = null;
+        }
+
+        if (oldActor.data.statistics.hasOwnProperty('str')) {
+            updates['data.statistics.strength.id'] = StatisticType.Strength;
+            updates['data.statistics.constitution.id'] = StatisticType.Constitution;
+            updates['data.statistics.dexterity.id'] = StatisticType.Dexterity;
+            updates['data.statistics.intelligence.id'] = StatisticType.Intelligence;
+            updates['data.statistics.power.id'] = StatisticType.Power;
+            updates['data.statistics.charisma.id'] = StatisticType.Charisma;
+
+            updates['data.statistics.strength.value'] = oldActor.data.statistics.str.value;
+            updates['data.statistics.constitution.value'] = oldActor.data.statistics.con.value;
+            updates['data.statistics.dexterity.value'] = oldActor.data.statistics.dex.value;
+            updates['data.statistics.intelligence.value'] = oldActor.data.statistics.int.value;
+            updates['data.statistics.power.value'] = oldActor.data.statistics.pow.value;
+            updates['data.statistics.charisma.value'] = oldActor.data.statistics.cha.value;
+
+            updates['data.statistics.strength.label'] = 'DG.STATISTICS.strength';
+            updates['data.statistics.constitution.label'] = 'DG.STATISTICS.constitution';
+            updates['data.statistics.dexterity.label'] = 'DG.STATISTICS.dexterity';
+            updates['data.statistics.intelligence.label'] = 'DG.STATISTICS.intelligence';
+            updates['data.statistics.power.label'] = 'DG.STATISTICS.power';
+            updates['data.statistics.charisma.label'] = 'DG.STATISTICS.charisma';
+
+            (updates as any)[`data.statistics.-=cha`] = null;
+            (updates as any)[`data.statistics.-=pow`] = null;
+            (updates as any)[`data.statistics.-=str`] = null;
+            (updates as any)[`data.statistics.-=dex`] = null;
+            (updates as any)[`data.statistics.-=int`] = null;
+            (updates as any)[`data.statistics.-=con`] = null;
+        }
+
+        if (oldActor.data.hasOwnProperty('skills')) {
+            const oldSkills = { ...oldActor.data.skills, ...oldActor.data.typedSkills };
+            const isTypedSkill = (skill: V1CoreSkill | V1CustomSkill): skill is V1CustomSkill => {
+                return skill.hasOwnProperty('group');
+            };
+            for (const [key, skill] of Object.entries(oldSkills)) {
+                let id: string;
+                if (key === 'unnatural') {
+                    id = UNNATURAL_ID;
+                } else {
+                    if (skill.proficiency === 0) {
+                        continue;
+                    }
+                    id = foundry.utils.randomID(16);
                 }
-                id = foundry.utils.randomID(16);
-            }
 
-            let name = skillData.label;
-            if (skillData.hasOwnProperty('group') && skillData.group !== '') {
-                name = `${skillData.group} (${skillData.label})`;
-            }
-
-            skills.push({
-                _id: id,
-                name,
-                type: 'skill',
-                data: {
-                    rating: {
-                        value: skillData.proficiency,
-                    },
-                    group: {
-                        value: '',
-                    },
-                    failureImproves: {
-                        value: skillData.failure !== undefined,
-                    },
-                    sessionFailure: {
-                        value: skillData.failure ?? false,
-                    },
-                    canDelete: {
-                        value: true,
-                    },
-                },
-            });
-        }
-        return skills;
-    }
-
-    public getItemUpdates(oldItem: V1Item): Record<string, any> {
-        console.info(`Converting item: "${oldItem.data.name}"`);
-        switch (oldItem.data.type) {
-            case 'weapon':
-                return this.getWeaponUpdates(oldItem as V1ItemWeapon);
-            case 'armor':
-                return this.getArmorUpdates(oldItem as V1ItemArmor);
-            case 'motivation':
-                return this.getMotivationUpdates(oldItem as V1ItemMotivation);
-            case 'bond':
-                return this.getBondUpdates(oldItem as V1ItemBond);
-            case 'gear':
-                return this.getGearUpdates(oldItem as V1ItemGear);
-        }
-    }
-
-    public getBasePhysicalItemData(oldItem: V1PhysicalItemData): FlatDataMap<DataStore<any, V2PhysicalItemData>> {
-        const updates: FlatDataMap<DataStore<any, V2PhysicalItemData>> = {};
-
-        updates['data.expense.value'] = oldItem.expense;
-        updates['data.equipped.value'] = oldItem.equipped;
-        updates['data.carried.value'] = true;
-        updates['data.description.value'] = oldItem.description;
-
-        return updates;
-    }
-    public getWeaponUpdates(oldItem: V1ItemWeapon): Record<string, any> {
-        let updates: FlatDataMap<V2ItemWeapon['data']> = {};
-        updates['_id'] = oldItem.data._id;
-
-        updates = mergeObject(updates, this.getBasePhysicalItemData(oldItem.data.data));
-
-        updates['data.skill.value'] = oldItem.data.data.skill;
-        updates['data.range.value'] = oldItem.data.data.range.replace('M', '');
-        updates['data.damage.value'] = oldItem.data.data.damage;
-        updates['data.armorPiercing.value'] = oldItem.data.data.armorPiercing;
-        updates['data.lethality.value'] = oldItem.data.data.lethality;
-        updates['data.killRadius.value'] = oldItem.data.data.killRadius.replace('M', '');
-        updates['data.ammo.value'] = oldItem.data.data.ammo;
-        updates['data.ammo.max'] = oldItem.data.data.ammo;
-
-        return mergeObject(updates, {
-            ['data.-=name']: null,
-            ['data.-=isLethal']: null,
-        });
-    }
-    public getArmorUpdates(oldItem: V1ItemArmor): Record<string, any> {
-        let updates: FlatDataMap<V2ItemArmor['data']> = {};
-        updates['_id'] = oldItem.data._id;
-
-        updates = mergeObject(updates, this.getBasePhysicalItemData(oldItem.data.data));
-
-        updates['data.armorRating.value'] = oldItem.data.data.protection;
-
-        return mergeObject(updates, {
-            ['data.-=name']: null,
-            ['data.-=protection']: null,
-        });
-    }
-    public getGearUpdates(oldItem: V1ItemGear): Record<string, any> {
-        let updates: FlatDataMap<V2ItemGear['data']> = {};
-        updates['_id'] = oldItem.data._id;
-
-        updates = mergeObject(updates, this.getBasePhysicalItemData(oldItem.data.data));
-
-        return mergeObject(updates, {
-            ['data.-=name']: null,
-        });
-    }
-    public getMotivationUpdates(oldItem: V1ItemMotivation): Record<string, any> {
-        const updates: FlatDataMap<V2ItemMotivation['data']> = {};
-        updates['_id'] = oldItem.data._id;
-
-        updates['data.crossed.value'] = oldItem.data.data.crossedOut;
-        updates['data.description.value'] = oldItem.data.data.description;
-
-        return mergeObject(updates, {
-            ['data.-=name']: null,
-            ['data.-=crossedOut']: null,
-            ['data.-=disorder']: null,
-            ['data.-=disorderCured']: null,
-        });
-    }
-    public getBondUpdates(oldItem: V1ItemBond): FlatDataMap<V2ItemBond['data']> {
-        const updates: FlatDataMap<V2ItemBond['data']> = {};
-        updates['_id'] = oldItem.data._id;
-
-        updates['data.description.value'] = `<p>${oldItem.data.data.relationship}</p><p>${oldItem.data.data.description}</p>`;
-        updates['data.score.value'] = oldItem.data.data.score;
-
-        return mergeObject(updates, {
-            ['data.-=name']: null,
-            ['data.-=relationship']: null,
-        });
-    }
-
-    public getDisorderFromMotivation(oldItem: V1ItemMotivation): FlatDataMap<V2ItemDisorder['data']> | undefined {
-        const updates: FlatDataMap<V2ItemDisorder['data']> = {};
-
-        if (oldItem.data.data.disorder === '') {
-            return undefined;
-        }
-
-        updates['_id'] = foundry.utils.randomID(16);
-        updates['name'] = oldItem.data.data.disorder;
-        updates['type'] = 'disorder';
-
-        updates['data.crossed.value'] = oldItem.data.data.disorderCured;
-        updates['data.description.value'] = oldItem.data.data.description;
-
-        return updates;
-    }
-
-    public async updateActor(actor: Actor): Promise<void> {
-        const oldActor = actor as unknown as V1Actor;
-        if (oldActor.data.data.schemaVersion !== 1) {
-            return;
-        }
-        if (actor.data.type !== 'agent') {
-            return;
-        }
-
-        const newData: Record<string, any> = flattenObject(this.getActorUpdates(oldActor));
-
-        newData[`data.biography.-=sex`] = null;
-        newData[`data.statistics.-=cha`] = null;
-        newData[`data.statistics.-=pow`] = null;
-        newData[`data.statistics.-=str`] = null;
-        newData[`data.statistics.-=dex`] = null;
-        newData[`data.statistics.-=int`] = null;
-        newData[`data.statistics.-=con`] = null;
-        newData[`data.-=skills`] = null;
-        newData[`data.-=typedSkills`] = null;
-        newData[`data.-=wp`] = null;
-        newData[`data.-=physical`] = null;
-        newData[`data.health.-=min`] = null;
-        newData[`data.health.-=max`] = null;
-        newData[`data.health.-=protection`] = null;
-        newData[`data.sanity.-=min`] = null;
-        newData[`data.sanity.-=max`] = null;
-        newData[`data.sanity.-=currentBreakingPoint`] = null;
-        newData[`data.-=physicalDescription`] = null;
-
-        const newItems: Record<string, any>[] = this.getActorSkills(oldActor);
-        const itemUpdates: Record<string, any>[] = [];
-        for (const oldItem of oldActor.items) {
-            itemUpdates.push(this.getItemUpdates(oldItem));
-            if (oldItem.data.type === 'motivation') {
-                const disorder = this.getDisorderFromMotivation(oldItem as V1ItemMotivation);
-                if (disorder !== undefined) {
-                    newItems.push(disorder);
+                let name = skill.label;
+                if (isTypedSkill(skill) && skill.group !== '') {
+                    name = `${skill.group} (${skill.label})`;
                 }
+
+                skills.push({
+                    _id: id,
+                    name,
+                    type: 'skill',
+                    data: {
+                        'rating.value': skill.proficiency,
+                        'group.value': '',
+                        'failureImproves.value': skill.failure !== undefined,
+                        'canDelete.value': true,
+                        'sessionFailure.value': skill.failure ?? false,
+                    },
+                    [`flags.${SYSTEM_NAME}.prevSkillId`]: key,
+                });
+            }
+            (updates as any)[`data.-=skills`] = null;
+            (updates as any)[`data.-=typedSkills`] = null;
+        }
+
+        if (oldActor.type === 'agent') {
+            if (oldActor.data.biography.hasOwnProperty('sex')) {
+                updates['data.biography.profession.value'] = oldActor.data.biography.profession;
+                updates['data.biography.employer.value'] = oldActor.data.biography.employer;
+                updates['data.biography.nationality.value'] = oldActor.data.biography.nationality;
+                updates['data.biography.gender.value'] = oldActor.data.biography.sex;
+                updates['data.biography.age.value'] = oldActor.data.biography.age;
+                updates['data.biography.education.value'] = oldActor.data.biography.education;
+                updates['data.biography.appearance.value'] = oldActor.data.physical.description;
+                updates['data.biography.notes.value'] = oldActor.data.physical.wounds;
+                (updates as any)[`data.biography.-=sex`] = null;
+            }
+            if (oldActor.data.sanity.hasOwnProperty('currentBreakingPoint')) {
+                const violence = [
+                    oldActor.data.sanity.adaptations.violence.incident1,
+                    oldActor.data.sanity.adaptations.violence.incident2,
+                    oldActor.data.sanity.adaptations.violence.incident3,
+                ];
+                const violenceAdapted = !violence.some((v) => !v);
+                const helplessness = [
+                    oldActor.data.sanity.adaptations.helplessness.incident1,
+                    oldActor.data.sanity.adaptations.helplessness.incident2,
+                    oldActor.data.sanity.adaptations.helplessness.incident3,
+                ];
+                const helplessnessAdapted = !helplessness.some((v) => !v);
+
+                updates['data.sanity.value'] = oldActor.data.sanity.value;
+
+                updates['data.sanity.adaptations.violence.adapted'] = violenceAdapted;
+                updates['data.sanity.adaptations.violence.value'] = violence;
+
+                updates['data.sanity.adaptations.helplessness.adapted'] = helplessnessAdapted;
+                updates['data.sanity.adaptations.helplessness.value'] = helplessness;
+
+                (updates as any)[`data.sanity.-=max`] = null;
+                (updates as any)[`data.sanity.-=currentBreakingPoint`] = null;
+            }
+            if (oldActor.data.sanity.hasOwnProperty('physicalDescription')) {
+                (updates as any)[`data.-=physicalDescription`] = null;
+            }
+            if (oldActor.data.sanity.hasOwnProperty('physical')) {
+                (updates as any)[`data.-=physical`] = null;
             }
         }
 
-        await actor.update(expandObject(newData));
-        await actor.updateEmbeddedDocuments('Item', itemUpdates);
-        await actor.createEmbeddedDocuments('Item', newItems);
-    }
+        if (oldActor.items) {
+            const items = oldActor.items.reduce((arr: Record<string, any>, itemData) => {
+                let itemUpdate = this.migrateItemData(itemData, skills);
 
-    public async updateItem(item: Item): Promise<Record<string, any>[]> {
-        const oldItem = item as unknown as V1Item;
-        if (oldItem.data.data.schemaVersion !== 1) {
-            return [];
-        }
+                if (!isObjectEmpty(itemUpdate.updateData)) {
+                    itemUpdate.updateData._id = itemData._id;
+                    arr.push(expandObject(itemUpdate.updateData));
+                }
 
-        const newData: Record<string, any> = flattenObject(this.getItemUpdates(oldItem));
+                return arr;
+            }, []);
 
-        newData[`data.biography.-=sex`] = null;
-        newData[`data.statistics.-=cha`] = null;
-
-        let newItems: Record<string, any>[] = [];
-        if (oldItem.data.type === 'motivation') {
-            const disorder = this.getDisorderFromMotivation(oldItem as V1ItemMotivation);
-            if (disorder !== undefined) {
-                newItems.push(disorder);
+            if (items.length > 0) {
+                updates.items = items;
             }
         }
 
-        await item.update(this.getItemUpdates(oldItem));
-
-        return newItems;
+        return { updateData: updates, newItems: skills };
     }
 
-    public async updateCompendium(compendium: CompendiumCollection<CompendiumCollection.Metadata>) {
-        const entities = (await compendium.getDocuments()) as Actor[] | Item[];
-        for (const entity of entities) {
-            if (['agent', 'npc', 'unnatural'].includes(entity.data.type)) {
-                await this.updateActor(entity as Actor);
-            } else if (['weapon', 'armor', 'motivation', 'bond', 'gear'].includes(entity.data.type)) {
-                await this.updateItem(entity as Item);
+    public migrateItemData(oldItem: V1Item, skills?: Record<string, any>[]): { updateData: Record<string, any>; newItems: Record<string, any>[] } {
+        const updates: FlatDataMap<V2Item['data']> = {};
+        const newItems: Record<string, any>[] = [];
+        if (oldItem.data.hasOwnProperty('name')) {
+            updates['_id'] = oldItem._id;
+
+            switch (oldItem.type) {
+                case 'weapon':
+                case 'armor':
+                case 'gear':
+                    updates['data.expense.value'] = oldItem.data.expense;
+                    updates['data.equipped.value'] = oldItem.data.equipped;
+                    updates['data.description.value'] = oldItem.data.description;
+                    updates['data.carried.value'] = true;
+                    break;
+            }
+
+            switch (oldItem.type) {
+                case 'weapon':
+                    updates['data.skill.value'] = skills?.find((skill) => skill[`flags.${SYSTEM_NAME}.prevSkillId`] === oldItem.data.skill)?._id ?? '';
+                    updates['data.range.value'] = oldItem.data.range.replace('M', '');
+                    updates['data.damage.value'] = oldItem.data.damage;
+                    updates['data.armorPiercing.value'] = oldItem.data.armorPiercing;
+                    updates['data.lethality.value'] = oldItem.data.lethality;
+                    updates['data.killRadius.value'] = oldItem.data.killRadius.replace('M', '');
+                    updates['data.ammo.value'] = oldItem.data.ammo;
+                    updates['data.ammo.max'] = oldItem.data.ammo;
+                    (updates as any)['data.-=name'] = null;
+                    (updates as any)['data.-=isLethal'] = null;
+                    break;
+                case 'armor':
+                    updates['data.armorRating.value'] = oldItem.data.protection;
+                    (updates as any)['data.-=name'] = null;
+                    (updates as any)['data.-=protection'] = null;
+                    break;
+                case 'gear':
+                    (updates as any)['data.-=name'] = null;
+                    break;
+                case 'motivation':
+                    updates['data.crossed.value'] = oldItem.data.crossedOut;
+                    updates['data.description.value'] = oldItem.data.description;
+
+                    (updates as any)['data.-=name'] = null;
+                    (updates as any)['data.-=crossedOut'] = null;
+                    (updates as any)['data.-=disorder'] = null;
+                    (updates as any)['data.-=disorderCured'] = null;
+
+                    if (oldItem.data.disorder) {
+                        const disorder: Record<string, any> = {};
+                        disorder['_id'] = foundry.utils.randomID(16);
+                        disorder['name'] = oldItem.data.disorder;
+                        disorder['type'] = 'disorder';
+                        disorder['data.crossed.value'] = oldItem.data.disorderCured;
+                        disorder['data.description.value'] = oldItem.data.description;
+                        newItems.push(disorder);
+                    }
+                    break;
+                case 'bond':
+                    updates['data.description.value'] = `${oldItem.data.relationship}\n${oldItem.data.description}`;
+                    updates['data.score.value'] = oldItem.data.score;
+
+                    (updates as any)['data.-=name'] = null;
+                    (updates as any)['data.-=relationship'] = null;
+                    break;
             }
         }
+
+        return {
+            updateData: updates,
+            newItems,
+        };
     }
 
-    public async updateItemDirectory() {
-        for (let item of game.items!) {
-        }
+    public migrateSceneData(scene: Scene) {
+        const tokens = scene.tokens.map((token) => {
+            const tokenData = token.toJSON();
+            if (!tokenData.actorId || tokenData.actorLink) {
+                tokenData.actorData = {};
+            } else if (!game.actors!.has(tokenData.actorId)) {
+                tokenData.actorId = null;
+                tokenData.actorData = {};
+            } else if (!tokenData.actorLink) {
+                const actorData = duplicate(tokenData.actorData);
+                const updateData = this.migrateActorData(actorData as unknown as V1Actor);
+                mergeObject(tokenData.actorData, updateData.updateData);
+            }
+            return tokenData;
+        });
+        return { tokens };
     }
-    public async updateActorDirectory() {
-        for (let actor of game.actors!) {
-            await this.updateActor(actor);
-        }
-    }
+
     public async updateCompendiums() {
-        for (const compendium of game.packs) {
-            await compendium.configure({ locked: false });
+        for (const pack of game.packs) {
+            const entityType = pack.metadata.entity;
+            if (pack.metadata.package !== 'world') {
+                continue;
+            }
+            if (entityType !== 'Actor' && entityType !== 'Item' && entityType !== 'Scene') {
+                continue;
+            }
 
-            await this.updateCompendium(compendium);
+            let wasLocked = pack.locked;
+            await pack.configure({ locked: false });
+            await pack.migrate();
 
-            await compendium.configure({ locked: false });
+            const documents = await pack.getDocuments();
+            for (const document of documents) {
+                try {
+                    let updateData: Record<string, any> = {};
+                    let newItems: Record<string, any>[] = [];
+
+                    switch (entityType) {
+                        case 'Actor':
+                            const actorData = this.migrateActorData(document.toObject());
+                            updateData = actorData.updateData;
+                            newItems = actorData.newItems;
+                            break;
+                        case 'Item':
+                            const itemData = this.migrateItemData(document.toObject());
+                            updateData = itemData.updateData;
+                            newItems = itemData.newItems;
+                            break;
+                        case 'Scene':
+                            updateData = this.migrateSceneData(document.data);
+                            break;
+                    }
+
+                    if (!foundry.utils.isObjectEmpty(updateData)) {
+                        await document.update(updateData);
+                    }
+                    if (newItems.length > 0) {
+                        await document.createEmbeddedDocuments('Item', newItems);
+                    }
+                } catch (e) {
+                    console.error(`Error migrating ${document.name} in ${pack.name}`);
+                    console.error(e);
+                }
+            }
+
+            await pack.configure({ locked: wasLocked });
         }
     }
 
     public shouldRun(): boolean {
-        return SystemSettings.get(SystemSetting.SchemaVersion) === 1;
+        const version = SystemSettings.get(SystemSetting.SchemaVersion);
+        return version === 0 || version == 1;
     }
 
-    public async _run() {
-        await this.updateItemDirectory();
-        await this.updateActorDirectory();
+    public async run() {
+        for (const document of game.actors!) {
+            try {
+                if (['npc', 'unnatural'].includes(document.data.type)) {
+                    continue;
+                }
+
+                const { updateData, newItems } = this.migrateActorData(document.toObject() as V1Actor);
+
+                if (!foundry.utils.isObjectEmpty(updateData)) {
+                    await document.update(updateData);
+                }
+                if (newItems.length > 0) {
+                    await document.createEmbeddedDocuments('Item', newItems);
+                }
+            } catch (e) {
+                console.error(`Error migrating ${document.name}`);
+                console.error(e);
+            }
+        }
+
+        for (const document of game.items!) {
+            try {
+                const { updateData, newItems } = this.migrateItemData(document.toObject() as V1Item);
+
+                if (!foundry.utils.isObjectEmpty(updateData)) {
+                    await document.update(updateData);
+                }
+                if (newItems.length > 0) {
+                    await Item.createDocuments(newItems as any);
+                }
+            } catch (e) {
+                console.error(`Error migrating ${document.name}`);
+                console.error(e);
+            }
+        }
+
         await this.updateCompendiums();
+        await SystemSettings.set(SystemSetting.SchemaVersion, 2);
     }
 }

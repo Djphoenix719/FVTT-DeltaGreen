@@ -15,6 +15,7 @@
  */
 
 import { SYSTEM_NAME } from './Constants';
+import { DataMigrator } from './migration/DataMigrator';
 
 /**
  * All system settings.
@@ -66,7 +67,8 @@ export class SystemSettings {
             config: false,
         });
 
-        if (this.get(SystemSetting.SchemaVersion) === undefined) {
+        if (this.get(SystemSetting.SchemaVersion) === 0) {
+            await DataMigrator.run();
         }
     }
 }
