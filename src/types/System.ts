@@ -24,8 +24,9 @@ import { DGDisorder } from '../system/item/DGDisorder';
 import { DGGear } from '../system/item/DGGear';
 import { DGArmor } from '../system/item/DGArmor';
 import { DGWeapon } from '../system/item/DGWeapon';
-import { ActorType, ActorTypeAgent } from './Actor';
+import { ActorType, ActorTypeAgent, ActorTypeNPC, ActorTypeUnnatural } from './Actor';
 import { DGActor } from '../system/actor/DGActor';
+import { DGNPC } from '../system/actor/DGNPC';
 
 export const SYSTEM_DATA_SCHEMA_VERSION = 2;
 
@@ -71,6 +72,14 @@ export interface ActorTypeMap extends TypeMap<ActorType, typeof DGActor> {
         type: ActorTypeAgent;
         cls: typeof DGAgent;
     };
+    npc: {
+        type: ActorTypeNPC;
+        cls: typeof DGNPC;
+    };
+    unnatural: {
+        type: ActorTypeUnnatural;
+        cls: typeof DGNPC;
+    };
 }
 
 declare global {
@@ -89,7 +98,7 @@ declare global {
         };
     }
     interface DocumentClassConfig {
-        Actor: typeof DGAgent;
+        Actor: typeof DGActor;
         Item: typeof DGItem;
     }
 }

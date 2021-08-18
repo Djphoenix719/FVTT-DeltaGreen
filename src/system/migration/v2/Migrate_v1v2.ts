@@ -41,7 +41,6 @@ interface V1CustomSkill extends V1CoreSkill {
 }
 
 interface V1BaseActorData {
-    schemaVersion: number;
     health: {
         value: number;
         min: number;
@@ -159,7 +158,6 @@ type V1Actor = V1Agent | V1NPC | V1Unnatural;
 interface V1BaseItemData {
     name: string;
     description: string;
-    schemaVersion?: number;
 }
 interface V1PhysicalItemData extends V1BaseItemData {
     equipped: boolean;
@@ -247,7 +245,6 @@ interface Statistic<T extends StatisticType> {
 }
 
 interface V2AgentData {
-    schemaVersion: 2;
     health: Bounded<number>;
     willpower: Bounded<number>;
     sanity: Bounded<number> & {
@@ -285,15 +282,12 @@ interface V2PhysicalItemData {
     description: Value<string>;
 }
 
-interface V2GearData extends V2PhysicalItemData {
-    schemaVersion: 2;
-}
+interface V2GearData extends V2PhysicalItemData {}
 interface V2ItemGear {
     data: DataStore<'gear', V2GearData>;
 }
 
 interface V2WeaponData extends V2PhysicalItemData {
-    schemaVersion: 2;
     skill: Value<string>;
     range: Value<number>;
     damage: Value<string>;
@@ -307,7 +301,6 @@ interface V2ItemWeapon {
 }
 
 interface V2ArmorData extends V2PhysicalItemData {
-    schemaVersion: 2;
     armorRating: Value<number>;
 }
 interface V2ItemArmor {
@@ -315,7 +308,6 @@ interface V2ItemArmor {
 }
 
 interface V2SkillData {
-    schemaVersion: 2;
     rating: Value<number>;
     group: Value<string>;
     failureImproves: Value<boolean>;
@@ -327,7 +319,6 @@ interface V2ItemSkill {
 }
 
 interface V2MotivationData {
-    schemaVersion: 2;
     description: Value<string>;
     crossed: Value<boolean>;
 }
@@ -336,7 +327,6 @@ interface V2ItemMotivation {
 }
 
 interface V2DisorderData {
-    schemaVersion: 2;
     description: Value<string>;
     crossed: Value<boolean>;
 }
@@ -345,7 +335,6 @@ interface V2ItemDisorder {
 }
 
 interface V2BondData {
-    schemaVersion: 2;
     description: Value<string>;
     crossed: Value<boolean>;
     score: Value<number>;
@@ -366,8 +355,6 @@ export class Migrate_v1v2 extends BaseMigration {
     public migrateActorData(oldActor: V1Actor): { updateData: Record<string, any>; newItems: Record<string, any>[] } {
         const updates: FlatDataMap<V2ActorAgent> = {};
         const skills: Record<string, any>[] = [];
-
-        updates['data.schemaVersion'] = 2;
 
         if (oldActor.data.hasOwnProperty('wp')) {
             updates['data.willpower.value'] = oldActor.data.wp.value;

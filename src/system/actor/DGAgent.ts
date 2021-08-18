@@ -21,40 +21,12 @@ import { DGPercentageRollPart, DGPercentileRoll } from '../dice/DGPercentileRoll
 import { DGDamageRoll, DGDamageRollPart } from '../dice/DGDamageRoll';
 import { ItemTypeMap } from '../../types/System';
 import { Bounded, Value } from '../../types/Helpers';
-import { ActorTypeAgent, Statistic } from '../../types/Actor';
-import { DGActor } from './DGActor';
+import { ActorTypeAgent } from '../../types/Actor';
+import { ActorDataSourceData, DGActor } from './DGActor';
 import { DGSkill } from '../item/DGSkill';
+import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 
-type PreCreateActorOptions = {
-    temporary: boolean;
-    renderSheet: boolean;
-    render: boolean;
-};
-Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: string) => {
-    if (actor.items.filter((item) => item.type === ItemTypeSkill).length > 0) {
-        return;
-    }
-    actor.data.update({
-        items: DEFAULT_SKILLS_DEFINITION.map((skill) => {
-            return {
-                _id: skill._id,
-                name: game.i18n.localize(skill.name),
-                type: skill.type,
-                data: {
-                    ...skill.data,
-                    group: {
-                        value: game.i18n.localize(skill.data.group.value),
-                    },
-                },
-            };
-        }),
-    });
-});
-
-interface AgentDataSourceData {
-    schemaVersion: number;
-    health: Bounded<number>;
-    willpower: Bounded<number>;
+interface AgentDataSourceData extends ActorDataSourceData {
     sanity: Bounded<number> & {
         breakingPoint: Value<number>;
         adaptations: {
@@ -63,10 +35,6 @@ interface AgentDataSourceData {
                 value: boolean[];
             };
         };
-    };
-    luck: Value<number>;
-    statistics: {
-        [TType in StatisticType]: Statistic<TType>;
     };
     biography: {
         profession: Value<string>;
@@ -79,14 +47,12 @@ interface AgentDataSourceData {
         notes: Value<string>;
     };
 }
-
 interface AgentDataPropertiesData extends AgentDataSourceData {}
 
 export interface AgentDataSource {
     type: ActorTypeAgent;
     data: AgentDataSourceData;
 }
-
 export interface AgentDataProperties {
     type: ActorTypeAgent;
     data: AgentDataPropertiesData;
@@ -94,25 +60,6 @@ export interface AgentDataProperties {
 
 export class DGAgent extends DGActor {
     // <editor-fold desc="Properties">
-
-    /**
-     * Calculate in-the-moment max willpower.
-     */
-    public get willpowerMax() {
-        let value = 0;
-        value += this.data.data.statistics.power.value;
-        return value;
-    }
-
-    /**
-     * Calculate in-the-moment max health.
-     */
-    public get healthMax() {
-        let value = 0;
-        value += this.data.data.statistics.strength.value;
-        value += this.data.data.statistics.constitution.value;
-        return Math.ceil(value / 2);
-    }
 
     /**
      * Calculate in-the-moment max sanity.
@@ -124,45 +71,6 @@ export class DGAgent extends DGActor {
             value -= skill.data.data.rating.value ?? 0;
         }
         return value;
-    }
-
-    /**
-     * Calculate in-the-moment equipped armor rating.
-     */
-    public get armorRating() {
-        let value = 0;
-        for (const item of this.items) {
-            if (item.data.type === ItemTypeArmor) {
-                if (!item.data.data.equipped.value) {
-                    continue;
-                }
-                value += item.data.data.armorRating.value;
-            }
-        }
-        return value;
-    }
-
-    /**
-     * Get an in-the-moment listing of all skills, core and custom.
-     */
-    public get skills() {
-        return this.items.filter((item) => item.type === ItemTypeSkill);
-    }
-
-    /**
-     * Get in-the-moment groups of skills as a record of skill arrays.
-     */
-    public get skillGroups() {
-        let map: Record<string, DGSkill[]> = {};
-        for (const item of this.items) {
-            if (item.data.type === ItemTypeSkill) {
-                const groupId = item.data.data.group.value;
-                map[groupId] = map[groupId] ?? [];
-                map[groupId].push(item as DGSkill);
-            }
-        }
-
-        return map;
     }
 
     // </editor-fold>
@@ -363,4 +271,7 @@ export class DGAgent extends DGActor {
             adaptation.adapted = !adaptation.value.some((value) => !value);
         }
     }
+}
+export interface DGAgent extends DGActor {
+    readonly data: ActorData & AgentDataProperties;
 }

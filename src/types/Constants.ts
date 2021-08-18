@@ -34,6 +34,10 @@ export enum RollResultType {
 
 export const ActorTypeAgent = 'agent';
 export const ActorTypeNPC = 'npc';
+/**
+ * @DEPRECATED: Preserved for compatability;
+ */
+export const ActorTypeUnnatural = 'unnatural';
 
 export enum StatisticType {
     Strength = 'strength',

@@ -14,15 +14,7 @@
  * limitations under the License.
  */
 
-import {
-    AdaptationType,
-    DEFAULT_ITEM_NAME,
-    ItemTypeBond,
-    ItemTypeDisorder,
-    ItemTypeMotivation,
-    ItemTypeWeapon,
-    StatisticType,
-} from '../../../types/Constants';
+import { AdaptationType, DEFAULT_ITEM_NAME, ItemTypeBond, ItemTypeDisorder, ItemTypeMotivation, ItemTypeWeapon, StatisticType } from '../../../types/Constants';
 import { DGItem } from '../../item/DGItem';
 import { ItemType } from '../../../types/Item';
 import { DGPercentileRoll } from '../../dice/DGPercentileRoll';
@@ -37,6 +29,7 @@ import { DGBond } from '../../item/DGBond';
 import { DGMotivation } from '../../item/DGMotivation';
 import { DGDisorder } from '../../item/DGDisorder';
 import { SYSTEM_NAME } from '../../Constants';
+import { DGAgent } from '../DGAgent';
 
 interface SkillGroup {
     name: string;
@@ -55,7 +48,7 @@ export interface DGAgentSheetData extends DGActorSheetData {
     motivations: DGMotivation[];
     disorders: DGDisorder[];
 }
-export class DGAgentSheet extends DGActorSheet<DGAgentSheetOptions, DGAgentSheetData> {
+export class DGAgentSheet extends DGActorSheet<DGAgentSheetOptions, DGAgentSheetData, DGAgent> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/actor/Agent.html`;

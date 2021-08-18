@@ -41,6 +41,8 @@ import { DGSkill } from './item/DGSkill';
 import { DGWeapon } from './item/DGWeapon';
 import { SystemSettings } from './SystemSettings';
 import { Migrate_v1v2 } from './migration/v2/Migrate_v1v2';
+import { DGNPC } from './actor/DGNPC';
+import { DGActor } from './actor/DGActor';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -54,14 +56,20 @@ function registerActorClasses() {
         types: ['agent'],
         makeDefault: true,
     });
-    CONFIG.Actor.documentClass = DGAgent;
+    Actors.registerSheet(SYSTEM_NAME, DGAgentSheet, {
+        label: 'NPC',
+        types: ['npc'],
+        makeDefault: true,
+    });
+
+    CONFIG.Actor.documentClass = DGActor;
     CONFIG.DG = {
         ...CONFIG.DG,
         Actor: {
             documentClasses: {
                 agent: DGAgent,
-                npc: DGAgent,
-                unnatural: DGAgent,
+                npc: DGNPC,
+                unnatural: DGNPC,
             },
         },
     };

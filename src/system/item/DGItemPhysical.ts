@@ -24,7 +24,6 @@ export interface PhysicalDataSourceData {
     carried: Value<boolean>;
     description: Value<string>;
 }
-export interface PhysicalDataPropertyData extends PhysicalDataSourceData {}
 
 export class DGItemPhysical extends DGItem {}
 export interface DGItemPhysical extends DGItem {}

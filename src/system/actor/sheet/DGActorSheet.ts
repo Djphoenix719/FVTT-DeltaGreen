@@ -21,10 +21,15 @@ import { ChatMessageDataConstructorData } from '@league-of-foundry-developers/fo
 import { PercentileModifierDialog, PercentileModifierDialogResults } from '../../dialog/PercentileModifierDialog';
 import { DamageModifierDialog, DamageModifierDialogResults } from '../../dialog/DamageModifierDialog';
 import { preprocessEvent } from '../../util/Sheet';
+import { DGActor } from '../DGActor';
 
 export interface DGActorSheetOptions extends ActorSheet.Options {}
 export interface DGActorSheetData extends ActorSheet.Data {}
-export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData extends DGActorSheetData> extends ActorSheet<TOptions, TData> {
+
+export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData extends DGActorSheetData, TActor extends DGActor> extends ActorSheet<
+    TOptions,
+    TData
+> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.AGENT];
@@ -39,6 +44,10 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         options.width = 800;
         options.height = 900;
         return options;
+    }
+
+    get actor(): TActor {
+        return this.object as TActor;
     }
 
     /**

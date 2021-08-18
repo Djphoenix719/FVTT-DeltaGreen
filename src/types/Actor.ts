@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-import { ActorTypeAgent, ActorTypeNPC, StatisticType } from './Constants';
+import { ActorTypeAgent, ActorTypeNPC, ActorTypeUnnatural, StatisticType } from './Constants';
 import { Label, Value } from './Helpers';
 import { AgentDataProperties, AgentDataSource } from '../system/actor/DGAgent';
+import { NPCDataProperties, NPCDataSource } from '../system/actor/DGNPC';
 
 export type ActorTypeAgent = typeof ActorTypeAgent;
 export type ActorTypeNPC = typeof ActorTypeNPC;
+/**
+ * @DEPRECATED: Preserved for compatability;
+ */
+export type ActorTypeUnnatural = typeof ActorTypeUnnatural;
 
 export interface Statistic<T extends StatisticType> extends Value<number>, Label<string> {
     id: T;
     percentile?: number;
 }
 
-export type ActorType = ActorTypeAgent | ActorTypeNPC | 'unnatural';
-export type ActorDataSource = AgentDataSource;
-export type ActorDataProperties = AgentDataProperties;
+export type ActorType = ActorTypeAgent | ActorTypeNPC | ActorTypeUnnatural;
+export type ActorDataSource = AgentDataSource | NPCDataSource;
+export type ActorDataProperties = AgentDataProperties | NPCDataProperties;
 
 declare global {
     interface SourceConfig {
