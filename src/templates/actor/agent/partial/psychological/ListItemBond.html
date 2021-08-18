@@ -2,7 +2,7 @@
 
     <div class="data">
         <input class="modify-item" data-path="data.damaged.value" type="checkbox" {{checked data.damaged.value}}>
-        <label class="clickable flex-2 left {{#if data.crossed.value}}crossed{{/if}} collapsible" data-collapse-id="{{id}}">{{name}}</label>
+        <label class="clickable flex-2 left{{#if data.crossed.value}} crossed{{/if}} collapsible" data-collapse-id="{{id}}">{{name}}</label>
         <input class="modify-item flex-1" data-path="data.score.value" min="0" max="{{@root.actor.data.data.statistics.charisma.value}}" type="number" value="{{data.score.value}}">
 
         <div class="list-buttons">

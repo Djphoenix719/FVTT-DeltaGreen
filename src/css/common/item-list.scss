@@ -25,9 +25,15 @@ div.delta-green {
             display: flex;
             flex-direction: column;
 
-            border-left: $form-border-style;
-            border-right: $form-border-style;
-            border-bottom: $form-border-style;
+            &:not(:last-of-type) {
+                border-bottom: $form-border-style;
+            }
+
+            div.list-buttons {
+                flex-basis: 10%;
+                text-align: right;
+                padding-right: 0.25rem;
+            }
 
             div.data {
                 display: flex;
@@ -36,24 +42,17 @@ div.delta-green {
                 text-align: center;
                 width: 100%;
 
-                div.left,
-                label.left {
-                    text-align: left;
-                }
-
-                div.list-buttons {
-                    flex-basis: 10%;
-                    text-align: right;
-                    padding-right: 0.25rem;
+                div,
+                label {
+                    &.left {
+                        text-align: left;
+                    }
                 }
 
                 input[type='number'] {
                     text-align: center;
                 }
 
-                label:first-of-type {
-                    margin-left: 4px;
-                }
                 input[type='checkbox'] {
                     margin: 0 0 0 4px;
                 }
@@ -66,6 +65,7 @@ div.delta-green {
                     padding: 0.25rem;
                     border-left: $form-border-style;
                     border-right: $form-border-style;
+                    min-height: 1rem;
                 }
             }
         }

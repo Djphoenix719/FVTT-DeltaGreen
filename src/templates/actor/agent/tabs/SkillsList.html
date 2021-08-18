@@ -1,16 +1,16 @@
-<section class="skills-content">
+<section class="skills-list">
+    <header class="flex">
+        <label class="flex-0">1d4</label>
+        <label class="flex-4 left">{{localize "DG.SKILLS.skill"}}</label>
+        <label class="flex-1 center">{{localize "DG.SKILLS.value"}}</label>
+        <div class="buttons">
+            <label class="clickable add-item" data-type="skill"><i class="fas fa-plus"></i></label>
+        </div>
+    </header>
     {{#each skills as |group|}}
         <div class="item-list">
-            <header class="center-header">
+            <header class="center">
                 <label>{{group.name}}</label>
-            </header>
-            <header class="flex-header">
-                <label class="flex-0">1d4</label>
-                <label class="flex-4">{{localize "DG.SKILLS.skill"}}</label>
-                <label class="flex-1">{{localize "DG.SKILLS.value"}}</label>
-                <div class="header-buttons">
-                    <label class="clickable add-item" data-type="skill"><i class="fas fa-plus"></i></label>
-                </div>
             </header>
             {{#each group.skills as |skill|}}
                 {{> list-item-skill id=skill.id name=skill.name data=skill.data.data }}

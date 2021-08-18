@@ -1,0 +1,95 @@
+/*!
+ * Copyright 2021 Andrew Cuccinello
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import '../../constants';
+
+div.delta-green.agent section.window-content {
+    section.attributes {
+        display: flex;
+        flex-direction: row;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-right: $form-border-style;
+        border-top: $form-border-style;
+
+        label.icon {
+            padding: 0 0.5rem;
+            height: 100%;
+            line-height: 52px;
+
+            border-left: $form-border-style;
+            border-right: $form-border-style;
+            border-bottom: $form-border-style;
+        }
+
+        div.attribute {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+
+            div.attribute-inputs {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                &.luck {
+                    height: 100%;
+                    input,
+                    label {
+                        height: 100%;
+                        line-height: 52px;
+                    }
+                }
+            }
+
+            input {
+                text-align: center;
+            }
+
+            > label {
+                font-size: 200%;
+            }
+
+            div.breaking-point {
+                display: flex;
+                flex-direction: row;
+
+                div.labeled-field:first-child {
+                    border-right: $form-border-style;
+                }
+
+                label.clickable.reset {
+                    position: absolute;
+                    padding-right: 0.25rem;
+                    right: 0;
+                    left: unset;
+                    color: black;
+                    pointer-events: all;
+                }
+            }
+
+            div.labeled-field {
+                border-bottom: $form-border-style;
+                label {
+                    left: 3px;
+                    height: 26px;
+                    line-height: 26px;
+                }
+            }
+        }
+    }
+}

@@ -41,6 +41,7 @@ import { DGWeapon } from './item/DGWeapon';
 import { SystemSettings } from './SystemSettings';
 import { DGNPC } from './actor/DGNPC';
 import { DGActor } from './actor/DGActor';
+import { createTestDocuments } from './TestData';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -145,7 +146,7 @@ Hooks.on('setup', async () => {
 });
 
 Hooks.on('ready', async () => {
-    // createTestDocuments();
+    createTestDocuments();
 });
 
 // TODO: More permanent display of additional information is required

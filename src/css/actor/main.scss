@@ -16,6 +16,13 @@
 
 @import '../constants';
 
+@import 'tabs/attributes';
+@import 'tabs/biography';
+@import 'tabs/description';
+@import 'tabs/inventory';
+@import 'tabs/psychological';
+@import 'tabs/statistics';
+
 div.delta-green.agent section.window-content {
     background: url('static/image/sheet/background-restricted.png') center;
     background-size: 125%;
@@ -33,33 +40,37 @@ div.delta-green.agent section.window-content {
         }
     }
 
-    header.center-header,
-    header.flex-header {
+    header {
         background: black;
         color: white;
         text-transform: uppercase;
-    }
 
-    header.center-header {
-        text-align: center;
-    }
+        &.center {
+            text-align: center;
+        }
+        &.flex {
+            display: flex;
+        }
 
-    header.flex-header {
-        display: flex;
-        flex-direction: row;
-        text-align: center;
+        label {
+            &.left {
+                text-align: left;
+                padding-left: 0.5rem;
+            }
+            &.center {
+                text-align: center;
+            }
+        }
 
-        div.header-buttons {
+        div.buttons {
             text-align: right;
             flex-basis: 10%;
             padding-right: 0.25rem;
         }
     }
 
-    div.item-buttons {
-        flex-basis: 10%;
-        text-align: right;
-        padding-right: 0.25rem;
+    div.tab {
+        height: 100%;
     }
 
     section.sheet-body {
@@ -67,222 +78,7 @@ div.delta-green.agent section.window-content {
         height: 100%;
     }
 
-    section.sheet-header {
-        display: flex;
-        max-height: $avatar-height;
-        background: rgba(255, 255, 255, 0.25);
-        border-right: $form-border-style;
-
-        label.section-label {
-            text-align: center;
-            background: black;
-            color: white;
-            text-transform: uppercase;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-        }
-
-        div.avatar {
-            height: $avatar-height;
-            img {
-                height: $avatar-height;
-                border-left: 0;
-                border-right: 0;
-                border-bottom: $form-border-style;
-                border-top: $form-border-style;
-            }
-        }
-
-        div.field-group.col {
-            border-top: $form-border-style;
-        }
-
-        div.labeled-field {
-            height: $avatar-height/3;
-            border-left: $form-border-style;
-            border-bottom: $form-border-style;
-            input {
-                height: $avatar-height/3;
-                padding-top: 0.5rem;
-                padding-left: 0.5rem;
-            }
-        }
-    }
-
-    section.attributes {
-        display: flex;
-        flex-direction: row;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-        border-right: $form-border-style;
-        border-top: $form-border-style;
-
-        label.icon {
-            padding: 0 0.5rem;
-            height: 100%;
-            line-height: 52px;
-
-            border-left: $form-border-style;
-            border-right: $form-border-style;
-            border-bottom: $form-border-style;
-        }
-
-        div.attribute {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            width: 100%;
-
-            div.attribute-inputs {
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-
-                &.luck {
-                    height: 100%;
-                    input,
-                    label {
-                        height: 100%;
-                        line-height: 52px;
-                    }
-                }
-            }
-
-            input {
-                text-align: center;
-            }
-
-            > label {
-                font-size: 200%;
-            }
-
-            div.breaking-point {
-                display: flex;
-                flex-direction: row;
-
-                div.labeled-field:first-child {
-                    border-right: $form-border-style;
-                }
-
-                label.clickable.reset {
-                    position: absolute;
-                    padding-right: 0.25rem;
-                    right: 0;
-                    left: unset;
-                    color: black;
-                    pointer-events: all;
-                }
-            }
-
-            div.labeled-field {
-                border-bottom: $form-border-style;
-                label {
-                    left: 3px;
-                    height: 26px;
-                    line-height: 26px;
-                }
-            }
-        }
-    }
-
-    div.tab-description {
-        height: 100%;
-
-        section.description {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-
-            div.editor {
-                flex: 1;
-                height: 100%;
-                border-left: $form-border-style;
-                border-right: $form-border-style;
-
-                &:not(:first-of-type) {
-                    flex: 3;
-                    border-bottom: $form-border-style;
-                }
-            }
-        }
-    }
-
-    div.tab-statistics {
-        header label {
-            border-left: $form-border-style;
-            &:first-child {
-                padding-left: 0.25rem;
-            }
-        }
-
-        div.stats-field {
-            display: flex;
-            align-items: center;
-
-            border-left: $form-border-style;
-            border-top: $form-border-style;
-            &:last-child {
-                border-bottom: $form-border-style;
-            }
-
-            label {
-                white-space: nowrap;
-                padding-left: 0.25rem;
-            }
-
-            input[type='number'] {
-                text-align: center;
-                border-left: $form-border-style;
-            }
-            input[type='text'] {
-                border-left: $form-border-style;
-                border-right: $form-border-style;
-            }
-        }
-    }
-
-    div.tab-inventory {
-        div.inventory-group header {
-            display: flex;
-            position: relative;
-
-            background: black;
-            color: white;
-
-            text-align: center;
-            text-transform: uppercase;
-            border: 0;
-        }
-
-        > header.center-header:not(:first-of-type) {
-            margin-top: 0.25rem;
-        }
-    }
-
-    div.tab-psychological {
-        div.incidents {
-            div.adaptation {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex: 1;
-
-                label {
-                    flex-basis: 15%;
-                }
-            }
-        }
-
-        header.flex-header {
-            > label:first-of-type {
-                flex: 1;
-                text-align: left;
-                padding-left: 2rem;
-            }
-        }
-
-        label.crossed {
-            text-decoration: line-through;
-        }
+    label.crossed {
+        text-decoration: line-through;
     }
 }
