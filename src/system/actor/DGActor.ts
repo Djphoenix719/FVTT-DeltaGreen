@@ -18,13 +18,14 @@ import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-t
 import { Bounded, DGContext, Value } from '../../types/Helpers';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { BaseActor } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/documents.mjs';
-import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType } from '../../types/Constants';
+import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType, UNNATURAL_ID } from '../../types/Constants';
 import { Statistic } from '../../types/Actor';
 import { DGSkill } from '../item/DGSkill';
 import { ItemType } from '../../types/Item';
 import { ItemTypeMap } from '../../types/System';
 import { DGPercentageRollPart, DGPercentileRoll } from '../dice/DGPercentileRoll';
 import { DGDamageRoll, DGDamageRollPart } from '../dice/DGDamageRoll';
+import { DGItem } from '../item/DGItem';
 
 type PreCreateActorOptions = {
     temporary: boolean;
@@ -62,6 +63,17 @@ export interface ActorDataSourceData {
 }
 
 export class DGActor extends Actor {
+    /**
+     * Calculate in-the-moment max sanity.
+     */
+    public get sanityMax() {
+        let value = 99;
+        const skill = this.items.get(UNNATURAL_ID) as DGItem | undefined;
+        if (skill && skill.data.type === 'skill') {
+            value -= skill.data.data.rating.value ?? 0;
+        }
+        return value;
+    }
     /**
      * Calculate in-the-moment max willpower.
      */
@@ -140,6 +152,27 @@ export class DGActor extends Actor {
             return skill.name!;
         }
         return undefined;
+    }
+
+    /**
+     * Roll a sanity check for the actor.
+     * @param modifiers Roll modifiers.
+     */
+    public async rollSanity(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        return new DGPercentileRoll({
+            label: game.i18n.localize(`DG.DICE.sanity`),
+            target: {
+                base: {
+                    label: game.i18n.localize('DG.ATTRIBUTES.sanity'),
+                    value: this.data.data.sanity.value,
+                },
+                parts: modifiers,
+            },
+        }).roll();
     }
 
     /**
@@ -282,6 +315,11 @@ export class DGActor extends Actor {
 
         data.health.max = this.healthMax;
         data.willpower.max = this.willpowerMax;
+        data.sanity.max = this.sanityMax;
+
+        for (const adaptation of Object.values(data.sanity.adaptations)) {
+            adaptation.adapted = !adaptation.value.some((value) => !value);
+        }
 
         for (const statistic of Object.values(data.statistics)) {
             data.statistics[statistic.id].percentile = statistic.value * 5;

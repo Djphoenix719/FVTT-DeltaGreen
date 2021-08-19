@@ -3,10 +3,8 @@
     <section class="biography">
 
         {{#if editMode}}
-            <div class="labeled-field">
-                <label>{{localize "DG.BIOGRAPHY.name"}}</label>
-                <input type="text" name="name" value="{{@root.actor.name}}">
-            </div>
+            <input type="text" name="name" value="{{@root.actor.name}}">
+            <label class="clickable unnatural{{#if @root.unnatural}} active{{/if}}"><i class="fas fa-pastafarianism"></i></label>
         {{else}}
             <label>{{actor.name}}</label>
         {{/if}}
@@ -20,6 +18,10 @@
         {{> systems/delta-green/templates/actor/npc/tabs/Statistics.html }}
         {{> systems/delta-green/templates/actor/npc/tabs/Attributes.html }}
         {{> systems/delta-green/templates/actor/npc/tabs/SkillsList.html }}
+        {{#if @root.unnatural}}
+        {{else}}
+            {{> systems/delta-green/templates/actor/npc/tabs/Psychological.html }}
+        {{/if}}
 
     </section>
 

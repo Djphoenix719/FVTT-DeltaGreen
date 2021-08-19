@@ -21,31 +21,57 @@ import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 export interface DGNPCSheetOptions extends DGActorSheetOptions {}
 export interface DGNPCSheetData extends DGActorSheetData {
     editMode: boolean;
+    unnatural: boolean;
 }
 export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGNPCSheetData, DGNPC> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/actor/npc/NPCSheet.html`;
         options.classes = [...options.classes, CSS_CLASSES.ACTOR.NPC];
-        options.width = 400;
+        options.width = 500;
+        options.height = 400;
         return options;
     }
 
     /**
-     * Is the sheet in editing mode?
+     * Get the edit mode flag.
      */
-    public get editMode(): boolean {
+    public getEditMode(): boolean {
         if (!this.actor.canUserModify(game.user!, 'update')) {
             return false;
         }
         return this.actor.getFlag(SYSTEM_NAME, 'editMode') as boolean;
     }
 
+    /**
+     * Set the edit mode flag.
+     * @param value The value of the flag.
+     */
+    public async setEditMode(value: boolean): Promise<DGNPC> {
+        if (!this.actor.canUserModify(game.user!, 'update')) {
+            return this.actor;
+        }
+
+        return await this.actor.setFlag(SYSTEM_NAME, 'editMode', value);
+    }
+
     public async getData(options?: Application.RenderOptions): Promise<DGNPCSheetData> {
         const renderData = await super.getData(options);
 
-        renderData.editMode = this.editMode;
+        renderData.editMode = this.getEditMode();
+        renderData.unnatural = this.actor.getUnnatural();
 
         return renderData;
+    }
+
+    public activateListeners(html: JQuery) {
+        super.activateListeners(html);
+
+        html.find('label.clickable.edit-mode').on('click', async (event) => {
+            await this.setEditMode(!this.getEditMode());
+        });
+        html.find('label.clickable.unnatural').on('click', async (event) => {
+            await this.actor.setUnnatural(!this.actor.getUnnatural());
+        });
     }
 }

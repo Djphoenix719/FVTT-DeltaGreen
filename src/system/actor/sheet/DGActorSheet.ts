@@ -27,7 +27,7 @@ import { DGWeapon } from '../../item/DGWeapon';
 import { DGArmor } from '../../item/DGArmor';
 import { DGGear } from '../../item/DGGear';
 import { DGItem } from '../../item/DGItem';
-import { DEFAULT_ITEM_NAME, ItemTypeBond, ItemTypeDisorder, ItemTypeMotivation, ItemTypeWeapon, StatisticType } from '../../../types/Constants';
+import { AdaptationType, DEFAULT_ITEM_NAME, ItemTypeBond, ItemTypeDisorder, ItemTypeMotivation, ItemTypeWeapon, StatisticType } from '../../../types/Constants';
 import { ItemType } from '../../../types/Item';
 
 export interface SkillGroup {
@@ -329,6 +329,63 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
     }
 
     /**
+     * Bind sanity related listeners.
+     * @param html JQuery wrapper for the html to bind over.
+     * @private
+     */
+    private bindSanityListeners(html: JQuery) {
+        // Sanity: Roll sanity
+        html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
+            preprocessEvent(event);
+
+            let roll: DGPercentileRoll;
+            if (event.ctrlKey) {
+                const dialogResults = await this.promptPercentileModifier(`DG.DICE.sanityCheck`);
+                roll = await this.actor.rollSanity([
+                    {
+                        label: game.i18n.localize('DG.DICE.rollModifier'),
+                        value: dialogResults.modifier,
+                    },
+                ]);
+            } else {
+                roll = await this.actor.rollSanity();
+            }
+            await this.sendRollToChat(roll);
+        });
+
+        // Sanity: Reset breaking point
+        html.find('div.breaking-point label.reset').on('click', async (event) => {
+            preprocessEvent(event);
+            const data = this.actor.data.data;
+            const newBreakingPoint = data.sanity.value - data.statistics.power.value;
+            await this.actor.update({
+                [`data.sanity.breakingPoint.value`]: newBreakingPoint,
+            });
+        });
+
+        // Sanity: Adaptations
+        html.find('div.adaptations input[type="checkbox"]').on('change', async (event) => {
+            const target: JQuery<HTMLInputElement> = preprocessEvent(event);
+            const index = parseInt(target.data('index') as string);
+            const value = target.prop('checked') as boolean;
+            const type = target.data('type') as AdaptationType;
+
+            const values = this.actor.data.data.sanity.adaptations[type].value;
+            values[index] = value;
+
+            await this.actor.update({
+                [`data.sanity.adaptations.${type}.value`]: values,
+            });
+
+            if (value) {
+                target.prop('checked', true);
+            } else {
+                target.removeProp('checked');
+            }
+        });
+    }
+
+    /**
      * Bind inventory related listeners.
      * @param html JQuery wrapper for the html to bind over.
      * @private
@@ -433,6 +490,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
 
         this.bindCollapsibleListeners(html);
 
+        this.bindSanityListeners(html);
         this.bindInventoryListeners(html);
         this.bindRollListeners(html);
         this.bindUniversalItemListeners(html);

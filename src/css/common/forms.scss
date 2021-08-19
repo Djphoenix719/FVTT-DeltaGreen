@@ -80,6 +80,10 @@ div.delta-green {
         }
     }
 
+    label.crossed {
+        text-decoration: line-through;
+    }
+
     div.labeled-field {
         position: relative;
         display: flex;

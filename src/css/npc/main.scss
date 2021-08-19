@@ -27,6 +27,17 @@ div.delta-green.npc section.window-content {
         border-bottom: $title-underline-style;
         font-size: x-large;
         margin-bottom: 0.5rem;
+
+        label i {
+            padding: 0 0.25rem;
+            text-align: center;
+        }
+        label.unnatural {
+            color: gray;
+            &.active {
+                color: black;
+            }
+        }
     }
 
     section.skills-list {
@@ -45,6 +56,50 @@ div.delta-green.npc section.window-content {
         }
     }
 
+    section.attributes,
+    section.statistics {
+        label {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        input[type='number'] {
+            flex-shrink: 1;
+            text-align: center;
+            background: none;
+
+            padding: 0;
+            width: 2rem;
+
+            &:not(:disabled) {
+                text-decoration: underline dotted;
+            }
+        }
+    }
+
+    section.attributes {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        div.group {
+            display: flex;
+            flex-direction: row;
+        }
+
+        div.attribute {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        label.luck {
+            text-align: right;
+        }
+    }
+
     section.statistics {
         display: flex;
 
@@ -57,45 +112,33 @@ div.delta-green.npc section.window-content {
         }
     }
 
-    section.attributes {
+    section.incidents {
         display: flex;
         flex-direction: row;
         align-items: center;
 
-        div.attribute {
+        div.adaptations,
+        div.adaptation {
             display: flex;
             flex-direction: row;
             align-items: center;
-            white-space: nowrap;
+        }
 
+        div.adaptation {
             label {
-                font-weight: bold;
-                text-transform: uppercase;
+                margin-right: 0.5rem;
+            }
+            &:not(:first-of-type) {
+                margin-left: 0.5rem;
             }
 
-            input[type='number'] {
-                flex-shrink: 1;
-                text-align: center;
-                background: none;
-
+            input[type='checkbox'] {
+                flex: 1;
+                margin: 0;
                 padding: 0;
-                width: 2rem;
+                width: 1rem;
+                height: 1rem;
             }
-        }
-
-        label.luck {
-            flex: 1;
-            text-align: right;
-        }
-    }
-
-    span.bold {
-        font-weight: bold;
-    }
-
-    label.clickable {
-        span.name {
-            font-weight: bold;
         }
     }
 

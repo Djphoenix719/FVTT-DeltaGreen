@@ -1,0 +1,47 @@
+<section class="incidents">
+    <label class="section-title">{{localize "DG.PSYCHOLOGY.adaptations"}}:</label>
+    <div class="adaptations">
+        {{> list-adaptation data=@root.data.data.sanity.adaptations.violence type="violence" label="DG.PSYCHOLOGY.violence" }}
+        {{> list-adaptation data=@root.data.data.sanity.adaptations.helplessness type="helplessness" label="DG.PSYCHOLOGY.helplessness" }}
+    </div>
+</section>
+
+<section class="bonds">
+    <label class="section-title">{{localize "DG.PSYCHOLOGY.bonds"}}:</label>
+
+    <div class="item-list bond">
+
+        {{#each @root.bonds as |item|}}
+            {{> list-item-bond id=item.id name=item.name data=item.data.data}}
+        {{/each}}
+
+    </div>
+
+</section>
+
+<section class="motivations">
+    <label class="section-title">{{localize "DG.PSYCHOLOGY.motivations"}}:</label>
+
+    <div class="item-list motivation">
+
+        {{#each @root.motivations as |item|}}
+            {{> list-item-motivation id=item.id name=item.name data=item.data.data}}
+        {{/each}}
+
+    </div>
+
+</section>
+
+<section class="disorders">
+    <label class="section-title">{{localize "DG.PSYCHOLOGY.disorders"}}:</label>
+
+    <div class="item-list disorder">
+
+        {{#each @root.disorders as |item|}}
+            {{> list-item-disorder id=item.id name=item.name data=item.data.data}}
+        {{/each}}
+
+    </div>
+
+</section>
+

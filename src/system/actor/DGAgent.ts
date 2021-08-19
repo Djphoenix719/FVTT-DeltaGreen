@@ -55,49 +55,10 @@ export interface AgentDataProperties {
 }
 
 export class DGAgent extends DGActor {
-    /**
-     * Calculate in-the-moment max sanity.
-     */
-    public get sanityMax() {
-        let value = 99;
-        const skill = this.items.get(UNNATURAL_ID) as DGItem | undefined;
-        if (skill && skill.data.type === 'skill') {
-            value -= skill.data.data.rating.value ?? 0;
-        }
-        return value;
-    }
-
-    /**
-     * Roll a sanity check for the actor.
-     * @param modifiers Roll modifiers.
-     */
-    public async rollSanity(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
-        if (modifiers === undefined) {
-            modifiers = [];
-        }
-
-        return new DGPercentileRoll({
-            label: game.i18n.localize(`DG.DICE.sanity`),
-            target: {
-                base: {
-                    label: game.i18n.localize('DG.ATTRIBUTES.sanity'),
-                    value: this.data.data.sanity.value,
-                },
-                parts: modifiers,
-            },
-        }).roll();
-    }
-
     prepareData() {
         super.prepareData();
 
         const data = this.data.data;
-
-        data.sanity.max = this.sanityMax;
-
-        for (const adaptation of Object.values(data.sanity.adaptations)) {
-            adaptation.adapted = !adaptation.value.some((value) => !value);
-        }
     }
 }
 export interface DGAgent extends DGActor {

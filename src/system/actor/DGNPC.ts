@@ -19,6 +19,7 @@ import { Bounded, Value } from '../../types/Helpers';
 import { AdaptationType, StatisticType } from '../../types/Constants';
 import { ActorTypeNPC, Statistic } from '../../types/Actor';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { SYSTEM_NAME } from '../Constants';
 
 interface NPCDataSourceData {
     health: Bounded<number>;
@@ -42,13 +43,34 @@ interface NPCDataPropertiesData extends NPCDataSourceData {}
 export interface NPCDataSource {
     type: ActorTypeNPC;
     data: NPCDataSourceData;
+    flags: {
+        [SYSTEM_NAME]: {
+            editMode: boolean;
+            unnatural: boolean;
+        };
+    };
 }
 export interface NPCDataProperties {
     type: ActorTypeNPC;
     data: NPCDataPropertiesData;
 }
 
-export class DGNPC extends DGActor {}
+export class DGNPC extends DGActor {
+    /**
+     * Is this an unnatural NPC?
+     */
+    public getUnnatural(): boolean {
+        return this.getFlag(SYSTEM_NAME, 'unnatural') as boolean;
+    }
+
+    /**
+     * Set if this actor is unnatural.
+     * @param value The unnatural value.
+     */
+    public async setUnnatural(value: boolean): Promise<DGNPC> {
+        return this.setFlag(SYSTEM_NAME, 'unnatural', value);
+    }
+}
 export interface DGNPC extends DGActor {
     readonly data: ActorData & NPCDataProperties;
 }
