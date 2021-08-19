@@ -21,7 +21,7 @@ import { DGActorSheet, DGActorSheetData, DGActorSheetOptions } from './DGActorSh
 import { DGBond } from '../../item/DGBond';
 import { DGMotivation } from '../../item/DGMotivation';
 import { DGDisorder } from '../../item/DGDisorder';
-import { SYSTEM_NAME } from '../../Constants';
+import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import { DGAgent } from '../DGAgent';
 
 export interface DGAgentSheetOptions extends DGActorSheetOptions {}
@@ -34,6 +34,15 @@ export class DGAgentSheet extends DGActorSheet<DGAgentSheetOptions, DGAgentSheet
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/actor/agent/AgentSheet.html`;
+        options.classes = [...options.classes, CSS_CLASSES.ACTOR.AGENT];
+        options.tabs = [
+            {
+                navSelector: 'nav.sheet-navigation',
+                contentSelector: 'section.sheet-body',
+                initial: 'tab-skills',
+            },
+        ];
+        options.scrollY = [...options.scrollY, 'section.sheet-body'];
         return options;
     }
 

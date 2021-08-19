@@ -51,15 +51,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
 > {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.AGENT];
-        options.tabs = [
-            {
-                navSelector: 'nav.sheet-navigation',
-                contentSelector: 'section.sheet-body',
-                initial: 'tab-skills',
-            },
-        ];
-        options.scrollY = [...options.scrollY, 'section.sheet-body'];
+        options.classes = [...options.classes, CSS_CLASSES.BASE, CSS_CLASSES.ACTOR.BASE];
         options.width = 800;
         options.height = 900;
         return options;

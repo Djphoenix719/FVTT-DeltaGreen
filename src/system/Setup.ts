@@ -42,6 +42,7 @@ import { SystemSettings } from './SystemSettings';
 import { DGNPC } from './actor/DGNPC';
 import { DGActor } from './actor/DGActor';
 import { createTestDocuments } from './TestData';
+import { DGNPCSheet } from './actor/sheet/DGNPCSheet';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -55,7 +56,7 @@ function registerActorClasses() {
         types: ['agent'],
         makeDefault: true,
     });
-    Actors.registerSheet(SYSTEM_NAME, DGAgentSheet, {
+    Actors.registerSheet(SYSTEM_NAME, DGNPCSheet, {
         label: 'NPC',
         types: ['npc'],
         makeDefault: true,

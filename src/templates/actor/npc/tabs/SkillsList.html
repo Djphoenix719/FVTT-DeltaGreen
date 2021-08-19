@@ -1,0 +1,12 @@
+<section class="skills-list">
+    <div class="item-list">
+        <label class="section-title">{{localize "DG.SKILLS.npcLabel"}}</label>
+        {{#each skills as |group|}}
+            {{#each group.skills as |skill|}}
+                <div class="list-item skill" data-id="{{id}}">
+                    <label class="clickable name">{{skill.name}} {{skill.data.data.rating.value}}%</label>
+                </div>
+            {{/each}}
+        {{/each}}
+    </div>
+</section>

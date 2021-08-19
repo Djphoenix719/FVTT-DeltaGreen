@@ -10,3 +10,6 @@ This is a list of things I may or may not get to, depending on my time.
 - Infinite attributes 
 - Npc sheet with powers
 - Secret sanity 
+- Willpower roll
+- OPINT
+  - Unnatural statistic rolls

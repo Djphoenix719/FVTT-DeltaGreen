@@ -16,14 +16,36 @@
 
 import { DGActorSheet, DGActorSheetData, DGActorSheetOptions } from './DGActorSheet';
 import { DGNPC } from '../DGNPC';
-import { SYSTEM_NAME } from '../../Constants';
+import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 
 export interface DGNPCSheetOptions extends DGActorSheetOptions {}
-export interface DGNPCSheetData extends DGActorSheetData {}
-export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGActorSheetData, DGNPC> {
+export interface DGNPCSheetData extends DGActorSheetData {
+    editMode: boolean;
+}
+export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGNPCSheetData, DGNPC> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.template = `systems/${SYSTEM_NAME}/templates/actor/npc/NPCSheet.html`;
+        options.classes = [...options.classes, CSS_CLASSES.ACTOR.NPC];
+        options.width = 400;
         return options;
+    }
+
+    /**
+     * Is the sheet in editing mode?
+     */
+    public get editMode(): boolean {
+        if (!this.actor.canUserModify(game.user!, 'update')) {
+            return false;
+        }
+        return this.actor.getFlag(SYSTEM_NAME, 'editMode') as boolean;
+    }
+
+    public async getData(options?: Application.RenderOptions): Promise<DGNPCSheetData> {
+        const renderData = await super.getData(options);
+
+        renderData.editMode = this.editMode;
+
+        return renderData;
     }
 }

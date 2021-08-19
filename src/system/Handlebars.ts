@@ -33,7 +33,6 @@ export async function registerHandlebarsTemplatesAndPartials() {
 
     const templates: TemplatePath[] = [
         `templates/actor/agent/AgentSheet.html`,
-
         `templates/actor/agent/tabs/Attributes.html`,
         `templates/actor/agent/tabs/Biography.html`,
         `templates/actor/agent/tabs/Inventory.html`,
@@ -42,6 +41,11 @@ export async function registerHandlebarsTemplatesAndPartials() {
         `templates/actor/agent/tabs/SkillsList.html`,
         `templates/actor/agent/tabs/Statistics.html`,
         `templates/actor/agent/tabs/Description.html`,
+
+        `templates/actor/npc/NPCSheet.html`,
+        `templates/actor/npc/tabs/SkillsList.html`,
+        `templates/actor/npc/tabs/Statistics.html`,
+        `templates/actor/npc/tabs/Attributes.html`,
 
         `templates/item/GearSheet.html`,
         `templates/item/WeaponSheet.html`,

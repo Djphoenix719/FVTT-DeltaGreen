@@ -1,14 +1,23 @@
 <form class="{{cssClass}}" autocomplete="off">
 
-    <section class="sheet-header">
+    <section class="biography">
 
-
+        {{#if editMode}}
+            <div class="labeled-field">
+                <label>{{localize "DG.BIOGRAPHY.name"}}</label>
+                <input type="text" name="name" value="{{@root.actor.name}}">
+            </div>
+        {{else}}
+            <h1>{{actor.name}}</h1>
+        {{/if}}
 
     </section>
 
     <section class="sheet-body">
 
-
+        {{> systems/delta-green/templates/actor/npc/tabs/Statistics.html }}
+        {{> systems/delta-green/templates/actor/npc/tabs/Attributes.html }}
+        {{> systems/delta-green/templates/actor/npc/tabs/SkillsList.html }}
 
     </section>
 

@@ -1,0 +1,34 @@
+<section class="statistics">
+    {{#with @root.data.data.statistics as |statistics|}}
+        <div class="stats-field" data-id="strength">
+            <label class="clickable stats flex-2">
+                <span class="bold">{{localize "DG.STATISTICS.str"}}</span>&nbsp;{{statistics.strength.value}}
+            </label>
+        </div>
+        <div class="stats-field" data-id="constitution">
+            <label class="clickable stats flex-2">
+                <span class="bold">{{localize "DG.STATISTICS.con"}}</span>&nbsp;{{statistics.constitution.value}}
+            </label>
+        </div>
+        <div class="stats-field" data-id="dexterity">
+            <label class="clickable stats flex-2">
+                <span class="bold">{{localize "DG.STATISTICS.dex"}}</span>&nbsp;{{statistics.dexterity.value}}
+            </label>
+        </div>
+        <div class="stats-field" data-id="intelligence">
+            <label class="clickable stats flex-2">
+                <span class="bold">{{localize "DG.STATISTICS.int"}}</span>&nbsp;{{statistics.intelligence.value}}
+            </label>
+        </div>
+        <div class="stats-field" data-id="power">
+            <label class="clickable stats flex-2">
+                <span class="bold">{{localize "DG.STATISTICS.pow"}}</span>&nbsp;{{statistics.power.value}}
+            </label>
+        </div>
+        <div class="stats-field" data-id="charisma">
+            <label class="clickable stats flex-2">
+                <span class="bold">{{localize "DG.STATISTICS.cha"}}</span>&nbsp;{{statistics.charisma.value}}
+            </label>
+        </div>
+    {{/with}}
+</section>

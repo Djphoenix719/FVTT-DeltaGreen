@@ -45,7 +45,8 @@
             "newSkill": "New Skill",
             "defaultGroup": "Default Group",
             "value": "Value",
-            "skill": "Skill"
+            "skill": "Skill",
+            "npcLabel": "Skills:"
         },
         "BIOGRAPHY": {
             "name": "Name",
@@ -60,13 +61,18 @@
         },
         "ATTRIBUTES": {
             "hitPoints": "Hit Points",
+            "hp": "HP",
             "willpower": "Willpower",
+            "wp": "WP",
             "sanity": "Sanity",
+            "san": "SAN",
             "luck": "Luck",
 
             "current": "Cur.",
             "max": "Max.",
-            "breakingPoint": "B. P.",
+            "breakingPoint": "Breaking Point",
+            "bp": "BP",
+
 
             "statistic": "Statistic",
             "score": "Score",
@@ -79,7 +85,14 @@
             "dexterity": "Dexterity",
             "intelligence": "Intelligence",
             "power": "Power",
-            "charisma": "Charisma"
+            "charisma": "Charisma",
+
+            "str": "STR",
+            "con": "CON",
+            "dex": "DEX",
+            "int": "INT",
+            "pow": "POW",
+            "cha": "CHA"
         },
         "INVENTORY": {
             "weapon": "Weapon",

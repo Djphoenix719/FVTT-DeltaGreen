@@ -18,7 +18,11 @@ export const SYSTEM_NAME = `delta-green`;
 
 export const CSS_CLASSES = {
     BASE: 'delta-green',
-    AGENT: 'agent',
+    ACTOR: {
+        BASE: 'actor',
+        AGENT: 'agent',
+        NPC: 'npc',
+    },
     ITEM: {
         BASE: 'item',
     },
