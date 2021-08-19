@@ -2,14 +2,24 @@
 
     <section class="biography">
 
-        {{#if editMode}}
-            <input type="text" name="name" value="{{@root.actor.name}}">
-            <label class="clickable unnatural{{#if @root.unnatural}} active{{/if}}"><i class="fas fa-pastafarianism"></i></label>
-        {{else}}
-            <label>{{actor.name}}</label>
-        {{/if}}
+        <div class="title">
+            {{#if editMode}}
+                <input type="text" name="name" value="{{@root.actor.name}}">
+                <label class="clickable unnatural{{#if @root.unnatural}} active{{/if}}"><i class="fas fa-pastafarianism"></i></label>
+            {{else}}
+                <label class="name">{{actor.name}}</label>
+            {{/if}}
 
-        <label class="clickable edit-mode"><i class="fas fa-edit"></i></label>
+            <label class="clickable edit-mode"><i class="fas fa-edit"></i></label>
+        </div>
+
+        <div class="subtitle">
+            {{#if editMode}}
+                <input type="text" name="data.biography.notes.value" value="{{@root.actor.data.data.biography.notes.value}}">
+            {{else}}
+                <label>{{@root.actor.data.data.biography.notes.value}}</label>
+            {{/if}}
+        </div>
 
     </section>
 

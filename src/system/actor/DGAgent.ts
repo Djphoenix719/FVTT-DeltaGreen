@@ -22,27 +22,7 @@ import { ActorTypeAgent } from '../../types/Actor';
 import { ActorDataSourceData, DGActor } from './DGActor';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 
-interface AgentDataSourceData extends ActorDataSourceData {
-    sanity: Bounded<number> & {
-        breakingPoint: Value<number>;
-        adaptations: {
-            [TType in AdaptationType]: {
-                adapted: boolean;
-                value: boolean[];
-            };
-        };
-    };
-    biography: {
-        profession: Value<string>;
-        employer: Value<string>;
-        nationality: Value<string>;
-        gender: Value<string>;
-        age: Value<string>;
-        education: Value<string>;
-        appearance: Value<string>;
-        notes: Value<string>;
-    };
-}
+interface AgentDataSourceData extends ActorDataSourceData {}
 interface AgentDataPropertiesData extends AgentDataSourceData {}
 
 export interface AgentDataSource {
@@ -54,13 +34,7 @@ export interface AgentDataProperties {
     data: AgentDataPropertiesData;
 }
 
-export class DGAgent extends DGActor {
-    prepareData() {
-        super.prepareData();
-
-        const data = this.data.data;
-    }
-}
+export class DGAgent extends DGActor {}
 export interface DGAgent extends DGActor {
     readonly data: ActorData & AgentDataProperties;
 }

@@ -18,7 +18,7 @@ import { ConstructorDataType } from '@league-of-foundry-developers/foundry-vtt-t
 import { Bounded, DGContext, Value } from '../../types/Helpers';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { BaseActor } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/documents.mjs';
-import { DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType, UNNATURAL_ID } from '../../types/Constants';
+import { AdaptationType, DEFAULT_SKILLS_DEFINITION, ItemTypeArmor, ItemTypeSkill, ItemTypeWeapon, StatisticType, UNNATURAL_ID } from '../../types/Constants';
 import { Statistic } from '../../types/Actor';
 import { DGSkill } from '../item/DGSkill';
 import { ItemType } from '../../types/Item';
@@ -59,6 +59,25 @@ export interface ActorDataSourceData {
     luck: Value<number>;
     statistics: {
         [TType in StatisticType]: Statistic<TType>;
+    };
+    sanity: Bounded<number> & {
+        breakingPoint: Value<number>;
+        adaptations: {
+            [TType in AdaptationType]: {
+                adapted: boolean;
+                value: boolean[];
+            };
+        };
+    };
+    biography: {
+        profession: Value<string>;
+        employer: Value<string>;
+        nationality: Value<string>;
+        gender: Value<string>;
+        age: Value<string>;
+        education: Value<string>;
+        appearance: Value<string>;
+        notes: Value<string>;
     };
 }
 

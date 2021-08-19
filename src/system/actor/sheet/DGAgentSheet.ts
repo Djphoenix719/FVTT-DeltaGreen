@@ -26,9 +26,6 @@ import { DGAgent } from '../DGAgent';
 
 export interface DGAgentSheetOptions extends DGActorSheetOptions {}
 export interface DGAgentSheetData extends DGActorSheetData {
-    bonds: DGBond[];
-    motivations: DGMotivation[];
-    disorders: DGDisorder[];
 }
 export class DGAgentSheet extends DGActorSheet<DGAgentSheetOptions, DGAgentSheetData, DGAgent> {
     static get defaultOptions() {
@@ -45,15 +42,4 @@ export class DGAgentSheet extends DGActorSheet<DGAgentSheetOptions, DGAgentSheet
         options.scrollY = [...options.scrollY, 'section.sheet-body'];
         return options;
     }
-
-    public async getData(options?: Application.RenderOptions): Promise<DGAgentSheetData> {
-        const renderData = await super.getData(options);
-
-        renderData.bonds = this.actor.getItemsOfType('bond');
-        renderData.motivations = this.actor.getItemsOfType('motivation');
-        renderData.disorders = this.actor.getItemsOfType('disorder');
-
-        return renderData;
-    }
-
 }

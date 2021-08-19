@@ -29,7 +29,7 @@ export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGNPCSheetData, 
         options.template = `systems/${SYSTEM_NAME}/templates/actor/npc/NPCSheet.html`;
         options.classes = [...options.classes, CSS_CLASSES.ACTOR.NPC];
         options.width = 500;
-        options.height = 400;
+        options.height = 600;
         return options;
     }
 

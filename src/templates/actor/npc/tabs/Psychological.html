@@ -1,5 +1,5 @@
 <section class="incidents">
-    <label class="section-title">{{localize "DG.PSYCHOLOGY.adaptations"}}:</label>
+    <label class="section-title">{{localize "DG.PSYCHOLOGY.adaptations"}}</label>
     <div class="adaptations">
         {{> list-adaptation data=@root.data.data.sanity.adaptations.violence type="violence" label="DG.PSYCHOLOGY.violence" }}
         {{> list-adaptation data=@root.data.data.sanity.adaptations.helplessness type="helplessness" label="DG.PSYCHOLOGY.helplessness" }}
@@ -7,12 +7,20 @@
 </section>
 
 <section class="bonds">
-    <label class="section-title">{{localize "DG.PSYCHOLOGY.bonds"}}:</label>
+    <div class="section-title">
+        {{#if @root.editMode}}
+            <div class="buttons">
+                <label class="clickable add-item" data-type="bond"><i class="fas fa-plus"></i></label>
+            </div>
+        {{/if}}
+
+        <label class="section-title">{{localize "DG.PSYCHOLOGY.bonds"}}</label>
+    </div>
 
     <div class="item-list bond">
 
         {{#each @root.bonds as |item|}}
-            {{> list-item-bond id=item.id name=item.name data=item.data.data}}
+            {{> list-item-bond id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
 
     </div>
@@ -20,12 +28,20 @@
 </section>
 
 <section class="motivations">
-    <label class="section-title">{{localize "DG.PSYCHOLOGY.motivations"}}:</label>
+    <div class="section-title">
+        {{#if @root.editMode}}
+            <div class="buttons">
+                <label class="clickable add-item" data-type="motivation"><i class="fas fa-plus"></i></label>
+            </div>
+        {{/if}}
+
+        <label class="section-title">{{localize "DG.PSYCHOLOGY.motivations"}}</label>
+    </div>
 
     <div class="item-list motivation">
 
         {{#each @root.motivations as |item|}}
-            {{> list-item-motivation id=item.id name=item.name data=item.data.data}}
+            {{> list-item-motivation id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
 
     </div>
@@ -33,12 +49,20 @@
 </section>
 
 <section class="disorders">
-    <label class="section-title">{{localize "DG.PSYCHOLOGY.disorders"}}:</label>
+    <div class="section-title">
+        {{#if @root.editMode}}
+            <div class="buttons">
+                <label class="clickable add-item" data-type="disorder"><i class="fas fa-plus"></i></label>
+            </div>
+        {{/if}}
+
+        <label class="section-title">{{localize "DG.PSYCHOLOGY.disorders"}}</label>
+    </div>
 
     <div class="item-list disorder">
 
         {{#each @root.disorders as |item|}}
-            {{> list-item-disorder id=item.id name=item.name data=item.data.data}}
+            {{> list-item-disorder id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
 
     </div>

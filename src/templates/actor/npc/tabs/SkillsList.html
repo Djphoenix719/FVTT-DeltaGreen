@@ -1,10 +1,27 @@
 <section class="skills-list">
-    <div class="item-list">
+    <div class="section-title">
+        {{#if @root.editMode}}
+            <div class="buttons">
+                <label class="clickable add-item" data-type="skill"><i class="fas fa-plus"></i></label>
+            </div>
+        {{/if}}
+
         <label class="section-title">{{localize "DG.SKILLS.npcLabel"}}</label>
+    </div>
+
+    <div class="item-list">
         {{#each skills as |group|}}
             {{#each group.skills as |skill|}}
                 <div class="list-item skill" data-id="{{id}}">
                     <label class="clickable name">{{skill.name}} {{skill.data.data.rating.value}}%</label>
+                    {{#if @root.editMode}}
+                        <div class="list-buttons">
+                            {{#if skill.data.data.canDelete.value}}
+                                <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
+                            {{/if}}
+                            <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                        </div>
+                    {{/if}}
                 </div>
             {{/each}}
         {{/each}}

@@ -3,16 +3,20 @@
     <div class="data">
         <label class="clickable flex-2 left collapsible" data-collapse-id="{{id}}">{{name}}</label>
 
-        <div class="list-buttons">
-            <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
-            <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
-        </div>
+        {{#if buttons}}
+            <div class="list-buttons">
+                <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
+            </div>
+        {{/if}}
     </div>
 
-    <div class="description collapse-target" {{#if (lookup @root.collapsibles id)}}{{else}}style='display: none'{{/if}}>
-        <div class="content">
-            {{{enrichHTML data.description.value}}}
+    {{#if data.description.value}}
+        <div class="description collapse-target" {{#if (lookup @root.collapsibles id)}}{{else}}style='display: none'{{/if}}>
+            <div class="content">
+                {{{enrichHTML data.description.value}}}
+            </div>
         </div>
-    </div>
+    {{/if}}
 
 </div>

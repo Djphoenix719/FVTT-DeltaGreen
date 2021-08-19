@@ -22,11 +22,27 @@ div.delta-green.npc section.window-content {
 
     section.biography {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: $title-underline-style;
-        font-size: x-large;
+        flex-direction: column;
         margin-bottom: 0.5rem;
+
+        div.title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            font-size: x-large;
+
+            border-bottom: $title-underline-style;
+        }
+
+        div.subtitle {
+            font-style: italic;
+
+            label,
+            input {
+                padding-left: 0.5rem;
+            }
+        }
 
         label i {
             padding: 0 0.25rem;
@@ -62,19 +78,26 @@ div.delta-green.npc section.window-content {
             font-weight: bold;
             text-transform: uppercase;
         }
+    }
 
-        input[type='number'] {
-            flex-shrink: 1;
-            text-align: center;
-            background: none;
+    input[type='number'] {
+        flex-shrink: 1;
+        text-align: center;
+        background: none;
 
-            padding: 0;
-            width: 2rem;
+        padding: 0;
+        width: 2rem;
 
-            &:not(:disabled) {
-                text-decoration: underline dotted;
-            }
+        &:not(:disabled) {
+            text-decoration: underline dotted;
         }
+    }
+
+    input[type='checkbox'] {
+        margin: 0;
+        padding: 0;
+        width: 1rem;
+        height: 1rem;
     }
 
     section.attributes {
@@ -114,14 +137,21 @@ div.delta-green.npc section.window-content {
 
     section.incidents {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
 
-        div.adaptations,
+        div.adaptations {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+        }
         div.adaptation {
             display: flex;
             flex-direction: row;
             align-items: center;
+
+            input[type='checkbox'] {
+                flex: 1;
+            }
         }
 
         div.adaptation {
@@ -131,14 +161,65 @@ div.delta-green.npc section.window-content {
             &:not(:first-of-type) {
                 margin-left: 0.5rem;
             }
+        }
+    }
 
-            input[type='checkbox'] {
-                flex: 1;
-                margin: 0;
-                padding: 0;
-                width: 1rem;
-                height: 1rem;
+    div.item-list {
+        div.list-item {
+            display: flex;
+
+            &.bond,
+            &.motivation,
+            &.disorder {
+                flex-direction: column;
+
+                input {
+                    height: 1rem;
+                }
             }
+
+            div.list-buttons {
+                padding-left: 0.5rem;
+            }
+
+            div.data {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+
+                div,
+                label {
+                    &.left {
+                        text-align: left;
+                    }
+                }
+
+                input[type='number'] {
+                    text-align: center;
+                }
+            }
+            div.description div.content {
+                padding: 0.25rem;
+                border-left: $form-border-style;
+                border-right: $form-border-style;
+                min-height: 1rem;
+
+                p {
+                    margin: 0;
+                    &:not(:last-of-type) {
+                        margin-bottom: 0.5em;
+                    }
+                }
+            }
+        }
+    }
+
+    section div.section-title {
+        display: flex;
+        div.buttons {
+            padding-right: 0.5rem;
         }
     }
 

@@ -29,6 +29,9 @@ import { DGGear } from '../../item/DGGear';
 import { DGItem } from '../../item/DGItem';
 import { AdaptationType, DEFAULT_ITEM_NAME, ItemTypeBond, ItemTypeDisorder, ItemTypeMotivation, ItemTypeWeapon, StatisticType } from '../../../types/Constants';
 import { ItemType } from '../../../types/Item';
+import { DGBond } from '../../item/DGBond';
+import { DGMotivation } from '../../item/DGMotivation';
+import { DGDisorder } from '../../item/DGDisorder';
 
 export interface SkillGroup {
     name: string;
@@ -43,6 +46,9 @@ export interface DGActorSheetData extends ActorSheet.Data {
         armor: DGArmor[];
         gear: DGGear[];
     };
+    bonds: DGBond[];
+    motivations: DGMotivation[];
+    disorders: DGDisorder[];
 }
 
 export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData extends DGActorSheetData, TActor extends DGActor> extends ActorSheet<
@@ -181,6 +187,10 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
             armor: this.actor.getItemsOfType('armor'),
             gear: this.actor.getItemsOfType('gear'),
         };
+
+        renderData.bonds = this.actor.getItemsOfType('bond');
+        renderData.motivations = this.actor.getItemsOfType('motivation');
+        renderData.disorders = this.actor.getItemsOfType('disorder');
 
         renderData.collapsibles = this._collapsibles;
 

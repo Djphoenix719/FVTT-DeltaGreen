@@ -46,7 +46,7 @@
             "defaultGroup": "Default Group",
             "value": "Value",
             "skill": "Skill",
-            "npcLabel": "Skills:"
+            "npcLabel": "Skills"
         },
         "BIOGRAPHY": {
             "name": "Name",
@@ -72,7 +72,6 @@
             "max": "Max.",
             "breakingPoint": "Breaking Point",
             "bp": "BP",
-
 
             "statistic": "Statistic",
             "score": "Score",

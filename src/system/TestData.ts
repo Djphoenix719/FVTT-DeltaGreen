@@ -148,6 +148,11 @@ const createTestNPC = async () => {
                 power: { value: 5 + Math.round(Math.random() * 100) },
                 intelligence: { value: 5 + Math.round(Math.random() * 100) },
             },
+            biography: {
+                notes: {
+                    value: 'Unnatural horror from the abyss',
+                },
+            },
         },
     })) as DGAgent;
     await game.actors?.getName('Test NPC')?.sheet?.render(true);
