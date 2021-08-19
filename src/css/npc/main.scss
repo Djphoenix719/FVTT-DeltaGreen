@@ -14,9 +14,20 @@
  * limitations under the License.
  */
 
+@import '../constants';
+
 div.delta-green.npc section.window-content {
     background: url('static/image/sheet/background-restricted.png') center;
     background-size: 125%;
+
+    section.biography {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: $title-underline-style;
+        font-size: x-large;
+        margin-bottom: 0.5rem;
+    }
 
     section.skills-list {
         div.item-list {
@@ -63,11 +74,18 @@ div.delta-green.npc section.window-content {
             }
 
             input[type='number'] {
-                width: 0;
-                box-sizing: content-box;
+                flex-shrink: 1;
                 text-align: center;
                 background: none;
+
+                padding: 0;
+                width: 2rem;
             }
+        }
+
+        label.luck {
+            flex: 1;
+            text-align: right;
         }
     }
 

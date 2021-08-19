@@ -8,8 +8,10 @@
                 <input type="text" name="name" value="{{@root.actor.name}}">
             </div>
         {{else}}
-            <h1>{{actor.name}}</h1>
+            <label>{{actor.name}}</label>
         {{/if}}
+
+        <label class="clickable edit-mode"><i class="fas fa-edit"></i></label>
 
     </section>
 

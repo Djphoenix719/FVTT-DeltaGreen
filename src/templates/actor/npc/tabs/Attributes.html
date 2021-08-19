@@ -3,22 +3,18 @@
     <div class="attribute">
         <label>{{localize "DG.ATTRIBUTES.hp"}}</label>
         <input type="number" name="data.health.value" value="{{@root.data.data.health.value}}">
+        {{#if @root.editMode}}
+            <input type="number" name="data.health.max" value="{{@root.data.data.health.max}}" disabled>
+        {{/if}}
     </div>
-
-<!--            <div class="labeled-field">-->
-<!--                <label>{{localize "DG.ATTRIBUTES.max"}}</label>-->
-<!--                <input type="number" name="data.health.max" value="{{@root.data.data.health.max}}" disabled>-->
-<!--            </div>-->
 
     <div class="attribute">
         <label class="clickable willpower">{{localize "DG.ATTRIBUTES.wp"}}</label>
         <input type="number" name="data.willpower.value" value="{{@root.data.data.willpower.value}}">
+        {{#if @root.editMode}}
+            <input type="number" name="data.willpower.max" value="{{@root.data.data.willpower.max}}" disabled>
+        {{/if}}
     </div>
-
-<!--            <div class="labeled-field">-->
-<!--                <label>{{localize "DG.ATTRIBUTES.max"}}</label>-->
-<!--                <input type="number" name="data.willpower.max" value="{{@root.data.data.willpower.max}}" disabled>-->
-<!--            </div>-->
 
     <div class="attribute">
         <label class="clickable sanity">{{localize "DG.ATTRIBUTES.san"}}</label>
@@ -28,13 +24,11 @@
     <div class="attribute">
         <label>{{localize "DG.ATTRIBUTES.breakingPoint"}}</label>
         <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
+        {{#if @root.editMode}}
+            <input type="number" name="data.sanity.max" value="{{@root.data.data.sanity.max}}" disabled>
+        {{/if}}
         <label class="clickable reset"><i class="fas fa-redo-alt"></i></label>
     </div>
-
-<!--            <div class="labeled-field">-->
-<!--                <label>{{localize "DG.ATTRIBUTES.max"}}</label>-->
-<!--                <input type="number" name="data.sanity.max" value="{{@root.data.data.sanity.max}}" disabled>-->
-<!--            </div>-->
 
     <label class="icon clickable luck"><i class="fas fa-dice"></i></label>
 
