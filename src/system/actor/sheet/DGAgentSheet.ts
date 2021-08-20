@@ -14,13 +14,7 @@
  * limitations under the License.
  */
 
-import { AdaptationType } from '../../../types/Constants';
-import { DGPercentileRoll } from '../../dice/DGPercentileRoll';
-import { preprocessEvent } from '../../util/Sheet';
 import { DGActorSheet, DGActorSheetData, DGActorSheetOptions } from './DGActorSheet';
-import { DGBond } from '../../item/DGBond';
-import { DGMotivation } from '../../item/DGMotivation';
-import { DGDisorder } from '../../item/DGDisorder';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import { DGAgent } from '../DGAgent';
 

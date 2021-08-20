@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-import { AdaptationType, UNNATURAL_ID } from '../../types/Constants';
-import { DGItem } from '../item/DGItem';
-import { DGPercentageRollPart, DGPercentileRoll } from '../dice/DGPercentileRoll';
-import { Bounded, Value } from '../../types/Helpers';
 import { ActorTypeAgent } from '../../types/Actor';
 import { ActorDataSourceData, DGActor } from './DGActor';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';

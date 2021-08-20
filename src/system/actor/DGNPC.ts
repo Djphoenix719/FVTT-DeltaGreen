@@ -15,9 +15,7 @@
  */
 
 import { ActorDataSourceData, DGActor } from './DGActor';
-import { Bounded, Value } from '../../types/Helpers';
-import { AdaptationType, StatisticType } from '../../types/Constants';
-import { ActorTypeNPC, Statistic } from '../../types/Actor';
+import { ActorTypeNPC } from '../../types/Actor';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { SYSTEM_NAME } from '../Constants';
 
