@@ -58,8 +58,6 @@ div.delta-green.npc section.window-content {
 
     section.skills-list {
         div.item-list {
-            display: flex;
-            flex-direction: row;
             flex-wrap: wrap;
         }
 
@@ -164,7 +162,46 @@ div.delta-green.npc section.window-content {
         }
     }
 
+    div.list-group {
+        display: flex;
+        flex-direction: column;
+
+        header.flex {
+            display: flex;
+            border-bottom: $form-border-style;
+
+            label:first-of-type {
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            label.center {
+                text-align: center;
+            }
+            label.left {
+                text-align: left;
+            }
+
+            div.buttons {
+                flex-basis: 10%;
+                text-align: right;
+            }
+        }
+
+        div.item-list {
+            display: flex;
+            flex-direction: column;
+        }
+        div.list-item {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
     div.item-list {
+        display: flex;
+        white-space: nowrap;
+
         div.list-item {
             display: flex;
 
@@ -172,6 +209,7 @@ div.delta-green.npc section.window-content {
             &.motivation,
             &.disorder {
                 flex-direction: column;
+                flex: 1;
 
                 input {
                     height: 1rem;

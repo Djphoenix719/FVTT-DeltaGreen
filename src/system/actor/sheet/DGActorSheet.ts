@@ -402,7 +402,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
      */
     protected bindInventoryListeners(html: JQuery) {
         // Inventory: Roll attack
-        html.find('div.inventory-group.weapon label.attack').on('click', async (event) => {
+        html.find('div.list-group.weapon label.attack').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const item = this.actor.getEmbeddedDocument('Item', id) as DGWeapon;
             let roll: DGPercentileRoll;
@@ -422,7 +422,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Inventory: Roll damage
-        html.find('div.inventory-group.weapon label.damage').on('click', async (event) => {
+        html.find('div.list-group.weapon label.damage').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const item = this.actor.getEmbeddedDocument('Item', id) as DGWeapon;
 
@@ -473,7 +473,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Inventory: Decrement ammo
-        html.find('div.inventory-group.weapon div.ammo label.decrement').on('click', async (event) => {
+        html.find('div.list-group.weapon div.ammo label.decrement').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {
@@ -484,7 +484,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Inventory: Reload ammo
-        html.find('div.inventory-group.weapon div.ammo label.reload').on('click', async (event) => {
+        html.find('div.list-group.weapon div.ammo label.reload').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
             if (item.data.type === ItemTypeWeapon) {

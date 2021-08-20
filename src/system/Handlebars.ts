@@ -47,6 +47,8 @@ export async function registerHandlebarsTemplatesAndPartials() {
         `templates/actor/npc/tabs/Statistics.html`,
         `templates/actor/npc/tabs/Attributes.html`,
         `templates/actor/npc/tabs/Psychological.html`,
+        `templates/actor/npc/tabs/Inventory.html`,
+        `templates/actor/npc/tabs/Abilities.html`,
 
         `templates/item/GearSheet.html`,
         `templates/item/WeaponSheet.html`,
