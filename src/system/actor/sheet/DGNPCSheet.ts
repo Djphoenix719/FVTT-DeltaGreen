@@ -17,11 +17,13 @@
 import { DGActorSheet, DGActorSheetData, DGActorSheetOptions } from './DGActorSheet';
 import { DGNPC } from '../DGNPC';
 import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
+import { DGAbility } from '../../item/DGAbility';
 
 export interface DGNPCSheetOptions extends DGActorSheetOptions {}
 export interface DGNPCSheetData extends DGActorSheetData {
     editMode: boolean;
     unnatural: boolean;
+    abilities: DGAbility[];
 }
 export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGNPCSheetData, DGNPC> {
     static get defaultOptions() {
@@ -60,6 +62,8 @@ export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGNPCSheetData, 
 
         renderData.editMode = this.getEditMode();
         renderData.unnatural = this.actor.getUnnatural();
+        renderData.abilities = this.actor.getItemsOfType('ability');
+        renderData.abilities.sort((a, b) => a.name!.localeCompare(b.name!));
 
         return renderData;
     }

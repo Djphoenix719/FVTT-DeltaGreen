@@ -162,7 +162,8 @@ div.delta-green.npc section.window-content {
         }
     }
 
-    div.list-group {
+    div.list-group,
+    section.abilities {
         display: flex;
         flex-direction: column;
 

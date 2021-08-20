@@ -11,5 +11,6 @@ This is a list of things I may or may not get to, depending on my time.
 - Npc sheet with powers
 - Secret sanity 
 - Willpower roll
+- Hide item categories on npc sheet that have 0 entries when not in edit mode
 - OPINT
   - Unnatural statistic rolls
