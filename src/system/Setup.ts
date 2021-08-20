@@ -44,6 +44,8 @@ import { DGActor } from './actor/DGActor';
 import { createTestDocuments } from './TestData';
 import { DGNPCSheet } from './actor/sheet/DGNPCSheet';
 import { patchEnrichHTML } from './TextEditor';
+import { DGAbility } from './item/DGAbility';
+import { DGAbilitySheet } from './item/sheet/DGAbilitySheet';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -112,6 +114,11 @@ function registerItemClasses() {
         types: ['disorder'],
         makeDefault: true,
     });
+    Items.registerSheet(SYSTEM_NAME, DGAbilitySheet, {
+        label: 'Ability',
+        types: ['ability'],
+        makeDefault: true,
+    });
     CONFIG.Item.documentClass = DGItem;
     CONFIG.DG = {
         ...CONFIG.DG,
@@ -124,6 +131,7 @@ function registerItemClasses() {
                 motivation: DGMotivation,
                 skill: DGSkill,
                 weapon: DGWeapon,
+                ability: DGAbility,
             },
         },
     };

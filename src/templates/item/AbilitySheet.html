@@ -1,0 +1,19 @@
+<form class="{{cssClass}}">
+
+    <nav class="sheet-navigation" data-group="primary">
+        <a class="item" data-tab="tab-description" title="{{localize "DG.ITEM.description"}}">{{localize "DG.ITEM.description"}}</a>
+    </nav>
+
+    <section class="sheet-body">
+
+        <div class="tab tab-description" data-group="primary" data-tab="tab-description">
+            {{editor content=data.data.description.value
+                     target="data.description.value"
+                     button=true
+                     owner=owner
+                     editable=editable}}
+        </div>
+
+    </section>
+
+</form>

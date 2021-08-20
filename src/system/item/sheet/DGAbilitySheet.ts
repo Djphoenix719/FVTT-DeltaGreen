@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright 2021 Andrew Cuccinello
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-@import '../../constants';
+import { SYSTEM_NAME } from '../../Constants';
+import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
 
-div.delta-green.agent section.window-content {
-    section.skills {
-
+export interface DGAbilitySheetOptions extends DGItemSheetOptions {}
+export interface DGAbilitySheetData extends DGItemSheetData {}
+export class DGAbilitySheet extends DGItemSheet<DGAbilitySheetOptions, DGAbilitySheetData> {
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        options.template = `systems/${SYSTEM_NAME}/templates/item/AbilitySheet.html`;
+        return options;
     }
 }

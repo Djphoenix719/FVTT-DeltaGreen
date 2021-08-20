@@ -14,7 +14,17 @@
  * limitations under the License.
  */
 
-import { ItemType, ItemTypeArmor, ItemTypeBond, ItemTypeDisorder, ItemTypeGear, ItemTypeMotivation, ItemTypeSkill, ItemTypeWeapon } from './Item';
+import {
+    ItemType,
+    ItemTypeAbility,
+    ItemTypeArmor,
+    ItemTypeBond,
+    ItemTypeDisorder,
+    ItemTypeGear,
+    ItemTypeMotivation,
+    ItemTypeSkill,
+    ItemTypeWeapon,
+} from './Item';
 import { DGAgent } from '../system/actor/DGAgent';
 import { DGItem } from '../system/item/DGItem';
 import { DGSkill } from '../system/item/DGSkill';
@@ -27,6 +37,7 @@ import { DGWeapon } from '../system/item/DGWeapon';
 import { ActorType, ActorTypeAgent, ActorTypeNPC, ActorTypeUnnatural } from './Actor';
 import { DGActor } from '../system/actor/DGActor';
 import { DGNPC } from '../system/actor/DGNPC';
+import { DGAbility } from '../system/item/DGAbility';
 
 export const SYSTEM_DATA_SCHEMA_VERSION = 2;
 
@@ -65,6 +76,10 @@ export interface ItemTypeMap extends TypeMap<ItemType, typeof DGItem> {
     weapon: {
         type: ItemTypeWeapon;
         cls: typeof DGWeapon;
+    };
+    ability: {
+        type: ItemTypeAbility;
+        cls: typeof DGAbility;
     };
 }
 export interface ActorTypeMap extends TypeMap<ActorType, typeof DGActor> {

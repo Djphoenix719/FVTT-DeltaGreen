@@ -14,30 +14,14 @@
  * limitations under the License.
  */
 
-import { DGActor } from './DGActor';
+import { ActorDataSourceData, DGActor } from './DGActor';
 import { Bounded, Value } from '../../types/Helpers';
 import { AdaptationType, StatisticType } from '../../types/Constants';
 import { ActorTypeNPC, Statistic } from '../../types/Actor';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { SYSTEM_NAME } from '../Constants';
 
-interface NPCDataSourceData {
-    health: Bounded<number>;
-    willpower: Bounded<number>;
-    sanity: Bounded<number> & {
-        breakingPoint: Value<number>;
-        adaptations: {
-            [TType in AdaptationType]: {
-                adapted: boolean;
-                value: boolean[];
-            };
-        };
-    };
-    luck: Value<number>;
-    statistics: {
-        [TType in StatisticType]: Statistic<TType>;
-    };
-}
+interface NPCDataSourceData extends ActorDataSourceData {}
 interface NPCDataPropertiesData extends NPCDataSourceData {}
 
 export interface NPCDataSource {

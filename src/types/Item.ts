@@ -14,15 +14,7 @@
  * limitations under the License.
  */
 
-import {
-    ItemTypeArmor,
-    ItemTypeBond,
-    ItemTypeDisorder,
-    ItemTypeGear,
-    ItemTypeMotivation,
-    ItemTypeSkill,
-    ItemTypeWeapon,
-} from './Constants';
+import { ItemTypeAbility, ItemTypeArmor, ItemTypeBond, ItemTypeDisorder, ItemTypeGear, ItemTypeMotivation, ItemTypeSkill, ItemTypeWeapon } from './Constants';
 import { SkillDataProperties, SkillDataSource } from '../system/item/DGSkill';
 import { BondDataProperties, BondDataSource } from '../system/item/DGBond';
 import { MotivationDataProperties, MotivationDataSource } from '../system/item/DGMotivation';
@@ -30,19 +22,29 @@ import { DisorderDataProperties, DisorderDataSource } from '../system/item/DGDis
 import { GearDataProperties, GearDataSource } from '../system/item/DGGear';
 import { ArmorDataProperties, ArmorDataSource } from '../system/item/DGArmor';
 import { WeaponDataProperties, WeaponDataSource } from '../system/item/DGWeapon';
+import { AbilityDataProperties, AbilityDataSource } from '../system/item/DGAbility';
 
 export type ItemTypeSkill = typeof ItemTypeSkill;
 export type ItemTypeBond = typeof ItemTypeBond;
 export type ItemTypeMotivation = typeof ItemTypeMotivation;
 export type ItemTypeDisorder = typeof ItemTypeDisorder;
+export type ItemTypeAbility = typeof ItemTypeAbility;
 
 export type ItemTypeGear = typeof ItemTypeGear;
 export type ItemTypeArmor = typeof ItemTypeArmor;
 export type ItemTypeWeapon = typeof ItemTypeWeapon;
 export type ItemTypePhysical = ItemTypeGear | ItemTypeArmor | ItemTypeWeapon;
 
-export type ItemType = ItemTypePhysical | ItemTypeSkill | ItemTypeBond | ItemTypeMotivation | ItemTypeDisorder;
-export type ItemDataSource = GearDataSource | ArmorDataSource | WeaponDataSource | SkillDataSource | BondDataSource | MotivationDataSource | DisorderDataSource;
+export type ItemType = ItemTypePhysical | ItemTypeSkill | ItemTypeBond | ItemTypeMotivation | ItemTypeDisorder | ItemTypeAbility;
+export type ItemDataSource =
+    | GearDataSource
+    | ArmorDataSource
+    | WeaponDataSource
+    | SkillDataSource
+    | BondDataSource
+    | MotivationDataSource
+    | DisorderDataSource
+    | AbilityDataSource;
 export type ItemDataProperties =
     | GearDataProperties
     | ArmorDataProperties
@@ -50,7 +52,8 @@ export type ItemDataProperties =
     | SkillDataProperties
     | BondDataProperties
     | MotivationDataProperties
-    | DisorderDataProperties;
+    | DisorderDataProperties
+    | AbilityDataProperties;
 
 declare global {
     interface SourceConfig {

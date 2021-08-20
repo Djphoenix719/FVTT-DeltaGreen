@@ -632,7 +632,9 @@ export const ItemTypeWeapon = 'weapon';
 export const ItemTypeBond = 'bond';
 export const ItemTypeMotivation = 'motivation';
 export const ItemTypeDisorder = 'disorder';
+export const ItemTypeAbility = 'ability';
 
+// TODO: Localization.
 export const DEFAULT_ITEM_NAME: Record<ItemType, string> = {
     [ItemTypeSkill]: `New ${ItemTypeSkill.capitalize()}`,
     [ItemTypeGear]: `New ${ItemTypeGear.capitalize()}`,
@@ -641,6 +643,7 @@ export const DEFAULT_ITEM_NAME: Record<ItemType, string> = {
     [ItemTypeBond]: `New ${ItemTypeBond.capitalize()}`,
     [ItemTypeMotivation]: `New ${ItemTypeMotivation.capitalize()}`,
     [ItemTypeDisorder]: `New ${ItemTypeDisorder.capitalize()}`,
+    [ItemTypeAbility]: `New ${ItemTypeAbility.capitalize()}`,
 };
 
 export enum ExpenseType {

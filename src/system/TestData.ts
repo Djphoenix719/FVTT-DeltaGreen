@@ -255,6 +255,33 @@ const createTestNPC = async () => {
                 },
             },
         },
+        {
+            type: 'ability',
+            name: 'Example Ability 1',
+            data: {
+                description: {
+                    value: 'Example Ability 1',
+                },
+            },
+        },
+        {
+            type: 'ability',
+            name: 'Example Ability 2',
+            data: {
+                description: {
+                    value: 'Example Ability 2',
+                },
+            },
+        },
+        {
+            type: 'ability',
+            name: 'Example Ability 3',
+            data: {
+                description: {
+                    value: 'Example Ability 3',
+                },
+            },
+        },
     ]);
 };
 

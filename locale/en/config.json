@@ -45,8 +45,7 @@
             "newSkill": "New Skill",
             "defaultGroup": "Default Group",
             "value": "Value",
-            "skill": "Skill",
-            "npcLabel": "Skills"
+            "skill": "Skill"
         },
         "BIOGRAPHY": {
             "name": "Name",
@@ -121,7 +120,8 @@
             "psychological": "Psychological",
             "inventory": "Inventory",
             "description": "Description",
-            "miscellaneous": "Miscellaneous"
+            "miscellaneous": "Miscellaneous",
+            "abilities": "Abilities"
         },
         "ITEM": {
             "name": "Name",

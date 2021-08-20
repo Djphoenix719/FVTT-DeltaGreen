@@ -28,6 +28,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
         'list-item-disorder': 'templates/actor/agent/partial/psychological/ListItemDisorder.html',
         'list-item-motivation': 'templates/actor/agent/partial/psychological/ListItemMotivation.html',
         'list-item-skill': 'templates/actor/agent/partial/skill/ListItemSkill.html',
+        'list-item-ability': 'templates/actor/npc/partial/ListItemAbility.html',
         'list-adaptation': 'templates/actor/agent/partial/psychological/Adaptation.html',
     };
 
@@ -55,6 +56,7 @@ export async function registerHandlebarsTemplatesAndPartials() {
         `templates/item/ArmorSheet.html`,
         `templates/item/BondSheet.html`,
         `templates/item/SkillSheet.html`,
+        `templates/item/AbilitySheet.html`,
         `templates/item/partial/PhysicalItemCommon.html`,
 
         ...Object.values(partials),
