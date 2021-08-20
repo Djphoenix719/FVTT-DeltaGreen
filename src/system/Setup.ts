@@ -43,6 +43,7 @@ import { DGNPC } from './actor/DGNPC';
 import { DGActor } from './actor/DGActor';
 import { createTestDocuments } from './TestData';
 import { DGNPCSheet } from './actor/sheet/DGNPCSheet';
+import { patchEnrichHTML } from './TextEditor';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -144,6 +145,7 @@ Hooks.on('init', async () => {
 
 Hooks.on('setup', async () => {
     await SystemSettings.registerAll();
+    patchEnrichHTML();
 });
 
 Hooks.on('ready', async () => {
