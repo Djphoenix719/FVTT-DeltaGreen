@@ -188,14 +188,6 @@
         "gear": {
             "templates": ["description", "physical"]
         },
-        "wallet": {
-            "templates": ["description"],
-            "trivial": 0,
-            "standard": 0,
-            "unusual": 0,
-            "major": 0,
-            "extreme": 0
-        },
         "bond": {
             "templates": ["description", "crossed"],
             "damaged": {
@@ -212,7 +204,7 @@
             "templates": ["description", "crossed"]
         },
         "ability": {
-            "templates": []
+            "templates": ["description"]
         }
     }
 }
