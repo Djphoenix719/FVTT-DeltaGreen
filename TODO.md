@@ -1,16 +1,17 @@
 # Todo
 This is a list of things I may or may not get to, depending on my time.
 
-- Description tab for agents
-- Email Shane Ivey about using the backgrounds
-- Tomes and rituals
-- Cleanup and generalize migrations
-- Other initiative attributes 
-- Null attributes
-- Infinite attributes 
-- Npc sheet with powers
-- Secret sanity 
-- Willpower roll
-- Hide item categories on npc sheet that have 0 entries when not in edit mode
-- OPINT
-  - Unnatural statistic rolls
+- META
+  - Email Shane Ivey about using the backgrounds
+  - Cleanup and generalize migrations
+- AGENTS
+  - Tomes and rituals
+  - Other initiative attributes?
+  - Willpower roll
+  - Move labels out of template for statistics
+  - OPINT
+    - Secret sanity
+- NPCs
+  - Attributes w/ a value of N/A or INF?
+  - OPINT
+    - Unnatural statistic rolls

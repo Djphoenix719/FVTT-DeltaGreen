@@ -157,7 +157,7 @@ Hooks.on('setup', async () => {
 });
 
 Hooks.on('ready', async () => {
-    createTestDocuments();
+    // createTestDocuments();
 });
 
 // TODO: More permanent display of additional information is required
