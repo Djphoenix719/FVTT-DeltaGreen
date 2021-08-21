@@ -36,6 +36,10 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
     if (actor.items.filter((item) => item.type === ItemTypeSkill).length > 0) {
         return;
     }
+    if (actor.type === 'npc') {
+        return;
+    }
+
     actor.data.update({
         items: DEFAULT_SKILLS_DEFINITION.map((skill) => {
             return {
