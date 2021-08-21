@@ -9,6 +9,7 @@ This is a list of things I may or may not get to, depending on my time.
   - Other initiative attributes?
   - Willpower roll
   - Move labels out of template for statistics
+  - Better sorting options for skills
   - OPINT
     - Secret sanity
 - NPCs
