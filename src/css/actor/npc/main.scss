@@ -16,138 +16,145 @@
 
 @import '../../constants';
 
-div.delta-green.npc section.window-content {
-    background: url('static/image/sheet/background-restricted.png') center;
-    background-size: 125%;
+div.delta-green.npc {
+    min-width: 250px;
+    min-height: 250px;
 
-    section:not(.sheet-body) {
-        display: flex;
-        flex-direction: column;
+    section.window-content {
+        background: url('static/image/sheet/background-restricted.png') center;
+        background-size: 125%;
 
-        header {
-            border-bottom: $form-border-style;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-    }
-
-    section.biography {
-        margin-bottom: 0.5rem;
-
-        div.title {
+        section:not(.sheet-body) {
             display: flex;
+            flex-direction: column;
+
+            header {
+                border-bottom: $form-border-style;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+        }
+
+        section.biography {
+            margin-bottom: 0.5rem;
+
+            div.title {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                font-size: x-large;
+
+                border-bottom: $title-underline-style;
+            }
+
+            div.subtitle {
+                font-style: italic;
+
+                label,
+                input {
+                    padding-left: 0.5rem;
+                }
+            }
+
+            label.name {
+                width: 100%;
+            }
+            label i {
+                padding: 0 0.25rem;
+                text-align: center;
+            }
+            label.unnatural {
+                color: gray;
+                &.active {
+                    color: black;
+                }
+            }
+        }
+
+        section.statistics {
             flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            font-size: x-large;
+            flex-wrap: wrap;
 
-            border-bottom: $title-underline-style;
-        }
+            div.statistic {
+                white-space: nowrap;
 
-        div.subtitle {
-            font-style: italic;
+                label {
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
 
-            label,
-            input {
-                padding-left: 0.5rem;
+                &:not(:last-of-type) {
+                    padding-right: 0.5rem;
+                }
             }
         }
 
-        label.name {
-            width: 100%;
-        }
-        label i {
-            padding: 0 0.25rem;
-            text-align: center;
-        }
-        label.unnatural {
-            color: gray;
-            &.active {
-                color: black;
+        section.skills {
+            div.item-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            div.list-item {
+                white-space: nowrap;
+
+                &:not(:last-of-type) {
+                    padding-right: 0.5rem;
+                }
             }
         }
-    }
 
-    section.statistics {
-        flex-direction: row;
-
-        div.statistic {
-            white-space: nowrap;
+        section.attributes {
+            flex-direction: row;
+            flex-wrap: wrap;
 
             label {
                 font-weight: bold;
                 text-transform: uppercase;
             }
-
-            &:not(:last-of-type) {
-                padding-right: 0.5rem;
-            }
-        }
-    }
-
-    section.skills {
-        div.item-list {
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-        div.list-item {
-            white-space: nowrap;
-
-            &:not(:last-of-type) {
-                padding-right: 0.5rem;
-            }
-        }
-    }
-
-    section.attributes {
-        flex-direction: row;
-
-        label {
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-    }
-
-    section.incidents {
-        div.adaptations {
-            flex: 1;
-            display: flex;
         }
 
-        div.adaptation {
-            display: flex;
-            align-items: center;
-
-            label {
-                margin-right: 0.5rem;
-            }
-            &:not(:first-of-type) {
-                margin-left: 0.5rem;
+        section.incidents {
+            div.adaptations {
+                display: flex;
+                flex-wrap: wrap;
             }
 
-            input[type='checkbox'] {
-                flex: 1;
+            div.adaptation {
+                display: flex;
+                align-items: center;
+
+                label {
+                    margin-right: 0.5rem;
+                }
+                &:first-of-type {
+                    margin-right: 0.5rem;
+                }
+
+                input[type='checkbox'] {
+                    flex: 1;
+                }
             }
         }
-    }
 
-    input[type='number'] {
-        flex-shrink: 1;
-        text-align: center;
-        background: none;
+        input[type='number'] {
+            flex-shrink: 1;
+            text-align: center;
+            background: none;
 
-        padding: 0;
-        width: 2rem;
+            padding: 0;
+            width: 2rem;
 
-        &:not(:disabled) {
-            text-decoration: underline dotted;
+            &:not(:disabled) {
+                text-decoration: underline dotted;
+            }
         }
-    }
 
-    input[type='checkbox'] {
-        margin: 0;
-        padding: 0;
-        width: 1rem;
-        height: 1rem;
+        input[type='checkbox'] {
+            margin: 0;
+            padding: 0;
+            width: 1rem;
+            height: 1rem;
+        }
     }
 }

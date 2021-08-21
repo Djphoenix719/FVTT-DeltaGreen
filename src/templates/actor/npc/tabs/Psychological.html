@@ -8,66 +8,72 @@
     </div>
 </section>
 
-<section class="bonds">
-    <header class="flex">
-        <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.bonds"}}</label>
 
-        {{#if @root.editMode}}
-            <div class="buttons">
-                <label class="clickable add-item" data-type="bond"><i class="fas fa-plus"></i></label>
-            </div>
-        {{/if}}
-    </header>
+{{#if (or (gt @root.bonds.length 0) @root.editMode)}}
+    <section class="bonds">
+        <header class="flex">
+            <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.bonds"}}</label>
 
-    <div class="item-list bond">
+            {{#if @root.editMode}}
+                <div class="buttons">
+                    <label class="clickable add-item" data-type="bond"><i class="fas fa-plus"></i></label>
+                </div>
+            {{/if}}
+        </header>
 
-        {{#each @root.bonds as |item|}}
-            {{> li-bond-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
-        {{/each}}
+        <div class="item-list bond">
 
-    </div>
+            {{#each @root.bonds as |item|}}
+                {{> li-bond-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{/each}}
 
-</section>
+        </div>
 
-<section class="motivations">
-    <header class="flex">
-        <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.motivations"}}</label>
+    </section>
+{{/if}}
 
-        {{#if @root.editMode}}
-            <div class="buttons">
-                <label class="clickable add-item" data-type="motivation"><i class="fas fa-plus"></i></label>
-            </div>
-        {{/if}}
-    </header>
+{{#if (or (gt @root.motivations.length 0) @root.editMode)}}
+    <section class="motivations">
+        <header class="flex">
+            <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.motivations"}}</label>
 
-    <div class="item-list motivation">
+            {{#if @root.editMode}}
+                <div class="buttons">
+                    <label class="clickable add-item" data-type="motivation"><i class="fas fa-plus"></i></label>
+                </div>
+            {{/if}}
+        </header>
 
-        {{#each @root.motivations as |item|}}
-            {{> li-motivation-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
-        {{/each}}
+        <div class="item-list motivation">
 
-    </div>
+            {{#each @root.motivations as |item|}}
+                {{> li-motivation-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{/each}}
 
-</section>
+        </div>
 
-<section class="disorders">
-    <header class="flex">
-        <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.disorders"}}</label>
+    </section>
+{{/if}}
 
-        {{#if @root.editMode}}
-            <div class="buttons">
-                <label class="clickable add-item" data-type="disorder"><i class="fas fa-plus"></i></label>
-            </div>
-        {{/if}}
-    </header>
+{{#if (or (gt @root.disorders.length 0) @root.editMode)}}
+    <section class="disorders">
+        <header class="flex">
+            <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.disorders"}}</label>
 
-    <div class="item-list disorder">
+            {{#if @root.editMode}}
+                <div class="buttons">
+                    <label class="clickable add-item" data-type="disorder"><i class="fas fa-plus"></i></label>
+                </div>
+            {{/if}}
+        </header>
 
-        {{#each @root.disorders as |item|}}
-            {{> li-disorder-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
-        {{/each}}
+        <div class="item-list disorder">
 
-    </div>
+            {{#each @root.disorders as |item|}}
+                {{> li-disorder-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{/each}}
 
-</section>
+        </div>
 
+    </section>
+{{/if}}
