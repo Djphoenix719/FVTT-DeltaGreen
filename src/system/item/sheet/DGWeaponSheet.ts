@@ -35,8 +35,8 @@ export class DGWeaponSheet extends DGItemPhysicalSheet<DGWeaponSheetOptions, DGW
 
         const skills: SelectOption[] = [
             {
-                value: ' ',
-                label: 'None',
+                value: '',
+                label: '—',
             },
         ];
         if (this.item.actor) {
