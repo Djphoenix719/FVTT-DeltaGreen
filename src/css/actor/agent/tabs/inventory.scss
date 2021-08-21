@@ -17,4 +17,7 @@
 @import '../../../constants';
 
 div.delta-green.agent section.window-content {
+    div.list-group:not(:last-of-type) {
+        margin-bottom: 0.25rem;
+    }
 }
