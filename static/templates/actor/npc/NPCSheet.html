@@ -2,24 +2,32 @@
 
     <section class="biography">
 
-        <div class="title">
-            {{#if editMode}}
-                <input type="text" name="name" value="{{@root.actor.name}}">
-                <label class="clickable unnatural{{#if @root.unnatural}} active{{/if}}"><i class="fas fa-pastafarianism"></i></label>
-            {{else}}
-                <label class="name">{{actor.name}}</label>
-            {{/if}}
-
-            <label class="clickable luck"><i class="fas fa-dice"></i></label>
-            <label class="clickable edit-mode"><i class="fas fa-edit"></i></label>
+        <div class="avatar">
+            <img class="avatar" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
         </div>
 
-        <div class="subtitle">
-            {{#if editMode}}
-                <input type="text" name="data.biography.notes.value" value="{{@root.actor.data.data.biography.notes.value}}">
-            {{else}}
-                <label>{{@root.actor.data.data.biography.notes.value}}</label>
-            {{/if}}
+        <div class="text">
+
+            <div class="title">
+                {{#if editMode}}
+                    <input type="text" name="name" value="{{@root.actor.name}}">
+                    <label class="clickable unnatural{{#if @root.unnatural}} active{{/if}}"><i class="fas fa-pastafarianism"></i></label>
+                {{else}}
+                    <label class="name">{{actor.name}}</label>
+                {{/if}}
+
+                <label class="clickable luck"><i class="fas fa-dice"></i></label>
+                <label class="clickable edit-mode"><i class="fas fa-edit"></i></label>
+            </div>
+
+            <div class="subtitle">
+                {{#if editMode}}
+                    <input type="text" name="data.biography.notes.value" value="{{@root.actor.data.data.biography.notes.value}}">
+                {{else}}
+                    <label>{{@root.actor.data.data.biography.notes.value}}</label>
+                {{/if}}
+            </div>
+
         </div>
 
     </section>
