@@ -1,5 +1,7 @@
 <section class="incidents">
-    <label class="section-title">{{localize "DG.PSYCHOLOGY.adaptations"}}</label>
+    <header class="flex">
+        <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.adaptations"}}</label>
+    </header>
     <div class="adaptations">
         {{> list-adaptation data=@root.data.data.sanity.adaptations.violence type="violence" label="DG.PSYCHOLOGY.violence" }}
         {{> list-adaptation data=@root.data.data.sanity.adaptations.helplessness type="helplessness" label="DG.PSYCHOLOGY.helplessness" }}
@@ -7,15 +9,15 @@
 </section>
 
 <section class="bonds">
-    <div class="section-title">
+    <header class="flex">
         {{#if @root.editMode}}
             <div class="buttons">
                 <label class="clickable add-item" data-type="bond"><i class="fas fa-plus"></i></label>
             </div>
         {{/if}}
 
-        <label class="section-title">{{localize "DG.PSYCHOLOGY.bonds"}}</label>
-    </div>
+        <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.bonds"}}</label>
+    </header>
 
     <div class="item-list bond">
 
@@ -28,15 +30,15 @@
 </section>
 
 <section class="motivations">
-    <div class="section-title">
+    <header class="flex">
         {{#if @root.editMode}}
             <div class="buttons">
                 <label class="clickable add-item" data-type="motivation"><i class="fas fa-plus"></i></label>
             </div>
         {{/if}}
 
-        <label class="section-title">{{localize "DG.PSYCHOLOGY.motivations"}}</label>
-    </div>
+        <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.motivations"}}</label>
+    </header>
 
     <div class="item-list motivation">
 
@@ -49,15 +51,15 @@
 </section>
 
 <section class="disorders">
-    <div class="section-title">
+    <header class="flex">
         {{#if @root.editMode}}
             <div class="buttons">
                 <label class="clickable add-item" data-type="disorder"><i class="fas fa-plus"></i></label>
             </div>
         {{/if}}
 
-        <label class="section-title">{{localize "DG.PSYCHOLOGY.disorders"}}</label>
-    </div>
+        <label class="flex-2 left">{{localize "DG.PSYCHOLOGY.disorders"}}</label>
+    </header>
 
     <div class="item-list disorder">
 

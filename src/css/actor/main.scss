@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,67 +14,7 @@
  * limitations under the License.
  */
 
-@import '../constants';
+@import 'agent/main';
+@import 'npc/main';
 
-@import 'tabs/attributes';
-@import 'tabs/biography';
-@import 'tabs/description';
-@import 'tabs/inventory';
-@import 'tabs/psychological';
-@import 'tabs/statistics';
-
-div.delta-green.agent section.window-content {
-    background: url('static/image/sheet/background-restricted.png') center;
-    background-size: 125%;
-
-    form {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-
-        input {
-            padding: 0;
-            width: 100%;
-        }
-    }
-
-    header {
-        background: black;
-        color: white;
-        text-transform: uppercase;
-
-        &.center {
-            text-align: center;
-        }
-        &.flex {
-            display: flex;
-        }
-
-        label {
-            &.left {
-                text-align: left;
-                padding-left: 0.5rem;
-            }
-            &.center {
-                text-align: center;
-            }
-        }
-
-        div.buttons {
-            text-align: right;
-            flex-basis: 10%;
-            padding-right: 0.25rem;
-        }
-    }
-
-    div.tab {
-        height: 100%;
-    }
-
-    section.sheet-body {
-        overflow-y: auto;
-        height: 100%;
-    }
-}
+@import 'common/item-list';

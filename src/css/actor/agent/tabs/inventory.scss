@@ -14,21 +14,7 @@
  * limitations under the License.
  */
 
-@import '../../constants';
+@import '../../../constants';
 
 div.delta-green.agent section.window-content {
-    div.tab-psychological {
-        div.incidents {
-            div.adaptation {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex: 1;
-
-                label {
-                    flex-basis: 15%;
-                }
-            }
-        }
-    }
 }

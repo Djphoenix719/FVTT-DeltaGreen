@@ -364,7 +364,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Sanity: Reset breaking point
-        html.find('div.breaking-point label.reset').on('click', async (event) => {
+        html.find('label.reset-breaking-point').on('click', async (event) => {
             preprocessEvent(event);
             const data = this.actor.data.data;
             const newBreakingPoint = data.sanity.value - data.statistics.power.value;

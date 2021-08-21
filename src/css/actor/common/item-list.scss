@@ -16,37 +16,46 @@
 
 @import '../../constants';
 
-div.delta-green.agent section.window-content {
-    div.tab-statistics {
-        header label {
-            border-left: $form-border-style;
-            &:first-child {
-                padding-left: 0.25rem;
+div.delta-green {
+    div.item-list {
+        display: flex;
+        flex-direction: column;
+
+        div.list-item {
+            display: flex;
+            flex-direction: column;
+
+            div.list-buttons {
+                flex-basis: 10%;
+                text-align: right;
+                padding-right: 0.25rem;
             }
         }
 
-        div.stats-field {
+        div.data {
             display: flex;
+            flex-direction: row;
             align-items: center;
-
-            border-left: $form-border-style;
-            border-top: $form-border-style;
-            &:last-child {
-                border-bottom: $form-border-style;
-            }
-
-            label {
-                white-space: nowrap;
-                padding-left: 0.25rem;
-            }
+            text-align: center;
+            width: 100%;
 
             input[type='number'] {
                 text-align: center;
-                border-left: $form-border-style;
             }
-            input[type='text'] {
+
+            input[type='checkbox'] {
+                margin: 0 0 0 4px;
+            }
+        }
+
+        div.description {
+            padding: 0.25rem;
+
+            div.content {
+                padding: 0.25rem;
                 border-left: $form-border-style;
                 border-right: $form-border-style;
+                min-height: 1rem;
             }
         }
     }
