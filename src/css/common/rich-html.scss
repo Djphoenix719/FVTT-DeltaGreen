@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-@import 'forms';
-@import 'flex';
-@import 'navigation';
-@import 'item-list';
-
-@font-face {
-    font-family: 'Futura Standard Book';
-    src: url('static/font/FuturaStandardBook.ttf');
-}
-
-div.delta-green {
-    section.window-content {
-        font-family: 'Futura Standard Book', 'Signika', sans-serif;
+a.inline-roll {
+    &.sanity-roll {
+        background: #ddd;
+        padding: 1px 4px;
+        border: 1px solid #4b4a44;
+        border-radius: 2px;
+        white-space: nowrap;
+        word-break: break-all;
     }
 }

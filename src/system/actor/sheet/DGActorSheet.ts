@@ -80,7 +80,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
      */
     protected bindCollapsibleListeners(html: JQuery) {
         // Collapsibles: Toggle & update cache
-        html.find('.collapsible').on('click', async (event) => {
+        html.find('.collapsible').on('contextmenu', async (event) => {
             const target = preprocessEvent(event);
             const id = target.data('collapse-id') as string;
             const collapseTarget = target.parent().next('.collapse-target');

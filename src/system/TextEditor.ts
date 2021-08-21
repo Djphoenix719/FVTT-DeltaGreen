@@ -29,7 +29,7 @@ export const patchEnrichHTML = () => {
         const matchRegex = /[^>]([0-9]+[dD]?[0-9]*)\/([0-9]+[dD]?[0-9]*)\s(SAN)[^<]/;
 
         const constructLink = (passLoss: string, failLoss: string): string => {
-            return `<a class="sanity-roll" data-pass="${passLoss}" data-fail="${failLoss}"><i class="fas fa-brain"></i>${passLoss}/${failLoss} SAN</a>`;
+            return `<a class="inline-roll sanity-roll" data-pass="${passLoss}" data-fail="${failLoss}"><i class="fas fa-brain"></i>${passLoss}/${failLoss} SAN</a>`;
         };
 
         let matches: RegExpMatchArray | null;

@@ -1,11 +1,16 @@
 <div class="list-item skill" data-id="{{id}}">
-    <label class="clickable name">{{name}} {{data.rating.value}}%</label>
-    {{#if @root.editMode}}
-        <div class="list-buttons">
-            {{#if data.canDelete.value}}
-                <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
-            {{/if}}
-            <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
-        </div>
-    {{/if}}
+
+    <div class="data">
+        <label class="clickable flex-2 left collapsible name" data-collapse-id="{{id}}">{{name}} {{data.rating.value}}%</label>
+
+        {{#if buttons}}
+            <div class="list-buttons">
+                <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                {{#if data.canDelete.value}}
+                    <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+
 </div>

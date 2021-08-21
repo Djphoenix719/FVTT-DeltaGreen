@@ -72,6 +72,16 @@ div.delta-green {
         }
     }
 
+    div.left,
+    label.left {
+        text-align: left;
+    }
+
+    div.center,
+    label.center {
+        text-align: center;
+    }
+
     label.clickable {
         cursor: pointer;
 

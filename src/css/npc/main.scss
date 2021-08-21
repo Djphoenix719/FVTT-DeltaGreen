@@ -58,9 +58,9 @@ div.delta-green.npc section.window-content {
 
     section.skills {
         div.item-list {
+            flex-direction: row;
             flex-wrap: wrap;
         }
-
         div.list-item {
             white-space: nowrap;
 
@@ -189,69 +189,9 @@ div.delta-green.npc section.window-content {
             }
         }
 
-        div.item-list {
-            display: flex;
-            flex-direction: column;
-        }
         div.list-item {
             display: flex;
             flex-direction: column;
-        }
-    }
-
-    div.item-list {
-        display: flex;
-        white-space: nowrap;
-
-        div.list-item {
-            display: flex;
-
-            &.bond,
-            &.motivation,
-            &.disorder {
-                flex-direction: column;
-                flex: 1;
-
-                input {
-                    height: 1rem;
-                }
-            }
-
-            div.list-buttons {
-                padding-left: 0.5rem;
-            }
-
-            div.data {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                text-align: center;
-                width: 100%;
-
-                div,
-                label {
-                    &.left {
-                        text-align: left;
-                    }
-                }
-
-                input[type='number'] {
-                    text-align: center;
-                }
-            }
-            div.description div.content {
-                padding: 0.25rem;
-                border-left: $form-border-style;
-                border-right: $form-border-style;
-                min-height: 1rem;
-
-                p {
-                    margin: 0;
-                    &:not(:last-of-type) {
-                        margin-bottom: 0.5em;
-                    }
-                }
-            }
         }
     }
 
