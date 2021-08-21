@@ -42,7 +42,7 @@ export interface DGActorSheetData extends ActorSheet.Data {
     skills: SkillGroup[];
     collapsibles: Record<string, boolean>;
     inventory: {
-        weapons: DGWeapon[];
+        weapon: DGWeapon[];
         armor: DGArmor[];
         gear: DGGear[];
     };
@@ -183,7 +183,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
 
         renderData.skills = skillGroups;
         renderData.inventory = {
-            weapons: this.actor.getItemsOfType('weapon'),
+            weapon: this.actor.getItemsOfType('weapon'),
             armor: this.actor.getItemsOfType('armor'),
             gear: this.actor.getItemsOfType('gear'),
         };
@@ -298,7 +298,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Luck: Roll luck
-        html.find('section.attributes label.clickable.luck').on('click', async (event) => {
+        html.find('label.clickable.luck').on('click', async (event) => {
             preprocessEvent(event);
 
             let roll: DGPercentileRoll;
@@ -318,7 +318,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Stats: Roll stats*5
-        html.find('div.stats-field label.clickable.stats').on('click', async (event) => {
+        html.find('div.statistic label.clickable.stats').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
 
             let roll: DGPercentileRoll;

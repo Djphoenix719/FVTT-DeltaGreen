@@ -1,26 +1,26 @@
 <section class="statistics">
     {{#with @root.data.data.statistics as |statistics|}}
-        <div class="stats-field" data-id="strength">
+        <div class="statistic" data-id="strength">
             <label class="clickable stats flex-2">{{localize "DG.STATISTICS.str"}}</label>
             <input type="number" name="data.statistics.strength.value" value="{{statistics.strength.value}}">
         </div>
-        <div class="stats-field" data-id="constitution">
+        <div class="statistic" data-id="constitution">
             <label class="clickable stats flex-2">{{localize "DG.STATISTICS.con"}}</label>
             <input type="number" name="data.statistics.constitution.value" value="{{statistics.constitution.value}}">
         </div>
-        <div class="stats-field" data-id="dexterity">
+        <div class="statistic" data-id="dexterity">
             <label class="clickable stats flex-2">{{localize "DG.STATISTICS.dex"}}</label>
             <input type="number" name="data.statistics.dexterity.value" value="{{statistics.dexterity.value}}">
         </div>
-        <div class="stats-field" data-id="intelligence">
+        <div class="statistic" data-id="intelligence">
             <label class="clickable stats flex-2">{{localize "DG.STATISTICS.int"}}</label>
             <input type="number" name="data.statistics.intelligence.value" value="{{statistics.intelligence.value}}">
         </div>
-        <div class="stats-field" data-id="power">
+        <div class="statistic" data-id="power">
             <label class="clickable stats flex-2">{{localize "DG.STATISTICS.pow"}}</label>
             <input type="number" name="data.statistics.power.value" value="{{statistics.power.value}}">
         </div>
-        <div class="stats-field" data-id="charisma">
+        <div class="statistic" data-id="charisma">
             <label class="clickable stats flex-2">{{localize "DG.STATISTICS.cha"}}</label>
             <input type="number" name="data.statistics.charisma.value" value="{{statistics.charisma.value}}">
         </div>

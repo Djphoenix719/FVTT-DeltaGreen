@@ -1,45 +1,39 @@
 <section class="attributes">
 
-    <div class="group">
-
-        <div class="attribute">
-            <label>{{localize "DG.ATTRIBUTES.hp"}}</label>
-            <input type="number" name="data.health.value" value="{{@root.data.data.health.value}}">
-            {{#if @root.editMode}}
-                <span class="separator">/</span>
-                <input type="number" name="data.health.max" value="{{@root.data.data.health.max}}" disabled>
-            {{/if}}
-        </div>
-
-        <div class="attribute">
-            <label class="clickable willpower">{{localize "DG.ATTRIBUTES.wp"}}</label>
-            <input type="number" name="data.willpower.value" value="{{@root.data.data.willpower.value}}">
-            {{#if @root.editMode}}
-                <span class="separator">/</span>
-                <input type="number" name="data.willpower.max" value="{{@root.data.data.willpower.max}}" disabled>
-            {{/if}}
-        </div>
-
-        {{#if @root.unnatural}}
-        {{else}}
-            <div class="attribute">
-                <label class="clickable sanity">{{localize "DG.ATTRIBUTES.san"}}</label>
-                <input type="number" name="data.sanity.value" value="{{@root.data.data.sanity.value}}">
-                {{#if @root.editMode}}
-                    <span class="separator">/</span>
-                    <input type="number" name="data.sanity.max" value="{{@root.data.data.sanity.max}}" disabled>
-                {{/if}}
-            </div>
-
-            <div class="attribute">
-                <label>{{localize "DG.ATTRIBUTES.breakingPoint"}}</label>
-                <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
-                <label class="clickable reset-breaking-point"><i class="fas fa-redo-alt"></i></label>
-            </div>
+    <div class="attribute">
+        <label>{{localize "DG.ATTRIBUTES.hp"}}</label>
+        <input type="number" name="data.health.value" value="{{@root.data.data.health.value}}">
+        {{#if @root.editMode}}
+            <span class="separator">/</span>
+            <input type="number" name="data.health.max" value="{{@root.data.data.health.max}}" disabled>
         {{/if}}
-
     </div>
 
-    <label class="icon clickable luck"><i class="fas fa-dice"></i></label>
+    <div class="attribute">
+        <label class="clickable willpower">{{localize "DG.ATTRIBUTES.wp"}}</label>
+        <input type="number" name="data.willpower.value" value="{{@root.data.data.willpower.value}}">
+        {{#if @root.editMode}}
+            <span class="separator">/</span>
+            <input type="number" name="data.willpower.max" value="{{@root.data.data.willpower.max}}" disabled>
+        {{/if}}
+    </div>
+
+    {{#if @root.unnatural}}
+    {{else}}
+        <div class="attribute">
+            <label class="clickable sanity">{{localize "DG.ATTRIBUTES.san"}}</label>
+            <input type="number" name="data.sanity.value" value="{{@root.data.data.sanity.value}}">
+            {{#if @root.editMode}}
+                <span class="separator">/</span>
+                <input type="number" name="data.sanity.max" value="{{@root.data.data.sanity.max}}" disabled>
+            {{/if}}
+        </div>
+
+        <div class="attribute">
+            <label>{{localize "DG.ATTRIBUTES.breakingPoint"}}</label>
+            <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
+            <label class="clickable reset-breaking-point"><i class="fas fa-redo-alt"></i></label>
+        </div>
+    {{/if}}
 
 </section>

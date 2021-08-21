@@ -183,7 +183,7 @@ export class DGActor extends Actor {
         }
 
         return new DGPercentileRoll({
-            label: game.i18n.localize(`DG.DICE.sanity`),
+            label: game.i18n.localize(`DG.DICE.sanityCheck`),
             target: {
                 base: {
                     label: game.i18n.localize('DG.ATTRIBUTES.sanity'),

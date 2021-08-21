@@ -44,29 +44,6 @@ div.delta-green.agent section.window-content {
         background: black;
         color: white;
         text-transform: uppercase;
-
-        &.center {
-            text-align: center;
-        }
-        &.flex {
-            display: flex;
-        }
-
-        label {
-            &.left {
-                text-align: left;
-                padding-left: 0.5rem;
-            }
-            &.center {
-                text-align: center;
-            }
-        }
-
-        div.buttons {
-            text-align: right;
-            flex-basis: 10%;
-            padding-right: 0.25rem;
-        }
     }
 
     div.tab {

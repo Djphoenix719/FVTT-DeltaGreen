@@ -1,62 +1,72 @@
-<div class="list-group weapon">
-    <header class="flex">
-        <label class="flex-2 left">{{localize "DG.INVENTORY.weapon"}}</label>
-        <label class="flex-1 center">{{localize "DG.INVENTORY.skill"}}</label>
-        <label class="flex-1 center">{{localize "DG.INVENTORY.damage"}}</label>
-        <label class="flex-1 center">{{localize "DG.INVENTORY.ap"}}</label>
-        <label class="flex-1 center">{{localize "DG.INVENTORY.ammo"}}</label>
-        <label class="flex-1 center">{{localize "DG.INVENTORY.range"}}</label>
-        {{#if @root.editMode}}
-            <div class="buttons">
-                <label class="clickable add-item" data-type="weapon"><i class="fas fa-plus"></i></label>
+<section class="inventory">
+
+    {{#if (or (gt @root.inventory.weapon.length 0) @root.editMode)}}
+        <div class="list-group weapon">
+            <header class="flex">
+                <label class="flex-2 left">{{localize "DG.INVENTORY.weapon"}}</label>
+                <label class="flex-1 center">{{localize "DG.INVENTORY.skill"}}</label>
+                <label class="flex-1 center">{{localize "DG.INVENTORY.damage"}}</label>
+                <label class="flex-1 center">{{localize "DG.INVENTORY.ap"}}</label>
+                <label class="flex-1 center">{{localize "DG.INVENTORY.ammo"}}</label>
+                <label class="flex-1 center">{{localize "DG.INVENTORY.range"}}</label>
+                {{#if @root.editMode}}
+                    <div class="buttons">
+                        <label class="clickable add-item" data-type="weapon"><i class="fas fa-plus"></i></label>
+                    </div>
+                {{/if}}
+            </header>
+
+            <div class="item-list weapon">
+
+                {{#each @root.inventory.weapon as |item|}}
+                    {{> li-weapon-npc id=item.id name=item.name data=item.data.data skill=item.skillItem buttons=@root.editMode}}
+                {{/each}}
+
             </div>
-        {{/if}}
-    </header>
+        </div>
+    {{/if}}
 
-    <div class="item-list weapon">
+    {{#if (or (gt @root.inventory.armor.length 0) @root.editMode)}}
+        <div class="list-group armor">
+            <header class="flex">
+                <label class="flex-2 left">{{localize "DG.INVENTORY.armor"}}</label>
+                <label class="flex-1 center">{{localize "DG.INVENTORY.rating"}}</label>
+                <label class="flex-1 center">{{localize "DG.INVENTORY.equipped"}}</label>
+                {{#if @root.editMode}}
+                    <div class="buttons">
+                        <label class="clickable add-item" data-type="armor"><i class="fas fa-plus"></i></label>
+                    </div>
+                {{/if}}
+            </header>
 
-        {{#each @root.inventory.weapons as |item|}}
-            {{> li-weapon-npc id=item.id name=item.name data=item.data.data skill=item.skillItem buttons=@root.editMode}}
-        {{/each}}
+            <div class="item-list armor">
 
-    </div>
-</div>
-
-<div class="list-group armor">
-    <header class="flex">
-        <label class="flex-2 left">{{localize "DG.INVENTORY.armor"}}</label>
-        <label class="flex-1 center">{{localize "DG.INVENTORY.rating"}}</label>
-        <label class="flex-1 center">{{localize "DG.INVENTORY.equipped"}}</label>
-        {{#if @root.editMode}}
-            <div class="buttons">
-                <label class="clickable add-item" data-type="armor"><i class="fas fa-plus"></i></label>
+                {{#each @root.inventory.armor as |item|}}
+                    {{> li-armor-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+                {{/each}}
             </div>
-        {{/if}}
-    </header>
+        </div>
+    {{/if}}
 
-    <div class="item-list armor">
+    {{#if (or (gt @root.inventory.gear.length 0) @root.editMode)}}
+        <div class="list-group gear">
+            <header class="flex">
+                <label class="flex-2 left">{{localize "DG.INVENTORY.gear"}}</label>
+                {{#if @root.editMode}}
+                    <div class="buttons">
+                        <label class="clickable add-item" data-type="gear"><i class="fas fa-plus"></i></label>
+                    </div>
+                {{/if}}
+            </header>
 
-        {{#each @root.inventory.armor as |item|}}
-            {{> li-armor-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
-        {{/each}}
-    </div>
-</div>
+            <div class="item-list gear">
 
-<div class="list-group gear">
-    <header class="flex">
-        <label class="flex-2 left">{{localize "DG.INVENTORY.gear"}}</label>
-        {{#if @root.editMode}}
-            <div class="buttons">
-                <label class="clickable add-item" data-type="gear"><i class="fas fa-plus"></i></label>
+                {{#each @root.inventory.gear as |item|}}
+                    {{> li-gear-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+                {{/each}}
+
             </div>
-        {{/if}}
-    </header>
+        </div>
+    {{/if}}
 
-    <div class="item-list gear">
-
-        {{#each @root.inventory.gear as |item|}}
-            {{> li-gear-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
-        {{/each}}
-
-    </div>
-</div>
+</section>

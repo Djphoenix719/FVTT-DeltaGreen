@@ -14,8 +14,25 @@
  * limitations under the License.
  */
 
-@import 'agent/main';
-@import 'npc/main';
+div.delta-green header {
+    &.flex {
+        display: flex;
+    }
+    &.center {
+        text-align: center;
+    }
 
-@import 'common/item-list';
-@import 'common/headers';
+    label.left {
+        text-align: left;
+        padding-left: 0.5rem;
+    }
+    label.center {
+        text-align: center;
+    }
+
+    div.buttons {
+        text-align: right;
+        flex-basis: 10%;
+        padding-right: 0.25rem;
+    }
+}

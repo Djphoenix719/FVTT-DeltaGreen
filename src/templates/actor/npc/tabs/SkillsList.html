@@ -1,13 +1,12 @@
 <section class="skills">
-    <div class="section-title">
+    <header class="flex">
+        <label class="flex-2 left">{{localize "DG.NAVIGATION.skills"}}</label>
         {{#if @root.editMode}}
             <div class="buttons">
                 <label class="clickable add-item" data-type="skill"><i class="fas fa-plus"></i></label>
             </div>
         {{/if}}
-
-        <label class="section-title">{{localize "DG.NAVIGATION.skills"}}</label>
-    </div>
+    </header>
 
     <div class="item-list">
         {{#each skills as |group|}}
