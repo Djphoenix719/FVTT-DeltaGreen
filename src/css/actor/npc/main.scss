@@ -33,6 +33,10 @@ div.delta-green.npc {
                 text-transform: uppercase;
                 font-weight: bold;
             }
+
+            &:not(:last-of-type) {
+                margin-bottom: 0.25rem;
+            }
         }
 
         section.biography {
