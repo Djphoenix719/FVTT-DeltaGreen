@@ -21,15 +21,23 @@ export async function registerHandlebarsTemplatesAndPartials() {
     const templatePath = (relative: TemplatePath) => `systems/${SYSTEM_NAME}/${relative}`;
 
     const partials: Record<string, TemplatePath> = {
-        'list-item-weapon': 'templates/actor/agent/partial/inventory/ListItemWeapon.html',
-        'list-item-armor': 'templates/actor/agent/partial/inventory/ListItemArmor.html',
-        'list-item-gear': 'templates/actor/agent/partial/inventory/ListItemGear.html',
-        'list-item-bond': 'templates/actor/agent/partial/psychological/ListItemBond.html',
-        'list-item-disorder': 'templates/actor/agent/partial/psychological/ListItemDisorder.html',
-        'list-item-motivation': 'templates/actor/agent/partial/psychological/ListItemMotivation.html',
-        'list-item-skill': 'templates/actor/agent/partial/skill/ListItemSkill.html',
-        'list-item-ability': 'templates/actor/npc/partial/ListItemAbility.html',
+        'li-weapon-agent': 'templates/actor/agent/partial/inventory/ListItemWeapon.html',
+        'li-armor-agent': 'templates/actor/agent/partial/inventory/ListItemArmor.html',
+        'li-gear-agent': 'templates/actor/agent/partial/inventory/ListItemGear.html',
+        'li-bond-agent': 'templates/actor/agent/partial/psychological/ListItemBond.html',
+        'li-disorder-agent': 'templates/actor/agent/partial/psychological/ListItemDisorder.html',
+        'li-motivation-agent': 'templates/actor/agent/partial/psychological/ListItemMotivation.html',
+        'li-skill-agent': 'templates/actor/agent/partial/skill/ListItemSkill.html',
         'list-adaptation': 'templates/actor/agent/partial/psychological/Adaptation.html',
+
+        'li-weapon-npc': 'templates/actor/npc/partial/inventory/ListItemWeapon.html',
+        'li-armor-npc': 'templates/actor/npc/partial/inventory/ListItemArmor.html',
+        'li-gear-npc': 'templates/actor/npc/partial/inventory/ListItemGear.html',
+        'li-bond-npc': 'templates/actor/npc/partial/psychological/ListItemBond.html',
+        'li-disorder-npc': 'templates/actor/npc/partial/psychological/ListItemDisorder.html',
+        'li-motivation-npc': 'templates/actor/npc/partial/psychological/ListItemMotivation.html',
+        'li-skill-npc': 'templates/actor/npc/partial/skill/ListItemSkill.html',
+        'li-ability-npc': 'templates/actor/npc/partial/ability/ListItemAbility.html',
     };
 
     const templates: TemplatePath[] = [

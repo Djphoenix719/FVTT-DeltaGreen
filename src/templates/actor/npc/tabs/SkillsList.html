@@ -12,17 +12,7 @@
     <div class="item-list">
         {{#each skills as |group|}}
             {{#each group.skills as |skill|}}
-                <div class="list-item skill" data-id="{{id}}">
-                    <label class="clickable name">{{skill.name}} {{skill.data.data.rating.value}}%</label>
-                    {{#if @root.editMode}}
-                        <div class="list-buttons">
-                            {{#if skill.data.data.canDelete.value}}
-                                <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
-                            {{/if}}
-                            <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
-                        </div>
-                    {{/if}}
-                </div>
+                {{> li-skill-npc id=skill.id name=skill.name data=skill.data.data buttons=@root.editMode}}
             {{/each}}
         {{/each}}
     </div>

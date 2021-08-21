@@ -13,7 +13,7 @@
                 <label>{{group.name}}</label>
             </header>
             {{#each group.skills as |skill|}}
-                {{> list-item-skill id=skill.id name=skill.name data=skill.data.data buttons=true}}
+                {{> li-skill-agent id=skill.id name=skill.name data=skill.data.data buttons=true}}
             {{/each}}
         </div>
     {{/each}}

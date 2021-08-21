@@ -16,7 +16,7 @@
     <div class="item-list weapon">
 
         {{#each @root.inventory.weapons as |item|}}
-            {{> list-item-weapon id=item.id name=item.name data=item.data.data skill=item.skillItem buttons=@root.editMode}}
+            {{> li-weapon-npc id=item.id name=item.name data=item.data.data skill=item.skillItem buttons=@root.editMode}}
         {{/each}}
 
     </div>
@@ -37,7 +37,7 @@
     <div class="item-list armor">
 
         {{#each @root.inventory.armor as |item|}}
-            {{> list-item-armor id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{> li-armor-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
     </div>
 </div>
@@ -55,7 +55,7 @@
     <div class="item-list gear">
 
         {{#each @root.inventory.gear as |item|}}
-            {{> list-item-gear id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{> li-gear-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
 
     </div>

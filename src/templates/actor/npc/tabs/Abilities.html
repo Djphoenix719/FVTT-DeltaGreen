@@ -11,7 +11,7 @@
 
     <div class="item-list">
         {{#each @root.abilities as |item|}}
-            {{> list-item-ability id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{> li-ability-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
     </div>
 </section>

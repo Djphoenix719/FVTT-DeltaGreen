@@ -20,7 +20,7 @@
     <div class="item-list bond">
 
         {{#each @root.bonds as |item|}}
-            {{> list-item-bond id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{> li-bond-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
 
     </div>
@@ -41,7 +41,7 @@
     <div class="item-list motivation">
 
         {{#each @root.motivations as |item|}}
-            {{> list-item-motivation id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{> li-motivation-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
 
     </div>
@@ -62,7 +62,7 @@
     <div class="item-list disorder">
 
         {{#each @root.disorders as |item|}}
-            {{> list-item-disorder id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
+            {{> li-disorder-npc id=item.id name=item.name data=item.data.data buttons=@root.editMode}}
         {{/each}}
 
     </div>

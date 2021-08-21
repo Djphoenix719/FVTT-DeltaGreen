@@ -1,0 +1,25 @@
+<div class="list-item bond" data-id="{{id}}">
+
+    <div class="data">
+        <input class="modify-item" data-path="data.damaged.value" type="checkbox" {{checked data.damaged.value}}>
+        <label class="clickable flex-2 left{{#if data.crossed.value}} crossed{{/if}} collapsible" data-collapse-id="{{id}}">{{name}}</label>
+        <input class="modify-item flex-1" data-path="data.score.value" min="0" max="{{@root.actor.data.data.statistics.charisma.value}}" type="number" value="{{data.score.value}}">
+
+        {{#if buttons}}
+            <div class="list-buttons">
+                <label class="clickable cross-item"><i class="fas fa-times-circle"></i></label>
+                <label class="clickable edit-item"><i class="fas fa-edit"></i></label>
+                <label class="clickable delete-item"><i class="far fa-trash-alt"></i></label>
+            </div>
+        {{/if}}
+    </div>
+
+    {{#if data.description.value}}
+        <div class="description collapse-target" {{#if (lookup @root.collapsibles id)}}{{else}}style='display: none'{{/if}}>
+            <div class="content">
+                {{{enrichHTML data.description.value}}}
+            </div>
+        </div>
+    {{/if}}
+
+</div>
