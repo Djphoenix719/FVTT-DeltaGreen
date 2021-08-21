@@ -1,5 +1,5 @@
 <section class="skills">
-    <header class="flex">
+    <header class="flex black">
         <label class="flex-0">1d4</label>
         <label class="flex-4 left">{{localize "DG.SKILLS.skill"}}</label>
         <label class="flex-1 center">{{localize "DG.SKILLS.value"}}</label>
@@ -9,7 +9,7 @@
     </header>
     {{#each skills as |group|}}
         <div class="item-list">
-            <header class="center">
+            <header class="center black">
                 <label>{{group.name}}</label>
             </header>
             {{#each group.skills as |skill|}}

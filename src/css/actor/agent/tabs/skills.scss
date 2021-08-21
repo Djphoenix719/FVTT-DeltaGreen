@@ -18,5 +18,18 @@
 
 div.delta-green.agent section.window-content {
     section.skills {
+        header {
+            position: sticky;
+        }
+
+        > header {
+            top: 0;
+            z-index: 2;
+        }
+
+        div.item-list header {
+            top: 1rem;
+            z-index: 1;
+        }
     }
 }

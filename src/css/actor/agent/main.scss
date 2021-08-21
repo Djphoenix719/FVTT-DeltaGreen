@@ -22,14 +22,13 @@
 @import 'tabs/inventory';
 @import 'tabs/psychological';
 @import 'tabs/statistics';
+@import 'tabs/skills';
 
 div.delta-green.agent section.window-content {
     background: url('static/image/sheet/background-restricted.png') center;
     background-size: 125%;
 
     form {
-        width: 100%;
-        height: 100%;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -38,12 +37,6 @@ div.delta-green.agent section.window-content {
             padding: 0;
             width: 100%;
         }
-    }
-
-    header {
-        background: black;
-        color: white;
-        text-transform: uppercase;
     }
 
     div.tab {

@@ -22,6 +22,12 @@ div.delta-green header {
         text-align: center;
     }
 
+    &.black {
+        color: white;
+        background: black;
+        text-transform: uppercase;
+    }
+
     label.left {
         text-align: left;
         padding-left: 0.5rem;
