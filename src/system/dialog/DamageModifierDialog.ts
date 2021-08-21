@@ -24,6 +24,6 @@ export interface DamageModifierDialogResults extends InputDialogResults {
 
 export class DamageModifierDialog extends InputDialog<DamageModifierDialogResults> {
     public get template(): string {
-        return `systems/${SYSTEM_NAME}/templates/dialog/DamageModifierDialog.html`;
+        return `systems/${SYSTEM_NAME}/static/templates/dialog/DamageModifierDialog.html`;
     }
 }

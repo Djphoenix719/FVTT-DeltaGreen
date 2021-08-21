@@ -22,7 +22,7 @@ export interface DGGearSheetData extends DGItemSheetPhysicalData {}
 export class DGGearSheet extends DGItemPhysicalSheet<DGGearSheetOptions, DGGearSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/GearSheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/item/GearSheet.html`;
         return options;
     }
 }

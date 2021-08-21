@@ -26,7 +26,7 @@ export interface DGWeaponSheetData extends DGItemSheetPhysicalData {
 export class DGWeaponSheet extends DGItemPhysicalSheet<DGWeaponSheetOptions, DGWeaponSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/WeaponSheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/item/WeaponSheet.html`;
         return options;
     }
 

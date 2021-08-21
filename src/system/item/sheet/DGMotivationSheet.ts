@@ -22,7 +22,7 @@ export interface DGMotivationSheetData extends DGItemSheetData {}
 export class DGMotivationSheet extends DGItemSheet<DGMotivationSheetOptions, DGMotivationSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/MotivationSheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/item/MotivationSheet.html`;
         return options;
     }
 }

@@ -29,7 +29,7 @@ export class CorruptionTracker extends Application {
 
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/app/CorruptionTracker.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/app/CorruptionTracker.html`;
         options.classes = options.classes ?? [];
         options.classes = [...options.classes, CSS_CLASSES.BASE, 'corruption-tracker'];
         options.width = 300;

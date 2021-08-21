@@ -105,9 +105,9 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
 
         let template: string;
         if (roll instanceof DGPercentileRoll) {
-            template = `systems/${SYSTEM_NAME}/templates/roll/PercentileRoll.html`;
+            template = `systems/${SYSTEM_NAME}/static/templates/roll/PercentileRoll.html`;
         } else {
-            template = `systems/${SYSTEM_NAME}/templates/roll/DamageRoll.html`;
+            template = `systems/${SYSTEM_NAME}/static/templates/roll/DamageRoll.html`;
         }
 
         let data: ChatMessageDataConstructorData = {

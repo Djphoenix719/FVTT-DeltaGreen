@@ -22,7 +22,7 @@ export interface DGDisorderSheetData extends DGItemSheetData {}
 export class DGDisorderSheet extends DGItemSheet<DGDisorderSheetOptions, DGDisorderSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/DisorderSheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/item/DisorderSheet.html`;
         return options;
     }
 }

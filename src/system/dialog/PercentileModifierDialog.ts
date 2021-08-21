@@ -23,7 +23,7 @@ export interface PercentileModifierDialogResults extends InputDialogResults {
 
 export class PercentileModifierDialog extends InputDialog<PercentileModifierDialogResults> {
     public get template(): string {
-        return `systems/${SYSTEM_NAME}/templates/dialog/PercentileModifierDialog.html`;
+        return `systems/${SYSTEM_NAME}/static/templates/dialog/PercentileModifierDialog.html`;
     }
 
     public activateListeners(html: JQuery) {

@@ -22,7 +22,7 @@ export interface DGArmorSheetData extends DGItemSheetPhysicalData {}
 export class DGArmorSheet extends DGItemPhysicalSheet<DGArmorSheetOptions, DGArmorSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/ArmorSheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/item/ArmorSheet.html`;
         return options;
     }
 }

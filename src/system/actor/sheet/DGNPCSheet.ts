@@ -28,7 +28,7 @@ export interface DGNPCSheetData extends DGActorSheetData {
 export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGNPCSheetData, DGNPC> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/actor/npc/NPCSheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/actor/npc/NPCSheet.html`;
         options.classes = [...options.classes, CSS_CLASSES.ACTOR.NPC];
         options.width = 500;
         options.height = 600;

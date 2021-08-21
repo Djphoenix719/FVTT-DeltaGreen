@@ -25,7 +25,7 @@ export interface DGSkillSheetData extends DGItemSheetData {
 export class DGSkillSheet extends DGItemSheet<DGSkillSheetOptions, DGSkillSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/SkillSheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/item/SkillSheet.html`;
         return options;
     }
 

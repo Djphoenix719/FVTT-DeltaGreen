@@ -22,7 +22,7 @@ export interface DGAbilitySheetData extends DGItemSheetData {}
 export class DGAbilitySheet extends DGItemSheet<DGAbilitySheetOptions, DGAbilitySheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/AbilitySheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/item/AbilitySheet.html`;
         return options;
     }
 }

@@ -22,7 +22,7 @@ export interface DGBondSheetData extends DGItemSheetData {}
 export class DGBondSheet extends DGItemSheet<DGBondSheetOptions, DGBondSheetData> {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = `systems/${SYSTEM_NAME}/templates/item/BondSheet.html`;
+        options.template = `systems/${SYSTEM_NAME}/static/templates/item/BondSheet.html`;
         return options;
     }
 }
