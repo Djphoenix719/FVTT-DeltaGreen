@@ -42,6 +42,12 @@ div.delta-green {
             input[type='number'] {
                 text-align: center;
             }
+
+            input[type='checkbox'] {
+                margin: 0;
+                width: 1em;
+                height: 1em;
+            }
         }
 
         div.description {
@@ -52,6 +58,14 @@ div.delta-green {
                 border-left: $form-border-style;
                 border-right: $form-border-style;
                 min-height: 1rem;
+
+                p {
+                    margin: 0;
+
+                    &:not(:last-of-type) {
+                        margin-bottom: 0.5rem;
+                    }
+                }
             }
         }
     }
