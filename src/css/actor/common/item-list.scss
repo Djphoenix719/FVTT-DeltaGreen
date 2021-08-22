@@ -25,6 +25,13 @@ div.delta-green {
             display: flex;
             flex-direction: column;
 
+            &:nth-of-type(2n-1) {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+            &:not(:last-of-type) {
+                border-bottom: $form-border-style;
+            }
+
             div.list-buttons {
                 flex-basis: 10%;
                 text-align: right;
@@ -40,8 +47,14 @@ div.delta-green {
             white-space: nowrap;
             width: 100%;
 
+            input {
+                background: none;
+            }
+
             input[type='number'] {
                 text-align: center;
+                border-left: $form-border-style;
+                border-right: $form-border-style;
             }
 
             input[type='checkbox'] {
