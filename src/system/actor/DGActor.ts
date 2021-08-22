@@ -97,6 +97,7 @@ export class DGActor extends Actor {
         }
         return value;
     }
+
     /**
      * Calculate in-the-moment max willpower.
      */
@@ -273,10 +274,10 @@ export class DGActor extends Actor {
 
         const statistic = this.data.data.statistics[id];
         return new DGPercentileRoll({
-            label: statistic.label,
+            label: statistic.label ?? '',
             target: {
                 base: {
-                    label: statistic.label,
+                    label: statistic.label ?? '',
                     value: statistic.value * 5,
                 },
                 parts: modifiers,
@@ -344,8 +345,11 @@ export class DGActor extends Actor {
             adaptation.adapted = !adaptation.value.some((value) => !value);
         }
 
-        for (const statistic of Object.values(data.statistics)) {
-            data.statistics[statistic.id].percentile = statistic.value * 5;
+        for (const key of Object.values(StatisticType)) {
+            const statistic = data.statistics[key];
+
+            statistic.percentile = statistic.value * 5;
+            statistic.label = `DG.STATISTICS.${statistic.id}`;
         }
     }
 }

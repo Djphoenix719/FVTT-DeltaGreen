@@ -237,7 +237,6 @@ enum ExpenseType {
 interface Statistic<T extends StatisticType> {
     id: T;
     value: number;
-    label: string;
     percentile?: number;
 }
 
@@ -379,20 +378,6 @@ export class Migrate_v1v2 extends BaseMigration {
             updates['data.statistics.intelligence.value'] = oldActor.data.statistics.int.value;
             updates['data.statistics.power.value'] = oldActor.data.statistics.pow.value;
             updates['data.statistics.charisma.value'] = oldActor.data.statistics.cha.value;
-
-            updates['data.statistics.strength.label'] = 'DG.STATISTICS.strength';
-            updates['data.statistics.constitution.label'] = 'DG.STATISTICS.constitution';
-            updates['data.statistics.dexterity.label'] = 'DG.STATISTICS.dexterity';
-            updates['data.statistics.intelligence.label'] = 'DG.STATISTICS.intelligence';
-            updates['data.statistics.power.label'] = 'DG.STATISTICS.power';
-            updates['data.statistics.charisma.label'] = 'DG.STATISTICS.charisma';
-
-            (updates as any)[`data.statistics.-=cha`] = null;
-            (updates as any)[`data.statistics.-=pow`] = null;
-            (updates as any)[`data.statistics.-=str`] = null;
-            (updates as any)[`data.statistics.-=dex`] = null;
-            (updates as any)[`data.statistics.-=int`] = null;
-            (updates as any)[`data.statistics.-=con`] = null;
         }
 
         if (oldActor.data.hasOwnProperty('skills')) {

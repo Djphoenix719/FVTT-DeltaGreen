@@ -26,8 +26,9 @@ export type ActorTypeNPC = typeof ActorTypeNPC;
  */
 export type ActorTypeUnnatural = typeof ActorTypeUnnatural;
 
-export interface Statistic<T extends StatisticType> extends Value<number>, Label<string> {
+export interface Statistic<T extends StatisticType> extends Value<number> {
     id: T;
+    label?: string;
     percentile?: number;
 }
 
