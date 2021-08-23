@@ -159,7 +159,6 @@ Hooks.on('setup', async () => {
 
 Hooks.on('ready', async () => {
     // createTestDocuments();
-    await new Migrate_v1v2().run();
 });
 
 // TODO: More permanent display of additional information is required
