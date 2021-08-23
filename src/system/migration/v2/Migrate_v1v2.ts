@@ -18,6 +18,11 @@ import { RecursiveKeyOf } from '../../../types/Helpers';
 import { BaseMigration } from '../BaseMigration';
 import { SystemSetting, SystemSettings } from '../../SystemSettings';
 import { SYSTEM_NAME } from '../../Constants';
+import { getCleanedEntityUpdates } from '../../util/Data';
+import { DGActor } from '../../actor/DGActor';
+import { DGItem } from '../../item/DGItem';
+import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
 
 // <editor-fold desc="V1 Types">
 interface DataStore<TType extends string, TData extends object> {
@@ -271,6 +276,16 @@ interface V2ActorAgent extends DataStore<'agent', V2AgentData> {
     items: V2Item[];
 }
 
+interface V2NPCData extends V2AgentData {
+    sanity: V2AgentData['sanity'] & {
+        failureLoss: string;
+        successLoss: string;
+    };
+}
+interface V2ActorNPC extends DataStore<'npc', V2NPCData> {
+    items: V2Item[];
+}
+
 interface V2PhysicalItemData {
     expense: Value<ExpenseType>;
     equipped: Value<boolean>;
@@ -340,6 +355,7 @@ interface V2ItemBond {
     data: DataStore<'bond', V2BondData>;
 }
 
+type V2Actor = V2ActorAgent | V2ActorNPC;
 type V2Item = V2ItemGear | V2ItemWeapon | V2ItemArmor | V2ItemSkill | V2ItemMotivation | V2ItemDisorder | V2ItemBond;
 
 type FlatDataMap<TData extends object> = {
@@ -349,35 +365,32 @@ type FlatDataMap<TData extends object> = {
 
 export class Migrate_v1v2 extends BaseMigration {
     public migrateActorData(oldActor: V1Actor): { updateData: Record<string, any>; newItems: Record<string, any>[] } {
-        const updates: FlatDataMap<V2ActorAgent> = {};
+        const updates: Record<string, any> = {};
         const skills: Record<string, any>[] = [];
 
         if (oldActor.data.hasOwnProperty('wp')) {
-            updates['data.willpower.value'] = oldActor.data.wp.value;
-            updates['data.willpower.max'] = oldActor.data.wp.min;
-            (updates as any)[`data.-=wp`] = null;
+            updates['willpower.value'] = oldActor.data.wp.value;
+            updates['willpower.max'] = oldActor.data.wp.min;
         }
 
         if (oldActor.data.hasOwnProperty('health')) {
-            updates['data.health.value'] = oldActor.data.health.value;
-            (updates as any)[`data.health.-=min`] = null;
-            (updates as any)[`data.health.-=max`] = null;
+            updates['health.value'] = oldActor.data.health.value;
         }
 
         if (oldActor.data.statistics.hasOwnProperty('str')) {
-            updates['data.statistics.strength.id'] = StatisticType.Strength;
-            updates['data.statistics.constitution.id'] = StatisticType.Constitution;
-            updates['data.statistics.dexterity.id'] = StatisticType.Dexterity;
-            updates['data.statistics.intelligence.id'] = StatisticType.Intelligence;
-            updates['data.statistics.power.id'] = StatisticType.Power;
-            updates['data.statistics.charisma.id'] = StatisticType.Charisma;
+            updates['statistics.strength.id'] = StatisticType.Strength;
+            updates['statistics.constitution.id'] = StatisticType.Constitution;
+            updates['statistics.dexterity.id'] = StatisticType.Dexterity;
+            updates['statistics.intelligence.id'] = StatisticType.Intelligence;
+            updates['statistics.power.id'] = StatisticType.Power;
+            updates['statistics.charisma.id'] = StatisticType.Charisma;
 
-            updates['data.statistics.strength.value'] = oldActor.data.statistics.str.value;
-            updates['data.statistics.constitution.value'] = oldActor.data.statistics.con.value;
-            updates['data.statistics.dexterity.value'] = oldActor.data.statistics.dex.value;
-            updates['data.statistics.intelligence.value'] = oldActor.data.statistics.int.value;
-            updates['data.statistics.power.value'] = oldActor.data.statistics.pow.value;
-            updates['data.statistics.charisma.value'] = oldActor.data.statistics.cha.value;
+            updates['statistics.strength.value'] = oldActor.data.statistics.str.value;
+            updates['statistics.constitution.value'] = oldActor.data.statistics.con.value;
+            updates['statistics.dexterity.value'] = oldActor.data.statistics.dex.value;
+            updates['statistics.intelligence.value'] = oldActor.data.statistics.int.value;
+            updates['statistics.power.value'] = oldActor.data.statistics.pow.value;
+            updates['statistics.charisma.value'] = oldActor.data.statistics.cha.value;
         }
 
         if (oldActor.data.hasOwnProperty('skills')) {
@@ -415,21 +428,18 @@ export class Migrate_v1v2 extends BaseMigration {
                     [`flags.${SYSTEM_NAME}.prevSkillId`]: key,
                 });
             }
-            (updates as any)[`data.-=skills`] = null;
-            (updates as any)[`data.-=typedSkills`] = null;
         }
 
         if (oldActor.type === 'agent') {
             if (oldActor.data.biography.hasOwnProperty('sex')) {
-                updates['data.biography.profession.value'] = oldActor.data.biography.profession;
-                updates['data.biography.employer.value'] = oldActor.data.biography.employer;
-                updates['data.biography.nationality.value'] = oldActor.data.biography.nationality;
-                updates['data.biography.gender.value'] = oldActor.data.biography.sex;
-                updates['data.biography.age.value'] = oldActor.data.biography.age;
-                updates['data.biography.education.value'] = oldActor.data.biography.education;
-                updates['data.biography.appearance.value'] = oldActor.data.physical.description;
-                updates['data.biography.notes.value'] = oldActor.data.physical.wounds;
-                (updates as any)[`data.biography.-=sex`] = null;
+                updates['biography.profession.value'] = oldActor.data.biography.profession;
+                updates['biography.employer.value'] = oldActor.data.biography.employer;
+                updates['biography.nationality.value'] = oldActor.data.biography.nationality;
+                updates['biography.gender.value'] = oldActor.data.biography.sex;
+                updates['biography.age.value'] = oldActor.data.biography.age;
+                updates['biography.education.value'] = oldActor.data.biography.education;
+                updates['biography.appearance.value'] = oldActor.data.physical.description;
+                updates['biography.notes.value'] = oldActor.data.physical.wounds;
             }
             if (oldActor.data.sanity.hasOwnProperty('currentBreakingPoint')) {
                 const violence = [
@@ -445,23 +455,43 @@ export class Migrate_v1v2 extends BaseMigration {
                 ];
                 const helplessnessAdapted = !helplessness.some((v) => !v);
 
-                updates['data.sanity.value'] = oldActor.data.sanity.value;
+                updates['sanity.value'] = oldActor.data.sanity.value;
 
-                updates['data.sanity.adaptations.violence.adapted'] = violenceAdapted;
-                updates['data.sanity.adaptations.violence.value'] = violence;
+                updates['sanity.adaptations.violence.adapted'] = violenceAdapted;
+                updates['sanity.adaptations.violence.value'] = violence;
 
-                updates['data.sanity.adaptations.helplessness.adapted'] = helplessnessAdapted;
-                updates['data.sanity.adaptations.helplessness.value'] = helplessness;
+                updates['sanity.adaptations.helplessness.adapted'] = helplessnessAdapted;
+                updates['sanity.adaptations.helplessness.value'] = helplessness;
+            }
+        }
 
-                (updates as any)[`data.sanity.-=max`] = null;
-                (updates as any)[`data.sanity.-=currentBreakingPoint`] = null;
+        if (oldActor.type === 'npc') {
+            updates['sanity.value'] = oldActor.data.sanity.value;
+
+            updates[`flags.${SYSTEM_NAME}.unnatural`] = false;
+        }
+
+        if (oldActor.type === 'unnatural') {
+            updates['type'] = 'npc';
+            if (oldActor.data.sanity.hasOwnProperty('failedLoss')) {
+                updates['sanity.failureLoss'] = oldActor.data.sanity.failedLoss;
             }
-            if (oldActor.data.sanity.hasOwnProperty('physicalDescription')) {
-                (updates as any)[`data.-=physicalDescription`] = null;
+            if (oldActor.data.sanity.hasOwnProperty('successLoss')) {
+                updates['sanity.successLoss'] = oldActor.data.sanity.successLoss;
             }
-            if (oldActor.data.sanity.hasOwnProperty('physical')) {
-                (updates as any)[`data.-=physical`] = null;
-            }
+
+            const violence = [false, false, false];
+            const helplessness = [false, false, false];
+
+            updates['sanity.value'] = 0;
+
+            updates['sanity.adaptations.violence.adapted'] = false;
+            updates['sanity.adaptations.violence.value'] = violence;
+
+            updates['sanity.adaptations.helplessness.adapted'] = false;
+            updates['sanity.adaptations.helplessness.value'] = helplessness;
+
+            updates[`flags.${SYSTEM_NAME}.unnatural`] = true;
         }
 
         if (oldActor.items) {
@@ -470,6 +500,7 @@ export class Migrate_v1v2 extends BaseMigration {
 
                 if (!isObjectEmpty(itemUpdate.updateData)) {
                     itemUpdate.updateData._id = itemData._id;
+                    itemUpdate.updateData = getCleanedEntityUpdates(itemData as ItemData, itemUpdate.updateData);
                     arr.push(expandObject(itemUpdate.updateData));
                 }
 
@@ -485,7 +516,7 @@ export class Migrate_v1v2 extends BaseMigration {
     }
 
     public migrateItemData(oldItem: V1Item, skills?: Record<string, any>[]): { updateData: Record<string, any>; newItems: Record<string, any>[] } {
-        const updates: FlatDataMap<V2Item['data']> = {};
+        const updates: Record<string, any> = {};
         const newItems: Record<string, any>[] = [];
         if (oldItem.data.hasOwnProperty('name')) {
             updates['_id'] = oldItem._id;
@@ -494,59 +525,45 @@ export class Migrate_v1v2 extends BaseMigration {
                 case 'weapon':
                 case 'armor':
                 case 'gear':
-                    updates['data.expense.value'] = oldItem.data.expense;
-                    updates['data.equipped.value'] = oldItem.data.equipped;
-                    updates['data.description.value'] = oldItem.data.description;
-                    updates['data.carried.value'] = true;
+                    updates['expense.value'] = oldItem.data.expense ?? ExpenseType.Standard;
+                    updates['equipped.value'] = oldItem.data.equipped ?? true;
+                    updates['description.value'] = oldItem.data.description ?? '';
                     break;
             }
 
             switch (oldItem.type) {
                 case 'weapon':
-                    updates['data.skill.value'] = skills?.find((skill) => skill[`flags.${SYSTEM_NAME}.prevSkillId`] === oldItem.data.skill)?._id ?? '';
-                    updates['data.range.value'] = oldItem.data.range.replace('M', '');
-                    updates['data.damage.value'] = oldItem.data.damage;
-                    updates['data.armorPiercing.value'] = oldItem.data.armorPiercing;
-                    updates['data.lethality.value'] = oldItem.data.lethality;
-                    updates['data.killRadius.value'] = oldItem.data.killRadius.replace('M', '');
-                    updates['data.ammo.value'] = oldItem.data.ammo;
-                    updates['data.ammo.max'] = oldItem.data.ammo;
-                    (updates as any)['data.-=name'] = null;
-                    (updates as any)['data.-=isLethal'] = null;
+                    updates['skill.value'] = skills?.find((skill) => skill[`flags.${SYSTEM_NAME}.prevSkillId`] === oldItem.data.skill)?._id ?? '';
+                    updates['range.value'] = oldItem.data.range.replace('M', '');
+                    updates['damage.value'] = oldItem.data.damage ?? '0';
+                    updates['armorPiercing.value'] = parseInt(oldItem.data.armorPiercing.toString()) ?? 0;
+                    updates['lethality.value'] = oldItem.data.lethality;
+                    updates['killRadius.value'] = oldItem.data.killRadius.replace('M', '');
+                    updates['ammo.value'] = oldItem.data.ammo ?? '';
+                    updates['ammo.max'] = oldItem.data.ammo ?? '';
                     break;
                 case 'armor':
-                    updates['data.armorRating.value'] = oldItem.data.protection;
-                    (updates as any)['data.-=name'] = null;
-                    (updates as any)['data.-=protection'] = null;
+                    updates['armorRating.value'] = oldItem.data.protection;
                     break;
                 case 'gear':
-                    (updates as any)['data.-=name'] = null;
                     break;
                 case 'motivation':
-                    updates['data.crossed.value'] = oldItem.data.crossedOut;
-                    updates['data.description.value'] = oldItem.data.description;
-
-                    (updates as any)['data.-=name'] = null;
-                    (updates as any)['data.-=crossedOut'] = null;
-                    (updates as any)['data.-=disorder'] = null;
-                    (updates as any)['data.-=disorderCured'] = null;
+                    updates['crossed.value'] = oldItem.data.crossedOut ?? false;
+                    updates['description.value'] = oldItem.data.description ?? '';
 
                     if (oldItem.data.disorder) {
                         const disorder: Record<string, any> = {};
                         disorder['_id'] = foundry.utils.randomID(16);
                         disorder['name'] = oldItem.data.disorder;
                         disorder['type'] = 'disorder';
-                        disorder['data.crossed.value'] = oldItem.data.disorderCured;
-                        disorder['data.description.value'] = oldItem.data.description;
+                        disorder['crossed.value'] = oldItem.data.disorderCured;
+                        disorder['description.value'] = oldItem.data.description;
                         newItems.push(disorder);
                     }
                     break;
                 case 'bond':
-                    updates['data.description.value'] = `${oldItem.data.relationship}\n${oldItem.data.description}`;
-                    updates['data.score.value'] = oldItem.data.score;
-
-                    (updates as any)['data.-=name'] = null;
-                    (updates as any)['data.-=relationship'] = null;
+                    updates['description.value'] = `${oldItem.data.relationship}\n${oldItem.data.description}`;
+                    updates['score.value'] = oldItem.data.score;
                     break;
             }
         }
@@ -612,7 +629,7 @@ export class Migrate_v1v2 extends BaseMigration {
                     }
 
                     if (!foundry.utils.isObjectEmpty(updateData)) {
-                        await document.update(updateData);
+                        await document.update(getCleanedEntityUpdates(document.data, updateData));
                     }
                     if (newItems.length > 0) {
                         await document.createEmbeddedDocuments('Item', newItems);
@@ -635,14 +652,14 @@ export class Migrate_v1v2 extends BaseMigration {
     public async run() {
         for (const document of game.actors!) {
             try {
-                if (['npc', 'unnatural'].includes(document.data.type)) {
-                    continue;
-                }
-
                 const { updateData, newItems } = this.migrateActorData(document.toObject() as V1Actor);
 
                 if (!foundry.utils.isObjectEmpty(updateData)) {
-                    await document.update(updateData);
+                    if ((document.type as string) === 'unnatural') {
+                        document.data.type = 'npc';
+                    }
+
+                    await document.update(getCleanedEntityUpdates(document.data, updateData));
                 }
                 if (newItems.length > 0) {
                     await document.createEmbeddedDocuments('Item', newItems);
@@ -658,7 +675,7 @@ export class Migrate_v1v2 extends BaseMigration {
                 const { updateData, newItems } = this.migrateItemData(document.toObject() as V1Item);
 
                 if (!foundry.utils.isObjectEmpty(updateData)) {
-                    await document.update(updateData);
+                    await document.update(getCleanedEntityUpdates(document.data, updateData));
                 }
                 if (newItems.length > 0) {
                     await Item.createDocuments(newItems as any);

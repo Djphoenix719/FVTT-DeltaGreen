@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
+
 /**
  * Recursively prepare an object for cleaning by inserting non-matching keys with the -= key removal.
  * @param data The target of the cleaning.
@@ -29,6 +32,7 @@ const recursiveClean = (data: Record<string, any>, model: Record<string, any>) =
             recursiveClean(data[key], model[key]);
         } else {
             data[`-=${key}`] = null;
+            delete data[key];
         }
     }
 };
@@ -38,28 +42,71 @@ const recursiveClean = (data: Record<string, any>, model: Record<string, any>) =
  * @param entity The actor to update.
  * @param updates Updates to the actor.
  */
-export async function updateAndCleanEntity<T extends Actor | Item>(entity: T, updates: Record<string, any>): Promise<T> {
-    updates = flattenObject(duplicate(updates));
+export function getCleanedEntityUpdates(entity: ActorData | ItemData, updates: Record<string, any>): Record<string, any> {
+    updates = expandObject(duplicate(updates));
+
+    // this data exists at root, before 'data.', so exclude it and add it back in after
+    const excludedKeys = ['_id', 'name', 'type', 'img', 'folder', 'items', 'flags'];
+    const excludedData: Record<string, any> = {};
+    for (const key of excludedKeys) {
+        if (updates.hasOwnProperty(key)) {
+            excludedData[key] = updates[key];
+            delete updates[key];
+        }
+    }
+
+    updates = flattenObject(updates);
+
+    const types: Record<string, 'Actor' | 'Item'> = {
+        agent: 'Actor',
+        npc: 'Actor',
+        unnatural: 'Actor',
+
+        weapon: 'Item',
+        armor: 'Item',
+        gear: 'Item',
+        skill: 'Item',
+        bond: 'Item',
+        motivation: 'Item',
+        disorder: 'Item',
+        ability: 'Item',
+    };
 
     // select correct data model
-    const entityType = entity instanceof Actor ? 'Actor' : 'Item';
-    const model = game.system.model[entityType][entity.type]!;
+    const entityType = entity.type ?? excludedData['type'];
+    const model = game.system.model[types[entityType]][entityType]!;
 
-    let entityData: Record<string, any> = duplicate(entity.data.data);
+    let entityData: Record<string, any> = duplicate(entity.data);
     entityData = mergeObject(entityData, updates);
 
     recursiveClean(entityData, model);
 
+    // insert missing values from the model defaults
+    entityData = flattenObject(entityData);
+    const flatModel = flattenObject(model);
+    for (const key in flatModel) {
+        if (entityData.hasOwnProperty(key)) {
+            continue;
+        }
+
+        entityData[key] = flatModel[key];
+    }
+    entityData = expandObject(entityData);
+
+    // user model data updates need to be prepended with 'data.'
     const finalUpdates: Record<string, any> = {};
     for (const key in entityData) {
-        if (key.startsWith('data.')) {
-            finalUpdates[key] = entityData[key];
-        } else if (['_id', 'name', 'type', 'img', 'folder'].includes(key)) {
+        if (key.startsWith('data')) {
             finalUpdates[key] = entityData[key];
         } else {
             finalUpdates[`data.${key}`] = entityData[key];
         }
     }
 
-    return (await entity.update(finalUpdates)) as T;
+    // merge back in excluded data
+    for (const key in excludedData) {
+        finalUpdates[key] = excludedData[key];
+    }
+
+    return finalUpdates;
 }

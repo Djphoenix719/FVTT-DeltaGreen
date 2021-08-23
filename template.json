@@ -103,7 +103,11 @@
             }
         },
         "npc": {
-            "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills"]
+            "templates": ["health", "willpower", "sanity", "luck", "statistics", "skills"],
+            "sanity": {
+                "failureLoss": "1D4",
+                "successLoss": "1"
+            }
         }
     },
     "Item": {

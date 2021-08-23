@@ -46,6 +46,7 @@ import { DGNPCSheet } from './actor/sheet/DGNPCSheet';
 import { patchEnrichHTML } from './TextEditor';
 import { DGAbility } from './item/DGAbility';
 import { DGAbilitySheet } from './item/sheet/DGAbilitySheet';
+import { Migrate_v1v2 } from './migration/v2/Migrate_v1v2';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -158,6 +159,7 @@ Hooks.on('setup', async () => {
 
 Hooks.on('ready', async () => {
     // createTestDocuments();
+    await new Migrate_v1v2().run();
 });
 
 // TODO: More permanent display of additional information is required
