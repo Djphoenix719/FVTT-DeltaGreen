@@ -59,13 +59,13 @@
             "notes": "Notes"
         },
         "ATTRIBUTES": {
-            "hitPoints": "Hit Points",
             "hp": "HP",
             "willpower": "Willpower",
             "wp": "WP",
             "sanity": "Sanity",
             "san": "SAN",
             "luck": "Luck",
+            "health": "Health",
 
             "current": "Cur.",
             "max": "Max.",
@@ -163,7 +163,9 @@
             "lethalityCheck": "Lethality Check",
             "sanityCheck": "Sanity Check",
             "luckCheck": "Luck Check",
-            "statisticCheck": "Statistic Check"
+            "statisticCheck": "Statistic Check",
+            "willpowerCheck": "Willpower Check",
+            "healthCheck": "Health Check"
         },
         "DIALOG": {
             "modifier": "Modifier",

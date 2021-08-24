@@ -196,7 +196,7 @@ export class DGActor extends Actor {
                 },
                 parts: modifiers,
             },
-        }).roll();
+        }).roll({ async: true });
     }
 
     /**
@@ -217,22 +217,49 @@ export class DGActor extends Actor {
                 },
                 parts: modifiers,
             },
-        }).roll();
+        }).roll({ async: true });
     }
 
     /**
-     * Roll a skill with a specified name.
-     * @param name The name of the skill.
+     * Roll a health check for the actor.
      * @param modifiers Roll modifiers.
      */
-    public async rollSkillName(name: string, modifiers: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
-        const skill = this.items.getName(name);
-
-        if (skill?.data.type === ItemTypeSkill) {
-            return this.rollSkill(skill.id!, modifiers);
+    public async rollHealth(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
         }
 
-        throw new Error(`No skill with name of "${name}" found on actor.`);
+        return new DGPercentileRoll({
+            label: game.i18n.localize(`DG.DICE.healthCheck`),
+            target: {
+                base: {
+                    label: game.i18n.localize('DG.ATTRIBUTES.health'),
+                    value: this.data.data.health.value * 5,
+                },
+                parts: modifiers,
+            },
+        }).roll({ async: true });
+    }
+
+    /**
+     * Roll a willpower check for the actor.
+     * @param modifiers Roll modifiers.
+     */
+    public async rollWillpower(modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        return new DGPercentileRoll({
+            label: game.i18n.localize(`DG.DICE.willpowerCheck`),
+            target: {
+                base: {
+                    label: game.i18n.localize('DG.ATTRIBUTES.willpower'),
+                    value: this.data.data.willpower.value * 5,
+                },
+                parts: modifiers,
+            },
+        }).roll({ async: true });
     }
 
     /**
@@ -256,7 +283,7 @@ export class DGActor extends Actor {
                     },
                     parts: modifiers,
                 },
-            }).roll();
+            }).roll({ async: true });
         }
 
         throw new Error(`No skill with id of "${id}" found on actor.`);
@@ -282,7 +309,7 @@ export class DGActor extends Actor {
                 },
                 parts: modifiers,
             },
-        }).roll();
+        }).roll({ async: true });
     }
 
     /**
@@ -300,7 +327,7 @@ export class DGActor extends Actor {
                     formula: weapon.data.data.damage.value,
                     parts: modifiers,
                 },
-            }).roll();
+            }).roll({ async: true });
         }
 
         throw new Error(`No weapon with id of "${id}" found on actor.`);
@@ -327,7 +354,7 @@ export class DGActor extends Actor {
                     },
                     parts: modifiers,
                 },
-            }).roll();
+            }).roll({ async: true });
         }
 
         throw new Error(`No weapon with id of "${id}" found on actor.`);

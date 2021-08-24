@@ -336,6 +336,46 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
 
             await this.sendRollToChat(roll);
         });
+
+        // Health: Roll health
+        html.find('label.clickable.health').on('click', async (event) => {
+            preprocessEvent(event);
+
+            let roll: DGPercentileRoll;
+            if (event.ctrlKey) {
+                const dialogResults = await this.promptPercentileModifier(`DG.DICE.healthCheck`);
+                roll = await this.actor.rollHealth([
+                    {
+                        label: game.i18n.localize('DG.DICE.rollModifier'),
+                        value: dialogResults.modifier,
+                    },
+                ]);
+            } else {
+                roll = await this.actor.rollHealth();
+            }
+
+            await this.sendRollToChat(roll);
+        });
+
+        // Willpower: Roll willpower
+        html.find('label.clickable.willpower').on('click', async (event) => {
+            preprocessEvent(event);
+
+            let roll: DGPercentileRoll;
+            if (event.ctrlKey) {
+                const dialogResults = await this.promptPercentileModifier(`DG.DICE.willpowerCheck`);
+                roll = await this.actor.rollWillpower([
+                    {
+                        label: game.i18n.localize('DG.DICE.rollModifier'),
+                        value: dialogResults.modifier,
+                    },
+                ]);
+            } else {
+                roll = await this.actor.rollWillpower();
+            }
+
+            await this.sendRollToChat(roll);
+        });
     }
 
     /**
@@ -367,7 +407,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         html.find('label.reset-breaking-point').on('click', async (event) => {
             preprocessEvent(event);
             const data = this.actor.data.data;
-            const newBreakingPoint = data.sanity.value - data.statistics.power.value;
+            const newBreakingPoint = Math.max(0, data.sanity.value - data.statistics.power.value);
             await this.actor.update({
                 [`data.sanity.breakingPoint.value`]: newBreakingPoint,
             });
