@@ -32,6 +32,7 @@ import { ItemType } from '../../../types/Item';
 import { DGBond } from '../../item/DGBond';
 import { DGMotivation } from '../../item/DGMotivation';
 import { DGDisorder } from '../../item/DGDisorder';
+import { SystemSetting, SystemSettings } from '../../SystemSettings';
 
 export interface SkillGroup {
     name: string;
@@ -49,6 +50,9 @@ export interface DGActorSheetData extends ActorSheet.Data {
     bonds: DGBond[];
     motivations: DGMotivation[];
     disorders: DGDisorder[];
+    settings: {
+        secretSanity: boolean;
+    };
 }
 
 export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData extends DGActorSheetData, TActor extends DGActor> extends ActorSheet<
@@ -191,6 +195,10 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         renderData.bonds = this.actor.getItemsOfType('bond');
         renderData.motivations = this.actor.getItemsOfType('motivation');
         renderData.disorders = this.actor.getItemsOfType('disorder');
+
+        renderData.settings = {
+            secretSanity: SystemSettings.get(SystemSetting.SecretSanity) && !game.user?.isGM,
+        };
 
         renderData.collapsibles = this._collapsibles;
 

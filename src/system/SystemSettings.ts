@@ -23,11 +23,13 @@ import { DataMigrator } from './migration/DataMigrator';
 export enum SystemSetting {
     SchemaVersion = 'schema-version',
     NiceCriticals = 'nice-criticals',
+    SecretSanity = 'secret-sanity',
 }
 
 interface SystemSettingTypes {
     [SystemSetting.NiceCriticals]: boolean;
     [SystemSetting.SchemaVersion]: number;
+    [SystemSetting.SecretSanity]: boolean;
 }
 
 export class SystemSettings {
@@ -55,6 +57,14 @@ export class SystemSettings {
         game.settings.register(SYSTEM_NAME, SystemSetting.NiceCriticals, {
             name: game.i18n.localize('DG.SETTINGS.niceCriticalsName'),
             hint: game.i18n.localize('DG.SETTINGS.niceCriticalsHint'),
+            scope: 'world',
+            type: Boolean,
+            config: true,
+        });
+
+        game.settings.register(SYSTEM_NAME, SystemSetting.SecretSanity, {
+            name: game.i18n.localize('DG.SETTINGS.secretSanityName'),
+            hint: game.i18n.localize('DG.SETTINGS.secretSanityHint'),
             scope: 'world',
             type: Boolean,
             config: true,

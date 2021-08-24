@@ -38,18 +38,32 @@
         <label class="icon clickable sanity"><i class="fas fa-brain"></i></label>
         <div class="attribute-inputs">
 
-            <div class="breaking-point flex-1">
-                <div class="labeled-field">
-                    <label>{{localize "DG.ATTRIBUTES.current"}}</label>
-                    <input type="number" name="data.sanity.value" value="{{@root.data.data.sanity.value}}">
-                </div>
+            {{#if @root.settings.secretSanity}}
+                <div class="breaking-point flex-1">
+                    <div class="labeled-field">
+                        <label>{{localize "DG.ATTRIBUTES.current"}}</label>
+                        <input type="text" value="???" disabled>
+                    </div>
 
-                <div class="labeled-field">
-                    <label>{{localize "DG.ATTRIBUTES.bp"}}</label>
-                    <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
-                    <label class="clickable reset-breaking-point"><i class="fas fa-redo-alt"></i></label>
+                    <div class="labeled-field">
+                        <label>{{localize "DG.ATTRIBUTES.bp"}}</label>
+                        <input type="text" value="???" disabled>
+                    </div>
                 </div>
-            </div>
+            {{else}}
+                <div class="breaking-point flex-1">
+                    <div class="labeled-field">
+                        <label>{{localize "DG.ATTRIBUTES.current"}}</label>
+                        <input type="number" name="data.sanity.value" value="{{@root.data.data.sanity.value}}">
+                    </div>
+
+                    <div class="labeled-field">
+                        <label>{{localize "DG.ATTRIBUTES.bp"}}</label>
+                        <input type="number" name="data.sanity.breakingPoint.value" value="{{@root.data.data.sanity.breakingPoint.value}}">
+                        <label class="clickable reset-breaking-point"><i class="fas fa-redo-alt"></i></label>
+                    </div>
+                </div>
+            {{/if}}
 
             <div class="labeled-field">
                 <label>{{localize "DG.ATTRIBUTES.max"}}</label>

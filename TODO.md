@@ -8,8 +8,6 @@ This is a list of things I may or may not get to, depending on my time.
   - Tomes and rituals
   - Other initiative attributes?
   - Better sorting options for skills
-  - OPINT
-    - Secret sanity
 - NPCs
   - Attributes w/ a value of N/A or INF?
   - OPINT

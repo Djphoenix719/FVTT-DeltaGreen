@@ -198,7 +198,9 @@
         },
         "SETTINGS": {
             "niceCriticalsName": "Nice Criticals",
-            "niceCriticalsHint": "Should 69 count as a critical success?"
+            "niceCriticalsHint": "Should 69 count as a critical success?",
+            "secretSanityName": "Secret Sanity",
+            "secretSanityHint": "Should current sanity & breaking point be kept secret from players?"
         },
         "APP": {
             "CORRUPTION": {
