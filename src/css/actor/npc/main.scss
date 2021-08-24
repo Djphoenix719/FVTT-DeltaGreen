@@ -21,7 +21,9 @@ div.delta-green.npc {
     min-height: 250px;
 
     section.window-content {
-        background: url('static/image/sheet/background-restricted.png') center;
+        background-color: white;
+        background-image: url('static/image/sheet/background-restricted.png');
+        background-position: center;
         background-size: 125%;
 
         section:not(.sheet-body) {

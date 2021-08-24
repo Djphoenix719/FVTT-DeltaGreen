@@ -24,27 +24,31 @@
 @import 'tabs/statistics';
 @import 'tabs/skills';
 
-div.delta-green.agent section.window-content {
-    background: url('static/image/sheet/background-restricted.png') center;
-    background-size: 125%;
+div.delta-green.agent {
+    section.window-content {
+        background-color: white;
+        background-image: url('static/image/sheet/background-restricted.png');
+        background-position: center;
+        background-size: 125%;
 
-    form {
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
+        form {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
 
-        input {
-            padding: 0;
-            width: 100%;
+            input {
+                padding: 0;
+                width: 100%;
+            }
         }
-    }
 
-    div.tab {
-        height: 100%;
-    }
+        div.tab {
+            height: 100%;
+        }
 
-    section.sheet-body {
-        overflow-y: auto;
-        height: 100%;
+        section.sheet-body {
+            overflow-y: auto;
+            height: 100%;
+        }
     }
 }
