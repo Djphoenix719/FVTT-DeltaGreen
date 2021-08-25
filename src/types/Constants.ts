@@ -63,6 +63,12 @@ interface SkillDefinition {
 
 export const UNNATURAL_ID = '4l35w618j8doxnfq';
 
+const DEFAULT_SKILL_DEFINITION_DATA = {
+    group: { value: '' },
+    failureImproves: { value: true },
+    sessionFailure: { value: false },
+    canDelete: { value: false },
+};
 export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     {
         _id: 'vqioy388qui94jhn',
@@ -72,18 +78,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -94,18 +89,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 20,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -116,18 +100,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 30,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -138,18 +111,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -160,18 +122,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -182,18 +133,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -204,18 +144,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 30,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -226,18 +155,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 20,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -248,18 +166,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 20,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -270,18 +177,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -292,18 +188,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -314,18 +199,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -336,18 +210,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -358,18 +221,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 30,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -380,18 +232,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -402,18 +243,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -424,18 +254,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 20,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -446,18 +265,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -468,18 +276,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -490,18 +287,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 20,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -512,18 +298,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -534,18 +309,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 10,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -556,18 +320,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 20,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -578,18 +331,7 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 40,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
-            failureImproves: {
-                value: true,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
-                value: false,
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
         },
     },
     {
@@ -600,16 +342,8 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
             rating: {
                 value: 0,
             },
-            group: {
-                value: 'DG.SKILLS.defaultGroup',
-            },
+            ...DEFAULT_SKILL_DEFINITION_DATA,
             failureImproves: {
-                value: false,
-            },
-            sessionFailure: {
-                value: false,
-            },
-            canDelete: {
                 value: false,
             },
         },

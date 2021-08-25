@@ -287,8 +287,8 @@ const createTestNPC = async () => {
 
 export const createTestActor = async () => {
     setTimeout(async () => {
-        // await createTestAgent();
-        await createTestNPC();
+        await createTestAgent();
+        // await createTestNPC();
     }, 250);
 };
 export const createTestItem = async () => {

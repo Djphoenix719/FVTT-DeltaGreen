@@ -36,7 +36,7 @@ Hooks.on('preCreateActor', (actor: Actor, args: PreCreateActorOptions, id: strin
     if (actor.items.filter((item) => item.type === ItemTypeSkill).length > 0) {
         return;
     }
-    if (actor.type === 'npc') {
+    if (actor.type !== 'agent') {
         return;
     }
 
