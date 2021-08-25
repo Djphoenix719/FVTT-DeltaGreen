@@ -53,7 +53,6 @@ export class DGNPCSheet extends DGActorSheet<DGNPCSheetOptions, DGNPCSheetData, 
         if (!this.actor.canUserModify(game.user!, 'update')) {
             return this.actor;
         }
-
         return await this.actor.setFlag(SYSTEM_NAME, 'editMode', value);
     }
 

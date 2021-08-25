@@ -214,13 +214,12 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         // Items: Cross an item
         html.find('label.cross-item').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
-            const item = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item.data.type === ItemTypeBond || item.data.type === ItemTypeMotivation || item.data.type === ItemTypeDisorder) {
-                await item.update({
-                    ['data.crossed.value']: !item.data.data.crossed.value,
-                });
-            }
+            const item = this.actor.getEmbeddedDocument('Item', id) as DGBond | DGMotivation | DGDisorder;
+            await item.update({
+                ['data.crossed.value']: !item.data.data.crossed.value,
+            });
         });
+
         // Items: Add a new item
         html.find('label.add-item').on('click', async (event) => {
             const target = preprocessEvent(event);
@@ -232,6 +231,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
                 },
             ]);
         });
+
         // Items: Edit an item
         html.find('label.edit-item').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
@@ -240,6 +240,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
                 item.sheet.render(true);
             }
         });
+
         // Items: Delete an item
         html.find('label.delete-item').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
@@ -259,6 +260,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
                 },
             ]);
         });
+
         // Items: Inline update of inputs
         html.find('input.modify-item:not([type="checkbox"])').on('change', async (event) => {
             const { target, id } = preprocessEventWithId(event);
@@ -523,23 +525,19 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         // Inventory: Decrement ammo
         html.find('div.list-group.weapon div.ammo label.decrement').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
-            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item.data.type === ItemTypeWeapon) {
-                await item.update({
-                    ['data.ammo.value']: item.data.data.ammo.value - 1,
-                });
-            }
+            const item = this.actor.getEmbeddedDocument('Item', id) as DGWeapon;
+            await item.update({
+                ['data.ammo.value']: item.data.data.ammo.value - 1,
+            });
         });
 
         // Inventory: Reload ammo
         html.find('div.list-group.weapon div.ammo label.reload').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
-            const item: DGItem = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item.data.type === ItemTypeWeapon) {
-                await item.update({
-                    ['data.ammo.value']: item.data.data.ammo.max,
-                });
-            }
+            const item = this.actor.getEmbeddedDocument('Item', id) as DGWeapon;
+            await item.update({
+                ['data.ammo.value']: item.data.data.ammo.max,
+            });
         });
     }
 

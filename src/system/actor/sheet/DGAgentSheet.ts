@@ -19,8 +19,7 @@ import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import { DGAgent } from '../DGAgent';
 
 export interface DGAgentSheetOptions extends DGActorSheetOptions {}
-export interface DGAgentSheetData extends DGActorSheetData {
-}
+export interface DGAgentSheetData extends DGActorSheetData {}
 export class DGAgentSheet extends DGActorSheet<DGAgentSheetOptions, DGAgentSheetData, DGAgent> {
     static get defaultOptions() {
         const options = super.defaultOptions;
