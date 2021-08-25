@@ -16,6 +16,7 @@
 
 import { InputDialog, InputDialogResults } from './InputDialog';
 import { SYSTEM_NAME } from '../Constants';
+import { preprocessEvent } from '../util/SheetHelpers';
 
 export interface PercentileModifierDialogResults extends InputDialogResults {
     modifier: number;
@@ -28,12 +29,6 @@ export class PercentileModifierDialog extends InputDialog<PercentileModifierDial
 
     public activateListeners(html: JQuery) {
         super.activateListeners(html);
-
-        const preprocessEvent = (event: JQuery.ClickEvent | JQuery.ChangeEvent) => {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            return $(event.currentTarget);
-        };
 
         /**
          * Highlight the correct button based on current modifier value by toggling the CSS.

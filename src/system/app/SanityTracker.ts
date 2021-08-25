@@ -16,7 +16,7 @@
 
 import { DGActor } from '../actor/DGActor';
 import { CSS_CLASSES, SYSTEM_NAME } from '../Constants';
-import { preprocessEventWithId } from '../util/Sheet';
+import { preprocessEventWithId } from '../util/SheetHelpers';
 
 interface SanityActorData {
     actor: DGActor;

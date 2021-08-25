@@ -18,7 +18,7 @@ import { RecursiveKeyOf } from '../../../types/Helpers';
 import { BaseMigration } from '../BaseMigration';
 import { SystemSetting, SystemSettings } from '../../SystemSettings';
 import { SYSTEM_NAME } from '../../Constants';
-import { getCleanedEntityUpdates } from '../../util/Data';
+import { getCleanedEntityUpdates } from '../../util/UpdateHelpers';
 import { DGActor } from '../../actor/DGActor';
 import { DGItem } from '../../item/DGItem';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';

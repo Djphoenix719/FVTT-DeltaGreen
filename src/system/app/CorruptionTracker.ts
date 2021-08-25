@@ -16,7 +16,7 @@
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../Constants';
 import { DGActor } from '../actor/DGActor';
-import { preprocessEventWithId } from '../util/Sheet';
+import { preprocessEventWithId } from '../util/SheetHelpers';
 
 const CORRUPTION_FLAG = 'corruption';
 

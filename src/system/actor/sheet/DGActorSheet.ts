@@ -20,7 +20,7 @@ import { CSS_CLASSES, SYSTEM_NAME } from '../../Constants';
 import { ChatMessageDataConstructorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData';
 import { PercentileModifierDialog, PercentileModifierDialogResults } from '../../dialog/PercentileModifierDialog';
 import { DamageModifierDialog, DamageModifierDialogResults } from '../../dialog/DamageModifierDialog';
-import { preprocessEvent, preprocessEventWithId } from '../../util/Sheet';
+import { preprocessEvent, preprocessEventWithId } from '../../util/SheetHelpers';
 import { DGActor } from '../DGActor';
 import { DGSkill } from '../../item/DGSkill';
 import { DGWeapon } from '../../item/DGWeapon';
