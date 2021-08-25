@@ -140,7 +140,7 @@
                 "value": 0
             },
             "group": {
-                "value": "DG.SKILLS.defaultGroup"
+                "value": ""
             },
             "failureImproves": {
                 "value": true

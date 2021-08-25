@@ -227,7 +227,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
             await this.actor.createEmbeddedDocuments('Item', [
                 {
                     type: type,
-                    name: DEFAULT_ITEM_NAME[type],
+                    name: game.i18n.localize(DEFAULT_ITEM_NAME[type]),
                 },
             ]);
         });

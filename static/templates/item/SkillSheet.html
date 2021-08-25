@@ -12,7 +12,7 @@
             <input type="text" list="existing-groups" name="data.group.value" value="{{@root.data.data.group.value}}">
             <datalist id="existing-groups">
                 {{#each groups as |option|}}
-                    <option value="{{option.value}}">{{option.label}}</option>
+                    <option value="{{option}}">{{option}}</option>
                 {{/each}}
             </datalist>
         </div>

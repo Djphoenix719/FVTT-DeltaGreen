@@ -21,6 +21,9 @@
 import { ItemType } from './Item';
 import { Value } from './Helpers';
 
+/**
+ * Result of a d100 die roll.
+ */
 export enum RollResultType {
     CriticalFailure = 'criticalFailure',
     Failure = 'failure',
@@ -39,6 +42,9 @@ export const ActorTypeNPC = 'npc';
  */
 export const ActorTypeUnnatural = 'unnatural';
 
+/**
+ * The type of statistic.
+ */
 export enum StatisticType {
     Strength = 'strength',
     Constitution = 'constitution',
@@ -350,6 +356,9 @@ export const DEFAULT_SKILLS_DEFINITION: SkillDefinition[] = [
     },
 ];
 
+/**
+ * Type of sanity adaptation.
+ */
 export enum AdaptationType {
     Violence = 'violence',
     Helplessness = 'helplessness',
@@ -368,18 +377,20 @@ export const ItemTypeMotivation = 'motivation';
 export const ItemTypeDisorder = 'disorder';
 export const ItemTypeAbility = 'ability';
 
-// TODO: Localization.
 export const DEFAULT_ITEM_NAME: Record<ItemType, string> = {
-    [ItemTypeSkill]: `New ${ItemTypeSkill.capitalize()}`,
-    [ItemTypeGear]: `New ${ItemTypeGear.capitalize()}`,
-    [ItemTypeArmor]: `New ${ItemTypeArmor.capitalize()}`,
-    [ItemTypeWeapon]: `New ${ItemTypeWeapon.capitalize()}`,
-    [ItemTypeBond]: `New ${ItemTypeBond.capitalize()}`,
-    [ItemTypeMotivation]: `New ${ItemTypeMotivation.capitalize()}`,
-    [ItemTypeDisorder]: `New ${ItemTypeDisorder.capitalize()}`,
-    [ItemTypeAbility]: `New ${ItemTypeAbility.capitalize()}`,
+    [ItemTypeSkill]: `DG.ITEM.newSkill`,
+    [ItemTypeGear]: `DG.ITEM.newGear`,
+    [ItemTypeArmor]: `DG.ITEM.newArmor`,
+    [ItemTypeWeapon]: `DG.ITEM.newWeapon`,
+    [ItemTypeBond]: `DG.ITEM.newBond`,
+    [ItemTypeMotivation]: `DG.ITEM.newMotivation`,
+    [ItemTypeDisorder]: `DG.ITEM.newDisorder`,
+    [ItemTypeAbility]: `DG.ITEM.newAbility`,
 };
 
+/**
+ * Type of expense.
+ */
 export enum ExpenseType {
     Trivial = 'trivial',
     Standard = 'standard',

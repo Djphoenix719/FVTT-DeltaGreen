@@ -17,10 +17,11 @@
 import { SYSTEM_NAME } from '../../Constants';
 import { DGItemSheet, DGItemSheetData, DGItemSheetOptions } from './DGItemSheet';
 import { SelectOption } from '../../../types/Sheet';
+import { unique } from '../../util/ArrayHelper';
 
 export interface DGSkillSheetOptions extends DGItemSheetOptions {}
 export interface DGSkillSheetData extends DGItemSheetData {
-    groups: SelectOption[];
+    groups: string[];
 }
 export class DGSkillSheet extends DGItemSheet<DGSkillSheetOptions, DGSkillSheetData> {
     static get defaultOptions() {
@@ -33,12 +34,10 @@ export class DGSkillSheet extends DGItemSheet<DGSkillSheetOptions, DGSkillSheetD
         const data = await super.getData(options);
 
         if (this.item.actor) {
-            data.groups = Object.keys(this.item.actor.skillGroups).map((group) => {
-                return {
-                    label: group,
-                    value: group,
-                };
-            });
+            const groupsIds = ['art', 'craft', 'foreignLanguage', 'militaryScience', 'pilot', 'science'];
+            data.groups = Object.keys(this.item.actor.skillGroups);
+            data.groups = [...data.groups, ...groupsIds.map((group) => game.i18n.localize(`DG.SKILLS.GROUP.${group}`))];
+            data.groups = data.groups.filter(unique);
         }
 
         return data;

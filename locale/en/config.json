@@ -42,8 +42,15 @@
                 "unnatural": "Unnatural"
             },
 
-            "newSkill": "New Skill",
-            "defaultGroup": "Default Group",
+            "GROUP": {
+                "art": "Art",
+                "craft": "Craft",
+                "foreignLanguage": "Foreign Language",
+                "militaryScience": "Military Science",
+                "pilot": "Pilot",
+                "science": "Science"
+            },
+
             "value": "Value",
             "skill": "Skill"
         },
@@ -145,7 +152,15 @@
             "killRadius": "Kill Radius (meters)",
             "ammoCurrent": "Ammo (Current)",
             "ammoMax": "Ammo (Maximum)",
-            "skill": "Skill"
+            "skill": "Skill",
+
+            "newSkill": "New Skill",
+            "newGear": "New Gear",
+            "newArmor": "New Armor",
+            "newWeapon": "New Weapon",
+            "newBond": "New Bond",
+            "newMotivation": "New Motivation",
+            "newDisorder": "New Disorder"
         },
         "DICE": {
             "roll": "Roll",
