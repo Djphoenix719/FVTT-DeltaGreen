@@ -16,7 +16,7 @@
 
 @import '../constants';
 
-div.delta-green.corruption-tracker {
+div.delta-green.sanity-tracker {
     section.window-content {
         display: flex;
         flex-direction: column;
@@ -26,6 +26,7 @@ div.delta-green.corruption-tracker {
             flex: 1;
             display: flex;
             flex-direction: row;
+            align-items: center;
 
             &:not(:last-of-type) {
                 border-bottom: $form-border-style;
@@ -50,12 +51,9 @@ div.delta-green.corruption-tracker {
                 text-align: center;
             }
 
-            label.increase {
-                text-align: right;
-            }
-
-            label.decrease {
-                text-align: left;
+            input {
+                flex: 1;
+                text-align: center;
             }
         }
     }

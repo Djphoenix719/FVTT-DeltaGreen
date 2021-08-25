@@ -206,6 +206,10 @@
             "CORRUPTION": {
                 "title": "IL Corruption Tracker",
                 "noUsers": "No users with active actors."
+            },
+            "SANITY": {
+                "title": "Sanity Tracker",
+                "noUsers": "No users with active actors."
             }
         }
     }

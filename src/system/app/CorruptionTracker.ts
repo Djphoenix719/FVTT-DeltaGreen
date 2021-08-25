@@ -16,6 +16,7 @@
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../Constants';
 import { DGActor } from '../actor/DGActor';
+import { preprocessEventWithId } from '../util/Sheet';
 
 const CORRUPTION_FLAG = 'corruption';
 
@@ -28,6 +29,9 @@ interface CorruptionTrackerData {
     actors: CorruptionActorData[];
 }
 
+/**
+ * App that tracks active users corruption and allows the GM to easily modify it.
+ */
 export class CorruptionTracker extends Application {
     private static _instance: CorruptionTracker;
     public static get instance() {
@@ -63,7 +67,7 @@ export class CorruptionTracker extends Application {
     }
 
     public get title() {
-        return game.i18n.localize(`DG.APP.CORRUPTION.title`);
+        return game.i18n.localize(`DG.APP.SANITY.title`);
     }
 
     public async getData(options?: Application.RenderOptions): Promise<Partial<CorruptionTrackerData>> {
@@ -87,14 +91,6 @@ export class CorruptionTracker extends Application {
 
     activateListeners(html: JQuery) {
         super.activateListeners(html);
-
-        const preprocessEventWithId = (event: JQuery.ClickEvent) => {
-            event.preventDefault();
-            event.stopPropagation();
-            const target = $(event.currentTarget);
-            const id = target.closest('div[data-id]').data('id') as string;
-            return { target, id };
-        };
 
         const modifyCorruption = async (id: string, value: number) => {
             const actor = game.actors!.get(id);

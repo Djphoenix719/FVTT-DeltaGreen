@@ -47,6 +47,7 @@ import { patchEnrichHTML } from './TextEditor';
 import { DGAbility } from './item/DGAbility';
 import { DGAbilitySheet } from './item/sheet/DGAbilitySheet';
 import { Migrate_v1v2 } from './migration/v2/Migrate_v1v2';
+import { SanityTracker } from './app/SanityTracker';
 
 function registerDiceClasses() {
     CONFIG.Dice.rolls.push(DGPercentileRoll);
@@ -145,6 +146,7 @@ Hooks.on('init', async () => {
     registerChatHooks();
     registerDiceClasses();
 
+    Hooks.on('getSceneControlButtons', SanityTracker.getSceneControlButtons);
     Hooks.on('getSceneControlButtons', CorruptionTracker.getSceneControlButtons);
 
     (game as any)['DG'] = {
