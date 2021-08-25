@@ -120,7 +120,6 @@
             "psychological": "Psychological",
             "inventory": "Inventory",
             "description": "Description",
-            "miscellaneous": "Miscellaneous",
             "abilities": "Abilities"
         },
         "ITEM": {
