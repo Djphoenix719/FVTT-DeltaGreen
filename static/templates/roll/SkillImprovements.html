@@ -1,0 +1,14 @@
+<div class="delta-green skill-improvements">
+
+    <div class="item-list">
+        {{#each skills as |skill|}}
+            <div class="list-item skill" data-id="{{skill.id}}">
+                <div class="data">
+                    <label class="flex-1">{{skill.name}}</label>
+                    <label class="flex-1">+{{skill.value}}%</label>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+</div>

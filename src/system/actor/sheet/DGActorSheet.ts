@@ -386,6 +386,53 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
 
             await this.sendRollToChat(roll);
         });
+
+        // Improve skills
+        html.find('label.clickable.improve-skills').on('click', async (event) => {
+            preprocessEvent(event);
+
+            type Result = {
+                id: string;
+                name: string;
+                value: number;
+            };
+            const improvedSkills: Result[] = [];
+            for (const skill of this.actor.getItemsOfType('skill')) {
+                if (!skill.data.data.failureImproves.value) {
+                    continue;
+                }
+                if (!skill.data.data.sessionFailure.value) {
+                    continue;
+                }
+
+                const amount = (await new Roll('1D4').roll({ async: true })).total!;
+
+                improvedSkills.push({
+                    id: skill.id!,
+                    name: skill.name!,
+                    value: amount,
+                });
+
+                await skill.update({
+                    ['data.rating.value']: skill.data.data.rating.value + amount,
+                    ['data.sessionFailure.value']: false,
+                });
+            }
+
+            if (improvedSkills.length === 0) {
+                return;
+            }
+
+            const data: ChatMessageDataConstructorData = {
+                user: game.user?.id,
+                type: foundry.CONST.CHAT_MESSAGE_TYPES.OTHER,
+                content: await renderTemplate(`systems/${SYSTEM_NAME}/static/templates/roll/SkillImprovements.html`, { skills: improvedSkills }),
+                speaker: {
+                    alias: this.actor.name,
+                },
+            };
+            await ChatMessage.create(data);
+        });
     }
 
     /**
@@ -545,6 +592,10 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         super.activateListeners(html);
 
         this.bindCollapsibleListeners(html);
+
+        if (!this.isEditable) {
+            return;
+        }
 
         this.bindSanityListeners(html);
         this.bindInventoryListeners(html);

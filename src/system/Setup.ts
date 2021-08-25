@@ -30,7 +30,6 @@ import { registerChatHooks } from './Chat';
 import { DGPercentileRoll } from './dice/DGPercentileRoll';
 import { DGDamageRoll } from './dice/DGDamageRoll';
 import { CorruptionTracker } from './app/CorruptionTracker';
-import { improveSkills } from './macro/ImproveSkills';
 import { DGArmor } from './item/DGArmor';
 import { DGBond } from './item/DGBond';
 import { DGDisorder } from './item/DGDisorder';
@@ -148,10 +147,6 @@ Hooks.on('init', async () => {
 
     Hooks.on('getSceneControlButtons', SanityTracker.getSceneControlButtons);
     Hooks.on('getSceneControlButtons', CorruptionTracker.getSceneControlButtons);
-
-    (game as any)['DG'] = {
-        improveSkills,
-    };
 });
 
 Hooks.on('setup', async () => {

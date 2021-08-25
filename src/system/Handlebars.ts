@@ -45,7 +45,6 @@ export async function registerHandlebarsTemplatesAndPartials() {
         `static/templates/actor/agent/tabs/Attributes.html`,
         `static/templates/actor/agent/tabs/Biography.html`,
         `static/templates/actor/agent/tabs/Inventory.html`,
-        `static/templates/actor/agent/tabs/Miscellaneous.html`,
         `static/templates/actor/agent/tabs/Psychological.html`,
         `static/templates/actor/agent/tabs/SkillsList.html`,
         `static/templates/actor/agent/tabs/Statistics.html`,
