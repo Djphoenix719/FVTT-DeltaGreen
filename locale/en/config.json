@@ -204,7 +204,8 @@
         },
         "APP": {
             "CORRUPTION": {
-                "title": "IL Corruption Tracker"
+                "title": "IL Corruption Tracker",
+                "noUsers": "No users with active actors."
             }
         }
     }

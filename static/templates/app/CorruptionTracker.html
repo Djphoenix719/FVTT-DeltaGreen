@@ -1,12 +1,13 @@
 <div>
     {{#if (eq actors.length 0)}}
-        <p>No users with active actors.</p>
+        <p>{{localize "DG.APP.CORRUPTION.noUsers"}}</p>
     {{else}}
-        {{#each actors as |actor|}}
-            <div class="actor-row" data-id="{{actor.id}}">
-                <label>{{actor.name}}</label>
+        {{#each actors as |entry|}}
+            <div class="actor-row" data-id="{{entry.actor.id}}">
+                <label class="user">{{entry.user.name}}</label>
+                <label class="actor">{{entry.actor.name}}</label>
                 <label class="clickable increase"><i class="fas fa-plus"></i></label>
-                <label>{{lookup ../corruption actor.id}}</label>
+                <label class="value">{{entry.corruption}}</label>
                 <label class="clickable decrease"><i class="fas fa-minus"></i></label>
             </div>
         {{/each}}

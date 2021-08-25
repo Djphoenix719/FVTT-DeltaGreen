@@ -15,8 +15,18 @@
  */
 
 import { CSS_CLASSES, SYSTEM_NAME } from '../Constants';
+import { DGActor } from '../actor/DGActor';
 
 const CORRUPTION_FLAG = 'corruption';
+
+interface CorruptionActorData {
+    actor: DGActor;
+    user: User;
+    corruption: number;
+}
+interface CorruptionTrackerData {
+    actors: CorruptionActorData[];
+}
 
 export class CorruptionTracker extends Application {
     private static _instance: CorruptionTracker;
@@ -56,39 +66,28 @@ export class CorruptionTracker extends Application {
         return game.i18n.localize(`DG.APP.CORRUPTION.title`);
     }
 
-    /**
-     * Get an array of all active characters.
-     * @private
-     */
-    private getActiveActors(): Actor[] {
-        return game.users!.map((user) => user.character!).filter((character) => character !== undefined);
-    }
+    public async getData(options?: Application.RenderOptions): Promise<Partial<CorruptionTrackerData>> {
+        const renderData: Partial<CorruptionTrackerData> = await super.getData(options);
+        renderData.actors = [];
 
-    getData(options?: Application.RenderOptions): object | Promise<object> {
-        const data = super.getData(options);
+        for (const user of game.users!) {
+            if (!user.character) {
+                continue;
+            }
 
-        const actors = this.getActiveActors();
-        const corruption: Record<string, number> = {};
-        for (const actor of actors) {
-            const value = actor.getFlag(SYSTEM_NAME, CORRUPTION_FLAG) as number | undefined;
-            corruption[actor.id!] = value ?? 0;
+            renderData.actors.push({
+                user,
+                actor: user.character!,
+                corruption: (user.character.getFlag(SYSTEM_NAME, CORRUPTION_FLAG) as number | undefined) ?? 0,
+            });
         }
 
-        // @ts-ignore
-        data.actors = actors;
-        // @ts-ignore
-        data.corruption = corruption;
-
-        return data;
+        return renderData;
     }
 
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        /**
-         * Preprocess an event as above, but also pull the id out.
-         * @param event
-         */
         const preprocessEventWithId = (event: JQuery.ClickEvent) => {
             event.preventDefault();
             event.stopPropagation();

@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-@import '../../constants';
+@import '../constants';
 
 div.delta-green.corruption-tracker {
     section.window-content {
         display: flex;
         flex-direction: column;
+        background: white;
 
         div.actor-row {
             flex: 1;
@@ -30,19 +31,28 @@ div.delta-green.corruption-tracker {
             }
 
             label {
-                flex: 1;
-                text-align: center;
                 white-space: nowrap;
             }
 
-            label:first-of-type {
-                flex-grow: 3;
+            label.user {
+                flex: 1;
                 text-align: left;
+            }
+
+            label.actor {
+                flex: 2;
+                text-align: left;
+            }
+
+            label.value {
+                flex: 1;
+                text-align: center;
             }
 
             label.increase {
                 text-align: right;
             }
+
             label.decrease {
                 text-align: left;
             }

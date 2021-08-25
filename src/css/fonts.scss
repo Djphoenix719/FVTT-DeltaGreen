@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-@import 'forms';
-@import 'flex';
-@import 'navigation';
-
-div.delta-green {
-    section.window-content {
-        font-family: 'Futura Standard Book', 'Signika', sans-serif;
-    }
+@font-face {
+    font-family: 'Futura Standard Book';
+    src: url('static/font/FuturaStandardBook.ttf');
 }

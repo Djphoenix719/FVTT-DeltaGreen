@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
+@import 'fonts';
+
 @import 'actor/main';
 
 @import 'item/main';
 @import 'common/main';
 @import 'chat/main';
 @import 'dialog/main';
-@import 'app/corruption/main';
+
+@import 'app/corruption';
