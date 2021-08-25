@@ -397,6 +397,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
                 value: number;
             };
             const improvedSkills: Result[] = [];
+            const itemUpdates: Record<string, any>[] = [];
             for (const skill of this.actor.getItemsOfType('skill')) {
                 if (!skill.data.data.failureImproves.value) {
                     continue;
@@ -413,7 +414,8 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
                     value: amount,
                 });
 
-                await skill.update({
+                itemUpdates.push({
+                    _id: skill.id,
                     ['data.rating.value']: skill.data.data.rating.value + amount,
                     ['data.sessionFailure.value']: false,
                 });
@@ -422,6 +424,8 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
             if (improvedSkills.length === 0) {
                 return;
             }
+
+            await this.actor.updateEmbeddedDocuments('Item', itemUpdates);
 
             const data: ChatMessageDataConstructorData = {
                 user: game.user?.id,
