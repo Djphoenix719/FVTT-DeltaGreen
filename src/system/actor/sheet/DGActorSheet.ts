@@ -592,8 +592,14 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         html.find('div.list-group.weapon div.ammo label.decrement').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const item = this.actor.getEmbeddedDocument('Item', id) as DGWeapon;
+
+            let amount = 1;
+            if (event.shiftKey) {
+                amount = 5;
+            }
+
             await item.update({
-                ['data.ammo.value']: item.data.data.ammo.value - 1,
+                ['data.ammo.value']: Math.max(item.data.data.ammo.value - amount, 0),
             });
         });
 
