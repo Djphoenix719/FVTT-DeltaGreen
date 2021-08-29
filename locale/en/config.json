@@ -160,7 +160,8 @@
             "newWeapon": "New Weapon",
             "newBond": "New Bond",
             "newMotivation": "New Motivation",
-            "newDisorder": "New Disorder"
+            "newDisorder": "New Disorder",
+            "newAbility": "New Ability"
         },
         "DICE": {
             "roll": "Roll",
