@@ -179,6 +179,26 @@ export class DGActor extends Actor {
     }
 
     /**
+     * Roll a percentage roll.
+     * @param target The target of the roll.
+     * @param label The title of the roll.
+     * @param modifiers Modifiers to the roll.
+     */
+    public async rollPercentile(target: DGPercentageRollPart, label: string, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        return new DGPercentileRoll({
+            label,
+            target: {
+                base: target,
+                parts: modifiers,
+            },
+        }).roll({ async: true });
+    }
+
+    /**
      * Roll a sanity check for the actor.
      * @param modifiers Roll modifiers.
      */
@@ -313,6 +333,24 @@ export class DGActor extends Actor {
     }
 
     /**
+     * Roll a damage roll.
+     * @param damage Base damage.
+     * @param lethality Base lethality.
+     * @param label Title of the roll.
+     * @param modifiers Modifiers to the roll.
+     */
+    public async rollDamage(damage: string, lethality: number, label?: string, modifiers?: DGDamageRollPart[]): Promise<DGDamageRoll> {
+        return new DGDamageRoll({
+            label: label ?? `${game.i18n.localize('DG.DICE.damage')}`,
+            lethality: lethality,
+            damage: {
+                formula: damage,
+                parts: modifiers,
+            },
+        }).roll({ async: true });
+    }
+
+    /**
      * Roll a weapon's damage.
      * @param id The id of the weapon.
      * @param modifiers Roll modifiers.
@@ -320,17 +358,39 @@ export class DGActor extends Actor {
     public async rollDamageForWeapon(id: string, modifiers?: DGDamageRollPart[]): Promise<DGDamageRoll> {
         const weapon = this.items.get(id);
         if (weapon?.data.type === ItemTypeWeapon) {
-            return new DGDamageRoll({
-                label: `${weapon.name!}: ${game.i18n.localize('DG.DICE.damage')}`,
-                lethality: weapon.data.data.lethality.value,
-                damage: {
-                    formula: weapon.data.data.damage.value,
-                    parts: modifiers,
-                },
-            }).roll({ async: true });
+            let damageValue: string;
+            if (weapon.data.data.lethality.value > 0) {
+                damageValue = '2d10';
+            } else {
+                damageValue = weapon.data.data.damage.value;
+            }
+
+            return this.rollDamage(damageValue, weapon.data.data.lethality.value, `${weapon.name!}: ${game.i18n.localize('DG.DICE.damage')}`, modifiers);
         }
 
         throw new Error(`No weapon with id of "${id}" found on actor.`);
+    }
+
+    /**
+     * Roll a lethality roll.
+     * @param target
+     * @param modifiers
+     */
+    public async rollLethality(target: number, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        return new DGPercentileRoll({
+            label: game.i18n.localize('DG.DICE.lethalityCheck'),
+            target: {
+                base: {
+                    label: game.i18n.localize('DG.ITEM.lethality'),
+                    value: target,
+                },
+                parts: modifiers,
+            },
+        }).roll({ async: true });
     }
 
     /**
@@ -345,16 +405,7 @@ export class DGActor extends Actor {
 
         const weapon = this.items.get(id);
         if (weapon?.data.type === ItemTypeWeapon) {
-            return new DGPercentileRoll({
-                label: game.i18n.localize('DG.DICE.lethalityCheck'),
-                target: {
-                    base: {
-                        label: game.i18n.localize('DG.ITEM.lethality'),
-                        value: weapon.data.data.lethality.value,
-                    },
-                    parts: modifiers,
-                },
-            }).roll({ async: true });
+            return this.rollLethality(weapon.data.data.lethality.value, modifiers);
         }
 
         throw new Error(`No weapon with id of "${id}" found on actor.`);

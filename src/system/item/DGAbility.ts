@@ -18,7 +18,17 @@ import { ItemTypeAbility } from '../../types/Item';
 import { DGItem } from './DGItem';
 import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData';
 
-export interface AbilityDataSourceData {}
+export interface AbilityDataSourceData {
+    attack: {
+        value: number;
+    };
+    damage: {
+        value: string;
+    };
+    lethality: {
+        value: number;
+    };
+}
 export interface AbilityDataPropertyData extends AbilityDataSourceData {}
 export interface AbilityDataSource {
     type: ItemTypeAbility;

@@ -202,7 +202,16 @@
             "templates": ["description", "crossed"]
         },
         "ability": {
-            "templates": ["description"]
+            "templates": ["description"],
+            "attack": {
+                "value": ""
+            },
+            "damage": {
+                "value": ""
+            },
+            "lethality": {
+                "value": 0
+            }
         }
     }
 }

@@ -11,9 +11,34 @@
 
     <nav class="sheet-navigation" data-group="primary">
         <a class="item" data-tab="tab-description" title="{{localize "DG.ITEM.description"}}">{{localize "DG.ITEM.description"}}</a>
+        <a class="item active" data-tab="tab-data" title="{{localize "DG.ITEM.data"}}">{{localize "DG.ITEM.data"}}</a>
     </nav>
 
     <section class="sheet-body">
+
+        <div class="tab tab-data" data-group="primary" data-tab="tab-data">
+
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.attack"}}</label>
+                <input type="number" name="data.attack.value" value="{{@root.data.data.attack.value}}">
+            </div>
+
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.damage"}}</label>
+
+                {{#if (gt @root.data.data.lethality.value 0)}}
+                    <input type="text" name="data.damage.value" value="2D10" disabled>
+                {{else}}
+                    <input type="text" name="data.damage.value" value="{{@root.data.data.damage.value}}">
+                {{/if}}
+            </div>
+
+            <div class="field-group row">
+                <label>{{localize "DG.ITEM.lethality"}}</label>
+                <input type="number" name="data.lethality.value" value="{{@root.data.data.lethality.value}}">
+            </div>
+
+        </div>
 
         <div class="tab tab-description" data-group="primary" data-tab="tab-description">
             {{editor content=data.data.description.value
