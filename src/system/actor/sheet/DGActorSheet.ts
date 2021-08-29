@@ -214,6 +214,100 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         return renderData;
     }
 
+    // <editor-fold desc="UniversalItemListeners">
+
+    /**
+     * Called when an item should be crossed out.
+     * @param event
+     * @protected
+     */
+    protected async _handleCrossItem(event: JQuery.ClickEvent) {
+        const { id } = preprocessEventWithId(event);
+        const item = this.actor.getEmbeddedDocument('Item', id) as DGBond | DGMotivation | DGDisorder;
+        await item.update({
+            ['data.crossed.value']: !item.data.data.crossed.value,
+        });
+    }
+
+    /**
+     * Called when a new item should be added.
+     * @param event
+     * @protected
+     */
+    protected async _handleAddItem(event: JQuery.ClickEvent) {
+        const target = preprocessEvent(event);
+        const type = target.data('type') as ItemType;
+        await this.actor.createEmbeddedDocuments('Item', [
+            {
+                type: type,
+                name: game.i18n.localize(DEFAULT_ITEM_NAME[type]),
+            },
+        ]);
+    }
+
+    /**
+     * Called when a new item should be added.
+     * @param event
+     * @protected
+     */
+    protected async _handleEditItem(event: JQuery.ClickEvent) {
+        const { id } = preprocessEventWithId(event);
+        const item = this.actor.getEmbeddedDocument('Item', id) as DGItem;
+        if (item && item.sheet) {
+            item.sheet.render(true);
+        }
+    }
+
+    /**
+     * Called when an item should be deleted.
+     * @param event
+     * @protected
+     */
+    protected async _handleDeleteItem(event: JQuery.ClickEvent) {
+        const { id } = preprocessEventWithId(event);
+        await this.actor.deleteEmbeddedDocuments('Item', [id]);
+    }
+
+    /**
+     * Called when an inline update of a checkbox should occur.
+     * @param event
+     * @protected
+     */
+    protected async _handleInlineItemCheckboxUpdate(event: JQuery.ChangeEvent) {
+        const { target, id } = preprocessEventWithId(event);
+        const value = target.prop('checked') as boolean;
+        const path = target.data('path') as string;
+
+        await this.actor.updateEmbeddedDocuments('Item', [
+            {
+                _id: id,
+                [path]: value,
+            },
+        ]);
+    }
+
+    /**
+     * Called when an inline update of a input should occur.
+     * @param event
+     * @protected
+     */
+    protected async _handleInlineItemInputUpdate(event: JQuery.ChangeEvent) {
+        const { target, id } = preprocessEventWithId(event);
+        let value = target.val() as string | number;
+        const path = target.data('path') as string;
+
+        if (target.attr('type') === 'number') {
+            value = parseInt(value.toString());
+        }
+
+        await this.actor.updateEmbeddedDocuments('Item', [
+            {
+                _id: id,
+                [path]: value,
+            },
+        ]);
+    }
+
     /**
      * Bind hooks for items without a specific type, e.g. universally bound hooks.
      * @param html JQuery wrapper for the html to bind over.
@@ -221,73 +315,25 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
      */
     protected bindUniversalItemListeners(html: JQuery) {
         // Items: Cross an item
-        html.find('label.cross-item').on('click', async (event) => {
-            const { id } = preprocessEventWithId(event);
-            const item = this.actor.getEmbeddedDocument('Item', id) as DGBond | DGMotivation | DGDisorder;
-            await item.update({
-                ['data.crossed.value']: !item.data.data.crossed.value,
-            });
-        });
+        html.find('label.cross-item').on('click', this._handleCrossItem.bind(this));
 
         // Items: Add a new item
-        html.find('label.add-item').on('click', async (event) => {
-            const target = preprocessEvent(event);
-            const type = target.data('type') as ItemType;
-            await this.actor.createEmbeddedDocuments('Item', [
-                {
-                    type: type,
-                    name: game.i18n.localize(DEFAULT_ITEM_NAME[type]),
-                },
-            ]);
-        });
+        html.find('label.add-item').on('click', this._handleAddItem.bind(this));
 
         // Items: Edit an item
-        html.find('label.edit-item').on('click', async (event) => {
-            const { id } = preprocessEventWithId(event);
-            const item = this.actor.getEmbeddedDocument('Item', id) as DGItem;
-            if (item && item.sheet) {
-                item.sheet.render(true);
-            }
-        });
+        html.find('label.edit-item').on('click', this._handleEditItem.bind(this));
 
         // Items: Delete an item
-        html.find('label.delete-item').on('click', async (event) => {
-            const { id } = preprocessEventWithId(event);
-            await this.actor.deleteEmbeddedDocuments('Item', [id]);
-        });
+        html.find('label.delete-item').on('click', this._handleDeleteItem.bind(this));
 
         // Items: Inline update of check boxes
-        html.find('input.modify-item[type="checkbox"]').on('change', async (event) => {
-            const { target, id } = preprocessEventWithId(event);
-            const value = target.prop('checked') as boolean;
-            const path = target.data('path') as string;
-
-            await this.actor.updateEmbeddedDocuments('Item', [
-                {
-                    _id: id,
-                    [path]: value,
-                },
-            ]);
-        });
+        html.find('input.modify-item[type="checkbox"]').on('change', this._handleInlineItemCheckboxUpdate.bind(this));
 
         // Items: Inline update of inputs
-        html.find('input.modify-item:not([type="checkbox"])').on('change', async (event) => {
-            const { target, id } = preprocessEventWithId(event);
-            let value = target.val() as string | number;
-            const path = target.data('path') as string;
-
-            if (target.attr('type') === 'number') {
-                value = parseInt(value.toString());
-            }
-
-            await this.actor.updateEmbeddedDocuments('Item', [
-                {
-                    _id: id,
-                    [path]: value,
-                },
-            ]);
-        });
+        html.find('input.modify-item:not([type="checkbox"])').on('change', this._handleInlineItemInputUpdate.bind(this));
     }
+
+    // </editor-fold>
 
     /**
      * Bind misc roll listeners.
