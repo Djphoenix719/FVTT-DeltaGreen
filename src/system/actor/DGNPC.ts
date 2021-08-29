@@ -18,6 +18,9 @@ import { ActorDataSourceData, DGActor } from './DGActor';
 import { ActorTypeNPC } from '../../types/Actor';
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { SYSTEM_NAME } from '../Constants';
+import { StatisticType } from '../../types/Constants';
+import { DGPercentageRollPart, DGPercentileRoll } from '../dice/DGPercentileRoll';
+import { SystemSetting, SystemSettings } from '../SystemSettings';
 
 interface NPCDataSourceData extends ActorDataSourceData {}
 interface NPCDataPropertiesData extends NPCDataSourceData {}
@@ -51,6 +54,31 @@ export class DGNPC extends DGActor {
      */
     public async setUnnatural(value: boolean): Promise<DGNPC> {
         return this.setFlag(SYSTEM_NAME, 'unnatural', value);
+    }
+
+    public async rollStatistic(id: StatisticType, modifiers?: DGPercentageRollPart[]): Promise<DGPercentileRoll> {
+        if (modifiers === undefined) {
+            modifiers = [];
+        }
+
+        const statistic = this.data.data.statistics[id];
+
+        let critical: number = 1;
+        if (SystemSettings.get(SystemSetting.InhumanStatTests) && this.getUnnatural() && statistic.value >= 20) {
+            critical = statistic.value;
+        }
+
+        return new DGPercentileRoll({
+            label: statistic.label ?? '',
+            target: {
+                base: {
+                    label: statistic.label ?? '',
+                    value: statistic.value * 5,
+                },
+                parts: modifiers,
+                critical,
+            },
+        }).roll({ async: true });
     }
 }
 export interface DGNPC extends DGActor {

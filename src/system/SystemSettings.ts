@@ -24,12 +24,14 @@ export enum SystemSetting {
     SchemaVersion = 'schema-version',
     NiceCriticals = 'nice-criticals',
     SecretSanity = 'secret-sanity',
+    InhumanStatTests = 'inhuman-stats-tests',
 }
 
 interface SystemSettingTypes {
-    [SystemSetting.NiceCriticals]: boolean;
     [SystemSetting.SchemaVersion]: number;
+    [SystemSetting.NiceCriticals]: boolean;
     [SystemSetting.SecretSanity]: boolean;
+    [SystemSetting.InhumanStatTests]: boolean;
 }
 
 export class SystemSettings {
@@ -58,6 +60,7 @@ export class SystemSettings {
             name: game.i18n.localize('DG.SETTINGS.niceCriticalsName'),
             hint: game.i18n.localize('DG.SETTINGS.niceCriticalsHint'),
             scope: 'world',
+            default: false,
             type: Boolean,
             config: true,
         });
@@ -66,6 +69,16 @@ export class SystemSettings {
             name: game.i18n.localize('DG.SETTINGS.secretSanityName'),
             hint: game.i18n.localize('DG.SETTINGS.secretSanityHint'),
             scope: 'world',
+            default: false,
+            type: Boolean,
+            config: true,
+        });
+
+        game.settings.register(SYSTEM_NAME, SystemSetting.InhumanStatTests, {
+            name: game.i18n.localize('DG.SETTINGS.inhumanStatTestsName'),
+            hint: game.i18n.localize('DG.SETTINGS.inhumanStatTestsHint'),
+            scope: 'world',
+            default: false,
             type: Boolean,
             config: true,
         });

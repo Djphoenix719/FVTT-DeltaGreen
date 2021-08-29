@@ -216,7 +216,9 @@
             "niceCriticalsName": "Nice Criticals",
             "niceCriticalsHint": "Should 69 count as a critical success?",
             "secretSanityName": "Secret Sanity",
-            "secretSanityHint": "Should current sanity & breaking point be kept secret from players?"
+            "secretSanityHint": "Should current sanity & breaking point be kept secret from players?",
+            "inhumanStatTestsName": "OPINT: Inhuman Stat Tests",
+            "inhumanStatTestsHint": "Should statistics rolls for unnatural NPCs use the optional rules presented on page 188 of the Handler's Guide?"
         },
         "APP": {
             "CORRUPTION": {

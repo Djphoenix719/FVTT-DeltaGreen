@@ -36,6 +36,7 @@ export interface DGPercentileRollData {
     target: {
         base: DGPercentageRollPart;
         parts: DGPercentageRollPart[];
+        critical?: number;
     };
 }
 
@@ -108,7 +109,7 @@ export class DGPercentileRoll extends Roll<DGPercentileRollData> {
             successType = RollResultType.CriticalFailure;
         }
 
-        if (this.total === 1) {
+        if (this.total <= (this.data.target.critical ?? 1)) {
             successType = RollResultType.CriticalSuccess;
         }
 
