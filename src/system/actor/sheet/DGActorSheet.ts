@@ -27,12 +27,13 @@ import { DGWeapon } from '../../item/DGWeapon';
 import { DGArmor } from '../../item/DGArmor';
 import { DGGear } from '../../item/DGGear';
 import { DGItem } from '../../item/DGItem';
-import { AdaptationType, DEFAULT_ITEM_NAME, ItemTypeBond, ItemTypeDisorder, ItemTypeMotivation, ItemTypeWeapon, StatisticType } from '../../../types/Constants';
+import { AdaptationType, DEFAULT_ITEM_NAME, StatisticType } from '../../../types/Constants';
 import { ItemType } from '../../../types/Item';
 import { DGBond } from '../../item/DGBond';
 import { DGMotivation } from '../../item/DGMotivation';
 import { DGDisorder } from '../../item/DGDisorder';
 import { SystemSetting, SystemSettings } from '../../SystemSettings';
+import { DiceRollMode } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/constants.mjs';
 
 export interface SkillGroup {
     name: string;
@@ -102,8 +103,9 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
      * Send a roll to the chat by rendering the proper template with extra data.
      * @param roll The roll to base the chat card on.
      * @param sound Play dice roll sound.
+     * @param rollMode
      */
-    protected async sendRollToChat(roll: DGPercentileRoll | DGDamageRoll, sound: boolean = true) {
+    protected async sendRollToChat(roll: DGPercentileRoll | DGDamageRoll, sound: boolean = true, rollMode?: DiceRollMode) {
         const templateData: Record<string, any> = { roll };
         templateData['actor'] = this.actor;
 
@@ -114,11 +116,18 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
             template = `systems/${SYSTEM_NAME}/static/templates/roll/DamageRoll.html`;
         }
 
+        let whisperIds: string[] | undefined;
+        if (rollMode === 'blindroll') {
+            whisperIds = game.users!.filter((user) => user.isGM).map((user) => user.id!);
+        }
+
         let data: ChatMessageDataConstructorData = {
             user: game.user?.id,
+            whisper: whisperIds,
             type: foundry.CONST.CHAT_MESSAGE_TYPES.ROLL,
             content: await renderTemplate(template, templateData),
             roll: JSON.stringify(roll),
+            blind: rollMode === 'blindroll',
             speaker: {
                 alias: this.actor.name,
             },
@@ -461,7 +470,13 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
             } else {
                 roll = await this.actor.rollSanity();
             }
-            await this.sendRollToChat(roll);
+
+            let rollMode: DiceRollMode | undefined;
+            if (SystemSettings.get(SystemSetting.SecretSanity)) {
+                rollMode = 'blindroll';
+            }
+
+            await this.sendRollToChat(roll, true, rollMode);
         });
 
         // Sanity: Reset breaking point
