@@ -1,27 +1,27 @@
 <section class="statistics">
     {{#with @root.data.data.statistics as |statistics|}}
         <div class="statistic" data-id="strength">
-            <label class="clickable stats flex-2">{{localize "DG.STATISTICS.str"}}</label>
+            <label class="flex-2 clickable roll stats">{{localize "DG.STATISTICS.str"}}</label>
             <input type="number" name="data.statistics.strength.value" value="{{statistics.strength.value}}">
         </div>
         <div class="statistic" data-id="constitution">
-            <label class="clickable stats flex-2">{{localize "DG.STATISTICS.con"}}</label>
+            <label class="flex-2 clickable roll stats">{{localize "DG.STATISTICS.con"}}</label>
             <input type="number" name="data.statistics.constitution.value" value="{{statistics.constitution.value}}">
         </div>
         <div class="statistic" data-id="dexterity">
-            <label class="clickable stats flex-2">{{localize "DG.STATISTICS.dex"}}</label>
+            <label class="flex-2 clickable roll stats">{{localize "DG.STATISTICS.dex"}}</label>
             <input type="number" name="data.statistics.dexterity.value" value="{{statistics.dexterity.value}}">
         </div>
         <div class="statistic" data-id="intelligence">
-            <label class="clickable stats flex-2">{{localize "DG.STATISTICS.int"}}</label>
+            <label class="flex-2 clickable roll stats">{{localize "DG.STATISTICS.int"}}</label>
             <input type="number" name="data.statistics.intelligence.value" value="{{statistics.intelligence.value}}">
         </div>
         <div class="statistic" data-id="power">
-            <label class="clickable stats flex-2">{{localize "DG.STATISTICS.pow"}}</label>
+            <label class="flex-2 clickable roll stats">{{localize "DG.STATISTICS.pow"}}</label>
             <input type="number" name="data.statistics.power.value" value="{{statistics.power.value}}">
         </div>
         <div class="statistic" data-id="charisma">
-            <label class="clickable stats flex-2">{{localize "DG.STATISTICS.cha"}}</label>
+            <label class="flex-2 clickable roll stats">{{localize "DG.STATISTICS.cha"}}</label>
             <input type="number" name="data.statistics.charisma.value" value="{{statistics.charisma.value}}">
         </div>
     {{/with}}

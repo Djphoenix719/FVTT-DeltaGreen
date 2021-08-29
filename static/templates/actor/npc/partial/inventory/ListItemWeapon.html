@@ -4,15 +4,15 @@
         <label class="flex-2 clickable left collapsible" data-collapse-id="{{id}}">{{name}}</label>
 
         {{#if skill}}
-            <label class="flex-1 clickable attack">{{skill.name}}</label>
+            <label class="flex-1 clickable roll attack">{{skill.name}}</label>
         {{else}}
             <label class="flex-1">—</label>
         {{/if}}
 
         {{#if (gt data.lethality.value 0)}}
-            <label class="clickable damage flex-1">{{data.lethality.value}}%</label>
+            <label class="clickable roll damage flex-1">{{data.lethality.value}}%</label>
         {{else}}
-            <label class="clickable damage flex-1">{{data.damage.value}}</label>
+            <label class="clickable roll damage flex-1">{{data.damage.value}}</label>
         {{/if}}
 
         <label class="flex-1">{{data.armorPiercing.value}}</label>

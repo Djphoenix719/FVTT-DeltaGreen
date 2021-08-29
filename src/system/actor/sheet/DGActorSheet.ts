@@ -335,6 +335,8 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
 
     // </editor-fold>
 
+    // <editor-fold desc="MiscRollListeners">
+
     /**
      * Bind misc roll listeners.
      * @param html JQuery wrapper for the html to bind over.
@@ -342,7 +344,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
      */
     protected bindRollListeners(html: JQuery) {
         // Skill: Roll skill
-        html.find('div.list-item.skill label.name').on('click', async (event) => {
+        html.find('label.clickable.roll.skill').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
 
             let roll: DGPercentileRoll;
@@ -363,7 +365,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Luck: Roll luck
-        html.find('label.clickable.luck').on('click', async (event) => {
+        html.find('label.clickable.roll.luck').on('click', async (event) => {
             preprocessEvent(event);
 
             let roll: DGPercentileRoll;
@@ -383,7 +385,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Stats: Roll stats*5
-        html.find('div.statistic label.clickable.stats').on('click', async (event) => {
+        html.find('label.clickable.roll.stats').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
 
             let roll: DGPercentileRoll;
@@ -403,7 +405,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Health: Roll health
-        html.find('label.clickable.health').on('click', async (event) => {
+        html.find('label.clickable.roll.health').on('click', async (event) => {
             preprocessEvent(event);
 
             let roll: DGPercentileRoll;
@@ -423,7 +425,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Willpower: Roll willpower
-        html.find('label.clickable.willpower').on('click', async (event) => {
+        html.find('label.clickable.roll.willpower').on('click', async (event) => {
             preprocessEvent(event);
 
             let roll: DGPercentileRoll;
@@ -494,6 +496,8 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
     }
 
+    // </editor-fold>
+
     /**
      * Bind sanity related listeners.
      * @param html JQuery wrapper for the html to bind over.
@@ -501,7 +505,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
      */
     private bindSanityListeners(html: JQuery) {
         // Sanity: Roll sanity
-        html.find('section.attributes label.clickable.sanity').on('click', async (event) => {
+        html.find('label.clickable.roll.sanity').on('click', async (event) => {
             preprocessEvent(event);
 
             let roll: DGPercentileRoll;
@@ -564,7 +568,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
      */
     protected bindInventoryListeners(html: JQuery) {
         // Inventory: Roll attack
-        html.find('div.list-group.weapon label.attack').on('click', async (event) => {
+        html.find('label.clickable.roll.weapon-attack').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const item = this.actor.getEmbeddedDocument('Item', id) as DGWeapon;
             let roll: DGPercentileRoll;
@@ -584,7 +588,7 @@ export abstract class DGActorSheet<TOptions extends DGActorSheetOptions, TData e
         });
 
         // Inventory: Roll damage
-        html.find('div.list-group.weapon label.damage').on('click', async (event) => {
+        html.find('label.clickable.roll.weapon-damage').on('click', async (event) => {
             const { id } = preprocessEventWithId(event);
             const item = this.actor.getEmbeddedDocument('Item', id) as DGWeapon;
 

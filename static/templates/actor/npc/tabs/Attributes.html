@@ -1,7 +1,7 @@
 <section class="attributes">
 
     <div class="attribute">
-        <label>{{localize "DG.ATTRIBUTES.hp"}}</label>
+        <label class="clickable roll health">{{localize "DG.ATTRIBUTES.hp"}}</label>
         <input type="number" name="data.health.value" value="{{@root.data.data.health.value}}">
         {{#if @root.editMode}}
             <span class="separator">/</span>
@@ -10,7 +10,7 @@
     </div>
 
     <div class="attribute">
-        <label class="clickable willpower">{{localize "DG.ATTRIBUTES.wp"}}</label>
+        <label class="clickable roll willpower">{{localize "DG.ATTRIBUTES.wp"}}</label>
         <input type="number" name="data.willpower.value" value="{{@root.data.data.willpower.value}}">
         {{#if @root.editMode}}
             <span class="separator">/</span>
@@ -21,7 +21,7 @@
     {{#if @root.unnatural}}
     {{else}}
         <div class="attribute">
-            <label class="clickable sanity">{{localize "DG.ATTRIBUTES.san"}}</label>
+            <label class="clickable roll sanity">{{localize "DG.ATTRIBUTES.san"}}</label>
             <input type="number" name="data.sanity.value" value="{{@root.data.data.sanity.value}}">
             {{#if @root.editMode}}
                 <span class="separator">/</span>

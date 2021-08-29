@@ -4,16 +4,16 @@
         <label class="clickable flex-2 left collapsible" data-collapse-id="{{id}}">{{name}}</label>
 
         {{#if data.attack.value}}
-            <label class="flex-1 clickable attack">{{data.attack.value}}%</label>
+            <label class="flex-1 clickable roll ability-attack">{{data.attack.value}}%</label>
         {{else}}
             <label class="flex-1">—</label>
         {{/if}}
 
         {{#if (gt data.lethality.value 0)}}
-            <label class="clickable damage flex-1">{{data.lethality.value}}%</label>
+            <label class="flex-1 clickable roll ability-damage">{{data.lethality.value}}%</label>
         {{else}}
             {{#if data.damage.value}}
-                <label class="flex-1 clickable damage">{{data.damage.value}}</label>
+                <label class="flex-1 clickable roll ability-damage">{{data.damage.value}}</label>
             {{else}}
                 <label class="flex-1">—</label>
             {{/if}}

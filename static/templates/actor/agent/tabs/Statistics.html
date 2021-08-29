@@ -7,7 +7,7 @@
 
 {{#each @root.data.data.statistics as |statistic|}}
     <div class="statistic" data-id="{{statistic.id}}">
-        <label class="clickable stats flex-2">{{localize statistic.label}}</label>
+        <label class="flex-2 clickable roll stats">{{localize statistic.label}}</label>
         <input class="flex-1" type="number" name="data.statistics.{{statistic.id}}.value" value="{{statistic.value}}">
         <input class="flex-1" type="number" value="{{statistic.percentile}}" disabled>
         <input class="flex-6" type="text" name="data.statistics.{{statistic.id}}.feature" value="{{statistic.feature}}">
